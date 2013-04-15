@@ -15,7 +15,8 @@
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TCostAccountingForm *CostAccountingForm;
-
+#define CNT_TOTAL_COL 46
+#define CNT_FIXED_COL 11
 typedef struct
 {
         int chid;
@@ -629,8 +630,11 @@ void __fastcall TCostAccountingForm::btnQueryClick(TObject *Sender)
                 for(int i=0; i<gCHARGES1.GetSize(); ++i) {
                         pItem->SubItems->Add("");
                 }
-                pItem->SubItems->Add("");
-                pItem->SubItems->Add("");
+                for(int i=0; i<CNT_TOTAL_COL-CNT_FIXED_COL-gCHARGES1.GetSize(); ++i){
+                        pItem->SubItems->Add("");
+                }
+//                pItem->SubItems->Add("");
+//                pItem->SubItems->Add("");
 
                 //qry costaccounting
                 int row = pItem->Index;
@@ -652,6 +656,7 @@ void __fastcall TCostAccountingForm::btnQueryClick(TObject *Sender)
 //                        lstView->Items->Item[row]->SubItems->Strings[charge_start_column+gCHARGES.GetSize()] = FloatToStr(total);
 
                 }
+                
                 //利润 = 收入 - 报关基本成本 - 成本合计
                 float total = income - dm1->Query1->FieldByName("basecost")->AsFloat - total_costaccounting;
                 lstView->Items->Item[row]->SubItems->Strings[charge_start_column+gCHARGES1.GetSize()] = FloatToStr(total);
@@ -1077,6 +1082,7 @@ void __fastcall TCostAccountingForm::Button1Click(TObject *Sender)
 
 void TCostAccountingForm::flushSum(){
       TListItem *pItem;
+        char  strTemp[80];
         double totalIn = 0;
         double totalBase=0;
         double totalPure=0;
@@ -1087,7 +1093,8 @@ void TCostAccountingForm::flushSum(){
                 pItem=lstView->Items->Item[i];
                 totalIn += StrToFloat(pItem->SubItems->Strings[5]);
 //                totalBase += StrToFloat(pItem->SubItems->Strings[6]);
-                totalPure += StrToFloat(pItem->SubItems->Strings[lstView->Columns->Count-2]);
+//                totalPure += StrToFloat(pItem->SubItems->Strings[lstView->Columns->Count-2]);
+                totalPure += StrToFloat(pItem->SubItems->Strings[CNT_FIXED_COL+gCHARGES1.GetSize()+1-2]);
         }
 
         edtIn->Text = totalIn;
