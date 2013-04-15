@@ -1,5 +1,5 @@
 object PrnAuthForm: TPrnAuthForm
-  Left = 488
+  Left = 133
   Top = 30
   Width = 1296
   Height = 816
@@ -45,7 +45,7 @@ object PrnAuthForm: TPrnAuthForm
     Page.Values = (
       100
       2970
-      100
+      140
       2100
       0
       0
@@ -61,7 +61,7 @@ object PrnAuthForm: TPrnAuthForm
     Zoom = 100
     object TitleBand1: TQRBand
       Left = 0
-      Top = 38
+      Top = 53
       Width = 794
       Height = 1025
       Frame.Color = clBlack
