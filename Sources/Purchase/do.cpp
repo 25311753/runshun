@@ -514,8 +514,10 @@ void __fastcall TDoForm::btnModClick(TObject *Sender)
 
 int TDoForm::ModHead(){
   int rt = -1;
-
-
+//        cbbSH->Text = ranSH();
+        if (cbbSH->Text == ""){
+                cbbSH->Text = ranSH();
+        }
         if (edtDeclareid->Text.IsEmpty() || edtDeclareid->Text.IsEmpty() || cbbOperunit->Text.IsEmpty() \
                  || cbbPack->Text.IsEmpty() || edtLoadingid->Text.IsEmpty() || cbbTransport->Text.IsEmpty()\
                   || edtOutport->Text.IsEmpty() || cbbBargain->Text.IsEmpty() || cbbZhengmian->Text.IsEmpty() || edtInnersupplyadd->Text.IsEmpty() \
@@ -1444,7 +1446,10 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
 
                 CString strSH=dm1->Query1->FieldByName("shanghao")->AsString.c_str();
 //                cbbSH->Text = AnsiString(strSH==""?m_sa_sh[StrToInt(strCid[strCid.Length()])]:strSH);
-                cbbSH->Text = ranSH();
+//                cbbSH->Text = AnsiString(strSH==""?m_sa_sh[StrToInt(strCid[strCid.Length()])]:strSH);
+                AnsiString s = dm1->Query1->FieldByName("shanghao")->AsString;
+                cbbSH->Text = (s==""?ranSH():s) ;
+//                cbbSH->Text = ranSH();
                 flushContainer(dm1->Query1->FieldByName("containerinfo")->AsString);
 
 		dm1->Query1->Next();
