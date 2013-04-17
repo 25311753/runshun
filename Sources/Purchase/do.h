@@ -13,6 +13,8 @@
 #include <Buttons.hpp>
 #include "trayicon.h"
 #include <Mask.hpp>
+
+#include <map>
 //---------------------------------------------------------------------------
 class CCidPage{
 public:
@@ -27,6 +29,23 @@ public:
         AnsiString end_cid;
         AnsiString page_num_detail;     //total_page-curr_page
 };
+struct stSH{
+        strSH(){
+                init();
+        }
+        AnsiString name;
+        AnsiString tel;
+        AnsiString address;
+        void init(){
+                name = tel = address = "";
+        }
+        void trace(){
+                AnsiString msg = "stSH-> name:"+name+" tel:"+tel+" address:"+address;
+                ShowMessage(msg);
+        }
+};
+typedef std::map<int, stSH> SH_t;
+
 class TDoForm : public TForm
 {
 __published:	// IDE-managed Components
@@ -252,6 +271,7 @@ private:	// User declarations
        CString m_strEndCustDate;
        CString m_strShipAgent;
        CStringArray m_sa_sh;    //商号仓库，按单号末位取，保证不同
+       SH_t m_SH;
 
 public:		// User declarations
         __fastcall TDoForm(TComponent* Owner);
@@ -278,7 +298,7 @@ public:		// User declarations
         //打印[begin_cid, end_cid]之间的报关单分页，split_detail：总页数-本页序号, 最后一页才打印总价        
         void prnDeclare(AnsiString begin_cid, AnsiString end_cid, AnsiString split_detail, int page_ord, bool isTail=false);
 //        void prnDeclareSub(AnsiString cdid);
-
+        AnsiString ranSH();
  
 };
 //---------------------------------------------------------------------------

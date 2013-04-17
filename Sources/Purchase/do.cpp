@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-
+#include <map>
 #include <vcl.h>
 #include "stdio.h"
 #pragma hdrstop
@@ -50,6 +50,7 @@ __fastcall TDoForm::TDoForm(TComponent* Owner)
   m_enWorkState=EN_IDLE;
   m_enWorkStateDetail = EN_IDLE_D;
   isHasResult = false;
+  m_SH.clear();
 }
 //---------------------------------------------------------------------------
 static AnsiString strNowCurrency;
@@ -386,6 +387,38 @@ Label44->Caption = "";
                 cbbCurrencyId->Items->Add(dm1->Query1->FieldByName("crid")->AsString);
 		dm1->Query1->Next();
         }
+        //load sh info for random show
+        stSH info_sh;
+        szSQL.Format("select * from dicsh order by id");
+        RunSQL(dm1->Query1, szSQL, true);
+        while(!dm1->Query1->Eof)
+        {
+                info_sh.init();
+                info_sh.name = dm1->Query1->FieldByName("name")->AsString;
+                info_sh.tel  = dm1->Query1->FieldByName("tel")->AsString;
+                info_sh.address = dm1->Query1->FieldByName("address")->AsString;
+                int id = dm1->Query1->FieldByName("id")->AsInteger;
+
+                m_SH.insert(std::make_pair(id, info_sh));
+                dm1->Query1->Next();
+        }
+/*        for (SH_t::iterator it=m_SH.begin(); it!=m_SH.end(); ++it){
+                it->second.trace();
+        }
+        srand(m_SH.size());
+        for(int i=0; i<m_SH.size(); ++i){
+                int ran_num  = rand()%m_SH.size();
+                int j=0;
+                SH_t::iterator it;
+                for (it=m_SH.begin(); it!=m_SH.end()&&j<ran_num; ++it,++j){
+                }
+                ShowMessage(AnsiString(j));
+                it->second.trace();
+        }        
+*/
+
+
+        //~
         cbbCurrency->ItemIndex=0;
         cbbCurrencyId->ItemIndex=0;
 
@@ -1410,8 +1443,8 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
                 m_strShipAgent =  dm1->Query1->FieldByName("shipagent")->AsString.c_str();
 
                 CString strSH=dm1->Query1->FieldByName("shanghao")->AsString.c_str();
-                cbbSH->Text = AnsiString(strSH==""?m_sa_sh[StrToInt(strCid[strCid.Length()])]:strSH);
-
+//                cbbSH->Text = AnsiString(strSH==""?m_sa_sh[StrToInt(strCid[strCid.Length()])]:strSH);
+                cbbSH->Text = ranSH();
                 flushContainer(dm1->Query1->FieldByName("containerinfo")->AsString);
 
 		dm1->Query1->Next();
@@ -2909,12 +2942,15 @@ void __fastcall TDoForm::edtTotalPriceChange(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
+AnsiString TDoForm::ranSH()
+{
+//        srand(m_SH.size());
+        int ran_num  = rand()%m_SH.size();
+        int j=0;
+        SH_t::iterator it;
+        for (it=m_SH.begin(); it!=m_SH.end()&&j<ran_num; ++it,++j){
+        }
+//        ShowMessage(AnsiString(j));
+//        it->second.trace();
+        return it->second.name;
+}

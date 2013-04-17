@@ -10058,7 +10058,6 @@ object DicSHForm: TDicSHForm
       Width = 161
       Height = 21
       ImeName = #35895#27468#25340#38899#36755#20837#27861' 2'
-      MaxLength = 10
       TabOrder = 0
       Text = 'edtName'
     end
