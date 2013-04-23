@@ -1,6 +1,6 @@
 object PrnDeclareForm: TPrnDeclareForm
-  Left = -1288
-  Top = -232
+  Left = 259
+  Top = 78
   Width = 1296
   Height = 1010
   VertScrollBar.Position = 14
@@ -17,7 +17,7 @@ object PrnDeclareForm: TPrnDeclareForm
   TextHeight = 13
   object PrnView: TQuickRep
     Left = 40
-    Top = -14
+    Top = 34
     Width = 794
     Height = 1123
     Frame.Color = clBlack
@@ -50,7 +50,7 @@ object PrnDeclareForm: TPrnDeclareForm
     Page.Values = (
       700
       2970
-      100
+      150
       2100
       50
       0
@@ -66,7 +66,7 @@ object PrnDeclareForm: TPrnDeclareForm
     Zoom = 100
     object DetailBand1: TQRBand
       Left = 19
-      Top = 465
+      Top = 484
       Width = 775
       Height = 48
       Frame.Color = clBlack
@@ -257,7 +257,7 @@ object PrnDeclareForm: TPrnDeclareForm
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = #29031#31456#24449#20813
+        Caption = #29031#31456#24449#31246
         Color = clWhite
         Transparent = False
         WordWrap = True
@@ -453,7 +453,7 @@ object PrnDeclareForm: TPrnDeclareForm
     end
     object PageHeaderBand1: TQRBand
       Left = 19
-      Top = 38
+      Top = 57
       Width = 775
       Height = 427
       Frame.Color = clBlack
@@ -1295,7 +1295,7 @@ object PrnDeclareForm: TPrnDeclareForm
     end
     object PageFooterBand1: TQRBand
       Left = 19
-      Top = 513
+      Top = 532
       Width = 775
       Height = 25
       Frame.Color = clBlack
@@ -1308,7 +1308,7 @@ object PrnDeclareForm: TPrnDeclareForm
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        66.1458333333333
+        66.1
         2050.52083333333)
       BandType = rbPageFooter
       object QRLabel4: TQRLabel

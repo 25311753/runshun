@@ -29,3 +29,5 @@ void __fastcall TPrnDeclareForm::DetailBand1BeforePrint(
 
 
 
+
+
