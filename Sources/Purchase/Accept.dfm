@@ -848,11 +848,10 @@ object AcceptForm: TAcceptForm
       Style = csDropDownList
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       ItemHeight = 13
-      ItemIndex = 0
       TabOrder = 18
       Items.Strings = (
         ''
-        #21253#26588
+        #23567#21830#21697
         #20080#21333
         #27491#24120#21333)
     end
