@@ -93,6 +93,7 @@ __published:	// IDE-managed Components
         TLabel *lb_sum_cnt_con;
         TPanel *Panel24;
         TComboBox *cbbCustomsCharge;
+        TButton *btnClearQryCond;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnInputContanerinfoClick(TObject *Sender);
         void __fastcall btnAddClick(TObject *Sender);
@@ -117,6 +118,7 @@ __published:	// IDE-managed Components
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall cbbClientChange(TObject *Sender);
         void __fastcall cbbClientExit(TObject *Sender);
+        void __fastcall btnClearQryCondClick(TObject *Sender);
 
                        
 private:	// User declarations

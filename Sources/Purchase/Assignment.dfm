@@ -1,6 +1,6 @@
 object AssignmentForm: TAssignmentForm
-  Left = 1421
-  Top = -194
+  Left = 218
+  Top = 111
   Width = 1091
   Height = 775
   BorderIcons = [biSystemMenu, biMinimize]
@@ -815,6 +815,7 @@ object AssignmentForm: TAssignmentForm
       Top = 0
       Width = 121
       Height = 21
+      ImeName = #35895#27468#25340#38899#36755#20837#27861' 2'
       TabOrder = 17
       Text = 'edtDebug'
       Visible = False

@@ -400,7 +400,7 @@ void __fastcall TAcceptForm::btnQueryClick(TObject *Sender)
                 szSQL += " and ";
                 szSQL += Str2DBString(strDate1);
         }
-        szSQL += " order by acceptdate";
+        szSQL += " order by CONVERT(varchar(100), acceptdate, 23), endcustdate";   //accpetdate格式化yyyymmdd排序，以免endcustdate排序受干扰
 
         TListItem *pItem;
         lstViewDown->Items->Clear();
@@ -1145,3 +1145,22 @@ CString TAcceptForm::getCustomsCharge(CString client){
         }
         return rt;
 }
+void __fastcall TAcceptForm::btnClearQryCondClick(TObject *Sender)
+{
+        edtQryCid->Text = "";
+        cbbQryClient->Text = "";
+        edtQryLading->Text = "";
+        cbbQryStatus->ItemIndex = -1;
+        edtQryJZS->Text = "";
+        cbbGoodsPerfQry->ItemIndex = -1;
+        edtQryLicenseNo->Text= "";
+        cbIsQryByDate->Checked = false;
+        
+        TDateTime tNow=TDateTime::CurrentDateTime();
+        dtpQryAcceptDate->DateTime=tNow;
+        dtpQryAcceptDateEnd->DateTime=tNow;
+
+}
+//---------------------------------------------------------------------------
+
+

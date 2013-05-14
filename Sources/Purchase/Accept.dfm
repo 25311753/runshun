@@ -1,6 +1,6 @@
 object AcceptForm: TAcceptForm
-  Left = 213
-  Top = 122
+  Left = -1265
+  Top = 24
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25509#21333
@@ -638,7 +638,7 @@ object AcceptForm: TAcceptForm
     object btnQuery: TButton
       Left = 492
       Top = 48
-      Width = 75
+      Width = 44
       Height = 17
       Caption = #26597#35810
       TabOrder = 6
@@ -854,6 +854,15 @@ object AcceptForm: TAcceptForm
         #23567#21830#21697
         #20080#21333
         #27491#24120#21333)
+    end
+    object btnClearQryCond: TButton
+      Left = 538
+      Top = 48
+      Width = 29
+      Height = 17
+      Caption = #28165#31354
+      TabOrder = 19
+      OnClick = btnClearQryCondClick
     end
   end
   object btnCancel: TButton

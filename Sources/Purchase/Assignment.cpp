@@ -638,9 +638,9 @@ void __fastcall TAssignmentForm::btnQryClick(TObject *Sender)
                 szSQL += " and acceptdate between "; szSQL += Str2DBString(strDate0);
                 szSQL += " and ";
                 szSQL += Str2DBString(strDate1);
-                szSQL += " order by endcustdate";
         }
-
+        szSQL += " order by endcustdate";
+        
         TListItem *pItem;
         lstView->Items->Clear();
 	RunSQL(dm1->Query1,szSQL,true);

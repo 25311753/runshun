@@ -257,7 +257,7 @@ Label44->Caption = "";
         edtSum->Text = "";
         edtAttachedoc->Text = "";
         edtManufacturer->Text = "";
-        edtMarks->Text = "港口区 不退税 无牌子";
+        edtMarks->Text = "港口区 零担 不退税 无牌子";
         edtInvoice->Text = "广州润顺国际货运代理有限公司";
 //return;
         cbbOperunit->Text = "";
@@ -387,6 +387,9 @@ Label44->Caption = "";
                 cbbCurrencyId->Items->Add(dm1->Query1->FieldByName("crid")->AsString);
 		dm1->Query1->Next();
         }
+        cbbCurrency->ItemIndex=cbbCurrency->Items->IndexOf("美元");
+        cbbCurrencyId->ItemIndex=cbbCurrencyId->Items->IndexOf("USD");
+
         //load sh info for random show
         stSH info_sh;
         szSQL.Format("select * from dicsh order by id");
@@ -1522,7 +1525,7 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
                 edtContractid->Text = edtCid->Text;
         }
         if(edtMarks->Text.IsEmpty())
-                edtMarks->Text = "港口区 不退税 无牌子";
+                edtMarks->Text = "港口区 零担 不退税 无牌子";
 
 //        cbbTargetCountry->ItemIndex=cbbTargetCountry->Items->IndexOf(AnsiString(tc));
         CleanQryInput();
@@ -1725,6 +1728,7 @@ void __fastcall TDoForm::cbDoingMouseDown(TObject *Sender,
 
 void __fastcall TDoForm::lstViewClick(TObject *Sender)
 {
+
         Row2Editor();
 	ResetCtrlDetail();
         return;
@@ -2959,3 +2963,5 @@ AnsiString TDoForm::ranSH()
 //        it->second.trace();
         return it->second.name;
 }
+
+
