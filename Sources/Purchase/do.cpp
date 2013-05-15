@@ -512,15 +512,21 @@ void __fastcall TDoForm::btnModClick(TObject *Sender)
 {
   m_enWorkState=EN_EDIT;
   ResetCtrl();
-
+  
+        if (cbbSH->Text == ""){
+                cbbSH->Text = ranSH();
+        }
 }
 
 int TDoForm::ModHead(){
   int rt = -1;
 //        cbbSH->Text = ranSH();
+/*
+        //放到点修改时
         if (cbbSH->Text == ""){
                 cbbSH->Text = ranSH();
         }
+*/
         if (edtDeclareid->Text.IsEmpty() || edtDeclareid->Text.IsEmpty() || cbbOperunit->Text.IsEmpty() \
                  || cbbPack->Text.IsEmpty() || edtLoadingid->Text.IsEmpty() || cbbTransport->Text.IsEmpty()\
                   || edtOutport->Text.IsEmpty() || cbbBargain->Text.IsEmpty() || cbbZhengmian->Text.IsEmpty() || edtInnersupplyadd->Text.IsEmpty() \
@@ -1451,7 +1457,7 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
 //                cbbSH->Text = AnsiString(strSH==""?m_sa_sh[StrToInt(strCid[strCid.Length()])]:strSH);
 //                cbbSH->Text = AnsiString(strSH==""?m_sa_sh[StrToInt(strCid[strCid.Length()])]:strSH);
                 AnsiString s = dm1->Query1->FieldByName("shanghao")->AsString;
-                cbbSH->Text = (s==""?ranSH():s) ;
+//                cbbSH->Text = (s==""?ranSH():s) ;                    //是空就是空，不造假
 //                cbbSH->Text = ranSH();
                 flushContainer(dm1->Query1->FieldByName("containerinfo")->AsString);
 
@@ -2049,6 +2055,7 @@ void __fastcall TDoForm::btnCancleDetailClick(TObject *Sender)
 
 int TDoForm::addDetail()
 {
+
   if (edtNetWeight1->Text.IsEmpty()){
         if (!edtGrossWeight1->Text.IsEmpty() && !edtCasecnt->Text.IsEmpty()){
          float gw = StrToFloat(edtGrossWeight1->Text);
@@ -2086,6 +2093,10 @@ int TDoForm::addDetail()
      }
 
   }
+  if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text))){
+        ShowMessage("毛重超26000KG");
+        return -1;
+  }  
       CString szSQL;
       szSQL.Format("select * from customs_detail  where cdid like '%s__' and cmid='%s'", edtCid->Text.c_str(), edtMid1->Text.c_str());
       RunSQL(szSQL,true);
@@ -2211,7 +2222,10 @@ int TDoForm::modDetail(){
      }
 
   }
-
+  if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text))){
+        ShowMessage("毛重超26000KG");
+        return -1;
+  }  
         char strDate0[80];
 //   	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(),lstView->Items->Count+1);
    	sprintf(strDate0,"%s", lstView->Selected->SubItems->Strings[15]);
@@ -2964,4 +2978,6 @@ AnsiString TDoForm::ranSH()
         return it->second.name;
 }
 
-
+bool TDoForm::chkGrossWeight(float gw){
+        return gw>26000;
+}

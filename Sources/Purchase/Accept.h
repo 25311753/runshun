@@ -119,6 +119,10 @@ __published:	// IDE-managed Components
         void __fastcall cbbClientChange(TObject *Sender);
         void __fastcall cbbClientExit(TObject *Sender);
         void __fastcall btnClearQryCondClick(TObject *Sender);
+        void __fastcall lstViewDownColumnClick(TObject *Sender,
+          TListColumn *Column);
+        void __fastcall lstViewDownCompare(TObject *Sender,
+          TListItem *Item1, TListItem *Item2, int Data, int &Compare);
 
                        
 private:	// User declarations
@@ -130,6 +134,8 @@ private:	// User declarations
         CStringArray m_lstQryStatus;
         CStringArray m_lstGoodsperf;
         enum { EN_IDLE,EN_ADDNEW,EN_EDIT } m_enWorkState; //接单上区状态
+        int m_nColumnToSort;
+
 public:		// User declarations
         __fastcall TAcceptForm(TComponent* Owner);
         CString TAcceptForm::GetContainerInfo();

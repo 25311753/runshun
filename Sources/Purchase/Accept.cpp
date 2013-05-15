@@ -16,6 +16,10 @@
 #include <cctype>
 
 TAcceptForm *AcceptForm;
+int ColumnToSort;
+
+bool desc;
+
 //---------------------------------------------------------------------------
 void Accept(int nAuth)
 {
@@ -400,8 +404,9 @@ void __fastcall TAcceptForm::btnQueryClick(TObject *Sender)
                 szSQL += " and ";
                 szSQL += Str2DBString(strDate1);
         }
-        szSQL += " order by CONVERT(varchar(100), acceptdate, 23), endcustdate";   //accpetdate格式化yyyymmdd排序，以免endcustdate排序受干扰
-
+//        szSQL += " order by CONVERT(varchar(100), acceptdate, 23), endcustdate";   //accpetdate格式化yyyymmdd排序，以免endcustdate排序受干扰
+        szSQL += " order by acceptdate";
+        
         TListItem *pItem;
         lstViewDown->Items->Clear();
 	RunSQL(dm1->Query1,szSQL,true);
@@ -419,7 +424,8 @@ void __fastcall TAcceptForm::btnQueryClick(TObject *Sender)
                 pItem->Caption= column_no;
                 pItem->SubItems->Add(dm1->Query1->FieldByName("cid")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("goodsperf")->AsString);
-		pItem->SubItems->Add(dm1->Query1->FieldByName("ad")->AsString);
+//		pItem->SubItems->Add(dm1->Query1->FieldByName("ad")->AsString);
+		pItem->SubItems->Add(dm1->Query1->FieldByName("acceptdate")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("client")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("ladingid")->AsString);
 		//pItem->SubItems->Add(dm1->Query1->FieldByName("containerinfo")->AsString);
@@ -1163,4 +1169,47 @@ void __fastcall TAcceptForm::btnClearQryCondClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+
+
+
+void __fastcall TAcceptForm::lstViewDownColumnClick(TObject *Sender,
+      TListColumn *Column)
+{
+    if(m_nColumnToSort==Column->Index)  
+    {
+      //若两次点击同一列则改变升序排还是降序排的Tag标志
+      Column->Tag = 1-Column->Tag;
+    }
+
+    m_nColumnToSort = Column->Index;//保存当前点击的列号
+    //排序 lvInvoice为界面的TListView控件指针
+    lstViewDown->AlphaSort();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAcceptForm::lstViewDownCompare(TObject *Sender,
+      TListItem *Item1, TListItem *Item2, int Data, int &Compare)
+{
+
+    if (m_nColumnToSort == 0)
+    {
+      //如果列号为0则按列表项Caption属性进行比较
+      Compare = CompareText(Item1->Caption,Item2->Caption);
+    }
+    else 
+    {
+      //如果列号不为0则计算子列的序号并按子列项进行比较
+      int ix = m_nColumnToSort-1;
+      Compare = CompareText(Item1->SubItems->Strings[ix], Item2->SubItems->Strings[ix]);
+    }
+		
+    //Tag为1时升序排列，为0时降序排列
+    if(lstViewDown->Columns->Items[m_nColumnToSort]->Tag)
+    {
+      Compare = -Compare;
+    }
+
+}
+//---------------------------------------------------------------------------
 

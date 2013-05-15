@@ -1,6 +1,6 @@
 object AcceptForm: TAcceptForm
-  Left = -1265
-  Top = 24
+  Left = -1185
+  Top = -28
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25509#21333
@@ -1038,8 +1038,11 @@ object AcceptForm: TAcceptForm
     GridLines = True
     ReadOnly = True
     RowSelect = True
+    SortType = stData
     TabOrder = 13
     ViewStyle = vsReport
+    OnColumnClick = lstViewDownColumnClick
+    OnCompare = lstViewDownCompare
     OnSelectItem = lstViewDownSelectItem
   end
   object TrayIcon1: TTrayIcon

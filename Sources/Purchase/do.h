@@ -299,7 +299,7 @@ public:		// User declarations
         void prnDeclare(AnsiString begin_cid, AnsiString end_cid, AnsiString split_detail, int page_ord, bool isTail=false);
 //        void prnDeclareSub(AnsiString cdid);
         AnsiString ranSH();
- 
+        bool chkGrossWeight(float gw);//√´÷ÿ≥¨26000KGÃ· æ
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TDoForm *DoForm;
