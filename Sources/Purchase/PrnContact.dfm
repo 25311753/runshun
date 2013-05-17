@@ -1,6 +1,6 @@
 object PrnContactForm: TPrnContactForm
-  Left = -1192
-  Top = -15
+  Left = -1213
+  Top = -201
   Width = 1000
   Height = 770
   Caption = #25171#21360#21512#21516

@@ -1,6 +1,6 @@
 object PrnDeclareForm: TPrnDeclareForm
-  Left = 259
-  Top = 78
+  Left = -1373
+  Top = -167
   Width = 1296
   Height = 1010
   VertScrollBar.Position = 14
@@ -1308,7 +1308,7 @@ object PrnDeclareForm: TPrnDeclareForm
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        66.1
+        66.1458333333333
         2050.52083333333)
       BandType = rbPageFooter
       object QRLabel4: TQRLabel

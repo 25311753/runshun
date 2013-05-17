@@ -36,7 +36,7 @@ static CArray<PAGES,PAGES> gPAGES;
 //0-idle 1-unitprice changing 2-totalprice changing -
 //为防止相互调用出现问题，采取一种排他的逻辑
 static int nWhoChanging = 0;
-
+static bool bClickView = false;
 //---------------------------------------------------------------------------
 void Do(int nAuth)
 {
@@ -781,7 +781,7 @@ void __fastcall TDoForm::btnPrnInvoiceClick(TObject *Sender)
                         from customs_detail a, merchandise b where cdid like '%s__' and a.cmid=b.mid order by a.cdid ", \
                         cbbCurrencyId->Text.c_str(), edtCid->Text.c_str());
 */
-	szSQL.Format("select mname,count,firstmeasunit,cunitprice,convert(numeric(10,2),count*cunitprice) as total, '%s' as crid \
+	szSQL.Format("select mname,count,firstmeasunit,cunitprice,totalprice as total, '%s' as crid \
                         from customs_detail a, merchandise b where cdid like '%s__' and a.cmid=b.mid order by a.cdid ", \
                         cbbCurrencyId->Text.c_str(), edtCid->Text.c_str());
 
@@ -1466,7 +1466,8 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
 
 	}
 
-        szSQL="select *,cast(cunitprice*count as decimal(20,2)) as total from customs_detail a, merchandise b where a.cdid like '";
+//        szSQL="select *,cast(cunitprice*count as decimal(20,2)) as total from customs_detail a, merchandise b where a.cdid like '";
+        szSQL="select * from customs_detail a, merchandise b where a.cdid like '";
         szSQL += edtCid->Text.c_str();
         szSQL += "%'";
         szSQL += " and a.cmid=b.mid order by cdid";
@@ -1492,7 +1493,7 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
                 tc = dm1->Query1->FieldByName("targetcountry")->AsString.c_str();
 
                 pItem->SubItems->Add(dm1->Query1->FieldByName("cunitprice")->AsString);
-		pItem->SubItems->Add(dm1->Query1->FieldByName("total")->AsString);
+		pItem->SubItems->Add(dm1->Query1->FieldByName("totalprice")->AsString);
 		pItem->SubItems->Add(cbbCurrency->Text);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("zhengmian")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("count2")->AsString);
@@ -1738,30 +1739,6 @@ void __fastcall TDoForm::lstViewClick(TObject *Sender)
         Row2Editor();
 	ResetCtrlDetail();
         return;
-      if(lstView->Selected == NULL){
-//        return;
-
-        btnAddDetail->Enabled = true;
-        btnOkDetail->Enabled = false;
-        btnCancleDetail->Enabled = false;
-         btnModDetail->Enabled = false;
-         btnDelDetail->Enabled = false;
-        cbbMname->Text = "";
-        edtMCode->Text = "";
-        edtSpec->Text = "";
-        edtFirstmeasunit->Text ="";
-        edtSecondmeasunit->Text ="";
-        edtNetWeight1->Text ="";
-        edtGrossWeight1->Text ="";
-        edtCount1->Text ="";
-        edtCasecnt->Text = "";
-        cbbPkName->Text  = "";
-        edtCount2nd->Text = "0";
-        edtUnitprice->Text ="";
-        edtCdid->Text ="";
-
-      }
-
 }
 //---------------------------------------------------------------------------
 void TDoForm::flushContainer(AnsiString c){
@@ -1944,15 +1921,12 @@ void TDoForm::Row2Editor()
         edtCount2nd->Text = Item->SubItems->Strings[13];
         edtUnitprice->Text = Item->SubItems->Strings[9];
         cbbPkName->Text =Item->SubItems->Strings[14];
-        edtCdid->Text = Item->SubItems->Strings[15];}
+        edtCdid->Text = Item->SubItems->Strings[15];
+        //强制修改总价（目前总价是按数量单价自动跳出，查询情况下，应该以customs_detail.totalprice为准，修改添加时才以计算为准）
+        //！！！！！！！
+        edtTotalPrice->Text = Item->SubItems->Strings[10];
+}
 //---------------------------------------------------------------------------
-
-
-
-
-
-
-
 
 void __fastcall TDoForm::btnOkDetailClick(TObject *Sender)
 {
@@ -2011,7 +1985,7 @@ void __fastcall TDoForm::btnOkDetailClick(TObject *Sender)
     {
         char strDate0[80];
    	sprintf(strDate0,"%s", pItem->SubItems->Strings[15]);
-        double totalPrice = StrToFloat(edtUnitprice->Text.c_str()) * StrToFloat(edtCount1->Text.c_str());
+//        double totalPrice = StrToFloat(edtUnitprice->Text.c_str()) * StrToFloat(edtCount1->Text.c_str());
 	pItem->Caption                          = edtMCode->Text;
 	pItem->SubItems->Strings[0]  = cbbMname->Text;
 	pItem->SubItems->Strings[1]  = edtSpec->Text;
@@ -2023,7 +1997,7 @@ void __fastcall TDoForm::btnOkDetailClick(TObject *Sender)
 	pItem->SubItems->Strings[7]  = edtSecondmeasunit->Text;
 	pItem->SubItems->Strings[8]  = cbbTargetCountry->Text;
 	pItem->SubItems->Strings[9]  =  edtUnitprice->Text;
-	pItem->SubItems->Strings[10]  = totalPrice;
+	pItem->SubItems->Strings[10]  = edtTotalPrice->Text;
 	pItem->SubItems->Strings[11]  =  cbbCurrency->Text;
 	pItem->SubItems->Strings[12]  =  cbbZhengmian->Text;
 	pItem->SubItems->Strings[13]  =  edtCount2nd->Text;
@@ -2055,7 +2029,7 @@ void __fastcall TDoForm::btnCancleDetailClick(TObject *Sender)
 
 int TDoForm::addDetail()
 {
-
+//cjm
   if (edtNetWeight1->Text.IsEmpty()){
         if (!edtGrossWeight1->Text.IsEmpty() && !edtCasecnt->Text.IsEmpty()){
          float gw = StrToFloat(edtGrossWeight1->Text);
@@ -2128,7 +2102,7 @@ int TDoForm::addDetail()
    	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(), new_cdid);
         szSQL="insert into customs_detail(cdid,cmid,netweight,grossweight,\
                                         count,count2,casescnt,targetcountry,\
-                                        cunitprice,zhengmian,pkname) values(";
+                                        cunitprice,totalprice,zhengmian,pkname) values(";
         szSQL += Str2DBString(strDate0);
 szSQL +=","; szSQL += Str2DBString(edtMid1->Text.c_str());
 szSQL +=","; szSQL += Str2DBString(edtNetWeight1->Text.c_str());
@@ -2140,6 +2114,7 @@ szSQL +=","; szSQL += Str2DBString(edtCount2nd->Text.c_str());
 szSQL +=","; szSQL += Str2DBString(edtCasecnt->Text.c_str());
 szSQL +=","; szSQL += Str2DBString(cbbTargetCountry->Text.c_str());
 szSQL +=","; szSQL += Str2DBString(edtUnitprice->Text.c_str());
+szSQL +=","; szSQL += Str2DBString(edtTotalPrice->Text.c_str());
 szSQL +=","; szSQL += Str2DBString(cbbZhengmian->Text.c_str());
 szSQL +=","; szSQL += Str2DBString(cbbPkName->Text.c_str());
 szSQL +=")";
@@ -2167,14 +2142,13 @@ szSQL +=")";
         pItem->SubItems->Add(edtSecondmeasunit->Text);
         pItem->SubItems->Add(cbbTargetCountry->Text);
         pItem->SubItems->Add(edtUnitprice->Text);
-        double total_w = StrToFloat(edtUnitprice->Text.c_str()) * StrToFloat(edtCount1->Text.c_str());
-//        pItem->SubItems->Add(StrToInt(edtUnitprice->Text.c_str()) * StrToInt(edtCount1->Text.c_str()));
-        pItem->SubItems->Add(total_w);
+//        double total_w = StrToFloat(edtUnitprice->Text.c_str()) * StrToFloat(edtCount1->Text.c_str());
+        pItem->SubItems->Add(edtTotalPrice->Text);
         pItem->SubItems->Add(cbbCurrency->Text);
         pItem->SubItems->Add(cbbZhengmian->Text);
         pItem->SubItems->Add(edtCount2nd->Text);
         pItem->SubItems->Add(cbbPkName->Text);
-        pItem->SubItems->Add(strDate0);
+        pItem->SubItems->Add(strDate0);                              
         lstView->Selected=pItem;
 
         flushSum();
@@ -2240,6 +2214,7 @@ edtCount2nd->Text = (edtCount2nd->Text.IsEmpty()?"0":edtCount2nd->Text.c_str());
 szSQL +=",count2="; szSQL += Str2DBString(edtCount2nd->Text.c_str());
 szSQL +=",casescnt="; szSQL += Str2DBString(edtCasecnt->Text.c_str());
 szSQL +=",cunitprice="; szSQL += edtUnitprice->Text.c_str();
+szSQL +=",totalprice="; szSQL += edtTotalPrice->Text.c_str();
 szSQL +=",pkname="; szSQL += Str2DBString(cbbPkName->Text.c_str());
 szSQL +=",targetcountry="; szSQL += Str2DBString(cbbTargetCountry->Text.c_str());
 
@@ -2375,7 +2350,7 @@ void TDoForm::prnContactMain(CString last_cdid, bool isHasSub){
 
         //detali
         CString szSQL;
-	szSQL.Format("select mname,count,firstmeasunit FU,cunitprice, convert(numeric(10,2),count*cunitprice) total , '%s' as currency from \
+	szSQL.Format("select mname,count,firstmeasunit FU,cunitprice, totalprice  as total, '%s' as currency from \
                         customs_detail a, merchandise b where cdid like '%s__' and cdid <= '%s' and a.cmid=b.mid order by a.cdid", \
                         cbbCurrencyId->Text.c_str(),edtCid->Text.c_str(), last_cdid);
 	RunSQL(dm1->sqlPrint,szSQL,true);
@@ -2391,7 +2366,7 @@ void TDoForm::prnContactSub(CString last_page_last_cdid){
         //detali
         pForm->qrlContactId->Caption = edtContractid->Text;        
         CString szSQL;
-	szSQL.Format("select mname,count,firstmeasunit FU,cunitprice, convert(numeric(10,2),count*cunitprice) total , '%s' as currency from \
+	szSQL.Format("select mname,count,firstmeasunit FU,cunitprice, totalprice as total, '%s' as currency from \
                         customs_detail a, merchandise b where cdid like '%s__' and cdid >'%s' and a.cmid=b.mid order by a.cdid", \
                         cbbCurrencyId->Text.c_str(),edtCid->Text.c_str(), last_page_last_cdid);
 	RunSQL(dm1->sqlPrint,szSQL,true);
@@ -2470,7 +2445,7 @@ void TDoForm::prnDeclare(AnsiString begin_cid, AnsiString end_cid, AnsiString sp
         where aa.cdid like '%s__' and aa.cdid < a.cdid ) as row_ord, targetcountry ,spec,cdid, mcode,mname,count,firstmeasunit FU, \
         dbo.cut_count(count2) as cnt2, \
         case count2 when 0 then '' else secondmeasunit  end as SU,cunitprice,\
-        dbo.cut_total(count*cunitprice) as total \
+        dbo.cut_total(totalprice) as total \
          from customs_detail a,merchandise b \
          where a.cdid like '%s__' and '%s' <= a.cdid and a.cdid <= '%s' and a.cmid=b.mid order by cdid", edtCid->Text.c_str(), edtCid->Text.c_str(), begin_cid, end_cid);
 
@@ -2686,7 +2661,7 @@ void __fastcall TDoForm::btnSCCKClick(TObject *Sender)
 
         //detali
         CString szSQL;
-	szSQL.Format("select mcode,mname,count,firstmeasunit,  convert(numeric(10,2),count*cunitprice) as price from \
+	szSQL.Format("select mcode,mname,count,firstmeasunit,  totalprice as price from \
                         customs_detail a, merchandise b where cdid like '%s__' and a.cmid=b.mid order by a.cdid",edtCid->Text.c_str());
 	RunSQL(dm1->sqlPrint,szSQL,true);
         pForm->PrnView->PreviewModal() ;
