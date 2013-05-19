@@ -1,11 +1,11 @@
 object AcceptForm: TAcceptForm
-  Left = -1185
-  Top = -28
+  Left = 264
+  Top = 92
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25509#21333
   ClientHeight = 699
-  ClientWidth = 1282
+  ClientWidth = 1280
   Color = clInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -72,7 +72,6 @@ object AcceptForm: TAcceptForm
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 11
       Text = 'edtCustfree'
-      Visible = False
     end
     object edtCliWorkid: TEdit
       Left = 61
@@ -91,7 +90,6 @@ object AcceptForm: TAcceptForm
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 17
       Text = 'edtBeiZhu'
-      Visible = False
     end
     object cbbGoodsPerf: TComboBox
       Left = 243
@@ -369,7 +367,6 @@ object AcceptForm: TAcceptForm
       ParentColor = True
       ParentFont = False
       TabOrder = 27
-      Visible = False
     end
     object Panel10: TPanel
       Left = 1
@@ -456,7 +453,6 @@ object AcceptForm: TAcceptForm
       ParentColor = True
       ParentFont = False
       TabOrder = 32
-      Visible = False
     end
     object Panel21: TPanel
       Left = 0
@@ -531,7 +527,6 @@ object AcceptForm: TAcceptForm
       ParentColor = True
       ParentFont = False
       TabOrder = 35
-      Visible = False
     end
     object cbbCustomsCharge: TComboBox
       Left = 448
@@ -544,7 +539,6 @@ object AcceptForm: TAcceptForm
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       ItemHeight = 13
       TabOrder = 36
-      Visible = False
     end
   end
   object btnAdd: TButton

@@ -2068,9 +2068,13 @@ int TDoForm::addDetail()
 
   }
   if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text))){
-        ShowMessage("Ã«ÖØ³¬26000KG");
-        return -1;
-  }  
+//        ShowMessage("Ã«ÖØ³¬26000KG");
+//        return -1;
+        char strMsg[256],strSQL[512];
+        sprintf(strMsg,"\n  Ã«ÖØ³¬26000KG ÊÇ·ñ¼ÌĞø?\n");
+        if(Application->MessageBox(strMsg,"¾¯¸æ",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                return -1;
+  }
       CString szSQL;
       szSQL.Format("select * from customs_detail  where cdid like '%s__' and cmid='%s'", edtCid->Text.c_str(), edtMid1->Text.c_str());
       RunSQL(szSQL,true);
@@ -2197,8 +2201,10 @@ int TDoForm::modDetail(){
 
   }
   if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text))){
-        ShowMessage("Ã«ÖØ³¬26000KG");
-        return -1;
+        char strMsg[256],strSQL[512];
+        sprintf(strMsg,"\n  Ã«ÖØ³¬26000KG ÊÇ·ñ¼ÌĞø?\n");
+        if(Application->MessageBox(strMsg,"¾¯¸æ",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                return -1;
   }  
         char strDate0[80];
 //   	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(),lstView->Items->Count+1);
