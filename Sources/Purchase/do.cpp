@@ -481,7 +481,11 @@ void  TDoForm::flushSum()
                 pItem=lstView->Items->Item[i];
                 totalCount+=StrToFloat(pItem->SubItems->Strings[4]);
                 totalNetWeight+=StrToFloat(pItem->SubItems->Strings[2]);
-                totalSum+=StrToFloat(pItem->SubItems->Strings[10]);
+                //tmp logic, tobedel
+                if (pItem->SubItems->Strings[10] == "")
+                        totalSum+=0;
+                else
+                        totalSum+=StrToFloat(pItem->SubItems->Strings[10]);
                 totalGrossWeight+=StrToFloat(pItem->SubItems->Strings[3]);
                 totalCasescnt+=StrToInt(pItem->SubItems->Strings[5]);
         }
@@ -1465,7 +1469,6 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
 
 
 	}
-
 //        szSQL="select *,cast(cunitprice*count as decimal(20,2)) as total from customs_detail a, merchandise b where a.cdid like '";
         szSQL="select * from customs_detail a, merchandise b where a.cdid like '";
         szSQL += edtCid->Text.c_str();
