@@ -33,6 +33,32 @@ __fastcall TAcceptForm::TAcceptForm(TComponent* Owner)
         m_enWorkState=EN_IDLE;
 }
 //---------------------------------------------------------------------------
+static bool chkFormatContainerNo(AnsiString ss){
+        if (ss.Length()!=11){
+                ShowMessage("柜号格式长度因为11");
+                return false;
+        }
+        char cinfo[12];
+        memset(cinfo, 0x00, sizeof(cinfo));
+        snprintf(cinfo, 11, ss.c_str());
+
+
+        for (int i=0;i<4; ++i){
+                if (!(cinfo[i]>='a' && cinfo[i]<='z') && !(cinfo[i]>='A' && cinfo[i]<='Z')){
+                        ShowMessage("柜号格式非法，前1-4位应为英文字母");
+                        ShowMessage(cinfo[i]);
+                        return false;
+                }
+        }
+        for (int i=4;i<11; ++i){
+                if (!(cinfo[i]>='0' && cinfo[i]<='9')){
+                        ShowMessage("柜号格式非法，5-12位应为数字");
+                        return false;
+                }
+        }
+
+        return true;
+}
 
 void __fastcall TAcceptForm::FormShow(TObject *Sender)
 {
@@ -699,6 +725,9 @@ void __fastcall TAcceptForm::btnAddContainerClick(TObject *Sender)
     if(edtContainerNo->CanFocus())	edtContainerNo->SetFocus();
     return;
   }
+  if (!chkFormatContainerNo(edtContainerNo->Text)){
+        return;
+  }
        //跨单重复柜号检查
        AnsiString dupCid="";
       if (isDupContainer(AnsiString(edtContainerNo->Text.c_str()), dupCid)) {
@@ -761,7 +790,9 @@ void __fastcall TAcceptForm::btnModContainerClick(TObject *Sender)
                 return;
       }
   }
-
+  if (!chkFormatContainerNo(edtContainerNo->Text)){
+        return;
+  }
         TListItem *pItem;
         pItem = lstViewContainer->Selected;
         if (pItem!=NULL){

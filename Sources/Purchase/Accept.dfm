@@ -1,11 +1,11 @@
 object AcceptForm: TAcceptForm
-  Left = 264
-  Top = 92
+  Left = 188
+  Top = 138
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25509#21333
   ClientHeight = 699
-  ClientWidth = 1280
+  ClientWidth = 1264
   Color = clInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

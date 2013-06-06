@@ -481,11 +481,7 @@ void  TDoForm::flushSum()
                 pItem=lstView->Items->Item[i];
                 totalCount+=StrToFloat(pItem->SubItems->Strings[4]);
                 totalNetWeight+=StrToFloat(pItem->SubItems->Strings[2]);
-                //tmp logic, tobedel
-                if (pItem->SubItems->Strings[10] == "")
-                        totalSum+=0;
-                else
-                        totalSum+=StrToFloat(pItem->SubItems->Strings[10]);
+                totalSum+=StrToFloat(pItem->SubItems->Strings[10]);
                 totalGrossWeight+=StrToFloat(pItem->SubItems->Strings[3]);
                 totalCasescnt+=StrToInt(pItem->SubItems->Strings[5]);
         }
