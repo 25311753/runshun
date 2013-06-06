@@ -422,8 +422,10 @@ Label44->Caption = "";
 
 
         //~
+/*
         cbbCurrency->ItemIndex=0;
         cbbCurrencyId->ItemIndex=0;
+*/
 
         cbbMname->Text = "";
 //        cbbCurrency->ItemIndex = -1;
@@ -2025,7 +2027,16 @@ void __fastcall TDoForm::btnCancleDetailClick(TObject *Sender)
   edtNo->Text = "";
 }
 //---------------------------------------------------------------------------
-
+static bool chk_total_price(float total_price) {
+        if (total_price>100000){
+                char strMsg[256],strSQL[512];
+                sprintf(strMsg,"\n  总价超10W 是否继续?\n");
+                if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES){
+                        return false;
+                }
+        }
+        return true;
+}
 int TDoForm::addDetail()
 {
 //cjm
@@ -2100,6 +2111,9 @@ int TDoForm::addDetail()
         return -1;
   }
 
+  if (!chk_total_price(StrToFloat(edtTotalPrice->Text.c_str()))){
+        return -1;
+  }
         char strDate0[80];
 //   	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(),lstView->Items->Count+1);
    	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(), new_cdid);
@@ -2204,6 +2218,9 @@ int TDoForm::modDetail(){
         sprintf(strMsg,"\n  毛重超26000KG 是否继续?\n");
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return -1;
+  }
+  if (!chk_total_price(StrToFloat(edtTotalPrice->Text.c_str()))){
+        return -1;
   }  
         char strDate0[80];
 //   	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(),lstView->Items->Count+1);
