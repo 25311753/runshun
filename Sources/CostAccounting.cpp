@@ -582,6 +582,9 @@ void __fastcall TCostAccountingForm::btnQueryClick(TObject *Sender)
         if (!edtClient->Text.IsEmpty()){
                 szSQL +=" and client like '%"; szSQL += edtClient->Text.c_str(); szSQL += "%'";
         }
+        if (!edtContainerinfo->Text.IsEmpty()){
+                szSQL +=" and containerinfo like '%"; szSQL += edtContainerinfo->Text.c_str(); szSQL += "%'";
+        }
         if (cbIsQryByDate->Checked) {
                 szSQL += " and acceptdate between "; szSQL += Str2DBString(strDate0);
                 szSQL += " and ";

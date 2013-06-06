@@ -1,6 +1,6 @@
 object CostAccountingForm: TCostAccountingForm
-  Left = -1289
-  Top = -85
+  Left = 59
+  Top = 207
   Width = 1265
   Height = 764
   Caption = #25104#26412#26680#31639

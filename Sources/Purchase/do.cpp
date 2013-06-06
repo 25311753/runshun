@@ -484,7 +484,10 @@ void  TDoForm::flushSum()
                 totalCount+=StrToFloat(pItem->SubItems->Strings[4]);
                 totalNetWeight+=StrToFloat(pItem->SubItems->Strings[2]);
                 totalSum+=StrToFloat(pItem->SubItems->Strings[10]);
-                totalGrossWeight+=StrToFloat(pItem->SubItems->Strings[3]);
+                double tmp_gw=0;
+                TryStrToFloat(pItem->SubItems->Strings[3],tmp_gw);
+                totalGrossWeight+=tmp_gw;
+//                totalGrossWeight+=StrToFloat(pItem->SubItems->Strings[3]);  //直接转会有问题。
                 totalCasescnt+=StrToInt(pItem->SubItems->Strings[5]);
         }
         edtCount->Text = IntToStr(totalCasescnt);
@@ -492,7 +495,31 @@ void  TDoForm::flushSum()
         edtGrossWeight->Text = FloatToStr(totalGrossWeight);
         edtSum->Text = FloatToStr(totalSum);
         Label41->Caption = totalNetWeight;
-        Label42->Caption = FloatToStr(totalGrossWeight);
+//        Label42->Caption = FloatToStr(totalGrossWeight);
+        //普通FloatToStr转的有问题，1.1=>1.1009872732.
+        //保留2位小数，如果是整数，不显示.00
+//        ShowMessage("FormatFloat"+FormatFloat("#######.00", totalGrossWeight));
+        AnsiString gw_digits_2 = FormatFloat("#.00", totalGrossWeight);
+        AnsiString gw_digits_0 = FormatFloat("#", totalGrossWeight);
+        ShowMessage("gw_digits_2:"+gw_digits_2+" gw_digits_0:"+gw_digits_0);
+        if (gw_digits_2 == gw_digits_0+".00"){
+            Label42->Caption = gw_digits_0;
+        }else{
+            Label42->Caption = gw_digits_2;
+        }
+
+/*        AnsiString gw_digits_2 = FloatToStrF(gw, ffFixed,10,2);
+        AnsiString gw_digits_0 = FloatToStrF(gw, ffFixed,10,0);
+        if (gw_digits_2 == gw_digits_0 ){//1.00=1
+                Label42->Caption = gw_digits_0;
+        }else{
+                Label42->Caption = gw_digits_2;
+        }
+*/
+
+//        ShowMessage("ffNumber = "+ FloatToStrF(totalGrossWeight, ffNumber,10,2));
+//        ShowMessage("ffGeneral = "+ FloatToStrF(totalGrossWeight, ffGeneral,4,2));
+
         Label43->Caption = IntToStr(totalCasescnt);
         FormatFloat("0.00", totalSum);
         Label44->Caption = FloatToStr(totalSum);        //20130308 报关单精度
