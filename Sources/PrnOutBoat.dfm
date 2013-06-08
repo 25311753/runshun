@@ -1,6 +1,6 @@
 object PrnOutBoatForm: TPrnOutBoatForm
-  Left = 377
-  Top = 80
+  Left = -1143
+  Top = 154
   Width = 944
   Height = 812
   Caption = #25171#21360#20986#33337#32440
@@ -15,8 +15,8 @@ object PrnOutBoatForm: TPrnOutBoatForm
   PixelsPerInch = 96
   TextHeight = 13
   object PrnView: TQuickRep
-    Left = 56
-    Top = -368
+    Left = 32
+    Top = -176
     Width = 794
     Height = 1123
     Frame.Color = clBlack
@@ -613,7 +613,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
         Frame.DrawRight = False
         Size.Values = (
           55.5625
-          820.208333333333
+          820.208333333334
           1272.64583333333
           44.9791666666667)
         Alignment = taLeftJustify

@@ -48,7 +48,6 @@ __published:	// IDE-managed Components
         TEdit *edtClient;
         TButton *btnMod;
         TButton *btnQuery;
-        TButton *Button1;
         TListView *lstViewPure;
         TButton *btnOK;
         TButton *btnCancel;
@@ -74,7 +73,6 @@ __published:	// IDE-managed Components
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnQueryClick(TObject *Sender);
         void __fastcall btnModClick(TObject *Sender);
-        void __fastcall Button1Click(TObject *Sender);
         void __fastcall lstViewSelectItem(TObject *Sender, TListItem *Item,
           bool Selected);
         void __fastcall h(TObject *Sender);
@@ -87,6 +85,7 @@ private:	// User declarations
         CStringArray m_lstCharges;
         CString m_strGoodsPerf;
        enum { EN_IDLE,/*EN_ADDNEW,*/EN_EDIT } m_enWorkState; //״̬
+       std::map<int, CString> m_mChargeInfo;
 //       bool isHasResult;
 public:		// User declarations
         __fastcall TFinanceForm(TComponent* Owner);
@@ -107,6 +106,7 @@ public:		// User declarations
         void clearQryInput();
         CString getFirstContainerNo(AnsiString c);
         CString getAllContainerNo(AnsiString c);        // get all conno , join by ","
+        int getChidByChname(CString chname);        
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TFinanceForm *FinanceForm;

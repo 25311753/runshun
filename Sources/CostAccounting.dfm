@@ -1,6 +1,6 @@
 object CostAccountingForm: TCostAccountingForm
-  Left = 59
-  Top = 207
+  Left = -1260
+  Top = 21
   Width = 1265
   Height = 764
   Caption = #25104#26412#26680#31639
@@ -540,22 +540,6 @@ object CostAccountingForm: TCostAccountingForm
     TabOrder = 3
     OnClick = btnQueryClick
   end
-  object btnDump: TButton
-    Left = 431
-    Top = 0
-    Width = 85
-    Height = 25
-    Caption = #23548#20986
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 4
-    Visible = False
-    OnClick = btnDumpClick
-  end
   object lstViewPure: TListView
     Left = 776
     Top = 4
@@ -618,7 +602,7 @@ object CostAccountingForm: TCostAccountingForm
       end
       item
       end>
-    TabOrder = 5
+    TabOrder = 4
     ViewStyle = vsReport
     Visible = False
   end
@@ -634,7 +618,7 @@ object CostAccountingForm: TCostAccountingForm
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 5
     OnClick = btnOKClick
   end
   object btnCancel: TButton
@@ -649,7 +633,7 @@ object CostAccountingForm: TCostAccountingForm
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 6
     OnClick = btnCancelClick
   end
   object Panel45: TPanel
@@ -658,7 +642,7 @@ object CostAccountingForm: TCostAccountingForm
     Width = 1251
     Height = 7
     Color = 16349446
-    TabOrder = 8
+    TabOrder = 7
   end
   object edtDebug: TEdit
     Left = 544
@@ -666,7 +650,7 @@ object CostAccountingForm: TCostAccountingForm
     Width = 273
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 9
+    TabOrder = 8
     Text = 'edtDebug'
     Visible = False
   end
@@ -676,7 +660,7 @@ object CostAccountingForm: TCostAccountingForm
     Width = 121
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 10
+    TabOrder = 9
     Text = 'edtMockDeclareid'
     Visible = False
   end
@@ -692,7 +676,7 @@ object CostAccountingForm: TCostAccountingForm
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 10
     OnClick = Button1Click
   end
   object lstView: TListView
@@ -811,11 +795,53 @@ object CostAccountingForm: TCostAccountingForm
       item
       end
       item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
       end>
     GridLines = True
     ReadOnly = True
     RowSelect = True
-    TabOrder = 12
+    TabOrder = 11
     ViewStyle = vsReport
     OnClick = lstViewClick
     OnSelectItem = lstViewSelectItem

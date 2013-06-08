@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-
+#include <map>
 #include <vcl.h>
 #pragma hdrstop
 
@@ -14,6 +14,7 @@
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TFinanceForm *FinanceForm;
+/*
 typedef struct
 {
         int chid;
@@ -21,7 +22,7 @@ typedef struct
 } CHARGES;
 
 static CArray<CHARGES,CHARGES> gCHARGES;
-//int charge_start_column = 7; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
+*/
 //add conno、备注、客户工单号
 int charge_start_column = 7+1+1+1; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
 //---------------------------------------------------------------------------
@@ -33,12 +34,11 @@ __fastcall TFinanceForm::TFinanceForm(TComponent* Owner)
         : TForm(Owner)
 {
   m_enWorkState=EN_IDLE;
-//  isHasResult = false;
 }
 //---------------------------------------------------------------------------
 void __fastcall TFinanceForm::FormShow(TObject *Sender)
 {
-        gCHARGES.RemoveAll();
+        m_mChargeInfo.clear();
         m_strGoodsPerf = "";
         cbb1->Items->Add("");
         cbb2->Items->Add("");
@@ -50,13 +50,17 @@ void __fastcall TFinanceForm::FormShow(TObject *Sender)
         cbb8->Items->Add("");
         cbb9->Items->Add("");
         cbb10->Items->Add("");
+
         CString szSQL;
         szSQL.Format("select * from charges order by chid");
         RunSQL(dm1->Query1,szSQL,true);
-        int charge_row = 0;
+        
+        int column_charge = 0;
         while(!dm1->Query1->Eof)
         {
+                int chid = dm1->Query1->FieldByName("chid")->AsInteger;        
                 AnsiString chname = dm1->Query1->FieldByName("chname")->AsString;
+                
                 cbb1->Items->Add(chname);
                 cbb2->Items->Add(chname);
                 cbb3->Items->Add(chname);
@@ -67,16 +71,14 @@ void __fastcall TFinanceForm::FormShow(TObject *Sender)
                 cbb8->Items->Add(chname);
                 cbb9->Items->Add(chname);
                 cbb10->Items->Add(chname);
-                lstView->Columns->Items[charge_start_column+(++charge_row)]->Caption = chname;
+                lstView->Columns->Items[charge_start_column+(++column_charge)]->Caption = chname;
 
-                int chid = dm1->Query1->FieldByName("chid")->AsInteger;
-                CHARGES charge;
-                charge.chid = chid;
-                strcpy(charge.strChname,dm1->Query1->FieldByName("chname")->AsString.c_str());
-                gCHARGES.Add(charge);
+                m_mChargeInfo.insert(std::make_pair(chid, chname.c_str()));
+
                 dm1->Query1->Next();
         }
-        lstView->Columns->Items[charge_start_column+(++charge_row)]->Caption = "合计";
+        lstView->Columns->Items[charge_start_column+(++column_charge)]->Caption = "合计";
+        
         cbb1->ItemIndex = 1;
         cbb2->ItemIndex = 2;
         cbb3->ItemIndex = 3;
@@ -87,8 +89,6 @@ void __fastcall TFinanceForm::FormShow(TObject *Sender)
         cbb8->ItemIndex = 8;
         cbb9->ItemIndex = 9;
         cbb10->ItemIndex = 10;
-
-        //draw lstview column tital , after "核销单号" ，list all charge type, order by chid
 
         TDateTime tDate=GetSysTime(false);
         dtpQryAcceptDate->DateTime=tDate;
@@ -180,7 +180,9 @@ void __fastcall TFinanceForm::btnQueryClick(TObject *Sender)
         //~
 
         CString szSQL;
-        szSQL="select *, year(acceptdate) as y,month(acceptdate) as  m,day(acceptdate) as d, CONVERT(varchar(10), acceptdate, 23) as ad  from customs where 1=1 ";
+        szSQL="select *, year(acceptdate) as y, month(acceptdate) as  m, day(acceptdate) as d, CONVERT(varchar(10), acceptdate, 23) as ad  \
+                from customs \
+                where 1=1 ";
         if (!edtCid->Text.IsEmpty()){
                 szSQL +=" and cid="; szSQL += Str2DBString(edtCid->Text.c_str());
         }
@@ -202,7 +204,6 @@ void __fastcall TFinanceForm::btnQueryClick(TObject *Sender)
         if (!edtContainerinfo->Text.IsEmpty()){
                 szSQL +=" and containerinfo like '%"; szSQL += edtContainerinfo->Text.c_str(); szSQL += "%'";
         }
-
         if (cbIsQryByDate->Checked) {
                 szSQL += " and acceptdate between "; szSQL += Str2DBString(strDate0);
                 szSQL += " and ";
@@ -210,16 +211,13 @@ void __fastcall TFinanceForm::btnQueryClick(TObject *Sender)
         }
         szSQL += " order by acceptdate";
 
-//         edtDebug->Text =AnsiString( szSQL);
         RunSQL(dm1->Query1,szSQL,true);
         lstView->Clear();
         if (dm1->Query1->Eof){
-//                isHasResult = false;
                 m_enWorkState=EN_IDLE;
                 ResetCtrl();
-        } /*else {
-                isHasResult = true;
-        } */
+        }
+        
 	while(!dm1->Query1->Eof)
 	{
                 unsigned short year0,month0,day0;
@@ -229,49 +227,53 @@ void __fastcall TFinanceForm::btnQueryClick(TObject *Sender)
                 char strDate0[80];
         	sprintf(strDate0,"%04d-%02d-%02d",year0,month0,day0);
 
-//                dtpAcceptDate->DateTime = TDateTime(year0,month0,day0);
                 TListItem *pItem = lstView->Items->Add();
 
                 bool isNormal = (dm1->Query1->FieldByName("goodsperf")->AsString == "正常单");
 
-                pItem->Caption = dm1->Query1->FieldByName("cid")->AsString;
+                //fixed part
+                pItem->Caption     = dm1->Query1->FieldByName("cid")->AsString;
                 pItem->SubItems->Add(dm1->Query1->FieldByName("cliworkid")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("ad")->AsString);
                 pItem->SubItems->Add(isNormal?dm1->Query1->FieldByName("operunit")->AsString:AnsiString(""));
                 pItem->SubItems->Add(dm1->Query1->FieldByName("client")->AsString);
                 pItem->SubItems->Add(isNormal?dm1->Query1->FieldByName("declareid")->AsString:AnsiString(""));
                 pItem->SubItems->Add(dm1->Query1->FieldByName("ladingid")->AsString);
-                //add conno
-//                pItem->SubItems->Add(AnsiString(getFirstContainerNo(dm1->Query1->FieldByName("containerinfo")->AsString)));
                 pItem->SubItems->Add(AnsiString(getAllContainerNo(dm1->Query1->FieldByName("containerinfo")->AsString)));
                 pItem->SubItems->Add(isNormal?dm1->Query1->FieldByName("licenseno")->AsString:AnsiString(""));
                 pItem->SubItems->Add(dm1->Query1->FieldByName("custfree")->AsString);
                 double _custfree = StrToFloat(dm1->Query1->FieldByName("custfree")->AsString);
-                //beizhu
                 pItem->SubItems->Add(dm1->Query1->FieldByName("beizhu")->AsString);
+                
                 //init var charge column first, otherwise core in InsertCustFreeToListView2
-                for(int i=0; i<gCHARGES.GetSize(); ++i) {
+                for(int i=0; i<m_mChargeInfo.size(); ++i) {
                         pItem->SubItems->Add("");
                 }
-                  pItem->SubItems->Add("");
+                //for last column-total
+                pItem->SubItems->Add("");              
+/*                //tobedel!!!
                 pItem->SubItems->Add("");
+                pItem->SubItems->Add("");
+*/
 
                 {//qry charges
                         //finances
                         CString szSQL2;
                         szSQL2.Format("select  * from finance, charges where chid=CAST(substring(fid, len(fid)-1,2) as int) and fid like '%s__'" \
                                         , dm1->Query1->FieldByName("cid")->AsString);
-                        RunSQL(dm1->Query2,szSQL2,true);
+                        RunSQL(dm1->Query2, szSQL2, true);
+                        
                         float total = 0;
-                       int row = pItem->Index;
-                        for (int i=1; i<=10 && !dm1->Query2->Eof; ++i){
-                                int pos = charge_start_column + cbb1->Items->IndexOf(dm1->Query2->FieldByName("chname")->AsString.c_str()) -1;  //借cbb1用
+                        int row = pItem->Index;
+                        //只可能有10个费用
+                        for (int i=0; i<10 && !dm1->Query2->Eof; ++i){
+                                int pos = charge_start_column +  cbb1->Items->IndexOf(dm1->Query2->FieldByName("chname")->AsString.c_str()) -1;  //借cbb1用
                                 InsertCustFreeToListViewOri(row, pos, dm1->Query2->FieldByName("value")->AsString);
                                 total += dm1->Query2->FieldByName("value")->AsFloat;
                                 dm1->Query2->Next();
                         }
                         total += _custfree;
-                        lstView->Items->Item[row]->SubItems->Strings[charge_start_column+gCHARGES.GetSize()] = FloatToStr(total);
+                        lstView->Items->Item[row]->SubItems->Strings[charge_start_column+m_mChargeInfo.size()] = FloatToStr(total);
 
                 }
 		dm1->Query1->Next();
@@ -283,6 +285,7 @@ void __fastcall TFinanceForm::btnQueryClick(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
+//tofixed！！too bore
 bool TFinanceForm::IsDupFree()
 {
 
@@ -370,6 +373,7 @@ void TFinanceForm::InsertCustFreeToListView2(int row, TComboBox *pcbb,AnsiString
 void TFinanceForm::InsertCustFreeToListViewOri(int row, int pos, AnsiString col_value){
     lstView->Items->Item[row]->SubItems->Strings[pos] = col_value;
 }
+/*
 int GetClassRight(LPCSTR lpszChname){
   int nRt = 0;
   for(int i=0;i<gCHARGES.GetSize();i++)
@@ -378,6 +382,15 @@ int GetClassRight(LPCSTR lpszChname){
     	return nRt = gCHARGES[i].chid;
   }
   return nRt;
+}
+*/
+int TFinanceForm::getChidByChname(CString chname){
+        for (std::map<int, CString>::const_iterator it=m_mChargeInfo.begin(); it!=m_mChargeInfo.end(); ++it){
+                if (it->second == chname){
+                        return it->first;
+                }
+        }
+        return 0;//error
 }
 void TFinanceForm::InsertValue(TComboBox *cbb, TEdit *edt){
         if (cbb->ItemIndex == 0) {
@@ -390,14 +403,14 @@ void TFinanceForm::InsertValue(TComboBox *cbb, TEdit *edt){
         }
 
         char strChid[80];
-   	sprintf(strChid,"%s%02d",edtCid->Text.c_str(),StrToInt(GetClassRight(cbb->Text.c_str())));
+   	sprintf(strChid, "%s%02d",edtCid->Text.c_str(), getChidByChname(cbb->Text.c_str()) );
 
         CString szSQL;
         szSQL = "insert into finance(fid,value) values(";
         szSQL += Str2DBString(strChid);
         szSQL +=","; szSQL += Str2DBString(edt->Text.c_str());
         szSQL +=")";
-//        edtDebug->Text = AnsiString(szSQL);
+
         if(!RunSQL(dm1->Query1,szSQL))
         {
                 ShowMessage("insert fail!") ;
@@ -440,152 +453,6 @@ float TFinanceForm::getCharge(TEdit *edt)
 //#include   <map.h>
 //#include   <string>
 
-void __fastcall TFinanceForm::Button1Click(TObject *Sender)
-{
-        CStringArray flg;
-        for (int i=0; i<gCHARGES.GetSize(); ++i){
-                flg.Add("");
-        }
-
-        //init column header names
-        int pos_pure = 0;
-        lstViewPure->Columns->Items[0]->Caption = "序号";
-        for (pos_pure=0; pos_pure<charge_start_column+1-1; pos_pure++){
-                lstViewPure->Columns->Items[pos_pure+1]->Caption = lstView->Columns->Items[pos_pure+1]->Caption;
-        }
-        //~
-        for (int i=0; i<lstView->Items->Count; ++i) {
-                for (int j=0; j<gCHARGES.GetSize(); ++j) {
-                        int pos_real = charge_start_column+j;
-                    //    ShowMessage(AnsiString("[")+lstView->Items->Item[i]->SubItems->Strings[pos_real]+AnsiString("]"));
-                        if (lstView->Items->Item[i]->SubItems->Strings[pos_real]!=""){
-                                flg.SetAt(j, "1");
-//                                lstViewPure->Columns->Items[pos_pure++]->Caption = lstView->Columns->Items[pos_real+1]->Caption;
-                        }
-                }
-        }
-       for (int j=0; j<gCHARGES.GetSize(); ++j) {
-               int pos_real = charge_start_column+j;
-                if (flg.GetAt(j) == "1"){
-                    lstViewPure->Columns->Items[1+pos_pure++]->Caption = lstView->Columns->Items[pos_real+1]->Caption;
-                }
-       }
-        lstViewPure->Columns->Items[1+pos_pure++]->Caption = "合计";
-        //mv data
-        lstViewPure->Clear();
-        edtMockDeclareid->Text = "";
-        for(int i=0;i<lstView->Items->Count;i++)
-        {
-                 TListItem *pItem = lstViewPure->Items->Add();
-//                 pItem->Caption = lstView->Items->Item[i]->Caption;
-                 pItem->Caption = AnsiString(i+1);      //序号
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[0]);
-//                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[0]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[3]);
-                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4];
-                 pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
-//                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[4]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[5]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[6]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[7]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[8]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[9]);
-//                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[10]);
-
-
-
-                 int j=0;
-                 int cnt=0;
-                 for (j=0; j<gCHARGES.GetSize(); ++j) {
-                         int pos_real = charge_start_column+j;
-                        if (flg.GetAt(j) == ""){
-                               continue;
-                        }
-                        pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[pos_real]);
-//                         lstViewPure->Items->Item[i]->SubItems->Strings[pos_real] = col_value;
-                        cnt++;
-                 }
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column+j]);
-                 //add tail column for gen excel not to core
-                 for (int t=cnt; t<28+3; ++t)
-                        pItem->SubItems->Add("");
-        }
-
-
-
-  Variant vExcel,vSheet;
-  int nRow,i;
-  TListItem *pItem;
-bool b=true;
-    try
-    {
-	nRow=1;
-        CString filename;
-        filename = edtClient->Text.c_str();
-        filename += " 对账单.xls";
-
-	if(!OpenExcel(filename,vExcel,vSheet))	return;
-	ListHead2Excel(lstViewPure,vSheet,nRow++);
-	for(i=0;i<lstViewPure->Items->Count;i++)
-        {
-    	        pItem=lstViewPure->Items->Item[i];
-                if (lbGoodsPerf->Caption != "正常单"){
-                 InsertExcelItem(vSheet,nRow++,
-      	                pItem->Caption.c_str(),
-                        pItem->SubItems->Strings[0].c_str(),
-                        pItem->SubItems->Strings[1].c_str(),
-                        pItem->SubItems->Strings[2].c_str(),
-                        pItem->SubItems->Strings[3].c_str(),
-                        pItem->SubItems->Strings[4].c_str(),
-                        pItem->SubItems->Strings[5].c_str(),
-                        pItem->SubItems->Strings[6].c_str(),
-                        pItem->SubItems->Strings[7].c_str(),
-                        pItem->SubItems->Strings[8].c_str(),
-                        pItem->SubItems->Strings[9].c_str(),
-                        pItem->SubItems->Strings[10].c_str(),
-                        pItem->SubItems->Strings[11].c_str(),
-                        pItem->SubItems->Strings[12].c_str(),
-                        pItem->SubItems->Strings[13].c_str(),
-                        pItem->SubItems->Strings[14].c_str(),
-                        pItem->SubItems->Strings[15].c_str(),
-                        pItem->SubItems->Strings[16].c_str(),
-                        pItem->SubItems->Strings[17].c_str(),
-                        pItem->SubItems->Strings[18].c_str(),
-                        pItem->SubItems->Strings[19].c_str(),
-                        pItem->SubItems->Strings[20].c_str(),
-                        pItem->SubItems->Strings[20].c_str(),
-                        pItem->SubItems->Strings[21].c_str(),
-                        pItem->SubItems->Strings[22].c_str(),
-                        pItem->SubItems->Strings[23].c_str(),
-                        pItem->SubItems->Strings[24].c_str(),
-                        pItem->SubItems->Strings[25].c_str(),
-                        pItem->SubItems->Strings[26].c_str(),
-                        pItem->SubItems->Strings[27].c_str(),
-                        pItem->SubItems->Strings[28].c_str(),   //运抵、港口费、罚款、单证费、其它
-                        pItem->SubItems->Strings[29].c_str(),
-                        pItem->SubItems->Strings[30].c_str(),
-                        pItem->SubItems->Strings[31].c_str(),
-                        pItem->SubItems->Strings[32].c_str(),
-                        pItem->SubItems->Strings[33].c_str(),
-
-//                        pItem->SubItems->Strings[28].c_str(),
-//                        pItem->SubItems->Strings[29].c_str(),
-                        NULL);
-                } else {
-
-                }
-
-	
-	}
-    }
-    catch(...)
-    {
-    }
-
-}
-//---------------------------------------------------------------------------
 TComboBox *TFinanceForm::getCbb(int i)
 {
         TComboBox *rt = NULL;
@@ -700,10 +567,10 @@ void TFinanceForm::ResetCharges(){
 void __fastcall TFinanceForm::lstViewSelectItem(TObject *Sender,
       TListItem *Item, bool Selected)
 {
-
+    if (Selected!=NULL){
         ResetCharges();
         edtCid->Text = Item->Caption;
-        edtOperUnit->Text = Item->SubItems->Strings[1+1];
+        edtOperUnit->Text = Item->SubItems->Strings[2];
         edtClient->Text = Item->SubItems->Strings[2+1];
         edtDeclareId->Text = Item->SubItems->Strings[3+1];
         edtLadingId->Text = Item->SubItems->Strings[4+1];
@@ -711,21 +578,23 @@ void __fastcall TFinanceForm::lstViewSelectItem(TObject *Sender,
         edtLicenseNo->Text = Item->SubItems->Strings[6+1];
         edtCustFree->Text = Item->SubItems->Strings[7+1];
         edtRemark->Text = Item->SubItems->Strings[9];
-
         int cbb_order = 0;
-        for (int i=0; i<gCHARGES.GetSize(); ++i){
-                int pos = charge_start_column + i;
+
+        int pos_charge = 0;
+        for (std::map<int, CString>::const_iterator it=m_mChargeInfo.begin(); it!=m_mChargeInfo.end(); ++it){
+                int pos = charge_start_column + pos_charge++;
                 if (Item->SubItems->Strings[pos] != ""){
                         cbb_order++;
                         TComboBox *cbb = getCbb(cbb_order);
                         TEdit *edt = getEdt(cbb_order);
-                        cbb->ItemIndex = cbb->Items->IndexOf(gCHARGES[i].strChname);
+                        cbb->ItemIndex = cbb->Items->IndexOf(AnsiString(it->second));
                         edt->Text = Item->SubItems->Strings[pos];
+
                 }
         }
-
-//        btnAddDetail->Enabled = false;
         btnMod->Enabled = true;
+    }
+
 }
 //---------------------------------------------------------------------------
 
@@ -870,13 +739,7 @@ int TFinanceForm::ModCharge(){
                         return rt;
                 }
         }
-        //refresh lstview
-/*        unsigned short year0,month0,day0;
-        dtpAcceptDate->DateTime.DecodeDate(&year0,&month0,&day0);
-        char strDate0[80];
-        sprintf(strDate0,"%04d%02d%02d",year0,month0,day0);
-*/
-        //        lstView->Selected->Delete();   //add first
+
         //add listview
         TListItem *pItem = lstView->Items->Add();
         bool isNormal = (lbGoodsPerf->Caption == "正常单");
@@ -888,19 +751,15 @@ int TFinanceForm::ModCharge(){
         pItem->SubItems->Add(edtClient->Text);
         pItem->SubItems->Add(isNormal?edtDeclareId->Text:AnsiString(""));
         pItem->SubItems->Add(edtLadingId->Text);
-        //add conno
-//        pItem->SubItems->Add(AnsiString(getFirstContainerNo(lstView->Selected->SubItems->Strings[5+1])));
         pItem->SubItems->Add(lstView->Selected->SubItems->Strings[5+1]);
-//        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[6+1]);
         pItem->SubItems->Add(isNormal?edtLicenseNo->Text:AnsiString(""));
         pItem->SubItems->Add(edtCustFree->Text);
         pItem->SubItems->Add(lstView->Selected->SubItems->Strings[9]);
-        //init var charge column first, otherwise core in InsertCustFreeToListView2
 
-        for(int i=0; i<gCHARGES.GetSize(); ++i) {
+        //init var charge column first, otherwise core in InsertCustFreeToListView2
+        for(int i=0; i<m_mChargeInfo.size(); ++i) {
                 pItem->SubItems->Add("");
         }
-//        pItem->SubItems->Add("");
         pItem->SubItems->Add("");
 
         int row = pItem->Index;
@@ -921,12 +780,10 @@ int TFinanceForm::ModCharge(){
 
         double _custfree = StrToFloat(edtCustFree->Text);
         total += _custfree;
-        lstView->Items->Item[row]->SubItems->Strings[charge_start_column+gCHARGES.GetSize()] = FloatToStr(total);
+        lstView->Items->Item[row]->SubItems->Strings[charge_start_column+m_mChargeInfo.size()] = FloatToStr(total);
         //delete after add
 
         lstView->Selected->Delete();
-
-//        pItem->Selected = true;
 
         //clear input
         clearQryInput();
@@ -976,81 +833,75 @@ void TFinanceForm::clearQryInput()
 
 void __fastcall TFinanceForm::Button2Click(TObject *Sender)
 {
-        CStringArray flg;
-        for (int i=0; i<gCHARGES.GetSize(); ++i){
-                flg.Add("");
+        std::map<int, int> map_charge_exist; // 如所有行都没有某个费用，则标记0；否则标记1。
+
+        //初始化全部为0
+        for (int i=0; i<m_mChargeInfo.size(); ++i){
+                map_charge_exist.insert(std::make_pair(i, 0));
         }
 
-        //init column header names
+        //init listViewPure's column header names by listView's
         int pos_pure = 0;
         lstViewPure->Columns->Items[0]->Caption = "序号";
-        for (pos_pure=0; pos_pure<charge_start_column-1; pos_pure++){//备注放最后
+        for (pos_pure=0; pos_pure<charge_start_column-1; pos_pure++){//！！备注放最后
+                AnsiString column_title = lstView->Columns->Items[pos_pure+1]->Caption;
+                if (column_title=="经营单位" || column_title=="报关单号"){//不到出：经营单位、报关单号
+                        continue;
+                }
                 lstViewPure->Columns->Items[pos_pure+1]->Caption = lstView->Columns->Items[pos_pure+1]->Caption;
         }
         //~
-        for (int i=0; i<lstView->Items->Count; ++i) {
-                for (int j=0; j<gCHARGES.GetSize(); ++j) {
-                        int pos_real = charge_start_column+j;
-                    //    ShowMessage(AnsiString("[")+lstView->Items->Item[i]->SubItems->Strings[pos_real]+AnsiString("]"));
-                        if (lstView->Items->Item[i]->SubItems->Strings[pos_real]!=""){
-                                flg.SetAt(j, "1");
-//                                lstViewPure->Columns->Items[pos_pure++]->Caption = lstView->Columns->Items[pos_real+1]->Caption;
-                        }
+
+        //标记那个费用非空
+        for (int row=0; row<lstView->Items->Count; ++row) {
+                for (int col=0; col<m_mChargeInfo.size(); ++col) {
+                        int pos_real = charge_start_column + col;
+                        map_charge_exist[col] = lstView->Items->Item[row]->SubItems->Strings[pos_real]!=""?1:0 ;
                 }
         }
-       for (int j=0; j<gCHARGES.GetSize(); ++j) {
+
+        //构造非空费用列名 - 根据map_charge_exist构造情况！！
+       for (int j=0; j<m_mChargeInfo.size(); ++j) {
                int pos_real = charge_start_column+j;
-                if (flg.GetAt(j) == "1"){
+                if (map_charge_exist[j] == 1){
                     lstViewPure->Columns->Items[1+pos_pure++]->Caption = lstView->Columns->Items[pos_real+1]->Caption;
                 }
        }
         lstViewPure->Columns->Items[1+pos_pure++]->Caption = "合计";
         lstViewPure->Columns->Items[1+pos_pure++]->Caption = "备注";
 
-        //mv data
+        //copy data
         lstViewPure->Clear();
         edtMockDeclareid->Text = "";
         for(int i=0;i<lstView->Items->Count;i++)
         {
                  TListItem *pItem = lstViewPure->Items->Add();
-//                 pItem->Caption = lstView->Items->Item[i]->Caption;
                  pItem->Caption = AnsiString(i+1);
 
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[0]);
-//                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[0]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2]);
+//                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[3]);
-                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4];
+//                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4];
                  pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
-//                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[4]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[5]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[6]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[7]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[8]);
-//                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[9]);
-//                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[10]);
-
-
 
                  int j=0;
                  int cnt=0;
-                 for (j=0; j<gCHARGES.GetSize(); ++j) {
-                         int pos_real = charge_start_column+j;
-                        if (flg.GetAt(j) == ""){
+                 for (j=0; j<m_mChargeInfo.size(); ++j) {
+                        int pos_real = charge_start_column + j;
+                        if (map_charge_exist[j] == 0){
                                continue;
                         }
                         pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[pos_real]);
-//                         lstViewPure->Items->Item[i]->SubItems->Strings[pos_real] = col_value;
                         cnt++;
                  }
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column+j]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column-2+j]);  //must！ 不显示2个column
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[9]);
-                 //add tail column for gen excel not to core
-//                 for (int t=cnt; t<28+3; ++t)
-//                        pItem->SubItems->Add("");
-                 for (int t=cnt; t<40; ++t)
-                        pItem->SubItems->Add("");
+
         }
 
         //gen excel

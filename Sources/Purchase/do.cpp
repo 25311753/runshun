@@ -501,7 +501,7 @@ void  TDoForm::flushSum()
 //        ShowMessage("FormatFloat"+FormatFloat("#######.00", totalGrossWeight));
         AnsiString gw_digits_2 = FormatFloat("#.00", totalGrossWeight);
         AnsiString gw_digits_0 = FormatFloat("#", totalGrossWeight);
-        ShowMessage("gw_digits_2:"+gw_digits_2+" gw_digits_0:"+gw_digits_0);
+//        ShowMessage("gw_digits_2:"+gw_digits_2+" gw_digits_0:"+gw_digits_0);
         if (gw_digits_2 == gw_digits_0+".00"){
             Label42->Caption = gw_digits_0;
         }else{
@@ -1116,10 +1116,13 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
 //       pForm->qrlOperUnit->Caption = edtOperunit->Text;
        pForm->qrlOperUnit->Caption = cbbOperunit->Text;
        pForm->qrlOutPort->Caption = edtOutport->Text;
-       pForm->qrlBoatNo->Caption = edtBoatno->Text;
-       pForm->qrlBoatOrder->Caption = edtBoatorder->Text;
-       pForm->qrlTargetCountry->Caption = "";
-//       pForm->qrlTargetCountry->Caption = cbbTargetCountry->Text;     //del 0626 不显示
+//       pForm->qrlBoatNo->Caption = edtBoatno->Text;
+//       pForm->qrlBoatOrder->Caption = edtBoatorder->Text;
+       pForm->qrlBoatNo->Caption = "";
+       pForm->qrlBoatOrder->Caption = "";
+        pForm->QRLabel5->Caption="";
+//       pForm->qrlTargetCountry->Caption = "";                        //del 20130608
+       pForm->qrlTargetCountry->Caption = cbbTargetCountry->Text;     //del 0626 不显示,20130608 回显
 /*       if (edtDeclareid->Text.Length() > 9){//只显示最后9位
                 pForm->qrlDeclareId->Caption = edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9);
         } else {
@@ -1131,9 +1134,15 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
 
 //       pForm->qrlDeclareId->Caption = edtDeclareid->Text;
 
-       pForm->qrlCountHead->Caption = edtCount->Text;
-       pForm->qrlMname->Caption = lstView->Items->Item[0]->SubItems->Strings[0];
-       pForm->qrlTotalNetWeight->Caption = Label42->Caption;
+//       pForm->qrlCountHead->Caption = edtCount->Text;
+//       pForm->qrlMname->Caption = lstView->Items->Item[0]->SubItems->Strings[0];
+//       pForm->qrlTotalNetWeight->Caption = Label42->Caption;
+       pForm->qrlCountHead->Caption = "";
+       pForm->qrlMname->Caption = "";
+       pForm->qrlTotalNetWeight->Caption = "";      
+       pForm->QRLabel17->Caption = "";
+       pForm->QRLabel20->Caption = "";
+
        SplitSubContainer(AnsiString(m_strContainerInfo));
 
        pForm->qrlSubContainerInfo1->Caption = AnsiString(m_strSubConNoSealId1);

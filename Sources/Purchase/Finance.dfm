@@ -1,6 +1,6 @@
 object FinanceForm: TFinanceForm
-  Left = -1234
-  Top = -117
+  Left = -1261
+  Top = 55
   Width = 1264
   Height = 761
   Caption = #36130#21153
@@ -539,22 +539,6 @@ object FinanceForm: TFinanceForm
     TabOrder = 3
     OnClick = btnQueryClick
   end
-  object Button1: TButton
-    Left = 439
-    Top = 0
-    Width = 85
-    Height = 25
-    Caption = 'o '#29983#25104#23545#36134#21333
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 4
-    Visible = False
-    OnClick = Button1Click
-  end
   object lstViewPure: TListView
     Left = 704
     Top = 0
@@ -621,7 +605,7 @@ object FinanceForm: TFinanceForm
       end
       item
       end>
-    TabOrder = 5
+    TabOrder = 4
     ViewStyle = vsReport
     Visible = False
   end
@@ -637,7 +621,7 @@ object FinanceForm: TFinanceForm
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 5
     OnClick = btnOKClick
   end
   object btnCancel: TButton
@@ -652,7 +636,7 @@ object FinanceForm: TFinanceForm
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 6
     OnClick = btnCancelClick
   end
   object Panel45: TPanel
@@ -661,7 +645,7 @@ object FinanceForm: TFinanceForm
     Width = 1251
     Height = 7
     Color = 16349446
-    TabOrder = 8
+    TabOrder = 7
   end
   object lstView: TListView
     Left = 0
@@ -763,11 +747,81 @@ object FinanceForm: TFinanceForm
       item
       end
       item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
+      end
+      item
       end>
     GridLines = True
     ReadOnly = True
     RowSelect = True
-    TabOrder = 9
+    TabOrder = 8
     ViewStyle = vsReport
     OnClick = h
     OnSelectItem = lstViewSelectItem
@@ -778,7 +832,7 @@ object FinanceForm: TFinanceForm
     Width = 81
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 10
+    TabOrder = 9
     Text = 'edtMockDeclareid'
     Visible = False
   end
@@ -794,7 +848,7 @@ object FinanceForm: TFinanceForm
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 10
     OnClick = Button2Click
   end
 end

@@ -54,7 +54,6 @@ __published:	// IDE-managed Components
         TPanel *Panel11;
         TButton *btnMod;
         TButton *btnQuery;
-        TButton *btnDump;
         TListView *lstViewPure;
         TButton *btnOK;
         TButton *btnCancel;
@@ -79,11 +78,10 @@ __published:	// IDE-managed Components
         void __fastcall btnOKClick(TObject *Sender);
         void __fastcall btnCancelClick(TObject *Sender);
         void __fastcall btnQueryClick(TObject *Sender);
-        void __fastcall btnDumpClick(TObject *Sender);
         void __fastcall Button1Click(TObject *Sender);
 private:	// User declarations
         enum { EN_IDLE,/*EN_ADDNEW,*/EN_EDIT } m_enWorkState; //״̬
-//        bool isHasResult;
+       std::map<int, CString> m_mChargeInfo;
 public:		// User declarations
         __fastcall TCostAccountingForm(TComponent* Owner);
         void InsertValue(TComboBox *cbb, TEdit *edt);
@@ -100,7 +98,8 @@ public:		// User declarations
         void ResetCtrl();
         CString getFirstContainerNo(AnsiString c);
         void clearQryInput();
-        CString getAllContainerNo(AnsiString c);        // get all conno , join by ","        
+        CString getAllContainerNo(AnsiString c);        // get all conno , join by ","
+        int getChidByChname(CString chname);                  
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TCostAccountingForm *CostAccountingForm;
