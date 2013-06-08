@@ -782,7 +782,9 @@ void __fastcall TCostAccountingForm::Button1Click(TObject *Sender)
         for (int row=0; row<lstView->Items->Count; ++row) {
                 for (int col=0; col<m_mChargeInfo.size(); ++col) {
                         int pos_real = charge_start_column + col;
-                        map_charge_exist[col] = lstView->Items->Item[row]->SubItems->Strings[pos_real]!=""?1:0 ;
+                        if (lstView->Items->Item[row]->SubItems->Strings[pos_real] != ""){
+                                map_charge_exist[col] = 1 ;
+                        }
                 }
         }
         //构造非空费用列名 - 根据map_charge_exist构造情况！！
@@ -827,9 +829,9 @@ void __fastcall TCostAccountingForm::Button1Click(TObject *Sender)
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column+j]);
 								 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[8+1]);
                  //add tail column for gen excel not to core
-/*                 for (int t=cnt; t<26+1; ++t)
+                 //必须，否则异常，导致到处1条记录就中断
+                 for (int t=cnt; t<40; ++t)
                         pItem->SubItems->Add("");
-*/
         }                 
        //gen excel
         Variant vExcel,vWorkBook,vSheet,vRange,vBorders, vPicture;

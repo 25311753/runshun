@@ -834,7 +834,7 @@ void TFinanceForm::clearQryInput()
 void __fastcall TFinanceForm::Button2Click(TObject *Sender)
 {
         std::map<int, int> map_charge_exist; // 如所有行都没有某个费用，则标记0；否则标记1。
-
+        map_charge_exist.clear();
         //初始化全部为0
         for (int i=0; i<m_mChargeInfo.size(); ++i){
                 map_charge_exist.insert(std::make_pair(i, 0));
@@ -842,13 +842,14 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
 
         //init listViewPure's column header names by listView's
         int pos_pure = 0;
+        int pos_ori = 0;
         lstViewPure->Columns->Items[0]->Caption = "序号";
-        for (pos_pure=0; pos_pure<charge_start_column-1; pos_pure++){//！！备注放最后
-                AnsiString column_title = lstView->Columns->Items[pos_pure+1]->Caption;
+        for (pos_ori=0; pos_ori<charge_start_column-1; pos_ori++){//！！备注放最后
+                AnsiString column_title = lstView->Columns->Items[pos_ori+1]->Caption;
                 if (column_title=="经营单位" || column_title=="报关单号"){//不到出：经营单位、报关单号
                         continue;
                 }
-                lstViewPure->Columns->Items[pos_pure+1]->Caption = lstView->Columns->Items[pos_pure+1]->Caption;
+                lstViewPure->Columns->Items[++pos_pure]->Caption = column_title;
         }
         //~
 
@@ -856,7 +857,9 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
         for (int row=0; row<lstView->Items->Count; ++row) {
                 for (int col=0; col<m_mChargeInfo.size(); ++col) {
                         int pos_real = charge_start_column + col;
-                        map_charge_exist[col] = lstView->Items->Item[row]->SubItems->Strings[pos_real]!=""?1:0 ;
+                        if (lstView->Items->Item[row]->SubItems->Strings[pos_real] != ""){
+                                map_charge_exist[col] = 1 ;
+                        }
                 }
         }
 
@@ -883,7 +886,7 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
 //                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[3]);
 //                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4];
-                 pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
+//                 pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[5]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[6]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[7]);
@@ -899,9 +902,12 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
                         pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[pos_real]);
                         cnt++;
                  }
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column-2+j]);  //must！ 不显示2个column
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column+j]);  //must！ 不显示2个column
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[9]);
 
+                 //必须，否则异常，导致到处1条记录就中断
+                 for (int t=cnt; t<40; ++t)
+                        pItem->SubItems->Add("");
         }
 
         //gen excel

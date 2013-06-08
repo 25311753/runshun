@@ -1,6 +1,6 @@
 object CostAccountingForm: TCostAccountingForm
-  Left = -1260
-  Top = 21
+  Left = -1213
+  Top = 98
   Width = 1265
   Height = 764
   Caption = #25104#26412#26680#31639
@@ -541,10 +541,10 @@ object CostAccountingForm: TCostAccountingForm
     OnClick = btnQueryClick
   end
   object lstViewPure: TListView
-    Left = 776
-    Top = 4
-    Width = 171
-    Height = 19
+    Left = 792
+    Top = -4
+    Width = 161
+    Height = 21
     Columns = <
       item
       end
