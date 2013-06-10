@@ -1,6 +1,6 @@
 object DoForm: TDoForm
-  Left = -1242
-  Top = 97
+  Left = 85
+  Top = 121
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #20570#21333
@@ -1186,7 +1186,6 @@ object DoForm: TDoForm
       TabOrder = 0
       ViewStyle = vsReport
       OnClick = lstViewClick
-      OnSelectItem = lstViewSelectItem
     end
     object Panel44: TPanel
       Left = 1

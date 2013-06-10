@@ -201,8 +201,6 @@ __published:	// IDE-managed Components
         void __fastcall btnPrnAuthClick(TObject *Sender);
         void __fastcall btnPrnOutBoatClick(TObject *Sender);
         void __fastcall cbbCurrencyChange(TObject *Sender);
-        void __fastcall lstViewSelectItem(TObject *Sender, TListItem *Item,
-          bool Selected);
         void __fastcall btnModDetailClick(TObject *Sender);
         void __fastcall btnChangeStatusClick(TObject *Sender);
         void __fastcall cbbTargetCountryChange(TObject *Sender);

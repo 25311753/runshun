@@ -1331,32 +1331,6 @@ void __fastcall TDoForm::cbbCurrencyChange(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TDoForm::lstViewSelectItem(TObject *Sender,
-      TListItem *Item, bool Selected)
-{
-        return;
-//
-        btnAddDetail->Enabled = false;
-        btnOkDetail->Enabled = false;
-        btnCancleDetail->Enabled = false;
-         btnModDetail->Enabled = true;
-        btnDelDetail->Enabled = true;
-        cbbMname->Text = Item->SubItems->Strings[0];
-        edtMCode->Text = Item->Caption;
-        edtSpec->Text = Item->SubItems->Strings[1];
-        edtFirstmeasunit->Text =Item->SubItems->Strings[6];
-        edtSecondmeasunit->Text =Item->SubItems->Strings[7];
-        edtNetWeight1->Text =Item->SubItems->Strings[2];
-        edtGrossWeight1->Text =Item->SubItems->Strings[3];
-        edtCount1->Text =Item->SubItems->Strings[4];
-        edtCasecnt->Text = Item->SubItems->Strings[5];
-        edtCount2nd->Text = Item->SubItems->Strings[13];
-        edtUnitprice->Text = Item->SubItems->Strings[9];
-        cbbPkName->Text = Item->SubItems->Strings[14];
-        edtCdid->Text = Item->SubItems->Strings[15];
-
-}
-//---------------------------------------------------------------------------
 
 void __fastcall TDoForm::btnModDetailClick(TObject *Sender)
 {
@@ -2293,59 +2267,6 @@ szSQL +=" where cdid ="; szSQL+=  Str2DBString(strDate0);
                 return -1;
         }
         ShowMessage("ÐÞ¸Ä³É¹¦");
-//        btnQueryUpClick(Sender);
-/*
-        TListItem *pItem =lstView->Items->Add();
-        assert(pItem!=NULL);
-        pItem->Caption=edtMCode->Text;
-        pItem->SubItems->Add(cbbMname->Text);
-        pItem->SubItems->Add(edtSpec->Text);
-        pItem->SubItems->Add(edtNetWeight1->Text);
-        pItem->SubItems->Add(edtGrossWeight1->Text);
-        pItem->SubItems->Add(edtCount1->Text);
-        pItem->SubItems->Add(edtCasecnt->Text);
-        pItem->SubItems->Add(edtFirstmeasunit->Text);
-        pItem->SubItems->Add(edtSecondmeasunit->Text);
-        pItem->SubItems->Add(cbbTargetCountry->Text);
-        pItem->SubItems->Add(edtUnitprice->Text);
-//        pItem->SubItems->Add(StrToInt(edtUnitprice->Text.c_str()) * StrToInt(edtCount1->Text.c_str()));
-        double totalPrice = StrToFloat(edtUnitprice->Text.c_str()) * StrToInt(edtCount1->Text.c_str());
-        pItem->SubItems->Add(totalPrice);//0131
-        pItem->SubItems->Add(cbbCurrency->Text);
-        pItem->SubItems->Add(cbbZhengmian->Text);
-        pItem->SubItems->Add(edtCount2nd->Text);
-        pItem->SubItems->Add(strDate0);
-
-        lstView->Selected->Delete();
-*/
-
-//flush data, done outside
-/*
-//        double totalPrice = StrToFloat(edtUnitprice->Text.c_str()) * StrToInt(edtCount1->Text.c_str());
-        double totalPrice = StrToFloat(edtUnitprice->Text.c_str()) * StrToFloat(edtCount1->Text.c_str());
-lstView->Selected->Caption                          = edtMCode->Text;
-lstView->Selected->SubItems->Strings[0]  = cbbMname->Text;
-lstView->Selected->SubItems->Strings[1]  = edtSpec->Text;
-lstView->Selected->SubItems->Strings[2]  = edtNetWeight1->Text;
-lstView->Selected->SubItems->Strings[3]  = edtGrossWeight1->Text;
-lstView->Selected->SubItems->Strings[4]  = edtCount1->Text;
-lstView->Selected->SubItems->Strings[5]  = edtCasecnt->Text;
-lstView->Selected->SubItems->Strings[6]  = edtFirstmeasunit->Text;
-lstView->Selected->SubItems->Strings[7]  = edtSecondmeasunit->Text;
-lstView->Selected->SubItems->Strings[8]  = cbbTargetCountry->Text;
-lstView->Selected->SubItems->Strings[9]  =  edtUnitprice->Text;
-lstView->Selected->SubItems->Strings[10]  = totalPrice;
-lstView->Selected->SubItems->Strings[11]  =  cbbCurrency->Text;
-lstView->Selected->SubItems->Strings[12]  =  cbbZhengmian->Text;
-lstView->Selected->SubItems->Strings[13]  =  edtCount2nd->Text;
-lstView->Selected->SubItems->Strings[14]  =  strDate0;
-
-
-//        lstView->Selected = NULL;
-        lstViewClick(Sender);
-        flushSum();
-        clearInputDetail();
-*/
 }
 void TDoForm::prnContactMain(CString last_cdid, bool isHasSub){
         TPrnContactForm *pForm;
