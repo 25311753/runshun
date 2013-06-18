@@ -1469,7 +1469,7 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
 //                cbbSH->Text = AnsiString(strSH==""?m_sa_sh[StrToInt(strCid[strCid.Length()])]:strSH);
 //                cbbSH->Text = AnsiString(strSH==""?m_sa_sh[StrToInt(strCid[strCid.Length()])]:strSH);
                 AnsiString s = dm1->Query1->FieldByName("shanghao")->AsString;
-//                cbbSH->Text = (s==""?ranSH():s) ;                    //是空就是空，不造假
+                cbbSH->Text = (s==""?ranSH():s) ;                    //是空就是空，不造假
 //                cbbSH->Text = ranSH();
                 flushContainer(dm1->Query1->FieldByName("containerinfo")->AsString);
 
