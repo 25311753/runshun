@@ -1723,6 +1723,7 @@ void __fastcall TDoForm::cbDoingMouseDown(TObject *Sender,
 {
         CString szSQL;
         CString newStatus;
+        //cbDoing->Checked => status before press mouse!!
         if (cbDoing->Checked) {
                 newStatus = "ÒÑ½Óµ¥";
         } else {
@@ -1739,6 +1740,16 @@ void __fastcall TDoForm::cbDoingMouseDown(TObject *Sender,
                 ShowMessage("update fail!") ;
                 return;
         }
+        //make tag_dzclz_date, only for the first time click the 'DZCLZ'
+        if (!cbDoing->Checked){
+                szSQL.Format("update customs set tag_dzclz_date=GETDATE() where cid='%s' and tag_dzclz_date is null", edtCid->Text.c_str());
+                if(!RunSQL(dm1->Query1,szSQL))
+                {
+                        ShowMessage("update fail!") ;
+                        return;
+                }
+        }
+        //~
         m_strStatus =newStatus;
 }
 //---------------------------------------------------------------------------
@@ -2935,3 +2946,4 @@ AnsiString TDoForm::ranSH()
 bool TDoForm::chkGrossWeight(float gw){
         return gw>26000;
 }
+

@@ -62,7 +62,8 @@ static bool chkFormatContainerNo(AnsiString ss){
 
 void __fastcall TAcceptForm::FormShow(TObject *Sender)
 {
-//        edtShipAgent->Text = "";
+        cbSJC->Checked = false;
+        cbHGC->Checked = false;
         lb_sum_cnt_con->Caption = "";
         edtContainerNo->Text = "";
         edtQryLicenseNo->Text = "";
@@ -222,6 +223,8 @@ void __fastcall TAcceptForm::btnAddClick(TObject *Sender)
         cbbQryStatus->ItemIndex = 0;
         cbbStatus->ItemIndex = -1;
         cbbShipAgent->ItemIndex = 0;
+        cbHGC->Checked = false;
+        cbSJC->Checked = false;
         if(edtCid->CanFocus())	edtCid->SetFocus();
         
         m_enWorkState=EN_ADDNEW;
@@ -463,6 +466,7 @@ void __fastcall TAcceptForm::btnQueryClick(TObject *Sender)
 		pItem->SubItems->Add(dm1->Query1->FieldByName("boatorder")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("endcustdate")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("status")->AsString);
+		pItem->SubItems->Add(dm1->Query1->FieldByName("tag_dzclz_date")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("cliworkid")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("custfree")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("sealid")->AsString);
@@ -590,23 +594,22 @@ void __fastcall TAcceptForm::lstViewDownSelectItem(TObject *Sender,
 
         cbbGoodsPerf->ItemIndex=cbbGoodsPerf->Items->IndexOf(Item->SubItems->Strings[1]);
         cbbGoodsPerfQry->ItemIndex=cbbGoodsPerf->Items->IndexOf(Item->SubItems->Strings[1]) +1;
-//                ShowMessage(cbbGoodsPerfQry->ItemIndex);
         cbbClient->Text=Item->SubItems->Strings[3];
         cbbCustomsCharge->Text = AnsiString(getCustomsCharge(cbbClient->Text.c_str()));
-//        cbbBoatno->ItemIndex=cbbBoatno->Items->IndexOf(Item->SubItems->Strings[6]);
         edtBoatNo->Text = Item->SubItems->Strings[8];
-//        cbbBoatorder->ItemIndex=cbbBoatorder->Items->IndexOf(Item->SubItems->Strings[7]);
-
         edtBoatOrder->Text = Item->SubItems->Strings[9];
         cbbStatus->ItemIndex=cbbStatus->Items->IndexOf(Item->SubItems->Strings[11]);
+        AnsiString status = Item->SubItems->Strings[11];
+        cbHGC->Checked = status=="海关查"?true:false;
+        cbSJC->Checked = status=="商检查"?true:false;
         edtLading->Text =  Item->SubItems->Strings[4].c_str();
-        edtContainerInfo->Text = Item->SubItems->Strings[17].c_str();
-        edtCliWorkid->Text =   Item->SubItems->Strings[12].c_str();
-        edtCustfree->Text = Item->SubItems->Strings[13].c_str();
-        edtSealId->Text = Item->SubItems->Strings[14].c_str();
-        edtBeiZhu->Text=Item->SubItems->Strings[17].c_str();
-        cbbShipAgent->ItemIndex=cbbShipAgent->Items->IndexOf(Item->SubItems->Strings[18]);
-        flushContainer(AnsiString(Item->SubItems->Strings[19].c_str()));
+        edtContainerInfo->Text = Item->SubItems->Strings[18].c_str();
+        edtCliWorkid->Text =   Item->SubItems->Strings[13].c_str();
+        edtCustfree->Text = Item->SubItems->Strings[14].c_str();
+        edtSealId->Text = Item->SubItems->Strings[15].c_str();
+        edtBeiZhu->Text=Item->SubItems->Strings[18].c_str();
+        cbbShipAgent->ItemIndex=cbbShipAgent->Items->IndexOf(Item->SubItems->Strings[19]);
+        flushContainer(AnsiString(Item->SubItems->Strings[20].c_str()));
         TDateTime tDate;
         tDate=StrToDateTime(Item->SubItems->Strings[10].c_str());
         dtpEndDateYYYYMMDD->DateTime=tDate;
@@ -1244,4 +1247,6 @@ void __fastcall TAcceptForm::lstViewDownCompare(TObject *Sender,
 
 }
 //---------------------------------------------------------------------------
+
+
 

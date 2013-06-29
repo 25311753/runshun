@@ -1,7 +1,7 @@
 object AssignmentForm: TAssignmentForm
-  Left = 218
-  Top = 111
-  Width = 1091
+  Left = 222
+  Top = 0
+  Width = 1146
   Height = 775
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = #21333#35777#36319#36394
@@ -19,7 +19,7 @@ object AssignmentForm: TAssignmentForm
   object plAssgin: TPanel
     Left = 0
     Top = 299
-    Width = 1073
+    Width = 1129
     Height = 438
     Color = clInactiveCaption
     TabOrder = 0
@@ -267,10 +267,10 @@ object AssignmentForm: TAssignmentForm
       end
     end
     object lstViewSH: TListView
-      Left = 440
+      Left = 504
       Top = 45
       Width = 98
-      Height = 344
+      Height = 377
       Columns = <
         item
           Caption = #28023#20851#23457#26680#20013
@@ -283,7 +283,7 @@ object AssignmentForm: TAssignmentForm
       ViewStyle = vsReport
     end
     object lstViewCYZ: TListView
-      Left = 279
+      Left = 634
       Top = 269
       Width = 98
       Height = 153
@@ -299,9 +299,9 @@ object AssignmentForm: TAssignmentForm
       ViewStyle = vsReport
     end
     object lstViewYFX: TListView
-      Left = 616
+      Left = 757
       Top = 45
-      Width = 100
+      Width = 101
       Height = 380
       Columns = <
         item
@@ -315,43 +315,43 @@ object AssignmentForm: TAssignmentForm
       ViewStyle = vsReport
     end
     object btnCheck: TButton
-      Left = 380
-      Top = 288
-      Width = 60
+      Left = 607
+      Top = 312
+      Width = 27
       Height = 25
       Caption = '<==='
       TabOrder = 4
       OnClick = btnCheckClick
     end
     object btnPass: TButton
-      Left = 544
+      Left = 608
       Top = 194
-      Width = 72
+      Width = 145
       Height = 25
       Caption = '===>'
       TabOrder = 5
       OnClick = btnPassClick
     end
     object btnPass1: TButton
-      Left = 391
-      Top = 396
-      Width = 218
+      Left = 734
+      Top = 393
+      Width = 22
       Height = 15
-      Caption = '               ======================>>>'
+      Caption = '==>'
       TabOrder = 6
       OnClick = btnPass1Click
     end
     object btnYJCZ: TButton
-      Left = 722
+      Left = 861
       Top = 194
-      Width = 74
+      Width = 28
       Height = 25
       Caption = '===>'
       TabOrder = 7
       OnClick = btnYJCZClick
     end
     object lstViewYJCZ: TListView
-      Left = 796
+      Left = 892
       Top = 45
       Width = 95
       Height = 380
@@ -367,10 +367,10 @@ object AssignmentForm: TAssignmentForm
       ViewStyle = vsReport
     end
     object lstViewDZCLZ: TListView
-      Left = 177
+      Left = 249
       Top = 45
       Width = 99
-      Height = 380
+      Height = 331
       Columns = <
         item
           Caption = #21333#35777#22788#29702#20013
@@ -383,63 +383,63 @@ object AssignmentForm: TAssignmentForm
       ViewStyle = vsReport
     end
     object btnSH: TButton
-      Left = 282
-      Top = 133
-      Width = 151
-      Height = 25
+      Left = 362
+      Top = 213
+      Width = 122
+      Height = 21
       Caption = '===>'
       TabOrder = 10
       OnClick = btnSHClick
     end
     object btnSH2DZCLZ: TButton
-      Left = 282
-      Top = 157
-      Width = 151
-      Height = 25
+      Left = 362
+      Top = 235
+      Width = 122
+      Height = 21
       Caption = '<==='
       TabOrder = 11
       OnClick = btnSH2DZCLZClick
     end
     object btnYFX2SH: TButton
-      Left = 544
+      Left = 608
       Top = 218
-      Width = 72
+      Width = 145
       Height = 25
       Caption = '<==='
       TabOrder = 12
       OnClick = btnYFX2SHClick
     end
     object btnYJCZ2YFX: TButton
-      Left = 722
+      Left = 861
       Top = 218
-      Width = 74
+      Width = 28
       Height = 25
       Caption = '<==='
       TabOrder = 13
       OnClick = btnYJCZ2YFXClick
     end
     object btnYFX2CYZ: TButton
-      Left = 392
-      Top = 410
-      Width = 217
+      Left = 734
+      Top = 407
+      Width = 22
       Height = 15
       BiDiMode = bdLeftToRight
-      Caption = '<<<====================='
+      Caption = '<=='
       ParentBiDiMode = False
       TabOrder = 14
       OnClick = btnYFX2CYZClick
     end
     object btnCYZ2SH: TButton
-      Left = 380
-      Top = 312
-      Width = 60
+      Left = 607
+      Top = 288
+      Width = 27
       Height = 25
       Caption = '===>'
       TabOrder = 15
       OnClick = btnCYZ2SHClick
     end
     object lstViewYJH: TListView
-      Left = 970
+      Left = 1026
       Top = 45
       Width = 97
       Height = 380
@@ -455,18 +455,18 @@ object AssignmentForm: TAssignmentForm
       ViewStyle = vsReport
     end
     object btnYJH: TButton
-      Left = 897
+      Left = 993
       Top = 194
-      Width = 74
+      Width = 29
       Height = 25
       Caption = '===>'
       TabOrder = 17
       OnClick = btnYJHClick
     end
     object btnYJH2YJCZ: TButton
-      Left = 897
+      Left = 993
       Top = 218
-      Width = 74
+      Width = 29
       Height = 25
       Caption = '<==='
       TabOrder = 18
@@ -488,23 +488,107 @@ object AssignmentForm: TAssignmentForm
       TabOrder = 19
       ViewStyle = vsReport
     end
-    object btnDZCLZ: TButton
+    object btnYJD2YJY: TButton
       Left = 104
       Top = 194
-      Width = 72
+      Width = 20
       Height = 25
-      Caption = '===>'
+      Caption = '=>'
       TabOrder = 20
-      OnClick = btnDZCLZClick
+      OnClick = btnYJD2YJYClick
     end
-    object btnDZCLZ2YJD: TButton
+    object btnYJY2YJD: TButton
       Left = 104
       Top = 218
-      Width = 72
+      Width = 20
       Height = 25
-      Caption = '<==='
+      Caption = '<='
       TabOrder = 21
-      OnClick = btnDZCLZ2YJDClick
+      OnClick = btnYJY2YJDClick
+    end
+    object lstViewYJY: TListView
+      Left = 125
+      Top = 47
+      Width = 99
+      Height = 380
+      Columns = <
+        item
+          Caption = #39044#26816#39564
+          Width = 90
+        end>
+      MultiSelect = True
+      ReadOnly = True
+      RowSelect = True
+      TabOrder = 22
+      ViewStyle = vsReport
+    end
+    object lstViewHGC: TListView
+      Left = 377
+      Top = 45
+      Width = 97
+      Height = 156
+      Columns = <
+        item
+          Caption = #28023#20851#26597
+          Width = 90
+        end>
+      MultiSelect = True
+      ReadOnly = True
+      RowSelect = True
+      TabOrder = 23
+      ViewStyle = vsReport
+    end
+    object lstViewSJC: TListView
+      Left = 377
+      Top = 269
+      Width = 97
+      Height = 156
+      Columns = <
+        item
+          Caption = #21830#26816#26597
+          Width = 90
+        end>
+      MultiSelect = True
+      ReadOnly = True
+      RowSelect = True
+      TabOrder = 24
+      ViewStyle = vsReport
+    end
+    object btnYJY2SJC: TButton
+      Left = 242
+      Top = 381
+      Width = 122
+      Height = 21
+      Caption = '===>'
+      TabOrder = 25
+      OnClick = btnYJY2SJCClick
+    end
+    object btnSJC2YJY: TButton
+      Left = 242
+      Top = 403
+      Width = 122
+      Height = 21
+      Caption = '<==='
+      TabOrder = 26
+      OnClick = btnSJC2YJYClick
+    end
+    object btnDZCLZ2HGC: TButton
+      Left = 352
+      Top = 113
+      Width = 20
+      Height = 25
+      Caption = '=>'
+      TabOrder = 27
+      OnClick = btnDZCLZ2HGCClick
+    end
+    object btnHGC2DZCLZ: TButton
+      Left = 352
+      Top = 137
+      Width = 20
+      Height = 25
+      Caption = '<='
+      TabOrder = 28
+      OnClick = btnHGC2DZCLZClick
     end
   end
   object plQry: TPanel
@@ -828,5 +912,41 @@ object AssignmentForm: TAssignmentForm
     Height = 7
     Color = 16349446
     TabOrder = 2
+  end
+  object btnYJY2DZCLZ: TButton
+    Left = 228
+    Top = 493
+    Width = 20
+    Height = 25
+    Caption = '=>'
+    TabOrder = 3
+    OnClick = btnYJY2DZCLZClick
+  end
+  object btnDZCLZ2YJY: TButton
+    Left = 228
+    Top = 517
+    Width = 20
+    Height = 25
+    Caption = '<='
+    TabOrder = 4
+    OnClick = btnDZCLZ2YJYClick
+  end
+  object btnHGSYZ2HGC: TButton
+    Left = 480
+    Top = 436
+    Width = 20
+    Height = 25
+    Caption = '<='
+    TabOrder = 5
+    OnClick = btnHGSYZ2HGCClick
+  end
+  object btnHGC2HGSYZ: TButton
+    Left = 480
+    Top = 412
+    Width = 20
+    Height = 25
+    Caption = '=>'
+    TabOrder = 6
+    OnClick = btnHGC2HGSYZClick
   end
 end

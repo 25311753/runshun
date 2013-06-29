@@ -1,6 +1,6 @@
 object AcceptForm: TAcceptForm
-  Left = 188
-  Top = 138
+  Left = 316
+  Top = 171
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25509#21333
@@ -106,9 +106,9 @@ object AcceptForm: TAcceptForm
         #27491#24120#21333)
     end
     object cbbStatus: TComboBox
-      Left = 450
-      Top = 64
-      Width = 76
+      Left = 889
+      Top = 96
+      Width = 31
       Height = 21
       Style = csDropDownList
       Enabled = False
@@ -403,9 +403,9 @@ object AcceptForm: TAcceptForm
       TabOrder = 29
     end
     object Panel12: TPanel
-      Left = 390
-      Top = 64
-      Width = 60
+      Left = 856
+      Top = 96
+      Width = 30
       Height = 21
       BevelInner = bvLowered
       BevelOuter = bvLowered
@@ -539,6 +539,36 @@ object AcceptForm: TAcceptForm
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       ItemHeight = 13
       TabOrder = 36
+    end
+    object cbHGC: TCheckBox
+      Left = 391
+      Top = 67
+      Width = 68
+      Height = 17
+      Caption = #28023#20851#26597
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 37
+      Visible = False
+    end
+    object cbSJC: TCheckBox
+      Left = 464
+      Top = 67
+      Width = 66
+      Height = 17
+      Caption = #21830#26816#26597
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 38
+      Visible = False
     end
   end
   object btnAdd: TButton
@@ -999,6 +1029,10 @@ object AcceptForm: TAcceptForm
       item
         Caption = #29366#24577
         Width = 70
+      end
+      item
+        Caption = #39318#27425#21333#35777#22788#29702#20013#26102#38388
+        Width = 120
       end
       item
         Caption = #23458#25143#24037#21333#21495

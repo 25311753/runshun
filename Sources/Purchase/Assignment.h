@@ -70,13 +70,24 @@ __published:	// IDE-managed Components
         TButton *btnYJH;
         TButton *btnYJH2YJCZ;
         TListView *lstViewYJD;
-        TButton *btnDZCLZ;
-        TButton *btnDZCLZ2YJD;
+        TButton *btnYJD2YJY;
+        TButton *btnYJY2YJD;
         TDateTimePicker *dtpPassDate;
         TButton *btnFlowTable;
         TPanel *Panel47;
         TComboBox *cbbShipAgent;
         TEdit *edtDebug;
+        TListView *lstViewYJY;
+        TButton *btnYJY2DZCLZ;
+        TButton *btnDZCLZ2YJY;
+        TListView *lstViewHGC;
+        TListView *lstViewSJC;
+        TButton *btnYJY2SJC;
+        TButton *btnSJC2YJY;
+        TButton *btnDZCLZ2HGC;
+        TButton *btnHGC2DZCLZ;
+        TButton *btnHGSYZ2HGC;
+        TButton *btnHGC2HGSYZ;
         void __fastcall btnQueryClick(TObject *Sender);
         void __fastcall btnCheckClick(TObject *Sender);
         void __fastcall btnPassClick(TObject *Sender);
@@ -96,9 +107,17 @@ __published:	// IDE-managed Components
         void __fastcall edtCidKeyPress(TObject *Sender, char &Key);
         void __fastcall btnYJHClick(TObject *Sender);
         void __fastcall btnYJH2YJCZClick(TObject *Sender);
-        void __fastcall btnDZCLZClick(TObject *Sender);
-        void __fastcall btnDZCLZ2YJDClick(TObject *Sender);
         void __fastcall btnFlowTableClick(TObject *Sender);
+        void __fastcall btnYJD2YJYClick(TObject *Sender);
+        void __fastcall btnYJY2YJDClick(TObject *Sender);
+        void __fastcall btnYJY2DZCLZClick(TObject *Sender);
+        void __fastcall btnDZCLZ2YJYClick(TObject *Sender);
+        void __fastcall btnYJY2SJCClick(TObject *Sender);
+        void __fastcall btnSJC2YJYClick(TObject *Sender);
+        void __fastcall btnDZCLZ2HGCClick(TObject *Sender);
+        void __fastcall btnHGC2DZCLZClick(TObject *Sender);
+        void __fastcall btnHGC2HGSYZClick(TObject *Sender);
+        void __fastcall btnHGSYZ2HGCClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TAssignmentForm(TComponent* Owner);

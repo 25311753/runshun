@@ -401,8 +401,9 @@ void TAssignmentForm::ChangeStatusSelectedPass(TListView **pOldLstView, TListVie
 }
 void __fastcall TAssignmentForm::btnCheckClick(TObject *Sender)
 {
-        AnsiString newStatus = "查验中";
-        ChangeStatusSelected(&lstViewSH, &lstViewCYZ, newStatus);
+
+        AnsiString newStatus = "海关审核中";
+        ChangeStatusSelected(&lstViewCYZ, &lstViewSH, newStatus);
 }
 //---------------------------------------------------------------------------
 
@@ -596,8 +597,8 @@ void __fastcall TAssignmentForm::btnYFX2CYZClick(TObject *Sender)
 
 void __fastcall TAssignmentForm::btnCYZ2SHClick(TObject *Sender)
 {
-        AnsiString newStatus = "海关审核中";
-        ChangeStatusSelected(&lstViewCYZ, &lstViewSH, newStatus);
+        AnsiString newStatus = "查验中";
+        ChangeStatusSelected(&lstViewSH, &lstViewCYZ, newStatus);
 }
 //---------------------------------------------------------------------------
 
@@ -726,19 +727,7 @@ void __fastcall TAssignmentForm::btnYJH2YJCZClick(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TAssignmentForm::btnDZCLZClick(TObject *Sender)
-{
-        AnsiString newStatus = "单证处理中";
-        ChangeStatusSelected(&lstViewYJD, &lstViewDZCLZ, newStatus);
-}
-//---------------------------------------------------------------------------
 
-void __fastcall TAssignmentForm::btnDZCLZ2YJDClick(TObject *Sender)
-{
-        AnsiString newStatus = "已接单";
-        ChangeStatusSelected(&lstViewDZCLZ, &lstViewYJD, newStatus);
-}
-//---------------------------------------------------------------------------
 
 void __fastcall TAssignmentForm::btnFlowTableClick(TObject *Sender)
 {
@@ -925,4 +914,83 @@ edtDebug->Text = AnsiString(szSQL_M);
         }
 }
 //---------------------------------------------------------------------------
+
+
+
+void __fastcall TAssignmentForm::btnYJD2YJYClick(TObject *Sender)
+{
+        AnsiString newStatus = "预检验";
+        ChangeStatusSelected(&lstViewYJD, &lstViewYJY, newStatus);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::btnYJY2YJDClick(TObject *Sender)
+{
+
+        AnsiString newStatus = "已接单";
+        ChangeStatusSelected(&lstViewYJY, &lstViewYJD, newStatus);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::btnYJY2DZCLZClick(TObject *Sender)
+{
+        AnsiString newStatus = "单证处理中";
+        ChangeStatusSelected(&lstViewYJY, &lstViewDZCLZ, newStatus);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::btnDZCLZ2YJYClick(TObject *Sender)
+{
+        AnsiString newStatus = "预检验";
+        ChangeStatusSelected(&lstViewDZCLZ, &lstViewYJY, newStatus);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::btnYJY2SJCClick(TObject *Sender)
+{
+
+        AnsiString newStatus = "商检查";
+        ChangeStatusSelected(&lstViewYJY, &lstViewSJC, newStatus);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::btnSJC2YJYClick(TObject *Sender)
+{
+
+        AnsiString newStatus = "预检验";
+        ChangeStatusSelected(&lstViewSJC, &lstViewYJY, newStatus);        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::btnDZCLZ2HGCClick(TObject *Sender)
+{
+        AnsiString newStatus = "海关查";
+        ChangeStatusSelected(&lstViewDZCLZ, &lstViewHGC, newStatus);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::btnHGC2DZCLZClick(TObject *Sender)
+{
+
+        AnsiString newStatus = "单证处理中";
+        ChangeStatusSelected(&lstViewHGC, &lstViewDZCLZ, newStatus);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::btnHGC2HGSYZClick(TObject *Sender)
+{
+
+        AnsiString newStatus = "海关审核中";
+        ChangeStatusSelected(&lstViewHGC, &lstViewSH, newStatus);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::btnHGSYZ2HGCClick(TObject *Sender)
+{
+
+        AnsiString newStatus = "海关查";
+        ChangeStatusSelected(&lstViewSH, &lstViewHGC, newStatus);
+}
+//---------------------------------------------------------------------------
+
 
