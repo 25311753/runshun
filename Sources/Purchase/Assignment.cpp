@@ -223,15 +223,16 @@ void __fastcall TAssignmentForm::btnQueryClick(TObject *Sender)
                   plv = lstViewYJCZ;
                 } else if (szStatus == "已结汇"){
                   plv = lstViewYJH;
+                } else if (szStatus == "预检验"){
+                  plv = lstViewYJY;
+                } else if (szStatus == "海关查"){
+                  plv = lstViewHGC;
+                } else if (szStatus == "商检查"){
+                  plv = lstViewSJC;
                 }
-                /*else
-                {   //刚接单
-                        AnsiString cid = edtCid->Text.c_str();
-                        if (cid != "") {
-                                  ShowMessage(cid+AnsiString(" :未做单"));
-                        }
 
-                } */
+
+
                 Load2ListView(&plv, dm1->Query1->FieldByName("cid")->AsString.c_str());
 		dm1->Query1->Next();
         }
@@ -992,5 +993,6 @@ void __fastcall TAssignmentForm::btnHGSYZ2HGCClick(TObject *Sender)
         ChangeStatusSelected(&lstViewSH, &lstViewHGC, newStatus);
 }
 //---------------------------------------------------------------------------
+
 
 

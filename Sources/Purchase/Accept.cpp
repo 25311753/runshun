@@ -231,6 +231,10 @@ void __fastcall TAcceptForm::btnAddClick(TObject *Sender)
         ResetCtrl();
         edtCid->SetFocus();
 
+        TDateTime tNow=TDateTime::CurrentDateTime();
+        dtpEndDateYYYYMMDD->DateTime=tNow;
+        dtpEndDateHHMM->Time=tNow;
+
 }
 //---------------------------------------------------------------------------
 
@@ -321,6 +325,7 @@ int TAcceptForm::add(TObject *Sender)
         pItem->SubItems->Add(edtBoatOrder->Text);
         pItem->SubItems->Add(strDate0);
         pItem->SubItems->Add("已接单");
+        pItem->SubItems->Add("");       //单证处理中时间在做单那里生成
         pItem->SubItems->Add(edtCliWorkid->Text);
         pItem->SubItems->Add(edtCustfree->Text);
         pItem->SubItems->Add("");
@@ -374,16 +379,17 @@ void TAcceptForm::refreshMod()
 		pItem->SubItems->Strings[9] = dm1->Query1->FieldByName("boatorder")->AsString;
 		pItem->SubItems->Strings[10] = dm1->Query1->FieldByName("endcustdate")->AsString;
 		pItem->SubItems->Strings[11] = dm1->Query1->FieldByName("status")->AsString;
-		pItem->SubItems->Strings[12] = dm1->Query1->FieldByName("cliworkid")->AsString;
-		pItem->SubItems->Strings[13] = dm1->Query1->FieldByName("custfree")->AsString;
-		pItem->SubItems->Strings[14] = dm1->Query1->FieldByName("sealid")->AsString;
-		pItem->SubItems->Strings[15] = dm1->Query1->FieldByName("acceptor")->AsString;
-		pItem->SubItems->Strings[16] = dm1->Query1->FieldByName("doer")->AsString;
-		pItem->SubItems->Strings[17] = dm1->Query1->FieldByName("beizhu")->AsString;
-                pItem->SubItems->Strings[18] = dm1->Query1->FieldByName("shipagent")->AsString;
-                pItem->SubItems->Strings[19] = dm1->Query1->FieldByName("containerinfo")->AsString;
+		pItem->SubItems->Strings[12] = dm1->Query1->FieldByName("tag_dzclz_date")->AsString;
+		pItem->SubItems->Strings[13] = dm1->Query1->FieldByName("cliworkid")->AsString;
+		pItem->SubItems->Strings[14] = dm1->Query1->FieldByName("custfree")->AsString;
+		pItem->SubItems->Strings[15] = dm1->Query1->FieldByName("sealid")->AsString;
+		pItem->SubItems->Strings[16] = dm1->Query1->FieldByName("acceptor")->AsString;
+		pItem->SubItems->Strings[17] = dm1->Query1->FieldByName("doer")->AsString;
+		pItem->SubItems->Strings[18] = dm1->Query1->FieldByName("beizhu")->AsString;
+                pItem->SubItems->Strings[19] = dm1->Query1->FieldByName("shipagent")->AsString;
+                pItem->SubItems->Strings[20] = dm1->Query1->FieldByName("containerinfo")->AsString;
                 lstViewContainer->Items->Clear();
-                flushContainer(AnsiString(pItem->SubItems->Strings[19].c_str()));
+                flushContainer(AnsiString(pItem->SubItems->Strings[20].c_str()));
 		dm1->Query1->Next();
 	}
         flushSum();
@@ -603,7 +609,7 @@ void __fastcall TAcceptForm::lstViewDownSelectItem(TObject *Sender,
         cbHGC->Checked = status=="海关查"?true:false;
         cbSJC->Checked = status=="商检查"?true:false;
         edtLading->Text =  Item->SubItems->Strings[4].c_str();
-        edtContainerInfo->Text = Item->SubItems->Strings[18].c_str();
+        edtContainerInfo->Text = Item->SubItems->Strings[18].c_str(); //变量无用，可删？？
         edtCliWorkid->Text =   Item->SubItems->Strings[13].c_str();
         edtCustfree->Text = Item->SubItems->Strings[14].c_str();
         edtSealId->Text = Item->SubItems->Strings[15].c_str();
@@ -1200,7 +1206,6 @@ void __fastcall TAcceptForm::btnClearQryCondClick(TObject *Sender)
         TDateTime tNow=TDateTime::CurrentDateTime();
         dtpQryAcceptDate->DateTime=tNow;
         dtpQryAcceptDateEnd->DateTime=tNow;
-
 }
 //---------------------------------------------------------------------------
 

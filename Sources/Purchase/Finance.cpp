@@ -846,9 +846,11 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
         lstViewPure->Columns->Items[0]->Caption = "序号";
         for (pos_ori=0; pos_ori<charge_start_column-1; pos_ori++){//！！备注放最后
                 AnsiString column_title = lstView->Columns->Items[pos_ori+1]->Caption;
-                if (column_title=="经营单位" || column_title=="报关单号"){//不到出：经营单位、报关单号
+                //cancel
+/*                if (column_title=="经营单位" || column_title=="报关单号"){//不到出：经营单位、报关单号
                         continue;
                 }
+*/
                 lstViewPure->Columns->Items[++pos_pure]->Caption = column_title;
         }
         //~
@@ -883,10 +885,10 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
 
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[0]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[1]);
-//                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[3]);
-//                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4];
-//                 pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
+                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4];
+                 pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[5]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[6]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[7]);
