@@ -1,6 +1,6 @@
 object AcceptForm: TAcceptForm
-  Left = -1245
-  Top = -141
+  Left = 589
+  Top = 134
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25509#21333
@@ -231,6 +231,7 @@ object AcceptForm: TAcceptForm
       Kind = dtkDate
       ParseInput = False
       TabOrder = 15
+      OnEnter = dtpEndDateYYYYMMDDEnter
     end
     object Panel2: TPanel
       Left = 183

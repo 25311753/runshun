@@ -125,6 +125,7 @@ __published:	// IDE-managed Components
           TListColumn *Column);
         void __fastcall lstViewDownCompare(TObject *Sender,
           TListItem *Item1, TListItem *Item2, int Data, int &Compare);
+        void __fastcall dtpEndDateYYYYMMDDEnter(TObject *Sender);
 
                        
 private:	// User declarations

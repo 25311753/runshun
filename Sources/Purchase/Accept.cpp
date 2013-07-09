@@ -231,9 +231,6 @@ void __fastcall TAcceptForm::btnAddClick(TObject *Sender)
         ResetCtrl();
         edtCid->SetFocus();
 
-        TDateTime tNow=TDateTime::CurrentDateTime();
-        dtpEndDateYYYYMMDD->DateTime=tNow;
-        dtpEndDateHHMM->Time=tNow;
 
 }
 //---------------------------------------------------------------------------
@@ -1254,4 +1251,20 @@ void __fastcall TAcceptForm::lstViewDownCompare(TObject *Sender,
 //---------------------------------------------------------------------------
 
 
+
+
+
+
+
+
+
+
+void __fastcall TAcceptForm::dtpEndDateYYYYMMDDEnter(TObject *Sender)
+{
+/*
+        dtpEndDateYYYYMMDD->SetFocus();
+        SendMessage(dtpEndDateYYYYMMDD->Handle, WM_KEYDOWN, VK_RIGHT, 0);
+*/
+}
+//---------------------------------------------------------------------------
 
