@@ -77,28 +77,18 @@ __published:	// IDE-managed Components
         TPanel *Panel47;
         TComboBox *cbbShipAgent;
         TEdit *edtDebug;
-        TListView *lstViewYJY;
+        TListView *lstViewYBJ;
         TButton *btnYJY2DZCLZ;
         TButton *btnDZCLZ2YJY;
-        TListView *lstViewHGC;
-        TListView *lstViewSJC;
-        TButton *btnYJY2SJC;
-        TButton *btnSJC2YJY;
-        TButton *btnDZCLZ2HGC;
-        TButton *btnHGC2DZCLZ;
-        TButton *btnHGSYZ2HGC;
-        TButton *btnHGC2HGSYZ;
         void __fastcall btnQueryClick(TObject *Sender);
         void __fastcall btnCheckClick(TObject *Sender);
         void __fastcall btnPassClick(TObject *Sender);
-        void __fastcall btnPass1Click(TObject *Sender);
         void __fastcall btnYJCZClick(TObject *Sender);
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnSHClick(TObject *Sender);
         void __fastcall btnSH2DZCLZClick(TObject *Sender);
         void __fastcall btnYFX2SHClick(TObject *Sender);
         void __fastcall btnYJCZ2YFXClick(TObject *Sender);
-        void __fastcall btnYFX2CYZClick(TObject *Sender);
         void __fastcall btnCYZ2SHClick(TObject *Sender);
         void __fastcall btnQryClick(TObject *Sender);
         void __fastcall lstViewSelectItem(TObject *Sender, TListItem *Item,
@@ -112,12 +102,8 @@ __published:	// IDE-managed Components
         void __fastcall btnYJY2YJDClick(TObject *Sender);
         void __fastcall btnYJY2DZCLZClick(TObject *Sender);
         void __fastcall btnDZCLZ2YJYClick(TObject *Sender);
-        void __fastcall btnYJY2SJCClick(TObject *Sender);
-        void __fastcall btnSJC2YJYClick(TObject *Sender);
-        void __fastcall btnDZCLZ2HGCClick(TObject *Sender);
-        void __fastcall btnHGC2DZCLZClick(TObject *Sender);
-        void __fastcall btnHGC2HGSYZClick(TObject *Sender);
-        void __fastcall btnHGSYZ2HGCClick(TObject *Sender);
+        void __fastcall btnPass1Click(TObject *Sender);
+        void __fastcall btnYFX2CYZClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TAssignmentForm(TComponent* Owner);
