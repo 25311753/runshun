@@ -62,8 +62,6 @@ static bool chkFormatContainerNo(AnsiString ss){
 
 void __fastcall TAcceptForm::FormShow(TObject *Sender)
 {
-        cbSJC->Checked = false;
-        cbHGC->Checked = false;
         lb_sum_cnt_con->Caption = "";
         edtContainerNo->Text = "";
         edtQryLicenseNo->Text = "";
@@ -223,8 +221,6 @@ void __fastcall TAcceptForm::btnAddClick(TObject *Sender)
         cbbQryStatus->ItemIndex = 0;
         cbbStatus->ItemIndex = -1;
         cbbShipAgent->ItemIndex = 0;
-        cbHGC->Checked = false;
-        cbSJC->Checked = false;
         if(edtCid->CanFocus())	edtCid->SetFocus();
         
         m_enWorkState=EN_ADDNEW;
@@ -603,8 +599,6 @@ void __fastcall TAcceptForm::lstViewDownSelectItem(TObject *Sender,
         edtBoatOrder->Text = Item->SubItems->Strings[9];
         cbbStatus->ItemIndex=cbbStatus->Items->IndexOf(Item->SubItems->Strings[11]);
         AnsiString status = Item->SubItems->Strings[11];
-        cbHGC->Checked = status=="海关查"?true:false;
-        cbSJC->Checked = status=="商检查"?true:false;
         edtLading->Text =  Item->SubItems->Strings[4].c_str();
         edtContainerInfo->Text = Item->SubItems->Strings[18].c_str(); //变量无用，可删？？
         edtCliWorkid->Text =   Item->SubItems->Strings[13].c_str();
@@ -1267,5 +1261,6 @@ void __fastcall TAcceptForm::dtpEndDateYYYYMMDDEnter(TObject *Sender)
 */
 }
 //---------------------------------------------------------------------------
+
 
 

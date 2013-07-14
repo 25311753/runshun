@@ -541,36 +541,6 @@ object AcceptForm: TAcceptForm
       ItemHeight = 13
       TabOrder = 36
     end
-    object cbHGC: TCheckBox
-      Left = 391
-      Top = 67
-      Width = 68
-      Height = 17
-      Caption = #28023#20851#26597
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 37
-      Visible = False
-    end
-    object cbSJC: TCheckBox
-      Left = 464
-      Top = 67
-      Width = 66
-      Height = 17
-      Caption = #21830#26816#26597
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 38
-      Visible = False
-    end
   end
   object btnAdd: TButton
     Left = 1

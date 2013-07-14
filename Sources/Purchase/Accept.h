@@ -94,8 +94,6 @@ __published:	// IDE-managed Components
         TPanel *Panel24;
         TComboBox *cbbCustomsCharge;
         TButton *btnClearQryCond;
-        TCheckBox *cbHGC;
-        TCheckBox *cbSJC;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnInputContanerinfoClick(TObject *Sender);
         void __fastcall btnAddClick(TObject *Sender);

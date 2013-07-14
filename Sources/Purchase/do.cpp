@@ -1742,7 +1742,9 @@ void __fastcall TDoForm::cbDoingMouseDown(TObject *Sender,
         }
         //make tag_dzclz_date, only for the first time click the 'DZCLZ'
         if (!cbDoing->Checked){
-                szSQL.Format("update customs set tag_dzclz_date=GETDATE() where cid='%s' and tag_dzclz_date is null", edtCid->Text.c_str());
+                szSQL.Format("update customs set tag_dzclz_date=GETDATE() \
+                                where cid='%s' and tag_dzclz_date is null", \
+                                edtCid->Text.c_str());
                 if(!RunSQL(dm1->Query1,szSQL))
                 {
                         ShowMessage("update fail!") ;
