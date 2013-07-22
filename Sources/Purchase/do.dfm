@@ -1,6 +1,6 @@
 object DoForm: TDoForm
-  Left = 280
-  Top = 56
+  Left = -1266
+  Top = -138
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #20570#21333
@@ -251,7 +251,7 @@ object DoForm: TDoForm
     object edtMarks: TEdit
       Left = 470
       Top = 133
-      Width = 259
+      Width = 153
       Height = 21
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 23
@@ -892,6 +892,19 @@ object DoForm: TDoForm
       OnChange = cbbSHChange
       OnSelect = cbbSHSelect
     end
+    object rg_status: TRadioGroup
+      Left = 625
+      Top = 129
+      Width = 283
+      Height = 29
+      Columns = 3
+      Items.Strings = (
+        #24050#25509#21333
+        #21333#35777#22788#29702#20013
+        #39044#25253#26816)
+      TabOrder = 63
+      OnClick = rg_statusClick
+    end
   end
   object btnPrnInvoice: TButton
     Left = 0
@@ -1033,16 +1046,16 @@ object DoForm: TDoForm
   end
   object Panel45: TPanel
     Left = 0
-    Top = 179
+    Top = 183
     Width = 1193
-    Height = 7
+    Height = 5
     Color = 16349446
     TabOrder = 10
   end
   object cbDoing: TCheckBox
     Left = 730
-    Top = 159
-    Width = 179
+    Top = 135
+    Width = 87
     Height = 20
     Caption = #21333#35777#22788#29702#20013
     Color = clScrollBar
@@ -1054,6 +1067,7 @@ object DoForm: TDoForm
     ParentColor = False
     ParentFont = False
     TabOrder = 11
+    Visible = False
     OnMouseDown = cbDoingMouseDown
   end
   object btnCancel: TButton

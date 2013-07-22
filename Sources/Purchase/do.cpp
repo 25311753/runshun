@@ -171,6 +171,29 @@ CString toValidStr(CString s){
         }
         return rt;
 }
+//status to radiogroup intemindex
+int TDoForm::status2index(AnsiString status){
+        int rt = -1;
+        if (status=="已接单"){
+                rt = 0;
+        } else if (status=="单证处理中"){
+                rt = 1;
+        } else if (status=="预报检"){
+                rt = 2;
+        }
+        return rt;
+}
+AnsiString TDoForm::index2status(int index){
+        AnsiString rt = "";
+        if (rg_status->ItemIndex==0){
+                rt = "已接单";
+        } else if (rg_status->ItemIndex==1){
+                rt = "单证处理中";
+        } else if (rg_status->ItemIndex==2){
+                rt = "预报检";
+        }
+        return rt;
+}
 #include "Goods.h"
 void __fastcall TDoForm::btnInputGoodsClick(TObject *Sender)
 {
@@ -217,6 +240,7 @@ lstViewContainer->Clear();
 m_strEndCustDate = "";
 cbDoing->Checked = false;
 m_strStatus = "";
+rg_status->ItemIndex=-1;
 g_cdid=0;
 
 m_strShipAgent = "";
@@ -566,9 +590,17 @@ int TDoForm::ModHead(){
 
                 return rt;
         }
+/*
         if (!(cbDoing->Checked)){
                 char strMsg[256],strSQL[512];
                 sprintf(strMsg,"\n  未勾选[单证处理中] 是否继续?\n");
+                if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                        return rt;
+        }
+*/
+        if (rg_status->ItemIndex==-1){
+                char strMsg[256],strSQL[512];
+                sprintf(strMsg,"\n  未勾选状态栏,是否继续?\n");
                 if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                         return rt;
         }
@@ -1458,10 +1490,11 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
                 edtManufacturer->Text = dm1->Query1->FieldByName("manufacturer")->AsString;
                 edtMarks->Text = dm1->Query1->FieldByName("marks")->AsString;
                 edtInvoice->Text = dm1->Query1->FieldByName("invoice")->AsString;
-                cbDoing->Checked = (dm1->Query1->FieldByName("status")->AsString == "单证处理中");
+//                cbDoing->Checked = (dm1->Query1->FieldByName("status")->AsString == "单证处理中");
 //                edtShipAgent->Text = dm1->Query1->FieldByName("shipagent")->AsString;
                 m_strStatus = dm1->Query1->FieldByName("status")->AsString.c_str();
-//                m_strEndCustDate =  dm1->Query1->FieldByName("endcustdate")->AsString.c_str();
+                rg_status->ItemIndex = status2index(AnsiString(m_strStatus));
+
                 m_strEndCustDate =  dm1->Query1->FieldByName("prn_end_date")->AsString.c_str();
                 m_strShipAgent =  dm1->Query1->FieldByName("shipagent")->AsString.c_str();
 
@@ -1606,7 +1639,8 @@ void TDoForm::ResetCtrl()
     EnableCombo(cbbCurrency,false);
     EnableCombo(cbbBargain,false);
     EnableCombo(cbbExcharge,false);
-    cbDoing->Enabled = false;
+    rg_status->Enabled = false;
+
     //prn btn
     btnPrnInvoice->Enabled 		 = true;
     btnPrnPackingList->Enabled = true;
@@ -1663,7 +1697,7 @@ void TDoForm::ResetCtrl()
     EnableCombo(cbbCurrency,true);
     EnableCombo(cbbBargain,true);
     EnableCombo(cbbExcharge,true);
-    cbDoing->Enabled = true;
+    rg_status->Enabled = true;
     //prn btn
     btnPrnInvoice->Enabled 		 = false;
     btnPrnPackingList->Enabled = false;
@@ -1930,6 +1964,7 @@ void TDoForm::Row2Editor()
         edtCount2nd->Text = "0";
         edtUnitprice->Text ="";
         edtCdid->Text ="";
+        rg_status->ItemIndex = -1;
         return;
   }
         cbbMname->Text = Item->SubItems->Strings[0];
@@ -1949,6 +1984,8 @@ void TDoForm::Row2Editor()
         //强制修改总价（目前总价是按数量单价自动跳出，查询情况下，应该以customs_detail.totalprice为准，修改添加时才以计算为准）
         //！！！！！！！
         edtTotalPrice->Text = Item->SubItems->Strings[10];
+        rg_status->ItemIndex = status2index(AnsiString(m_strStatus));
+        
 }
 //---------------------------------------------------------------------------
 
@@ -2948,4 +2985,70 @@ AnsiString TDoForm::ranSH()
 bool TDoForm::chkGrossWeight(float gw){
         return gw>26000;
 }
+
+
+
+void __fastcall TDoForm::rg_statusClick(TObject *Sender)
+{
+        if (rg_status->ItemIndex==-1){
+                return;
+        }
+        CString szSQL;
+        AnsiString newStatus = index2status(rg_status->ItemIndex);
+
+        szSQL.Format("update customs set status='%s' where cid='%s'", newStatus, edtCid->Text.c_str());
+        if(!RunSQL(dm1->Query3,szSQL))
+        {
+                ShowMessage("update fail!") ;
+                return;
+        }
+        //make tag_dzclz_date, only for the first time click the 'DZCLZ'
+        if (newStatus == "单证处理中"){
+                szSQL.Format("update customs set tag_dzclz_date=GETDATE() \
+                                where cid='%s' and tag_dzclz_date is null", \
+                                edtCid->Text.c_str());
+                if(!RunSQL(dm1->Query3,szSQL))
+                {
+                        ShowMessage("update fail!") ;
+                        return;
+                }
+        }
+        //~
+        m_strStatus = newStatus.c_str();        
+/*
+        CString szSQL;
+        CString newStatus;
+        //cbDoing->Checked => status before press mouse!!
+        if (cbDoing->Checked) {
+                newStatus = "已接单";
+        } else {
+                if (m_strStatus != "已接单") {
+                        ShowMessage(AnsiString("失败！当前状态: ")+AnsiString(m_strStatus));
+                        return;
+                }
+                newStatus = "单证处理中";
+        }
+
+        szSQL.Format("update customs set status='%s' where cid='%s'", newStatus, edtCid->Text.c_str());
+        if(!RunSQL(dm1->Query1,szSQL))
+        {
+                ShowMessage("update fail!") ;
+                return;
+        }
+        //make tag_dzclz_date, only for the first time click the 'DZCLZ'
+        if (!cbDoing->Checked){
+                szSQL.Format("update customs set tag_dzclz_date=GETDATE() \
+                                where cid='%s' and tag_dzclz_date is null", \
+                                edtCid->Text.c_str());
+                if(!RunSQL(dm1->Query1,szSQL))
+                {
+                        ShowMessage("update fail!") ;
+                        return;
+                }
+        }
+        //~
+        m_strStatus =newStatus;
+*/
+}
+//---------------------------------------------------------------------------
 

@@ -186,6 +186,7 @@ __published:	// IDE-managed Components
         TEdit *edtNo;
         TPanel *Panel49;
         TEdit *edtTotalPrice;
+        TRadioGroup *rg_status;
         void __fastcall btnInputGoodsClick(TObject *Sender);
         void __fastcall FormShow(TObject *Sender);
         void __fastcall edtCidKeyPress(TObject *Sender, char &Key);
@@ -227,6 +228,7 @@ __published:	// IDE-managed Components
         void __fastcall edtNoChange(TObject *Sender);
         void __fastcall edtUnitpriceChange(TObject *Sender);
         void __fastcall edtTotalPriceChange(TObject *Sender);
+        void __fastcall rg_statusClick(TObject *Sender);
 private:	// User declarations
         CStringArray m_lstPack;
         CStringArray m_lstTrade;
@@ -298,6 +300,8 @@ public:		// User declarations
 //        void prnDeclareSub(AnsiString cdid);
         AnsiString ranSH();
         bool chkGrossWeight(float gw);//√´÷ÿ≥¨26000KGÃ· æ
+        int status2index(AnsiString status);
+        AnsiString index2status(int index);        
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TDoForm *DoForm;
