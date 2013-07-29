@@ -299,7 +299,7 @@ public:		// User declarations
         void prnDeclare(AnsiString begin_cid, AnsiString end_cid, AnsiString split_detail, int page_ord, bool isTail=false);
 //        void prnDeclareSub(AnsiString cdid);
         AnsiString ranSH();
-        bool chkGrossWeight(float gw);//毛重超26000KG提示
+        bool chkGrossWeight(float gw, float totalPrice);//毛重超26000KG提示,总价超10w
         int status2index(AnsiString status);
         AnsiString index2status(int index);        
 };

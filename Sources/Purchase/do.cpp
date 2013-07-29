@@ -2137,11 +2137,11 @@ int TDoForm::addDetail()
      }
 
   }
-  if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text))){
+  if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text), StrToFloat(edtTotalPrice->Text))){
 //        ShowMessage("毛重超26000KG");
 //        return -1;
         char strMsg[256],strSQL[512];
-        sprintf(strMsg,"\n  毛重超26000KG 是否继续?\n");
+        sprintf(strMsg,"\n  毛重超26000KG 或 总价超10w 是否继续?\n");
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return -1;
   }
@@ -2273,9 +2273,9 @@ int TDoForm::modDetail(){
      }
 
   }
-  if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text))){
+  if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text), StrToFloat(edtTotalPrice->Text))){
         char strMsg[256],strSQL[512];
-        sprintf(strMsg,"\n  毛重超26000KG 是否继续?\n");
+        sprintf(strMsg,"\n  毛重超26000KG 或 总价超10w 是否继续?\n");
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return -1;
   }
@@ -2726,6 +2726,7 @@ void __fastcall TDoForm::btnCIQClick(TObject *Sender)
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","商品HS编码");
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","商品中英文名称");
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","生产厂家");
+                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","原产地");//没数据源，写死“广东广州”
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","商品材质");
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","规格型号");
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","包装方式");
@@ -2736,11 +2737,14 @@ void __fastcall TDoForm::btnCIQClick(TObject *Sender)
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","总净重KG");
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","总毛重KG");
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","成交方式");
-                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","单价(CNY)");
-                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","总价(CNY)");
+//                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","单价(CNY)");
+//                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","总价(CNY)");
+                        //20130729 只改标题
+                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","单价(USD)");
+                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","总价(USD)");
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","备注");
 
-                        
+
                 }
                 //data
 
@@ -2758,6 +2762,7 @@ void __fastcall TDoForm::btnCIQClick(TObject *Sender)
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value",dm1->Query1->FieldByName("mcode")->AsString.c_str());
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value",dm1->Query1->FieldByName("mname")->AsString.c_str());
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","");
+                vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","原产地");
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","");
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","");
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value",dm1->Query1->FieldByName("pkname")->AsString.c_str());
@@ -2982,8 +2987,8 @@ AnsiString TDoForm::ranSH()
         return it->second.name;
 }
 
-bool TDoForm::chkGrossWeight(float gw){
-        return gw>26000;
+bool TDoForm::chkGrossWeight(float gw, float totalPrice){
+        return gw>26000 || totalPrice>100000;
 }
 
 
