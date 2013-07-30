@@ -272,6 +272,7 @@ private:	// User declarations
        CString m_strShipAgent;
        CStringArray m_sa_sh;    //商号仓库，按单号末位取，保证不同
        SH_t m_SH;
+       double m_fTotalPrice;    //缓存总价
 
 public:		// User declarations
         __fastcall TDoForm(TComponent* Owner);
@@ -299,7 +300,7 @@ public:		// User declarations
         void prnDeclare(AnsiString begin_cid, AnsiString end_cid, AnsiString split_detail, int page_ord, bool isTail=false);
 //        void prnDeclareSub(AnsiString cdid);
         AnsiString ranSH();
-        bool chkGrossWeight(float gw, float totalPrice);//毛重超26000KG提示,总价超10w
+        bool chkGrossWeight(float gw, float newTotalPrice);//毛重超26000KG提示,总价超10w(缓存全单总价，如edt，先减单项总价，如add，直接xx)
         int status2index(AnsiString status);
         AnsiString index2status(int index);        
 };

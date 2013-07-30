@@ -46,6 +46,7 @@ __fastcall TDoForm::TDoForm(TComponent* Owner)
         : TForm(Owner)
 {
         m_isSelectMname = false;
+        m_fTotalPrice = 0;
         
   m_enWorkState=EN_IDLE;
   m_enWorkStateDetail = EN_IDLE_D;
@@ -494,6 +495,7 @@ void __fastcall TDoForm::edtCidKeyPress(TObject *Sender, char &Key)
 
 void  TDoForm::flushSum()
 {
+        m_fTotalPrice = 0;
         TListItem *pItem;
         double totalCount = 0;
         double totalNetWeight=0;
@@ -547,6 +549,7 @@ void  TDoForm::flushSum()
         Label43->Caption = IntToStr(totalCasescnt);
         FormatFloat("0.00", totalSum);
         Label44->Caption = FloatToStr(totalSum);        //20130308 报关单精度
+        m_fTotalPrice = totalSum;
 /*
         //process
         int total_100=totalSum*100;
@@ -1984,6 +1987,7 @@ void TDoForm::Row2Editor()
         //强制修改总价（目前总价是按数量单价自动跳出，查询情况下，应该以customs_detail.totalprice为准，修改添加时才以计算为准）
         //！！！！！！！
         edtTotalPrice->Text = Item->SubItems->Strings[10];
+        m_fTotalPrice=m_fTotalPrice-StrToFloat(edtTotalPrice->Text.c_str());  //先减总价
         rg_status->ItemIndex = status2index(AnsiString(m_strStatus));
         
 }
@@ -2987,8 +2991,9 @@ AnsiString TDoForm::ranSH()
         return it->second.name;
 }
 
-bool TDoForm::chkGrossWeight(float gw, float totalPrice){
-        return gw>26000 || totalPrice>100000;
+bool TDoForm::chkGrossWeight(float gw, float newTotalPrice){
+//        return gw>26000 || totalPrice>100000;
+        return gw>26000 || (m_fTotalPrice+newTotalPrice)>100000;
 }
 
 
