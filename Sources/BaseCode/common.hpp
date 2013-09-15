@@ -55,6 +55,16 @@ void delLvItem(TListView *lv){
 
 //////////////////////////////////////////////////////////////////////////////////////
 //time
+CString GetSysTime2(){
+  unsigned short year,month,day,h,m,s,u;
+
+  char strDate[80];
+  TDateTime tDate=Now();
+  tDate.DecodeDate(&year,&month,&day);
+  tDate.DecodeTime(&h, &m, &s, &u);
+  sprintf(strDate,"%04d%02d%02d%02d%02d%02d",year,month,day,h,m,s);
+  return CString(strDate);
+}
 CString GetDate(TDateTimePicker *dtp)
 {
         unsigned short year,month,day;

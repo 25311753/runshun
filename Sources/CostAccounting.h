@@ -10,6 +10,7 @@
 #include <ComCtrls.hpp>
 #include <ExtCtrls.hpp>
 #include "BaseCode/LfcArray_s.h"
+#include <Dialogs.hpp>
 //---------------------------------------------------------------------------
 class TCostAccountingForm : public TForm
 {
@@ -70,6 +71,7 @@ __published:	// IDE-managed Components
         TEdit *edtIn;
         TEdit *edtBase;
         TEdit *edtPure;
+        TSaveDialog *SaveDialog1;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall lstViewClick(TObject *Sender);
         void __fastcall lstViewSelectItem(TObject *Sender, TListItem *Item,
@@ -99,7 +101,8 @@ public:		// User declarations
         CString getFirstContainerNo(AnsiString c);
         void clearQryInput();
         CString getAllContainerNo(AnsiString c);        // get all conno , join by ","
-        int getChidByChname(CString chname);                  
+        int getChidByChname(CString chname);
+        void flushColumnNo();              
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TCostAccountingForm *CostAccountingForm;

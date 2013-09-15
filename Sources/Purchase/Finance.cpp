@@ -24,7 +24,7 @@ typedef struct
 static CArray<CHARGES,CHARGES> gCHARGES;
 */
 //add conno、备注、客户工单号
-int charge_start_column = 7+1+1+1; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
+int charge_start_column = 7+1+1+1+1; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
 //---------------------------------------------------------------------------
 void Finance(int nAuth)
 {
@@ -217,9 +217,11 @@ void __fastcall TFinanceForm::btnQueryClick(TObject *Sender)
                 m_enWorkState=EN_IDLE;
                 ResetCtrl();
         }
-        
+
+        int column_no=0;
 	while(!dm1->Query1->Eof)
 	{
+                column_no++;
                 unsigned short year0,month0,day0;
                 year0=dm1->Query1->FieldByName("y")->AsInteger;
                 month0=dm1->Query1->FieldByName("m")->AsInteger;
@@ -232,7 +234,8 @@ void __fastcall TFinanceForm::btnQueryClick(TObject *Sender)
                 bool isNormal = (dm1->Query1->FieldByName("goodsperf")->AsString == "正常单");
 
                 //fixed part
-                pItem->Caption     = dm1->Query1->FieldByName("cid")->AsString;
+                pItem->Caption = column_no;
+                pItem->SubItems->Add(dm1->Query1->FieldByName("cid")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("cliworkid")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("ad")->AsString);
                 pItem->SubItems->Add(isNormal?dm1->Query1->FieldByName("operunit")->AsString:AnsiString(""));
@@ -569,15 +572,16 @@ void __fastcall TFinanceForm::lstViewSelectItem(TObject *Sender,
 {
     if (Selected!=NULL){
         ResetCharges();
-        edtCid->Text = Item->Caption;
-        edtOperUnit->Text = Item->SubItems->Strings[2];
-        edtClient->Text = Item->SubItems->Strings[2+1];
-        edtDeclareId->Text = Item->SubItems->Strings[3+1];
-        edtLadingId->Text = Item->SubItems->Strings[4+1];
-        edtContainerinfo->Text = Item->SubItems->Strings[5+1];
-        edtLicenseNo->Text = Item->SubItems->Strings[6+1];
-        edtCustFree->Text = Item->SubItems->Strings[7+1];
-        edtRemark->Text = Item->SubItems->Strings[9];
+//        edtCid->Text = Item->Caption;
+        edtCid->Text = Item->SubItems->Strings[0];
+        edtOperUnit->Text = Item->SubItems->Strings[2+1];
+        edtClient->Text = Item->SubItems->Strings[2+1+1];
+        edtDeclareId->Text = Item->SubItems->Strings[3+1+1];
+        edtLadingId->Text = Item->SubItems->Strings[4+1+1];
+        edtContainerinfo->Text = Item->SubItems->Strings[5+1+1];
+        edtLicenseNo->Text = Item->SubItems->Strings[6+1+1];
+        edtCustFree->Text = Item->SubItems->Strings[7+1+1];
+        edtRemark->Text = Item->SubItems->Strings[9+1];
         int cbb_order = 0;
 
         int pos_charge = 0;
@@ -744,17 +748,18 @@ int TFinanceForm::ModCharge(){
         TListItem *pItem = lstView->Items->Add();
         bool isNormal = (lbGoodsPerf->Caption == "正常单");
         //        int nColPos = 0;
-        pItem->Caption = edtCid->Text;
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[0]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[1]);
+        pItem->Caption = 0;     //mod after
+        pItem->SubItems->Add(edtCid->Text);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[0+1]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[1+1]);
         pItem->SubItems->Add(isNormal?edtOperUnit->Text:AnsiString(""));
         pItem->SubItems->Add(edtClient->Text);
         pItem->SubItems->Add(isNormal?edtDeclareId->Text:AnsiString(""));
         pItem->SubItems->Add(edtLadingId->Text);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[5+1]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[5+1+1]);
         pItem->SubItems->Add(isNormal?edtLicenseNo->Text:AnsiString(""));
         pItem->SubItems->Add(edtCustFree->Text);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[9]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[9+1]);
 
         //init var charge column first, otherwise core in InsertCustFreeToListView2
         for(int i=0; i<m_mChargeInfo.size(); ++i) {
@@ -780,6 +785,7 @@ int TFinanceForm::ModCharge(){
 
         double _custfree = StrToFloat(edtCustFree->Text);
         total += _custfree;
+
         lstView->Items->Item[row]->SubItems->Strings[charge_start_column+m_mChargeInfo.size()] = FloatToStr(total);
         //delete after add
 
@@ -790,6 +796,7 @@ int TFinanceForm::ModCharge(){
         lstView->ItemIndex = -1;
         lstView->Selected = NULL;
         rt = 0;
+        flushColumnNo();
         return rt;
 }
 
@@ -833,7 +840,15 @@ void TFinanceForm::clearQryInput()
 
 void __fastcall TFinanceForm::Button2Click(TObject *Sender)
 {
-        std::map<int, int> map_charge_exist; // 如所有行都没有某个费用，则标记0；否则标记1。
+        AnsiString sfile ="";
+ if(SaveDialog1->Execute()){
+        sfile = SaveDialog1->FileName;
+//        ShowMessage(sfile);
+ }else{
+        ShowMessage("导出未完成");
+        return;
+ }
+         std::map<int, int> map_charge_exist; // 如所有行都没有某个费用，则标记0；否则标记1。
         map_charge_exist.clear();
         //初始化全部为0
         for (int i=0; i<m_mChargeInfo.size(); ++i){
@@ -844,8 +859,8 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
         int pos_pure = 0;
         int pos_ori = 0;
         lstViewPure->Columns->Items[0]->Caption = "序号";
-        for (pos_ori=0; pos_ori<charge_start_column-1; pos_ori++){//！！备注放最后
-                AnsiString column_title = lstView->Columns->Items[pos_ori+1]->Caption;
+        for (pos_ori=0; pos_ori<charge_start_column-1-1; pos_ori++){//！！备注放最后
+                AnsiString column_title = lstView->Columns->Items[pos_ori+1+1]->Caption;
                 //cancel
 /*                if (column_title=="经营单位" || column_title=="报关单号"){//不到出：经营单位、报关单号
                         continue;
@@ -883,16 +898,16 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
                  TListItem *pItem = lstViewPure->Items->Add();
                  pItem->Caption = AnsiString(i+1);
 
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[0]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[3]);
-                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4];
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[0+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[1+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[3+1]);
+                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4+1];
                  pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[5]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[6]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[7]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[8]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[5+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[6+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[7+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[8+1]);
 
                  int j=0;
                  int cnt=0;
@@ -905,7 +920,7 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
                         cnt++;
                  }
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column+j]);  //must！ 不显示2个column
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[9]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[9+1]);
 
                  //必须，否则异常，导致到处1条记录就中断
                  for (int t=cnt; t<40; ++t)
@@ -921,8 +936,11 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
                 vExcel = Variant::CreateObject("Excel.Application");      //打开excel
                 vExcel.OlePropertyGet("Workbooks").OleFunction("Add", 1); // 新增工作区
                 vSheet = vExcel.OlePropertyGet("ActiveWorkbook").OlePropertyGet("Sheets", 1);//操作这个工作表
+                vWorkBook = vExcel.OlePropertyGet("ActiveWorkbook");
+
+                vExcel.OlePropertySet("DisplayAlerts",false);                                
                 //属性设置
-                vExcel.OlePropertySet("Visible",true);
+//                vExcel.OlePropertySet("Visible",true);
                 vSheet.OlePropertyGet("Rows",++iRows).OlePropertySet("RowHeight",72);//设置指定行的高度为28
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",15);//设置所有列的列宽为28
@@ -1011,9 +1029,17 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
 户名：蒙赤勇";
                 vSheet.OlePropertyGet("Cells",iRows,1).OlePropertySet("Value",strAccount1.c_str());
                 /////////////////////////////////////////////////////////////////////////////////////
+                vSheet.OleProcedure("SaveAs", sfile.c_str());
 
+                vWorkBook.OleProcedure("Close");
+
+                vExcel.OleFunction("Quit");
+                vWorkBook = Unassigned;
+                vExcel = Unassigned;
+                ShowMessage("导出完毕");
 
         }catch(...){
+                ShowMessage("导出失败");
         }
 }
 //---------------------------------------------------------------------------
@@ -1050,4 +1076,17 @@ end
 */
 }
 //---------------------------------------------------------------------------
+
+void TFinanceForm::flushColumnNo(){
+        int cnt_row = lstView->Items->Count;
+        int column_no=0;
+        if (cnt_row>0){
+                for (int row=0; row<(cnt_row-1); ++row) {
+                        column_no++;
+//                        lstView->Items->Item[row]->SubItems->Strings[0] = column_no;
+                        lstView->Items->Item[row]->Caption = column_no;
+                }
+        }
+}
+
 

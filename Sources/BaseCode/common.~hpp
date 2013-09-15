@@ -55,6 +55,16 @@ void delLvItem(TListView *lv){
 
 //////////////////////////////////////////////////////////////////////////////////////
 //time
+CString GetSysTime2(){
+  unsigned short year,month,day,h,m,s,u;
+
+  char strDate[80];
+  TDateTime tDate=Now();
+  tDate.DecodeDate(&year,&month,&day);
+  tDate.DecodeTime(&h, &m, &s, &u);
+  sprintf(strDate,"%04d-%02d-%02d-%02d:%02d:%02d",year,month,day,h,m,s);
+  return CString(strDate);
+}
 CString GetDate(TDateTimePicker *dtp)
 {
         unsigned short year,month,day;
@@ -148,9 +158,6 @@ bool checkDataExist(CString sql){
       RunSQL(sql,true);
 //      return dm1->Query1->RecordCount>0?true:false;
       return !dm1->Query1->Eof;
-}
-void keepAlive(){
-        RunSQL("select 1",true);
 }
 //batch sql by trans
 int batchRunSQL(const sql_t &sqls){

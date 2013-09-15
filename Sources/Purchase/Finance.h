@@ -11,6 +11,7 @@
 #include <ExtCtrls.hpp>
 #include "BaseCode/LfcArray_s.h"
 #include <Graphics.hpp>
+#include <Dialogs.hpp>
 //---------------------------------------------------------------------------
 class TFinanceForm : public TForm
 {
@@ -70,6 +71,7 @@ __published:	// IDE-managed Components
         TPanel *Panel1;
         TEdit *edtRemark;
         TButton *Button2;
+        TSaveDialog *SaveDialog1;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnQueryClick(TObject *Sender);
         void __fastcall btnModClick(TObject *Sender);
@@ -106,7 +108,8 @@ public:		// User declarations
         void clearQryInput();
         CString getFirstContainerNo(AnsiString c);
         CString getAllContainerNo(AnsiString c);        // get all conno , join by ","
-        int getChidByChname(CString chname);        
+        int getChidByChname(CString chname);
+        void flushColumnNo();       
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TFinanceForm *FinanceForm;
