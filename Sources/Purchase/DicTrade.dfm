@@ -1,6 +1,6 @@
 object DicTradeForm: TDicTradeForm
-  Left = 1536
-  Top = -84
+  Left = 829
+  Top = 132
   Width = 523
   Height = 419
   Color = clBtnFace
@@ -1968,7 +1968,7 @@ object DicTradeForm: TDicTradeForm
       Top = 25
       Width = 161
       Height = 21
-      MaxLength = 10
+      MaxLength = 22
       TabOrder = 0
       Text = 'edtName'
     end

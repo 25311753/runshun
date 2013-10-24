@@ -31,6 +31,7 @@ __fastcall TAcceptForm::TAcceptForm(TComponent* Owner)
         : TForm(Owner)
 {
         m_enWorkState=EN_IDLE;
+        m_sCidCopy = "";
 }
 //---------------------------------------------------------------------------
 static bool chkFormatContainerNo(AnsiString ss){
@@ -919,6 +920,8 @@ void TAcceptForm::ResetCtrl(){
     btnDel->Enabled=isSelected;
     btnOK->Enabled =false;
     btnCancel->Enabled=false;
+    btnPaste->Enabled=false;
+
     //edt all disable
     EnableEdit(edtCid,false);
     EnableCombo(cbbClient,false);
@@ -953,6 +956,7 @@ void TAcceptForm::ResetCtrl(){
     EnableCombo(cbbGoodsPerfQry,true);
 
 
+    
 
   }
   else
@@ -963,6 +967,8 @@ void TAcceptForm::ResetCtrl(){
     btnDel->Enabled=false;
     btnOK->Enabled =true;
     btnCancel->Enabled=true;
+    btnPaste->Enabled=true;
+
     //lstview
 //    lstViewDown->Enabled=false;
 //        lstViewDown->Selected=NULL;
@@ -1175,11 +1181,11 @@ CString TAcceptForm::getCustomsCharge(CString client){
         CString rt="";
         CString szSQL;
 	szSQL.Format("select customs_charge from client where shortname = '%s'", client);
-	RunSQL(dm1->Query1,szSQL,true);
+	RunSQL(dm1->Query3,szSQL,true);
 
-	if(!dm1->Query1->Eof)
+	if(!dm1->Query3->Eof)
 	{
-                rt = dm1->Query1->FieldByName("customs_charge")->AsString.c_str();
+                rt = dm1->Query3->FieldByName("customs_charge")->AsString.c_str();
         }
         return rt;
 }
@@ -1263,4 +1269,77 @@ void __fastcall TAcceptForm::dtpEndDateYYYYMMDDEnter(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
+
+void __fastcall TAcceptForm::btnCopyClick(TObject *Sender)
+{
+        if (edtCid->Text.IsEmpty()){
+                ShowMessage("无可复制内容");
+                return;
+        }
+
+        CString szSQL;
+        szSQL="select cid from customs where 1=1 ";
+        szSQL +=" and cid="; szSQL += Str2DBString(edtCid->Text.c_str());
+	RunSQL(dm1->Query1,szSQL,true);
+
+        if (dm1->Query1->Eof){
+                ShowMessage("待复制的记录不存在,请输入完整单信息并保存再复制，或者先查询，再复制！");
+                return;
+        }
+
+        m_sCidCopy = edtCid->Text.c_str();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
+{
+        CString szSQL;
+        szSQL="select *,CONVERT(varchar(10), acceptdate, 23) as ad, substring(containerinfo,0,charindex('|',containerinfo)) as cnt_con \
+                from customs where 1=1 ";
+        if (!m_sCidCopy.IsEmpty()){
+                szSQL +=" and cid="; szSQL += Str2DBString(m_sCidCopy.c_str());
+        }else{
+                ShowMessage("无可粘贴内容，请先复制");
+                return;
+        }
+
+        TListItem *pItem;
+        lstViewDown->Items->Clear();
+	RunSQL(dm1->Query1,szSQL,true);
+
+        if (dm1->Query1->Eof){
+                ShowMessage("待复制的记录不存在");
+                return;
+        }
+
+	if(!dm1->Query1->Eof)
+	{
+                lstViewContainer->Items->Clear();
+
+                edtCid->Text = "";
+                cbbGoodsPerf->ItemIndex=cbbGoodsPerf->Items->IndexOf(dm1->Query1->FieldByName("goodsperf")->AsString);
+                cbbClient->Text=dm1->Query1->FieldByName("client")->AsString;
+                cbbCustomsCharge->Text = AnsiString(getCustomsCharge(cbbClient->Text.c_str()));
+                edtBoatNo->Text = dm1->Query1->FieldByName("boatno")->AsString;
+//                edtBoatOrder->Text = dm1->Query1->FieldByName("boatorder")->AsString;
+                cbbStatus->ItemIndex=cbbStatus->Items->IndexOf(dm1->Query1->FieldByName("status")->AsString);
+                AnsiString status = dm1->Query1->FieldByName("status")->AsString;
+                edtLading->Text =  dm1->Query1->FieldByName("ladingid")->AsString.c_str();
+                edtContainerInfo->Text = dm1->Query1->FieldByName("containerinfo")->AsString.c_str(); //变量无用，可删？？
+                edtCliWorkid->Text =   dm1->Query1->FieldByName("cliworkid")->AsString.c_str();
+                edtCustfree->Text = dm1->Query1->FieldByName("custfree")->AsString.c_str();
+                edtSealId->Text = dm1->Query1->FieldByName("sealid")->AsString.c_str();
+                edtBeiZhu->Text = dm1->Query1->FieldByName("beizhu")->AsString.c_str();
+                cbbShipAgent->ItemIndex=cbbShipAgent->Items->IndexOf(dm1->Query1->FieldByName("shipagent")->AsString);
+                flushContainer(AnsiString(dm1->Query1->FieldByName("containerinfo")->AsString.c_str()));
+                TDateTime tNow=TDateTime::CurrentDateTime();
+                dtpEndDateYYYYMMDD->DateTime=tNow;
+                dtpEndDateHHMM->Time = EncodeTime(17,00,00,0);
+                dtpQryAcceptDate->DateTime=tNow;
+                dtpQryAcceptDateEnd->DateTime=tNow;
+
+//		dm1->Query1->Next();
+	}
+}
+//---------------------------------------------------------------------------
 

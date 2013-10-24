@@ -282,7 +282,7 @@ Label44->Caption = "";
         edtSum->Text = "";
         edtAttachedoc->Text = "";
         edtManufacturer->Text = "";
-        edtMarks->Text = "港口区 零担 不退税 无牌子";
+        edtMarks->Text = "港口区 零担 不退税 无牌子 拼柜";
         edtInvoice->Text = "广州润顺国际货运代理有限公司";
 //return;
         cbbOperunit->Text = "";
@@ -1579,7 +1579,7 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
                 edtContractid->Text = edtCid->Text;
         }
         if(edtMarks->Text.IsEmpty())
-                edtMarks->Text = "港口区 零担 不退税 无牌子";
+                edtMarks->Text = "港口区 零担 不退税 无牌子 拼柜";
 
 //        cbbTargetCountry->ItemIndex=cbbTargetCountry->Items->IndexOf(AnsiString(tc));
         CleanQryInput();

@@ -94,6 +94,8 @@ __published:	// IDE-managed Components
         TPanel *Panel24;
         TComboBox *cbbCustomsCharge;
         TButton *btnClearQryCond;
+        TButton *btnCopy;
+        TButton *btnPaste;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnInputContanerinfoClick(TObject *Sender);
         void __fastcall btnAddClick(TObject *Sender);
@@ -124,6 +126,8 @@ __published:	// IDE-managed Components
         void __fastcall lstViewDownCompare(TObject *Sender,
           TListItem *Item1, TListItem *Item2, int Data, int &Compare);
         void __fastcall dtpEndDateYYYYMMDDEnter(TObject *Sender);
+        void __fastcall btnCopyClick(TObject *Sender);
+        void __fastcall btnPasteClick(TObject *Sender);
 
                        
 private:	// User declarations
@@ -136,6 +140,7 @@ private:	// User declarations
         CStringArray m_lstGoodsperf;
         enum { EN_IDLE,EN_ADDNEW,EN_EDIT } m_enWorkState; //接单上区状态
         int m_nColumnToSort;
+        AnsiString m_sCidCopy;  //复制单内容需求（只复制单号，paste时查数据库填充）
 
 public:		// User declarations
         __fastcall TAcceptForm(TComponent* Owner);

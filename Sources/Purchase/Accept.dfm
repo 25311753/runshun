@@ -1044,6 +1044,24 @@ object AcceptForm: TAcceptForm
     OnCompare = lstViewDownCompare
     OnSelectItem = lstViewDownSelectItem
   end
+  object btnCopy: TButton
+    Left = 777
+    Top = 0
+    Width = 63
+    Height = 25
+    Caption = #22797#21046
+    TabOrder = 14
+    OnClick = btnCopyClick
+  end
+  object btnPaste: TButton
+    Left = 857
+    Top = 0
+    Width = 63
+    Height = 25
+    Caption = #31896#36148
+    TabOrder = 15
+    OnClick = btnPasteClick
+  end
   object TrayIcon1: TTrayIcon
     Hint = #28070#39034#25253#20851
     Hide = True
@@ -1053,7 +1071,7 @@ object AcceptForm: TAcceptForm
     Left = 504
   end
   object ImageList1: TImageList
-    Left = 920
+    Left = 1160
     Bitmap = {
       494C010101000400040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
