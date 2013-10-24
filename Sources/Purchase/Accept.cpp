@@ -967,7 +967,9 @@ void TAcceptForm::ResetCtrl(){
     btnDel->Enabled=false;
     btnOK->Enabled =true;
     btnCancel->Enabled=true;
-    btnPaste->Enabled=true;
+    if (m_enWorkState==EN_ADDNEW){
+            btnPaste->Enabled=true;
+    }
 
     //lstview
 //    lstViewDown->Enabled=false;
@@ -1288,6 +1290,7 @@ void __fastcall TAcceptForm::btnCopyClick(TObject *Sender)
         }
 
         m_sCidCopy = edtCid->Text.c_str();
+        ShowMessage("复制成功，单号:"+m_sCidCopy);
 }
 //---------------------------------------------------------------------------
 
@@ -1321,7 +1324,7 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
                 cbbClient->Text=dm1->Query1->FieldByName("client")->AsString;
                 cbbCustomsCharge->Text = AnsiString(getCustomsCharge(cbbClient->Text.c_str()));
                 edtBoatNo->Text = dm1->Query1->FieldByName("boatno")->AsString;
-//                edtBoatOrder->Text = dm1->Query1->FieldByName("boatorder")->AsString;
+                edtBoatOrder->Text = dm1->Query1->FieldByName("boatorder")->AsString;
                 cbbStatus->ItemIndex=cbbStatus->Items->IndexOf(dm1->Query1->FieldByName("status")->AsString);
                 AnsiString status = dm1->Query1->FieldByName("status")->AsString;
                 edtLading->Text =  dm1->Query1->FieldByName("ladingid")->AsString.c_str();
@@ -1332,12 +1335,17 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
                 edtBeiZhu->Text = dm1->Query1->FieldByName("beizhu")->AsString.c_str();
                 cbbShipAgent->ItemIndex=cbbShipAgent->Items->IndexOf(dm1->Query1->FieldByName("shipagent")->AsString);
                 flushContainer(AnsiString(dm1->Query1->FieldByName("containerinfo")->AsString.c_str()));
+/*
                 TDateTime tNow=TDateTime::CurrentDateTime();
                 dtpEndDateYYYYMMDD->DateTime=tNow;
                 dtpEndDateHHMM->Time = EncodeTime(17,00,00,0);
                 dtpQryAcceptDate->DateTime=tNow;
                 dtpQryAcceptDateEnd->DateTime=tNow;
-
+*/
+                TDateTime tDate;
+                tDate=StrToDateTime(dm1->Query1->FieldByName("endcustdate")->AsString.c_str());
+                dtpEndDateYYYYMMDD->DateTime=tDate;
+                dtpEndDateHHMM->Time=tDate;
 //		dm1->Query1->Next();
 	}
 }
