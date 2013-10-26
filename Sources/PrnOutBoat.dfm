@@ -1,6 +1,6 @@
 object PrnOutBoatForm: TPrnOutBoatForm
-  Left = -1143
-  Top = 154
+  Left = -1166
+  Top = -179
   Width = 944
   Height = 812
   Caption = #25171#21360#20986#33337#32440
@@ -15,8 +15,8 @@ object PrnOutBoatForm: TPrnOutBoatForm
   PixelsPerInch = 96
   TextHeight = 13
   object PrnView: TQuickRep
-    Left = 32
-    Top = -176
+    Left = 24
+    Top = 24
     Width = 794
     Height = 1123
     Frame.Color = clBlack
@@ -103,7 +103,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
       end
       object qrlLadingId: TQRLabel
         Left = 448
-        Top = 32
+        Top = 56
         Width = 78
         Height = 21
         Frame.Color = clBlack
@@ -114,7 +114,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
         Size.Values = (
           55.5625
           1185.33333333333
-          84.6666666666667
+          148.166666666667
           206.375)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -722,6 +722,12 @@ object PrnOutBoatForm: TPrnOutBoatForm
         AutoStretch = False
         Caption = 'qrlDeclareId'
         Color = clWhite
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindow
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
         Transparent = False
         WordWrap = True
         FontSize = 12

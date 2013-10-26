@@ -326,7 +326,8 @@ Label44->Caption = "";
                 m_lstTrade.Add(dm1->Query1->FieldByName("trname")->AsString.c_str());
 		dm1->Query1->Next();
         }
-            cbbTrade->ItemIndex=0;
+//            cbbTrade->ItemIndex=0;
+        cbbTrade->ItemIndex = cbbTrade->Items->IndexOf("旅游购物商品");
         cbbZhengmian->ItemIndex = -1;
         cbbZhengmian->Text = "";
 	szSQL.Format("select * from diczhengmian");
