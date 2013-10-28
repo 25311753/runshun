@@ -1554,7 +1554,8 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
 	}
         flushSum();
         if (cbbTrade->ItemIndex == -1)
-                cbbTrade->ItemIndex=0;
+//                cbbTrade->ItemIndex=0;
+                cbbTrade->ItemIndex = cbbTrade->Items->IndexOf("旅游购物商品");
         if (cbbPack->ItemIndex == -1)
                 cbbPack->ItemIndex=0;
         if (cbbTransport->ItemIndex == -1)
@@ -3062,4 +3063,5 @@ void __fastcall TDoForm::rg_statusClick(TObject *Sender)
 */
 }
 //---------------------------------------------------------------------------
+
 
