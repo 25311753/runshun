@@ -20,8 +20,21 @@ TCostAccountingForm *CostAccountingForm;
 //#define CNT_TOTAL_COL 46
 //#define CNT_FIXED_COL 11
 
+enum E_COLUMN_NAME{
+	COL_CID = 0,
+        COL_CLIWORKID,
+        COL_ACCEPTDATE,
+        COL_OPUNIT,
+        COL_CLIENT,
+        COL_DECLAREID,
+        COL_CUSTFREE,
+        COL_BASECOST,
+        COL_LADINGID,
+        COL_CONTAINER,
+        COL_BEIZHU,
+};
 //加入提单号、柜号、备注、客户工单号
-int charge_start_column = 10+1; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
+int charge_start_column = COL_BEIZHU; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
 void CostAccounting(int nAuth)
 {
         CALL_FORM(TCostAccountingForm);
@@ -122,11 +135,11 @@ void __fastcall TCostAccountingForm::lstViewSelectItem(TObject *Sender,
 
     if (Selected!=NULL){
         ResetCharges();
-        edtCid->Text = Item->SubItems->Strings[0];
-        edtClient->Text = Item->SubItems->Strings[3+1];
-        edtDeclareId->Text = Item->SubItems->Strings[4+1];
-        edtBaseCost->Text = Item->SubItems->Strings[6+1];
-        edtRemark->Text = Item->SubItems->Strings[9+1];
+        edtCid->Text = Item->SubItems->Strings[COL_CID];
+        edtClient->Text = Item->SubItems->Strings[COL_CLIENT];
+        edtDeclareId->Text = Item->SubItems->Strings[COL_DECLAREID];
+        edtBaseCost->Text = Item->SubItems->Strings[COL_BASECOST];
+        edtRemark->Text = Item->SubItems->Strings[COL_BEIZHU];
         int cbb_order = 0;
 
         int pos_charge = 0;
@@ -455,16 +468,18 @@ int TCostAccountingForm::ModCharge(){
         TListItem *pItem = lstView->Items->Add();
         pItem->Caption = 0;//flush after
         pItem->SubItems->Add(edtCid->Text);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[1]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[2]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[3]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[4]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[5]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[6]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[7]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[8]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[9]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[10]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CLIWORKID]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_ACCEPTDATE]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_OPUNIT]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CLIENT]);        
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_DECLAREID]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CUSTFREE]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_BASECOST]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_LADINGID]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CONTAINER]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_BEIZHU]);
+
+
 
 
         pItem->SubItems->Add(edtBaseCost->Text);
@@ -490,10 +505,10 @@ int TCostAccountingForm::ModCharge(){
             getCharge(edtCharge4) + getCharge(edtCharge5) + getCharge(edtCharge6) +
             getCharge(edtCharge7) + getCharge(edtCharge8) + getCharge(edtCharge9) +
             getCharge(edtCharge10) ;
-        float total = StrToFloat(lstView->Selected->SubItems->Strings[3+1+1+1].c_str()) -
-                        StrToFloat(lstView->Selected->SubItems->Strings[4+1+1+1].c_str()) -
+        float total = StrToFloat(lstView->Selected->SubItems->Strings[COL_CUSTFREE].c_str()) -
+                        StrToFloat(lstView->Selected->SubItems->Strings[COL_BASECOST].c_str()) -
                         total_var_charges;
-                        
+
         lstView->Items->Item[row]->SubItems->Strings[charge_start_column+m_mChargeInfo.size()] = FloatToStr(total);
         //delete after add
         lstView->Selected->Delete();
@@ -810,7 +825,7 @@ void __fastcall TCostAccountingForm::Button1Click(TObject *Sender)
        }
         lstViewPure->Columns->Items[1+pos_pure++]->Caption = "合计";
         lstViewPure->Columns->Items[1+pos_pure++]->Caption = "备注";
-        
+
         //mv data
         lstViewPure->Clear();
         edtMockDeclareid->Text = "";
@@ -819,17 +834,17 @@ void __fastcall TCostAccountingForm::Button1Click(TObject *Sender)
                  TListItem *pItem = lstViewPure->Items->Add();
 //                 pItem->Caption = lstView->Items->Item[i]->Caption;
                  pItem->Caption = AnsiString(i+1);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[0+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[1+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[3+1]);
-                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4+1];
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_CLIWORKID]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_ACCEPTDATE]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_OPUNIT]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_CLIENT]);
+                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[COL_DECLAREID];
                  pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
 
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[4+1+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[5+1+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[6+1+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[7+1+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_CUSTFREE]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_BASECOST]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_LADINGID]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_CONTAINER]);
                  int j=0;
                  int cnt=0;
                  for (j=0; j<m_mChargeInfo.size(); ++j) {
@@ -841,7 +856,7 @@ void __fastcall TCostAccountingForm::Button1Click(TObject *Sender)
                         cnt++;
                  }
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column+j]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[8+1+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_BEIZHU]);
                  //add tail column for gen excel not to core
                  //必须，否则异常，导致到处1条记录就中断
                  for (int t=cnt; t<40; ++t)
@@ -985,7 +1000,7 @@ void TCostAccountingForm::flushSum(){
         for(i=0;i<lstView->Items->Count;i++)
         {
                 pItem=lstView->Items->Item[i];
-                totalIn += StrToFloat(pItem->SubItems->Strings[5+1]);
+                totalIn += StrToFloat(pItem->SubItems->Strings[COL_CUSTFREE]);
                 totalPure += StrToFloat(pItem->SubItems->Strings[charge_start_column+m_mChargeInfo.size()]);
         }
 

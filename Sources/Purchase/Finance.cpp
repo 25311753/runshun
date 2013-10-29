@@ -23,8 +23,21 @@ typedef struct
 
 static CArray<CHARGES,CHARGES> gCHARGES;
 */
+enum E_COLUMN_NAME{
+	COL_CID = 0,
+        COL_CLIWORKID,
+        COL_ACCEPTDATE,
+        COL_OPUNIT,
+        COL_CLIENT,
+        COL_DECLAREID,
+        COL_LADINGID,
+        COL_CONTAINER,
+        COL_LICENSENO,
+        COL_CUSTFREE,
+        COL_BEIZHU,
+};
 //add conno、备注、客户工单号
-int charge_start_column = 7+1+1+1+1; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
+int charge_start_column = COL_BEIZHU; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
 //---------------------------------------------------------------------------
 void Finance(int nAuth)
 {

@@ -2147,7 +2147,8 @@ int TDoForm::addDetail()
 //        ShowMessage("毛重超26000KG");
 //        return -1;
         char strMsg[256],strSQL[512];
-        sprintf(strMsg,"\n  毛重超26000KG 或 总价超10w 是否继续?\n");
+//        sprintf(strMsg,"\n  毛重超26000KG 或 总价超10w 是否继续?\n");
+        sprintf(strMsg,"\n  总价超5w 是否继续?\n");
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return -1;
   }
@@ -2281,7 +2282,8 @@ int TDoForm::modDetail(){
   }
   if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text), StrToFloat(edtTotalPrice->Text))){
         char strMsg[256],strSQL[512];
-        sprintf(strMsg,"\n  毛重超26000KG 或 总价超10w 是否继续?\n");
+//        sprintf(strMsg,"\n  毛重超26000KG 或 总价超10w 是否继续?\n");
+        sprintf(strMsg,"\n  总价超5w 是否继续?\n");
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return -1;
   }
@@ -2995,7 +2997,8 @@ AnsiString TDoForm::ranSH()
 
 bool TDoForm::chkGrossWeight(float gw, float newTotalPrice){
 //        return gw>26000 || totalPrice>100000;
-        return gw>26000 || (m_fTotalPrice+newTotalPrice)>100000;
+//        return gw>26000 || (m_fTotalPrice+newTotalPrice)>100000;
+        return (m_fTotalPrice+newTotalPrice)>50000;
 }
 
 

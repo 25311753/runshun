@@ -1320,7 +1320,8 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
                 lstViewContainer->Items->Clear();
 
                 edtCid->Text = "";
-                cbbGoodsPerf->ItemIndex=cbbGoodsPerf->Items->IndexOf(dm1->Query1->FieldByName("goodsperf")->AsString);
+//                cbbGoodsPerf->ItemIndex=cbbGoodsPerf->Items->IndexOf(dm1->Query1->FieldByName("goodsperf")->AsString);
+                cbbGoodsPerf->ItemIndex = cbbGoodsPerf->Items->IndexOf("买单");
                 cbbClient->Text=dm1->Query1->FieldByName("client")->AsString;
                 cbbCustomsCharge->Text = AnsiString(getCustomsCharge(cbbClient->Text.c_str()));
                 edtBoatNo->Text = dm1->Query1->FieldByName("boatno")->AsString;
@@ -1330,7 +1331,8 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
                 edtLading->Text =  dm1->Query1->FieldByName("ladingid")->AsString.c_str();
                 edtContainerInfo->Text = dm1->Query1->FieldByName("containerinfo")->AsString.c_str(); //变量无用，可删？？
                 edtCliWorkid->Text =   dm1->Query1->FieldByName("cliworkid")->AsString.c_str();
-                edtCustfree->Text = dm1->Query1->FieldByName("custfree")->AsString.c_str();
+//                edtCustfree->Text = dm1->Query1->FieldByName("custfree")->AsString.c_str();
+                edtCustfree->Text = "0";
                 edtSealId->Text = dm1->Query1->FieldByName("sealid")->AsString.c_str();
                 edtBeiZhu->Text = dm1->Query1->FieldByName("beizhu")->AsString.c_str();
                 cbbShipAgent->ItemIndex=cbbShipAgent->Items->IndexOf(dm1->Query1->FieldByName("shipagent")->AsString);
