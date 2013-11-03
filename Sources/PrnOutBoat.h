@@ -51,6 +51,9 @@ __published:	// IDE-managed Components
         TQRLabel *qrlNum20DaXie;
         TQRLabel *qrl40DaXie;
         TQRLabel *qrlNum40DaXie;
+        TQRLabel *QRLabel3;
+        TQRShape *QRShape1;
+        TQRShape *QRShape2;
 private:	// User declarations
 public:		// User declarations
         __fastcall TPrnOutBoatForm(TComponent* Owner);

@@ -1,6 +1,6 @@
 object FinanceForm: TFinanceForm
-  Left = 171
-  Top = 200
+  Left = 197
+  Top = 132
   Width = 1264
   Height = 761
   Caption = #36130#21153
@@ -677,6 +677,10 @@ object FinanceForm: TFinanceForm
         Width = 100
       end
       item
+        Caption = #36135#29289#24615#36136
+        Width = 70
+      end
+      item
         Caption = #25253#20851#21333#21495
         Width = 100
       end
@@ -855,8 +859,8 @@ object FinanceForm: TFinanceForm
     OnClick = Button2Click
   end
   object SaveDialog1: TSaveDialog
-    DefaultExt = 'xlsx'
-    Filter = '*.xlsx'
+    DefaultExt = 'xls'
+    Filter = '*.xls'
     Left = 440
     Top = 8
   end

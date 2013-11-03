@@ -1,6 +1,6 @@
 object CostAccountingForm: TCostAccountingForm
-  Left = -9
-  Top = 166
+  Left = 192
+  Top = 118
   Width = 1265
   Height = 764
   Caption = #25104#26412#26680#31639
@@ -708,6 +708,10 @@ object CostAccountingForm: TCostAccountingForm
         Width = 80
       end
       item
+        Caption = #36135#29289#24615#36136
+        Width = 70
+      end
+      item
         Caption = #25253#20851#21333#21495
         Width = 80
       end
@@ -850,8 +854,8 @@ object CostAccountingForm: TCostAccountingForm
     OnSelectItem = lstViewSelectItem
   end
   object SaveDialog1: TSaveDialog
-    DefaultExt = 'xlsx'
-    Filter = '*.xlsx'
+    DefaultExt = 'xls'
+    Filter = '*.xls'
     Left = 456
     Top = 8
   end

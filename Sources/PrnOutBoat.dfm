@@ -987,6 +987,65 @@ object PrnOutBoatForm: TPrnOutBoatForm
         WordWrap = True
         FontSize = 16
       end
+      object QRLabel3: TQRLabel
+        Left = 413
+        Top = 32
+        Width = 277
+        Height = 19
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          50.2708333333333
+          1092.72916666667
+          84.6666666666667
+          732.895833333333)
+        Alignment = taLeftJustify
+        AlignToBand = False
+        AutoSize = True
+        AutoStretch = False
+        Caption = #21457#31080#21333#20301':'#24191#24030#27961#23637#36827#20986#21475#36152#26131#26377#38480#20844#21496
+        Color = clWhite
+        Transparent = False
+        WordWrap = True
+        FontSize = 12
+      end
+      object QRShape1: TQRShape
+        Left = 388
+        Top = 32
+        Width = 19
+        Height = 18
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          47.625
+          1026.58333333333
+          84.6666666666667
+          50.2708333333333)
+        Shape = qrsRectangle
+      end
+      object QRShape2: TQRShape
+        Left = 388
+        Top = 8
+        Width = 19
+        Height = 18
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          47.625
+          1026.58333333333
+          21.1666666666667
+          50.2708333333333)
+        Shape = qrsRectangle
+      end
     end
   end
 end

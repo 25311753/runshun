@@ -26,6 +26,7 @@ enum E_COLUMN_NAME{
         COL_ACCEPTDATE,
         COL_OPUNIT,
         COL_CLIENT,
+        COL_GOODSPERF,
         COL_DECLAREID,
         COL_CUSTFREE,
         COL_BASECOST,
@@ -34,7 +35,7 @@ enum E_COLUMN_NAME{
         COL_BEIZHU,
 };
 //加入提单号、柜号、备注、客户工单号
-int charge_start_column = COL_BEIZHU; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
+int charge_start_column = COL_BEIZHU+1; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
 void CostAccounting(int nAuth)
 {
         CALL_FORM(TCostAccountingForm);
@@ -471,7 +472,8 @@ int TCostAccountingForm::ModCharge(){
         pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CLIWORKID]);
         pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_ACCEPTDATE]);
         pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_OPUNIT]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CLIENT]);        
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CLIENT]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_GOODSPERF]);
         pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_DECLAREID]);
         pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CUSTFREE]);
         pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_BASECOST]);
@@ -583,7 +585,7 @@ void __fastcall TCostAccountingForm::btnQueryClick(TObject *Sender)
 
         CString szSQL;
         //custcoms
-        szSQL="select cid, cliworkid, acceptdate, client, declareid, ladingid, containerinfo, beizhu, custfree, basecost, \
+        szSQL="select cid, cliworkid, acceptdate, client, goodsperf, declareid, ladingid, containerinfo, beizhu, custfree, basecost, \
                         operunit,CONVERT(varchar(10), acceptdate, 23) as ad \
                         from customs where 1=1 ";
         if (!edtCid->Text.IsEmpty()){
@@ -623,6 +625,8 @@ void __fastcall TCostAccountingForm::btnQueryClick(TObject *Sender)
                 pItem->SubItems->Add(dm1->Query1->FieldByName("ad")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("operunit")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("client")->AsString);
+                pItem->SubItems->Add(dm1->Query1->FieldByName("goodsperf")->AsString);
+
                 pItem->SubItems->Add(dm1->Query1->FieldByName("declareid")->AsString);
 
                 //qry sum_finance
@@ -838,6 +842,7 @@ void __fastcall TCostAccountingForm::Button1Click(TObject *Sender)
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_ACCEPTDATE]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_OPUNIT]);
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_CLIENT]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_GOODSPERF]);
                  edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[COL_DECLAREID];
                  pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
 

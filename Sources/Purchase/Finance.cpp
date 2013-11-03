@@ -29,6 +29,7 @@ enum E_COLUMN_NAME{
         COL_ACCEPTDATE,
         COL_OPUNIT,
         COL_CLIENT,
+        COL_GOODSPERF,
         COL_DECLAREID,
         COL_LADINGID,
         COL_CONTAINER,
@@ -37,7 +38,7 @@ enum E_COLUMN_NAME{
         COL_BEIZHU,
 };
 //add conno、备注、客户工单号
-int charge_start_column = COL_BEIZHU; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
+int charge_start_column = COL_BEIZHU+1; // 费用列起始列偏移. +0 ->第一个费用； +1 第二个费用
 //---------------------------------------------------------------------------
 void Finance(int nAuth)
 {
@@ -253,6 +254,7 @@ void __fastcall TFinanceForm::btnQueryClick(TObject *Sender)
                 pItem->SubItems->Add(dm1->Query1->FieldByName("ad")->AsString);
                 pItem->SubItems->Add(isNormal?dm1->Query1->FieldByName("operunit")->AsString:AnsiString(""));
                 pItem->SubItems->Add(dm1->Query1->FieldByName("client")->AsString);
+                pItem->SubItems->Add(dm1->Query1->FieldByName("goodsperf")->AsString);
                 pItem->SubItems->Add(isNormal?dm1->Query1->FieldByName("declareid")->AsString:AnsiString(""));
                 pItem->SubItems->Add(dm1->Query1->FieldByName("ladingid")->AsString);
                 pItem->SubItems->Add(AnsiString(getAllContainerNo(dm1->Query1->FieldByName("containerinfo")->AsString)));
@@ -586,15 +588,15 @@ void __fastcall TFinanceForm::lstViewSelectItem(TObject *Sender,
     if (Selected!=NULL){
         ResetCharges();
 //        edtCid->Text = Item->Caption;
-        edtCid->Text = Item->SubItems->Strings[0];
-        edtOperUnit->Text = Item->SubItems->Strings[2+1];
-        edtClient->Text = Item->SubItems->Strings[2+1+1];
-        edtDeclareId->Text = Item->SubItems->Strings[3+1+1];
-        edtLadingId->Text = Item->SubItems->Strings[4+1+1];
-        edtContainerinfo->Text = Item->SubItems->Strings[5+1+1];
-        edtLicenseNo->Text = Item->SubItems->Strings[6+1+1];
-        edtCustFree->Text = Item->SubItems->Strings[7+1+1];
-        edtRemark->Text = Item->SubItems->Strings[9+1];
+        edtCid->Text = Item->SubItems->Strings[COL_CID];
+        edtOperUnit->Text = Item->SubItems->Strings[COL_OPUNIT];
+        edtClient->Text = Item->SubItems->Strings[COL_CLIENT];
+        edtDeclareId->Text = Item->SubItems->Strings[COL_DECLAREID];
+        edtLadingId->Text = Item->SubItems->Strings[COL_LADINGID];
+        edtContainerinfo->Text = Item->SubItems->Strings[COL_CONTAINER];
+        edtLicenseNo->Text = Item->SubItems->Strings[COL_LICENSENO];
+        edtCustFree->Text = Item->SubItems->Strings[COL_CUSTFREE];
+        edtRemark->Text = Item->SubItems->Strings[COL_BEIZHU];
         int cbb_order = 0;
 
         int pos_charge = 0;
@@ -763,16 +765,17 @@ int TFinanceForm::ModCharge(){
         //        int nColPos = 0;
         pItem->Caption = 0;     //mod after
         pItem->SubItems->Add(edtCid->Text);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[0+1]);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[1+1]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CLIWORKID]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_ACCEPTDATE]);
         pItem->SubItems->Add(isNormal?edtOperUnit->Text:AnsiString(""));
         pItem->SubItems->Add(edtClient->Text);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_GOODSPERF]);
         pItem->SubItems->Add(isNormal?edtDeclareId->Text:AnsiString(""));
         pItem->SubItems->Add(edtLadingId->Text);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[5+1+1]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_CONTAINER]);
         pItem->SubItems->Add(isNormal?edtLicenseNo->Text:AnsiString(""));
         pItem->SubItems->Add(edtCustFree->Text);
-        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[9+1]);
+        pItem->SubItems->Add(lstView->Selected->SubItems->Strings[COL_BEIZHU]);
 
         //init var charge column first, otherwise core in InsertCustFreeToListView2
         for(int i=0; i<m_mChargeInfo.size(); ++i) {
@@ -911,16 +914,17 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
                  TListItem *pItem = lstViewPure->Items->Add();
                  pItem->Caption = AnsiString(i+1);
 
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[0+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[1+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[2+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[3+1]);
-                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[4+1];
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_CLIWORKID]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_ACCEPTDATE]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_OPUNIT]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_CLIENT]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_GOODSPERF]);
+                 edtMockDeclareid->Text = lstView->Items->Item[i]->SubItems->Strings[COL_DECLAREID];
                  pItem->SubItems->Add((edtMockDeclareid->Text.Length() > 9)? edtMockDeclareid->Text.SubString(edtMockDeclareid->Text.Length()-9+1,9):edtMockDeclareid->Text);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[5+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[6+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[7+1]);
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[8+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_LADINGID]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_CONTAINER]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_LICENSENO]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_CUSTFREE]);
 
                  int j=0;
                  int cnt=0;
@@ -933,7 +937,7 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
                         cnt++;
                  }
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column+j]);  //must！ 不显示2个column
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[9+1]);
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_BEIZHU]);
 
                  //必须，否则异常，导致到处1条记录就中断
                  for (int t=cnt; t<40; ++t)
