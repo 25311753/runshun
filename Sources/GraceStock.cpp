@@ -71,10 +71,10 @@ USEFORM("Purchase\PrnQYCNS.cpp", PrnQYCNSForm);
 USEFORM("Purchase\DicSH.cpp", DicSHForm);
 USEFORM("Purchase\DicOperUnit.cpp", DicOperUnitForm);
 USEFORM("Purchase\DicCharge.cpp", DicChargeForm);
+USEFORM("Purchase\Tailer.cpp", TailerForm);
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-
 	CString szSQL;
 
 	try

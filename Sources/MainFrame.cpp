@@ -482,3 +482,9 @@ void __fastcall TMainForm::timer_keepaliveTimer(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TMainForm::IDM_TAILERClick(TObject *Sender)
+{
+        Tailer(2);
+}
+//---------------------------------------------------------------------------
+

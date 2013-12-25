@@ -224,6 +224,8 @@ void CostAccounting(int nAuth=AUTH_FULL);
 void DicSH(int nAuth=AUTH_FULL);
 void DicOperUnit(int nAuth=AUTH_FULL);
 void DicCharge(int nAuth=AUTH_FULL);
+void Tailer(int nAuth=AUTH_FULL);
+
 
 
 #endif

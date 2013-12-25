@@ -29,7 +29,7 @@ object MainForm: TMainForm
     Left = 0
     Top = 0
     Width = 919
-    Height = 537
+    Height = 538
     Align = alClient
     BevelInner = bvRaised
     BevelOuter = bvLowered
@@ -38,7 +38,7 @@ object MainForm: TMainForm
       Left = 2
       Top = 2
       Width = 915
-      Height = 533
+      Height = 534
       Align = alClient
       Picture.Data = {
         0A544A504547496D61676520CF0E00FFD8FFE000104A46494600010100000100
@@ -30376,7 +30376,7 @@ object MainForm: TMainForm
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 537
+    Top = 538
     Width = 919
     Height = 22
     Panels = <
@@ -30494,6 +30494,10 @@ object MainForm: TMainForm
     object N19: TMenuItem
       Caption = #21333#35777#36319#36394
       OnClick = N19Click
+    end
+    object IDM_TAILER: TMenuItem
+      Caption = #25302#36710#31995#32479
+      OnClick = IDM_TAILERClick
     end
     object MFina: TMenuItem
       Caption = #36130#21153#25104#26412

@@ -54,6 +54,7 @@ __published:	// IDE-managed Components
         TMenuItem *IDM_SH;
         TMenuItem *IDM_CHARGE;
         TTimer *timer_keepalive;
+        TMenuItem *IDM_TAILER;
    void __fastcall Timer1Timer(TObject *Sender);
    void __fastcall N7Click(TObject *Sender);
    void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
@@ -88,6 +89,7 @@ __published:	// IDE-managed Components
         void __fastcall IDM_OPERUNITClick(TObject *Sender);
         void __fastcall IDM_CHARGEClick(TObject *Sender);
         void __fastcall timer_keepaliveTimer(TObject *Sender);
+        void __fastcall IDM_TAILERClick(TObject *Sender);
 private:	// User declarations
 	void ResetMenu(TMenuItem *pMenu);
 
