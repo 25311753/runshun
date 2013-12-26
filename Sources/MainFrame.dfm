@@ -30497,6 +30497,7 @@ object MainForm: TMainForm
     end
     object IDM_TAILER: TMenuItem
       Caption = #25302#36710#31995#32479
+      Visible = False
       OnClick = IDM_TAILERClick
     end
     object MFina: TMenuItem

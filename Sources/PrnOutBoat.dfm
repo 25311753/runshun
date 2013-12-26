@@ -3,6 +3,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
   Top = -179
   Width = 944
   Height = 812
+  VertScrollBar.Position = 157
   Caption = #25171#21360#20986#33337#32440
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +17,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
   TextHeight = 13
   object PrnView: TQuickRep
     Left = 24
-    Top = 24
+    Top = -133
     Width = 794
     Height = 1123
     Frame.Color = clBlack
@@ -613,7 +614,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
         Frame.DrawRight = False
         Size.Values = (
           55.5625
-          820.208333333334
+          820.208333333333
           1272.64583333333
           44.9791666666667)
         Alignment = taLeftJustify
@@ -723,7 +724,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
         Caption = 'qrlDeclareId'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindow
+        Font.Color = clWindowText
         Font.Height = -16
         Font.Name = 'Arial'
         Font.Style = []

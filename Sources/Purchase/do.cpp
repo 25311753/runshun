@@ -282,7 +282,7 @@ Label44->Caption = "";
         edtSum->Text = "";
         edtAttachedoc->Text = "";
         edtManufacturer->Text = "";
-        edtMarks->Text = "港口区 零担 不退税 无牌子 拼柜";
+        edtMarks->Text = "港口区 零担 不退税 无牌子";
         edtInvoice->Text = "广州润顺国际货运代理有限公司";
 //return;
         cbbOperunit->Text = "";
@@ -327,7 +327,7 @@ Label44->Caption = "";
 		dm1->Query1->Next();
         }
 //            cbbTrade->ItemIndex=0;
-        cbbTrade->ItemIndex = cbbTrade->Items->IndexOf("旅游购物商品");
+        cbbTrade->ItemIndex = cbbTrade->Items->IndexOf("一般贸易");
         cbbZhengmian->ItemIndex = -1;
         cbbZhengmian->Text = "";
 	szSQL.Format("select * from diczhengmian");
@@ -1555,7 +1555,7 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
         flushSum();
         if (cbbTrade->ItemIndex == -1)
 //                cbbTrade->ItemIndex=0;
-                cbbTrade->ItemIndex = cbbTrade->Items->IndexOf("旅游购物商品");
+                cbbTrade->ItemIndex = cbbTrade->Items->IndexOf("一般贸易");
         if (cbbPack->ItemIndex == -1)
                 cbbPack->ItemIndex=0;
         if (cbbTransport->ItemIndex == -1)
@@ -1581,7 +1581,7 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
                 edtContractid->Text = edtCid->Text;
         }
         if(edtMarks->Text.IsEmpty())
-                edtMarks->Text = "港口区 零担 不退税 无牌子 拼柜";
+                edtMarks->Text = "港口区 零担 不退税 无牌子";
 
 //        cbbTargetCountry->ItemIndex=cbbTargetCountry->Items->IndexOf(AnsiString(tc));
         CleanQryInput();
@@ -2148,7 +2148,7 @@ int TDoForm::addDetail()
 //        return -1;
         char strMsg[256],strSQL[512];
 //        sprintf(strMsg,"\n  毛重超26000KG 或 总价超10w 是否继续?\n");
-        sprintf(strMsg,"\n  总价超5w 是否继续?\n");
+        sprintf(strMsg,"\n  总价超10w 是否继续?\n");
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return -1;
   }
@@ -2283,7 +2283,7 @@ int TDoForm::modDetail(){
   if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text), StrToFloat(edtTotalPrice->Text))){
         char strMsg[256],strSQL[512];
 //        sprintf(strMsg,"\n  毛重超26000KG 或 总价超10w 是否继续?\n");
-        sprintf(strMsg,"\n  总价超5w 是否继续?\n");
+        sprintf(strMsg,"\n  总价超10w 是否继续?\n");
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return -1;
   }
@@ -2998,7 +2998,7 @@ AnsiString TDoForm::ranSH()
 bool TDoForm::chkGrossWeight(float gw, float newTotalPrice){
 //        return gw>26000 || totalPrice>100000;
 //        return gw>26000 || (m_fTotalPrice+newTotalPrice)>100000;
-        return (m_fTotalPrice+newTotalPrice)>50000;
+        return (m_fTotalPrice+newTotalPrice)>100000;
 }
 
 
@@ -3066,5 +3066,7 @@ void __fastcall TDoForm::rg_statusClick(TObject *Sender)
 */
 }
 //---------------------------------------------------------------------------
+
+
 
 
