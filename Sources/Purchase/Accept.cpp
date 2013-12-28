@@ -36,7 +36,7 @@ __fastcall TAcceptForm::TAcceptForm(TComponent* Owner)
 //---------------------------------------------------------------------------
 static bool chkFormatContainerNo(AnsiString ss){
         if (ss.Length()!=11){
-                ShowMessage("柜号格式长度因为11");
+                ShowMessage("柜号格式长度应为11");
                 return false;
         }
         char cinfo[12];

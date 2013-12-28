@@ -85,6 +85,16 @@ CString GetTime(TDateTimePicker *dtp){
   return CString(strDate);
 
 }
+CString GetTimeBy2Dtp(TDateTimePicker *dtp_ymh, TDateTimePicker *dtp_hms){
+  unsigned short y,m,d,h,mi,s,u;
+  char strDate[80];
+        memset(strDate, 0x00, sizeof(strDate));
+  dtp_ymh->DateTime.DecodeDate(&y,&m,&d);
+  dtp_hms->DateTime.DecodeTime(&h,&m,&s,&u);
+  sprintf(strDate,"%04d-%02d-%02d %02d:%02d:%02d",y,m,d,h,mi,s);
+  return CString(strDate);
+
+}
 CString GetMonthBegin(TDateTimePicker *dtp){
         unsigned short year,month,day;
 	dtp->DateTime.DecodeDate(&year,&month,&day);;

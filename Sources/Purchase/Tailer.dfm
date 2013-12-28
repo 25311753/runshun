@@ -1,6 +1,6 @@
 object TailerForm: TTailerForm
-  Left = 239
-  Top = 117
+  Left = -1273
+  Top = -6
   Width = 1257
   Height = 782
   Caption = #25302#36710#31995#32479
@@ -11,6 +11,7 @@ object TailerForm: TTailerForm
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PanelUp: TPanel
@@ -20,512 +21,14 @@ object TailerForm: TTailerForm
     Height = 225
     Color = clInactiveCaption
     TabOrder = 0
-    object cbbClient: TComboBox
-      Left = 275
-      Top = 3
-      Width = 152
-      Height = 21
-      AutoDropDown = True
-      Color = clHighlightText
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      ItemHeight = 13
-      TabOrder = 0
-    end
-    object edtLading: TEdit
-      Left = 488
-      Top = 3
-      Width = 121
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 1
-      Text = 'edtLading'
-    end
-    object edtCliWorkid: TEdit
-      Left = 610
-      Top = 46
-      Width = 122
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 9
-      Text = 'edtCliWorkid'
-    end
-    object edtBeiZhu: TEdit
-      Left = 62
-      Top = 90
-      Width = 670
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 13
-      Text = 'edtBeiZhu'
-    end
-    object cbbGoodsPerf: TComboBox
-      Left = 62
-      Top = 46
-      Width = 122
-      Height = 21
-      Style = csDropDownList
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      ItemHeight = 13
-      TabOrder = 10
-      Items.Strings = (
-        #23567#21830#21697
-        #20080#21333
-        #27491#24120#21333)
-    end
-    object dtpEndDateHHMM: TDateTimePicker
-      Left = 146
-      Top = 3
-      Width = 68
-      Height = 21
-      CalAlignment = dtaLeft
-      Date = 40895.4886652778
-      Time = 40895.4886652778
-      DateFormat = dfShort
-      DateMode = dmComboBox
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      Kind = dtkTime
-      ParseInput = False
-      TabOrder = 12
-    end
-    object edtContainerNo: TEdit
-      Left = 796
-      Top = 1
-      Width = 88
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 2
-      Text = 'edtContainerNo'
-    end
-    object cbbContainerType: TComboBox
-      Left = 914
-      Top = 1
-      Width = 56
-      Height = 21
-      Style = csDropDownList
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      ItemHeight = 13
-      ItemIndex = 0
-      TabOrder = 3
-      Text = '45HQ'
-      Items.Strings = (
-        '45HQ'
-        '45HQ')
-    end
-    object btnAddContainer: TButton
-      Left = 1076
-      Top = 23
-      Width = 64
-      Height = 21
-      Caption = #28155#21152
-      TabOrder = 5
-    end
-    object lstViewContainer: TListView
-      Left = 736
-      Top = 22
-      Width = 339
-      Height = 93
-      Columns = <
-        item
-          Caption = #38598#35013#31665#21495
-          Width = 147
-        end
-        item
-          Caption = #26588#22411
-          Width = 60
-        end
-        item
-          Caption = #23553#26465#21495
-          Width = 73
-        end>
-      GridLines = True
-      ReadOnly = True
-      RowSelect = True
-      TabOrder = 14
-      ViewStyle = vsReport
-    end
-    object btnModContainer: TButton
-      Left = 1076
-      Top = 43
-      Width = 64
-      Height = 22
-      Caption = #20462#25913
-      TabOrder = 6
-    end
-    object btnDelContainer: TButton
-      Left = 1076
-      Top = 64
-      Width = 64
-      Height = 23
-      Caption = #21024#38500
-      TabOrder = 7
-    end
-    object edtSealId: TEdit
-      Left = 1015
-      Top = 1
-      Width = 124
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 4
-      Text = 'edtSealId'
-    end
-    object dtpEndDateYYYYMMDD: TDateTimePicker
-      Left = 62
-      Top = 3
-      Width = 83
-      Height = 21
-      CalAlignment = dtaLeft
-      Date = 40894.3686127199
-      Time = 40894.3686127199
-      DateFormat = dfShort
-      DateMode = dmComboBox
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      Kind = dtkDate
-      ParseInput = False
-      TabOrder = 11
-    end
-    object Panel2: TPanel
-      Left = 215
-      Top = 3
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #23458#25143
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 15
-    end
-    object Panel3: TPanel
-      Left = 428
-      Top = 3
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #25552#21333#21495
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 16
-    end
-    object Panel4: TPanel
-      Left = 736
-      Top = 1
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #38598#35013#31665#21495
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 17
-    end
-    object Panel5: TPanel
-      Left = 885
-      Top = 1
-      Width = 30
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #26588#22411
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 18
-    end
-    object Panel6: TPanel
-      Left = 971
-      Top = 1
-      Width = 45
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #23553#26465#21495
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 19
-    end
-    object Panel7: TPanel
-      Left = 185
-      Top = 46
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #32852#31995#20154
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 20
-    end
-    object Panel10: TPanel
-      Left = 550
-      Top = 46
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #36816#36755#20844#21496
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 21
-    end
-    object Panel11: TPanel
+    object pl_input_varcharge: TPanel
       Left = 2
-      Top = 46
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #36135#29289#24615#36136
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 22
-    end
-    object Panel13: TPanel
-      Left = 2
-      Top = 3
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #20570#26588#26085#26399
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 23
-    end
-    object Panel14: TPanel
-      Left = 2
-      Top = 90
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #22791#27880
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 24
-    end
-    object edtBoatNo: TEdit
-      Left = 245
-      Top = 46
-      Width = 122
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 8
-      Text = 'edtBoatNo'
-    end
-    object Panel1: TPanel
-      Left = 2
-      Top = 24
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #35013#36135#22320#22336
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 25
-    end
-    object Edit1: TEdit
-      Left = 62
-      Top = 24
-      Width = 670
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 26
-      Text = 'edtBeiZhu'
-    end
-    object Panel8: TPanel
-      Left = 368
-      Top = 46
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #32852#31995#30005#35805
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 27
-    end
-    object Edit2: TEdit
-      Left = 428
-      Top = 46
-      Width = 122
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 28
-      Text = 'edtBoatNo'
-    end
-    object Panel9: TPanel
-      Left = 2
-      Top = 68
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #36816#36153
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 29
-    end
-    object Edit3: TEdit
-      Left = 62
-      Top = 68
-      Width = 122
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 30
-      Text = 'edtBoatNo'
-    end
-    object Panel12: TPanel
-      Left = 185
-      Top = 68
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #22806#27966#36816#36153
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 31
-    end
-    object Edit4: TEdit
-      Left = 245
-      Top = 68
-      Width = 122
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 32
-      Text = 'edtBoatNo'
-    end
-    object Panel24: TPanel
-      Left = 368
-      Top = 68
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #36710#29260
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 33
-    end
-    object Edit5: TEdit
-      Left = 428
-      Top = 68
-      Width = 122
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 34
-      Text = 'edtBoatNo'
-    end
-    object Panel25: TPanel
-      Left = 550
-      Top = 68
-      Width = 60
-      Height = 21
-      BevelInner = bvLowered
-      BevelOuter = bvLowered
-      Caption = #21496#26426
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentColor = True
-      ParentFont = False
-      TabOrder = 35
-    end
-    object Edit6: TEdit
-      Left = 610
-      Top = 68
-      Width = 122
-      Height = 21
-      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-      TabOrder = 36
-      Text = 'edtBoatNo'
-    end
-    object Panel26: TPanel
-      Left = 1
-      Top = 117
+      Top = 118
       Width = 1140
       Height = 50
       Color = clInactiveCaption
-      TabOrder = 37
-      object cbb1: TComboBox
+      TabOrder = 0
+      object cbbVarChargeName1: TComboBox
         Left = 0
         Top = 2
         Width = 114
@@ -560,7 +63,7 @@ object TailerForm: TTailerForm
         ParentFont = False
         TabOrder = 2
       end
-      object Edit7: TEdit
+      object edtCost1: TEdit
         Left = 113
         Top = 24
         Width = 80
@@ -568,7 +71,7 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 3
       end
-      object ComboBox1: TComboBox
+      object cbbVarChargeName2: TComboBox
         Left = 199
         Top = 2
         Width = 114
@@ -595,7 +98,7 @@ object TailerForm: TTailerForm
         ParentFont = False
         TabOrder = 5
       end
-      object Edit8: TEdit
+      object edtCost2: TEdit
         Left = 313
         Top = 24
         Width = 80
@@ -603,7 +106,7 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 6
       end
-      object Edit9: TEdit
+      object edtCharge2: TEdit
         Left = 313
         Top = 2
         Width = 80
@@ -611,7 +114,7 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 7
       end
-      object ComboBox4: TComboBox
+      object cbbVarChargeName5: TComboBox
         Left = 800
         Top = 2
         Width = 114
@@ -621,7 +124,7 @@ object TailerForm: TTailerForm
         ItemHeight = 13
         TabOrder = 8
       end
-      object Edit14: TEdit
+      object edtCharge5: TEdit
         Left = 913
         Top = 2
         Width = 80
@@ -629,7 +132,7 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 9
       end
-      object Edit15: TEdit
+      object edtCost5: TEdit
         Left = 913
         Top = 24
         Width = 80
@@ -654,7 +157,7 @@ object TailerForm: TTailerForm
         ParentFont = False
         TabOrder = 11
       end
-      object ComboBox2: TComboBox
+      object cbbVarChargeName3: TComboBox
         Left = 400
         Top = 2
         Width = 114
@@ -681,7 +184,7 @@ object TailerForm: TTailerForm
         ParentFont = False
         TabOrder = 13
       end
-      object Edit10: TEdit
+      object edtCost3: TEdit
         Left = 513
         Top = 24
         Width = 80
@@ -689,7 +192,7 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 14
       end
-      object Edit11: TEdit
+      object edtCharge3: TEdit
         Left = 513
         Top = 2
         Width = 80
@@ -697,7 +200,7 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 15
       end
-      object ComboBox3: TComboBox
+      object cbbVarChargeName4: TComboBox
         Left = 600
         Top = 2
         Width = 114
@@ -724,7 +227,7 @@ object TailerForm: TTailerForm
         ParentFont = False
         TabOrder = 17
       end
-      object Edit12: TEdit
+      object edtCost4: TEdit
         Left = 713
         Top = 24
         Width = 80
@@ -732,7 +235,7 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 18
       end
-      object Edit13: TEdit
+      object edtCharge4: TEdit
         Left = 713
         Top = 2
         Width = 80
@@ -757,7 +260,7 @@ object TailerForm: TTailerForm
         ParentFont = False
         TabOrder = 20
       end
-      object Edit16: TEdit
+      object edtTotalCharge: TEdit
         Left = 1057
         Top = 3
         Width = 80
@@ -782,7 +285,7 @@ object TailerForm: TTailerForm
         ParentFont = False
         TabOrder = 22
       end
-      object Edit17: TEdit
+      object edtTotalCost: TEdit
         Left = 1057
         Top = 24
         Width = 80
@@ -791,13 +294,515 @@ object TailerForm: TTailerForm
         TabOrder = 23
       end
     end
+    object pl_input: TPanel
+      Left = 2
+      Top = 2
+      Width = 1144
+      Height = 117
+      Color = clInactiveCaption
+      Locked = True
+      TabOrder = 1
+      object Panel9: TPanel
+        Left = 2
+        Top = 68
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #36816#36153
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 0
+      end
+      object Panel8: TPanel
+        Left = 368
+        Top = 46
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #32852#31995#30005#35805
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 1
+      end
+      object Panel7: TPanel
+        Left = 185
+        Top = 46
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #32852#31995#20154
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 2
+      end
+      object Panel5: TPanel
+        Left = 885
+        Top = 1
+        Width = 30
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #26588#22411
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 3
+      end
+      object Panel6: TPanel
+        Left = 971
+        Top = 1
+        Width = 45
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #23553#26465#21495
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 4
+      end
+      object Panel4: TPanel
+        Left = 736
+        Top = 1
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #38598#35013#31665#21495
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 5
+      end
+      object Panel3: TPanel
+        Left = 428
+        Top = 3
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #25552#21333#21495
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 6
+      end
+      object Panel25: TPanel
+        Left = 550
+        Top = 68
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #21496#26426
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 7
+      end
+      object Panel24: TPanel
+        Left = 368
+        Top = 68
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #36710#29260
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 8
+      end
+      object Panel2: TPanel
+        Left = 215
+        Top = 3
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #23458#25143
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 9
+      end
+      object Panel14: TPanel
+        Left = 2
+        Top = 90
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #22791#27880
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 10
+      end
+      object Panel13: TPanel
+        Left = 2
+        Top = 3
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #20570#26588#26085#26399
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 11
+      end
+      object Panel12: TPanel
+        Left = 185
+        Top = 68
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #22806#27966#36816#36153
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 12
+      end
+      object Panel11: TPanel
+        Left = 2
+        Top = 46
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #36135#29289#24615#36136
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 13
+      end
+      object Panel10: TPanel
+        Left = 550
+        Top = 46
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #36816#36755#20844#21496
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 14
+      end
+      object Panel1: TPanel
+        Left = 1
+        Top = 24
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #35013#36135#22320#22336
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 15
+      end
+      object edtTranCompany: TEdit
+        Left = 610
+        Top = 46
+        Width = 122
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 16
+      end
+      object edtSealId: TEdit
+        Left = 1015
+        Top = 1
+        Width = 124
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 17
+      end
+      object edtLoadTel: TEdit
+        Left = 428
+        Top = 46
+        Width = 122
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 18
+      end
+      object edtLoadLinkMan: TEdit
+        Left = 245
+        Top = 46
+        Width = 122
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 19
+      end
+      object edtLoadAddress: TEdit
+        Left = 62
+        Top = 24
+        Width = 670
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 20
+      end
+      object edtLading: TEdit
+        Left = 488
+        Top = 3
+        Width = 121
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 21
+      end
+      object edtFareOut: TEdit
+        Left = 245
+        Top = 68
+        Width = 122
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 22
+      end
+      object edtFare: TEdit
+        Left = 62
+        Top = 68
+        Width = 122
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 23
+      end
+      object edtDriver: TEdit
+        Left = 610
+        Top = 68
+        Width = 122
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 24
+      end
+      object edtContainerNo: TEdit
+        Left = 796
+        Top = 1
+        Width = 88
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 25
+      end
+      object edtCarNo: TEdit
+        Left = 428
+        Top = 68
+        Width = 122
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 26
+      end
+      object edtBeiZhu: TEdit
+        Left = 62
+        Top = 90
+        Width = 670
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 27
+      end
+      object dtpOpDateYYYYMMDD: TDateTimePicker
+        Left = 62
+        Top = 3
+        Width = 83
+        Height = 21
+        CalAlignment = dtaLeft
+        Date = 40894.3686127199
+        Time = 40894.3686127199
+        DateFormat = dfShort
+        DateMode = dmComboBox
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        Kind = dtkDate
+        ParseInput = False
+        TabOrder = 28
+      end
+      object dtpOpDateHHMM: TDateTimePicker
+        Left = 146
+        Top = 3
+        Width = 68
+        Height = 21
+        CalAlignment = dtaLeft
+        Date = 40895.4886652778
+        Time = 40895.4886652778
+        DateFormat = dfShort
+        DateMode = dmComboBox
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        Kind = dtkTime
+        ParseInput = False
+        TabOrder = 29
+      end
+      object cbbGoodsPerf: TComboBox
+        Left = 62
+        Top = 46
+        Width = 122
+        Height = 21
+        Style = csDropDownList
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        ItemHeight = 13
+        TabOrder = 30
+        Items.Strings = (
+          #23567#21830#21697
+          #20080#21333
+          #27491#24120#21333)
+      end
+      object cbbContainerType: TComboBox
+        Left = 914
+        Top = 1
+        Width = 56
+        Height = 21
+        Style = csDropDownList
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        ItemHeight = 13
+        TabOrder = 31
+        Items.Strings = (
+          '20GP'
+          '20HQ'
+          '40GP'
+          '40HQ'
+          '45HQ')
+      end
+      object cbbClient: TComboBox
+        Left = 275
+        Top = 3
+        Width = 152
+        Height = 21
+        AutoDropDown = True
+        Color = clHighlightText
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        ItemHeight = 13
+        TabOrder = 32
+        OnChange = cbbClientChange
+        OnSelect = cbbClientSelect
+      end
+      object btnModContainer: TButton
+        Left = 1076
+        Top = 43
+        Width = 64
+        Height = 22
+        Caption = #20462#25913
+        TabOrder = 33
+        OnClick = btnModContainerClick
+      end
+      object btnDelContainer: TButton
+        Left = 1076
+        Top = 64
+        Width = 64
+        Height = 23
+        Caption = #21024#38500
+        TabOrder = 34
+        OnClick = btnDelContainerClick
+      end
+      object btnAddContainer: TButton
+        Left = 1076
+        Top = 23
+        Width = 64
+        Height = 21
+        Caption = #28155#21152
+        TabOrder = 35
+        OnClick = btnAddContainerClick
+      end
+      object lstViewContainer: TListView
+        Left = 736
+        Top = 22
+        Width = 339
+        Height = 93
+        Columns = <
+          item
+            Caption = #38598#35013#31665#21495
+            Width = 147
+          end
+          item
+            Caption = #26588#22411
+            Width = 60
+          end
+          item
+            Caption = #23553#26465#21495
+            Width = 73
+          end>
+        GridLines = True
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 36
+        ViewStyle = vsReport
+        OnSelectItem = lstViewContainerSelectItem
+      end
+    end
     object Panel45: TPanel
-      Left = 0
-      Top = 167
+      Left = 1
+      Top = 168
       Width = 1140
       Height = 5
       Color = 16349446
-      TabOrder = 38
+      TabOrder = 2
     end
   end
   object btnAdd: TButton
@@ -807,6 +812,7 @@ object TailerForm: TTailerForm
     Height = 25
     Caption = #28155#21152
     TabOrder = 1
+    OnClick = btnAddClick
   end
   object btnMod: TButton
     Left = 75
@@ -815,6 +821,7 @@ object TailerForm: TTailerForm
     Height = 25
     Caption = #20462#25913
     TabOrder = 2
+    OnClick = btnModClick
   end
   object btnDel: TButton
     Left = 149
@@ -824,7 +831,7 @@ object TailerForm: TTailerForm
     Caption = #21024#38500
     TabOrder = 3
   end
-  object PanelUpQuery: TPanel
+  object pl_query: TPanel
     Left = -1
     Top = 196
     Width = 1140
@@ -838,7 +845,6 @@ object TailerForm: TTailerForm
       Height = 21
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 1
-      Text = 'edtQryLading'
     end
     object edtQryJZS: TEdit
       Left = 436
@@ -847,7 +853,6 @@ object TailerForm: TTailerForm
       Height = 21
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 5
-      Text = 'edtQryJZS'
     end
     object btnQuery: TButton
       Left = 1005
@@ -856,8 +861,9 @@ object TailerForm: TTailerForm
       Height = 20
       Caption = #26597#35810
       TabOrder = 4
+      OnClick = btnQueryClick
     end
-    object dtpQryAcceptDate: TDateTimePicker
+    object dtpQryOpDate: TDateTimePicker
       Left = 61
       Top = 25
       Width = 83
@@ -872,7 +878,7 @@ object TailerForm: TTailerForm
       ParseInput = False
       TabOrder = 2
     end
-    object dtpQryAcceptDateEnd: TDateTimePicker
+    object dtpQryOpDateEnd: TDateTimePicker
       Left = 145
       Top = 25
       Width = 83
@@ -896,6 +902,8 @@ object TailerForm: TTailerForm
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       ItemHeight = 13
       TabOrder = 0
+      OnChange = cbbQryClientChange
+      OnSelect = cbbQryClientSelect
     end
     object Panel16: TPanel
       Left = 1
@@ -956,7 +964,7 @@ object TailerForm: TTailerForm
       Alignment = taLeftJustify
       BevelInner = bvLowered
       BevelOuter = bvLowered
-      Caption = #25509#21333#26085#26399
+      Caption = #20570#26588#26085#26399
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
@@ -983,7 +991,7 @@ object TailerForm: TTailerForm
       ParentFont = False
       TabOrder = 10
     end
-    object cbbGoodsPerfQry: TComboBox
+    object cbbQryGoodsPerf: TComboBox
       Left = 1005
       Top = 3
       Width = 133
@@ -1005,6 +1013,7 @@ object TailerForm: TTailerForm
       Height = 20
       Caption = #28165#31354
       TabOrder = 12
+      OnClick = btnClearQryCondClick
     end
     object Panel15: TPanel
       Left = 579
@@ -1023,14 +1032,13 @@ object TailerForm: TTailerForm
       ParentFont = False
       TabOrder = 13
     end
-    object Edit18: TEdit
+    object edtQryTranCompany: TEdit
       Left = 639
       Top = 3
       Width = 122
       Height = 21
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 14
-      Text = 'edtCliWorkid'
     end
     object Panel19: TPanel
       Left = 762
@@ -1049,14 +1057,13 @@ object TailerForm: TTailerForm
       ParentFont = False
       TabOrder = 15
     end
-    object Edit19: TEdit
+    object edtQryDriver: TEdit
       Left = 822
       Top = 3
       Width = 122
       Height = 21
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 16
-      Text = 'edtBoatNo'
     end
   end
   object btnCancel: TButton
@@ -1066,6 +1073,7 @@ object TailerForm: TTailerForm
     Height = 25
     Caption = #21462#28040
     TabOrder = 5
+    OnClick = btnCancelClick
   end
   object btnOK: TButton
     Left = 297
@@ -1074,6 +1082,7 @@ object TailerForm: TTailerForm
     Height = 25
     Caption = #30830#23450
     TabOrder = 6
+    OnClick = btnOKClick
   end
   object Button1: TButton
     Left = 1177
@@ -1086,8 +1095,8 @@ object TailerForm: TTailerForm
   object lstViewDown: TListView
     Left = 0
     Top = 256
-    Width = 1276
-    Height = 444
+    Width = 1235
+    Height = 442
     Columns = <
       item
         Caption = 'N'

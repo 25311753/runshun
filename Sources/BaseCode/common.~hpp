@@ -62,7 +62,7 @@ CString GetSysTime2(){
   TDateTime tDate=Now();
   tDate.DecodeDate(&year,&month,&day);
   tDate.DecodeTime(&h, &m, &s, &u);
-  sprintf(strDate,"%04d-%02d-%02d-%02d:%02d:%02d",year,month,day,h,m,s);
+  sprintf(strDate,"%04d%02d%02d%02d%02d%02d",year,month,day,h,m,s);
   return CString(strDate);
 }
 CString GetDate(TDateTimePicker *dtp)
@@ -76,6 +76,16 @@ CString GetDate(TDateTimePicker *dtp)
 }
 
 CString GetTime(TDateTimePicker *dtp){
+  unsigned short y,m,d,h,mi,s,u;
+  char strDate[80];
+        memset(strDate, 0x00, sizeof(strDate));
+  dtp->DateTime.DecodeDate(&y,&m,&d);
+  dtp->DateTime.DecodeTime(&h,&m,&s,&u);
+  sprintf(strDate,"%04d-%02d-%02d %02d:%02d:%02d",y,m,d,h,mi,s);
+  return CString(strDate);
+
+}
+CString GetTimeBy2Dtp(TDateTimePicker *dtp_ymh, TDateTimePicker *dtp_hms){
   unsigned short y,m,d,h,mi,s,u;
   char strDate[80];
         memset(strDate, 0x00, sizeof(strDate));
