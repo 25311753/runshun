@@ -2,6 +2,7 @@
 #define  _common_util_
 
 #include <vcl.h>
+#include <math.h>
 #include "DataModule.h"
 #include "LdyInterface.h"
 #include "BaseCode.h"
@@ -20,6 +21,25 @@ bool isNum(AnsiString s){
 
         try{
                 StrToInt(s);
+        }catch(...){
+                return false;
+        }
+        return true;
+}
+//判断是否数字金额，支持小数位数判断(最多(含)多少位小数)
+bool isMoney(AnsiString s, int decimal_place = 0){
+        try{
+                double money = 0;
+                if(!TryStrToFloat(s, money)){
+//                        ShowMessage("It's not a double!");
+                        return false;
+                }
+
+                float money2 = money*pow(10,2);
+                int money3   = (int)(money2);
+                if ( money3!=money2 ){
+                        return false;
+                }
         }catch(...){
                 return false;
         }

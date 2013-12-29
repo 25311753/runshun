@@ -30509,6 +30509,10 @@ object MainForm: TMainForm
         Caption = #25104#26412#26680#31639
         OnClick = IDM_CALCClick
       end
+      object IDM_YSK: TMenuItem
+        Caption = #24212#25910#27454
+        OnClick = IDM_YSKClick
+      end
     end
     object N7: TMenuItem
       Caption = #36864#20986

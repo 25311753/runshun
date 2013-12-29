@@ -65,7 +65,8 @@
       ..\..\..\bin\runshun\TempOBJ\DicSH.obj 
       ..\..\..\bin\runshun\TempOBJ\DicOperUnit.obj 
       ..\..\..\bin\runshun\TempOBJ\DicCharge.obj 
-      ..\..\..\bin\runshun\TempOBJ\Tailer.obj"/>
+      ..\..\..\bin\runshun\TempOBJ\Tailer.obj 
+      ..\..\..\bin\runshun\TempOBJ\Receivables.obj"/>
     <RESFILES value="GraceStock.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -90,7 +91,7 @@
       Purchase\PrnDeclareSub.dfm Purchase\PrnContactSub.dfm 
       Purchase\PrnWuMuZhi.dfm Purchase\PrnYSQRS.dfm Purchase\PrnSCCK.dfm 
       Purchase\PrnQYCNS.dfm Purchase\DicSH.dfm Purchase\DicOperUnit.dfm 
-      Purchase\DicCharge.dfm Purchase\Tailer.dfm"/>
+      Purchase\DicCharge.dfm Purchase\Tailer.dfm Purchase\Receivables.dfm"/>
     <LIBFILES value="BaseCode\GSLfcLib.lib"/>
     <LIBRARIES value="bcbsmp.lib tee.lib teedb.lib adortl.lib bcb2kaxserver.lib vcldb.lib 
       vclx.lib qrpt.lib bdertl.lib dbrtl.lib rtl.lib vcl.lib"/>
@@ -207,6 +208,7 @@
       <FILE FILENAME="Purchase\DicOperUnit.cpp" FORMNAME="DicOperUnitForm" UNITNAME="DicOperUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Purchase\DicCharge.cpp" FORMNAME="DicChargeForm" UNITNAME="DicCharge" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Purchase\Tailer.cpp" FORMNAME="TailerForm" UNITNAME="Tailer" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Purchase\Receivables.cpp" FORMNAME="ReceivablesForm" UNITNAME="Receivables" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

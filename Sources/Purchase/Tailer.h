@@ -124,6 +124,7 @@ __published:	// IDE-managed Components
         void __fastcall btnDelContainerClick(TObject *Sender);
         void __fastcall btnOKClick(TObject *Sender);
         void __fastcall btnCancelClick(TObject *Sender);
+        void __fastcall edtCharge1Change(TObject *Sender);
 private:	// User declarations
         enum { EN_IDLE,EN_ADDNEW,EN_EDIT } m_enWorkState; //接单上区状态
 public:		// User declarations

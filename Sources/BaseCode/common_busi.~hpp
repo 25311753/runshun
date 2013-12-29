@@ -2,6 +2,7 @@
 #define  _buis_common_util_
 
 #include <vcl.h>
+#include "common.hpp"
 
 bool chkFormatContainerNo(AnsiString ss){
         if (ss.Length()!=11){
@@ -30,20 +31,31 @@ bool chkFormatContainerNo(AnsiString ss){
 }
 
 //组装集装箱信息:“柜数|箱号 柜型 封条号#箱号 柜型 封条号#@”
-CString GetContainerInfo(){
+CString GetContainerInfo(TListView *lv){
         CString szContInfo;
-        szContInfo += (IntToStr(lstViewContainer->Items->Count)).c_str();
+        szContInfo += (IntToStr(lv->Items->Count)).c_str();
         szContInfo += '|';
-        for (int i=0; i<lstViewContainer->Items->Count; ++i) {
-                szContInfo += lstViewContainer->Items->Item[i]->Caption.c_str();
+        for (int i=0; i<lv->Items->Count; ++i) {
+                szContInfo += lv->Items->Item[i]->Caption.c_str();
                 szContInfo += ' ';
-                szContInfo += lstViewContainer->Items->Item[i]->SubItems->Strings[0].c_str();
+                szContInfo += lv->Items->Item[i]->SubItems->Strings[0].c_str();
                 szContInfo += ' ';
-                szContInfo += lstViewContainer->Items->Item[i]->SubItems->Strings[1].c_str();
+                szContInfo += lv->Items->Item[i]->SubItems->Strings[1].c_str();
                 szContInfo += '#';
         }
         szContInfo += '@';
         return szContInfo;
 }
-
+//把edit转成money
+float edt2money(TEdit *edt, int decimal_place=0){
+        float rt = 0;
+        AnsiString s = edt->Text;
+        try{
+                if (isMoney(s, decimal_place)){
+                        TryStrToFloat(s, rt);
+                }
+        }catch(...){
+        }
+        return rt;
+}
 #endif

@@ -2,6 +2,7 @@
 #define  _buis_common_util_
 
 #include <vcl.h>
+#include "common.hpp"
 
 bool chkFormatContainerNo(AnsiString ss){
         if (ss.Length()!=11){
@@ -45,5 +46,16 @@ CString GetContainerInfo(TListView *lv){
         szContInfo += '@';
         return szContInfo;
 }
-
+//°Ñedit×ª³Émoney
+double edt2money(TEdit *edt, int decimal_place=0){
+        double rt = 0;
+        AnsiString s = edt->Text;
+        try{
+                if (isMoney(s, decimal_place)){
+                        TryStrToFloat(s, rt);
+                }
+        }catch(...){
+        }
+        return rt;
+}
 #endif

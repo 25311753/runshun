@@ -1,8 +1,8 @@
 object TailerForm: TTailerForm
-  Left = -1273
-  Top = -6
+  Left = -1274
+  Top = 29
   Width = 1257
-  Height = 782
+  Height = 770
   Caption = #25302#36710#31995#32479
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,6 +11,7 @@ object TailerForm: TTailerForm
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -45,6 +46,7 @@ object TailerForm: TTailerForm
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 1
+        OnChange = edtCharge1Change
       end
       object Panel21: TPanel
         Left = 53
@@ -266,6 +268,7 @@ object TailerForm: TTailerForm
         Width = 80
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        ReadOnly = True
         TabOrder = 21
       end
       object Panel32: TPanel
@@ -291,6 +294,7 @@ object TailerForm: TTailerForm
         Width = 80
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        ReadOnly = True
         TabOrder = 23
       end
     end

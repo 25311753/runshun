@@ -1,6 +1,6 @@
 object DoForm: TDoForm
-  Left = 187
-  Top = 28
+  Left = 342
+  Top = 124
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #20570#21333

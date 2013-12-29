@@ -488,3 +488,9 @@ void __fastcall TMainForm::IDM_TAILERClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TMainForm::IDM_YSKClick(TObject *Sender)
+{
+        Receivables(2);        
+}
+//---------------------------------------------------------------------------
+

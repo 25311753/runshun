@@ -15,6 +15,7 @@
 #pragma link "trayicon"
 #pragma resource "*.dfm"
 TTailerForm *TailerForm;
+#define DECIMAL_PLACE_CHARGE 2
 //---------------------------------------------------------------------------
 void Tailer(int nAuth)
 {
@@ -371,8 +372,7 @@ int TTailerForm::add(TObject *Sender){
 
         if(cbbClient->Text.IsEmpty() || edtLading->Text.IsEmpty() || edtLoadAddress->Text.IsEmpty() || \
               edtLoadLinkMan->Text.IsEmpty() || edtLoadTel->Text.IsEmpty() || edtTranCompany->Text.IsEmpty() || \
-              edtFare->Text.IsEmpty() || edtFareOut->Text.IsEmpty() || edtCarNo->Text.IsEmpty() || \
-              edtDriver->Text.IsEmpty() \
+              edtFare->Text.IsEmpty() || edtFareOut->Text.IsEmpty() || edtCarNo->Text.IsEmpty() || edtDriver->Text.IsEmpty() || \
               lstViewContainer->Items->Count == 0)
         {
                 ShowMessage("请检查你的输入信息");
@@ -416,7 +416,7 @@ int TTailerForm::add(TObject *Sender){
         assert(pItem!=NULL);
 
         pItem->Caption=(column_no+1);
-        pItem->SubItems->Add(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
+        pItem->SubItems->Add(AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM)));
         pItem->SubItems->Add(cbbClient->Text);
         pItem->SubItems->Add(edtLading->Text);
         pItem->SubItems->Add(lstViewContainer->Items->Item[0]->Caption);
@@ -424,19 +424,17 @@ int TTailerForm::add(TObject *Sender){
         pItem->SubItems->Add("");        
         pItem->SubItems->Add(IntToStr(cnt_con));
         pItem->SubItems->Add(edtTranCompany->Text);
-///1227 todo
-        pItem->SubItems->Add(edtBoatOrder->Text);
-        pItem->SubItems->Add(strDate0);
-        pItem->SubItems->Add("已接单");
-        pItem->SubItems->Add("");       //单证处理中时间在做单那里生成
-        pItem->SubItems->Add(edtCliWorkid->Text);
-        pItem->SubItems->Add(edtCustfree->Text);
-        pItem->SubItems->Add(g_theOperator.op_name);
-        pItem->SubItems->Add("");       //doer 
-        pItem->SubItems->Add(edtBeiZhu->Text);
-        pItem->SubItems->Add(cbbShipAgent->Text.c_str());
-        pItem->SubItems->Add(AnsiString(GetContainerInfo()));
-        
+        pItem->SubItems->Add(edtDriver->Text);
+        pItem->SubItems->Add(edtCarNo->Text);
+        pItem->SubItems->Add(cbbGoodsPerf->Text);
+        pItem->SubItems->Add(edtFare->Text);
+        pItem->SubItems->Add(edtFareOut->Text);
+        pItem->SubItems->Add(edtTotalCharge->Text);
+        pItem->SubItems->Add(edtTotalCost->Text);
+        double lirun = StrToFloat(edtFare->Text.c_str())-StrToFloat(edtFareOut->Text.c_str())+ \
+                        StrToFloat(edtTotalCharge->Text.c_str())-StrToFloat(edtTotalCost->Text.c_str());
+        pItem->SubItems->Add(lirun);
+
         rt = 0;
         return rt;
 }
@@ -473,4 +471,21 @@ void __fastcall TTailerForm::btnCancelClick(TObject *Sender)
 //    btnDel->Enabled=false;
 }
 //---------------------------------------------------------------------------
+
+
+void __fastcall TTailerForm::edtCharge1Change(TObject *Sender)
+{
+        if (!isMoney(edtCharge1->Text, DECIMAL_PLACE_CHARGE)){
+                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
+                return;
+        }
+        double total_charge = edt2money(edtCharge1, DECIMAL_PLACE_CHARGE) + \
+                                edt2money(edtCharge2, DECIMAL_PLACE_CHARGE) +\
+                                edt2money(edtCharge3, DECIMAL_PLACE_CHARGE) + \
+                                edt2money(edtCharge4, DECIMAL_PLACE_CHARGE)+\
+                                edt2money(edtCharge5, DECIMAL_PLACE_CHARGE);
+        edtTotalCharge->Text = FloatToStr(total_charge);
+}
+//---------------------------------------------------------------------------
+
 
