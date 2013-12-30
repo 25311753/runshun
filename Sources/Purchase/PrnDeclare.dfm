@@ -1,8 +1,8 @@
 object PrnDeclareForm: TPrnDeclareForm
-  Left = -1373
-  Top = -167
-  Width = 1296
-  Height = 1010
+  Left = 0
+  Top = 0
+  Width = 1280
+  Height = 800
   VertScrollBar.Position = 14
   Caption = #25171#21360#25253#20851#21333
   Color = clBtnFace

@@ -46,9 +46,54 @@ CString GetContainerInfo(TListView *lv){
         szContInfo += '@';
         return szContInfo;
 }
+
+void flushContainer(TListView *lstViewContainer, TEdit *edtContainerNo, TEdit *cbbContainerType, TEdit *edtSealId, AnsiString c){
+        lstViewContainer->Items->Clear();
+
+		char cnt[10];memset(cnt,sizeof(cnt),0x00);
+		char body[2048];memset(body,sizeof(body),0x00);
+		sscanf(c.c_str(),"%[^|]|",cnt);
+		sscanf(c.c_str(),"%*[^|]|%[^@]",body);
+
+		char strTmp1[2048];
+		memset(strTmp1,sizeof(strTmp1),0x00);
+		strcpy(strTmp1,body);
+                int num = StrToInt(cnt);
+		for (int i =0; i<num; ++i){
+			char str1[100],str2[100],str3[100],str4[100],strTmp[2048],strSealId[100];
+			memset(str1,sizeof(str1),0x00);
+			memset(str2,sizeof(str2),0x00);
+			memset(str3,sizeof(str3),0x00);
+			memset(str4,sizeof(str4),0x00);
+			memset(strSealId,sizeof(strSealId),0x00);
+
+			memset(strTmp,sizeof(strTmp),0x00);
+			strcpy(strTmp,strTmp1);
+			sscanf(strTmp,"%[^#]#",str1);
+			sscanf(str1,"%s %s %s",str3,str4,strSealId);
+			sscanf(strTmp,"%*[^#]#%[^@]",strTmp1);
+//			printf("head:[%s] tail:[%s]\n", str1, strTmp1);
+//			printf("bno:[%s] type:[%s]\n\n", str3, str4);
+
+                        TListItem *pItem =lstViewContainer->Items->Add();
+                        assert(pItem!=NULL);
+                        pItem->Caption=AnsiString(str3);
+                        pItem->SubItems->Add(AnsiString(str4));
+                        pItem->SubItems->Add(AnsiString(strSealId));
+
+		}
+
+
+        if (lstViewContainer->Items->Count>0){
+                edtContainerNo->Text = lstViewContainer->Items->Item[0]->Caption;
+                cbbContainerType->ItemIndex=cbbContainerType->Items->IndexOf(lstViewContainer->Items->Item[0]->SubItems->Strings[0]);
+                edtSealId->Text = lstViewContainer->Items->Item[0]->SubItems->Strings[1];
+        }
+
+}
 //°Ñedit×ª³Émoney
-float edt2money(TEdit *edt, int decimal_place=0){
-        float rt = 0;
+double edt2money(TEdit *edt, int decimal_place=0){
+        double rt = 0;
         AnsiString s = edt->Text;
         try{
                 if (isMoney(s, decimal_place)){

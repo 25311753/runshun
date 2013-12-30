@@ -3,15 +3,14 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "PrnSCCK.h"
+#include "PrnCYD.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-TPrnSCCKForm *PrnSCCKForm;
+TPrnCYDForm *PrnCYDForm;
 //---------------------------------------------------------------------------
-__fastcall TPrnSCCKForm::TPrnSCCKForm(TComponent* Owner)
+__fastcall TPrnCYDForm::TPrnCYDForm(TComponent* Owner)
         : TForm(Owner)
 {
 }
 //---------------------------------------------------------------------------
-

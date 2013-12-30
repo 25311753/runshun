@@ -46,6 +46,7 @@ CString GetContainerInfo(TListView *lv){
         szContInfo += '@';
         return szContInfo;
 }
+
 //°Ñedit×ª³Émoney
 double edt2money(TEdit *edt, int decimal_place=0){
         double rt = 0;

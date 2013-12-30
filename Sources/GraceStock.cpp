@@ -73,6 +73,7 @@ USEFORM("Purchase\DicOperUnit.cpp", DicOperUnitForm);
 USEFORM("Purchase\DicCharge.cpp", DicChargeForm);
 USEFORM("Purchase\Tailer.cpp", TailerForm);
 USEFORM("Purchase\Receivables.cpp", ReceivablesForm);
+USEFORM("Purchase\PrnCYD.cpp", PrnCYDForm);
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {

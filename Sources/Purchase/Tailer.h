@@ -11,6 +11,8 @@
 #include <ComCtrls.hpp>
 #include <ExtCtrls.hpp>
 #include <ImgList.hpp>
+
+#include "LfcString.h"
 //---------------------------------------------------------------------------
 class TTailerForm : public TForm
 {
@@ -108,6 +110,8 @@ __published:	// IDE-managed Components
         TEdit *edtQryDriver;
         TPanel *pl_input;
         TPanel *Panel45;
+        TEdit *Edit1;
+        TCheckBox *cbIsQryByDate;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnClearQryCondClick(TObject *Sender);
         void __fastcall btnAddClick(TObject *Sender);
@@ -125,16 +129,41 @@ __published:	// IDE-managed Components
         void __fastcall btnOKClick(TObject *Sender);
         void __fastcall btnCancelClick(TObject *Sender);
         void __fastcall edtCharge1Change(TObject *Sender);
+        void __fastcall edtCharge2Change(TObject *Sender);
+        void __fastcall edtCharge3Change(TObject *Sender);
+        void __fastcall edtCharge4Change(TObject *Sender);
+        void __fastcall edtCharge5Change(TObject *Sender);
+        void __fastcall edtCost1Change(TObject *Sender);
+        void __fastcall edtCost2Change(TObject *Sender);
+        void __fastcall edtCost3Change(TObject *Sender);
+        void __fastcall edtCost4Change(TObject *Sender);
+        void __fastcall edtCost5Change(TObject *Sender);
+        void __fastcall cbbVarChargeName1Change(TObject *Sender);
+        void __fastcall cbbVarChargeName2Change(TObject *Sender);
+        void __fastcall cbbVarChargeName3Change(TObject *Sender);
+        void __fastcall cbbVarChargeName4Change(TObject *Sender);
+        void __fastcall cbbVarChargeName5Change(TObject *Sender);
+        void __fastcall btnPrnOutCarClick(TObject *Sender);
+        void __fastcall edtFareChange(TObject *Sender);
+        void __fastcall edtFareOutChange(TObject *Sender);
+        void __fastcall lstViewDownSelectItem(TObject *Sender,
+          TListItem *Item, bool Selected);
+        void __fastcall btnDelClick(TObject *Sender);
 private:	// User declarations
         enum { EN_IDLE,EN_ADDNEW,EN_EDIT } m_enWorkState; //接单上区状态
+        int m_selected_id; //待删除的id，listview-selected时先清空，然后赋值
 public:		// User declarations
         __fastcall TTailerForm(TComponent* Owner);
         void clean_input();
         void clean_query();
         void ResetCtrl();
-        int add(TObject *Sender);
-        void mod(TObject *Sender);
-        void refreshMod();           
+        int addData(TObject *Sender);
+        void modData(TObject *Sender);
+        void refreshMod();
+        double sum_charge();
+        double sum_cost();
+        CString GetTailerChargeInfo();
+        bool chk_charge_valid();
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TTailerForm *TailerForm;

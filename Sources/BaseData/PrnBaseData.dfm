@@ -1,6 +1,6 @@
 object PrnBaseDataForm: TPrnBaseDataForm
-  Left = 588
-  Top = 125
+  Left = 448
+  Top = 126
   Width = 832
   Height = 609
   Caption = 'PrnBaseDataForm'

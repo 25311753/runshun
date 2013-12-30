@@ -1,8 +1,8 @@
 object PrnOutBoatForm: TPrnOutBoatForm
-  Left = -1166
-  Top = -179
+  Left = 114
+  Top = 0
   Width = 944
-  Height = 812
+  Height = 770
   VertScrollBar.Position = 157
   Caption = #25171#21360#20986#33337#32440
   Color = clBtnFace

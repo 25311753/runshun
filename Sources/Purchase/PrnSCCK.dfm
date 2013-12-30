@@ -1,6 +1,6 @@
 object PrnSCCKForm: TPrnSCCKForm
-  Left = -1210
-  Top = -17
+  Left = 470
+  Top = 75
   Width = 1018
   Height = 677
   Caption = 'PrnSCCKForm'
@@ -15,7 +15,7 @@ object PrnSCCKForm: TPrnSCCKForm
   PixelsPerInch = 96
   TextHeight = 13
   object PrnView: TQuickRep
-    Left = 120
+    Left = 112
     Top = 67
     Width = 794
     Height = 1123
@@ -57,7 +57,7 @@ object PrnSCCKForm: TPrnSCCKForm
     PrinterSettings.OutputBin = Auto
     PrintIfEmpty = True
     SnapToGrid = True
-    Units = MM
+    Units = Native
     Zoom = 100
     object DetailBand1: TQRBand
       Left = 38
