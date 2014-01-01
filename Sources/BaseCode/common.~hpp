@@ -30,8 +30,9 @@ bool isNum(AnsiString s){
 bool isMoney(AnsiString s, int decimal_place = 0){
         try{
                 if (s.IsEmpty()){
-                        return false;
+                        return true;
                 }
+
                 double money = 0;
                 if(!TryStrToFloat(s, money)){
 //                        ShowMessage("It's not a double!");
@@ -88,6 +89,7 @@ CString GetSysTime2(){
   sprintf(strDate,"%04d%02d%02d%02d%02d%02d",year,month,day,h,m,s);
   return CString(strDate);
 }
+
 CString GetDate(TDateTimePicker *dtp)
 {
         unsigned short year,month,day;

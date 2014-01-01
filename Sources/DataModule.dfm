@@ -1,7 +1,7 @@
 object dm1: Tdm1
   OldCreateOrder = False
   Left = 410
-  Top = 127
+  Top = 129
   Height = 375
   Width = 544
   object db1: TDatabase

@@ -35,7 +35,7 @@ CString GetContainerInfo(TListView *lv){
         CString szContInfo;
         szContInfo += (IntToStr(lv->Items->Count)).c_str();
         szContInfo += '|';
-        for (int i=0; i<lv->Items->Count; ++i) {
+        for (int i=0; i<lv->Items->Count; ++i) {  
                 szContInfo += lv->Items->Item[i]->Caption.c_str();
                 szContInfo += ' ';
                 szContInfo += lv->Items->Item[i]->SubItems->Strings[0].c_str();
@@ -52,6 +52,9 @@ double edt2money(TEdit *edt, int decimal_place=0){
         double rt = 0;
         AnsiString s = edt->Text;
         try{
+                if (s.IsEmpty()){
+                        return 0;
+                }
                 if (isMoney(s, decimal_place)){
                         TryStrToFloat(s, rt);
                 }

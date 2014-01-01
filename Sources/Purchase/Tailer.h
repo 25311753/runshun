@@ -13,7 +13,20 @@
 #include <ImgList.hpp>
 
 #include "LfcString.h"
+#include <map>
 //---------------------------------------------------------------------------
+class CVarCharge{
+public:
+        CVarCharge(TComboBox *_cbbName, TEdit *_edtCharge, TEdit *_edtCost){
+                cbbName = _cbbName;
+                edtCharge = _edtCharge;
+                edtCost = _edtCost;
+        }
+        TComboBox *cbbName;
+        TEdit *edtCharge;
+        TEdit *edtCost;
+};
+
 class TTailerForm : public TForm
 {
 __published:	// IDE-managed Components
@@ -110,7 +123,6 @@ __published:	// IDE-managed Components
         TEdit *edtQryDriver;
         TPanel *pl_input;
         TPanel *Panel45;
-        TEdit *Edit1;
         TCheckBox *cbIsQryByDate;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnClearQryCondClick(TObject *Sender);
@@ -153,8 +165,17 @@ __published:	// IDE-managed Components
 private:	// User declarations
         enum { EN_IDLE,EN_ADDNEW,EN_EDIT } m_enWorkState; //接单上区状态
         int m_selected_id; //待删除的id，listview-selected时先清空，然后赋值
+        CVarCharge *m_v1;
+        CVarCharge *m_v2;
+        CVarCharge *m_v3;
+        CVarCharge *m_v4;
+        CVarCharge *m_v5;
+
+        std::map<int, CVarCharge*> m_mVarCharge;  //for CVarCharge
 public:		// User declarations
         __fastcall TTailerForm(TComponent* Owner);
+
+        __fastcall ~TTailerForm(void);
         void clean_input();
         void clean_query();
         void ResetCtrl();
@@ -165,6 +186,13 @@ public:		// User declarations
         double sum_cost();
         CString GetTailerChargeInfo();
         bool chk_charge_valid();
+        void flushContainer(AnsiString c);
+        void _flushVarCharge(AnsiString name, AnsiString charge, AnsiString cost);
+        void flushVarCharge(AnsiString c);
+        void cb_change_name(int pos);
+        void cb_change_charge(int pos);      
+        void cb_change_cost(int pos);
+        CString GetContainerInfo_local(TListView *lv);        
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TTailerForm *TailerForm;

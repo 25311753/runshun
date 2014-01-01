@@ -1,6 +1,6 @@
 object TailerForm: TTailerForm
-  Left = -1274
-  Top = 29
+  Left = -1244
+  Top = -42
   Width = 1257
   Height = 770
   Caption = #25302#36710#31995#32479
@@ -1206,30 +1206,31 @@ object TailerForm: TTailerForm
       end
       item
         Caption = 'containerinfo'
-        Width = 0
+        Width = 10
       end
       item
         Caption = 'loadaddress'
-        Width = 0
+        Width = 10
       end
       item
         Caption = 'loadlinkman'
-        Width = 0
+        Width = 10
       end
       item
         Caption = 'loadtel'
+        Width = 10
       end
       item
         Caption = 'beizhu'
-        Width = 0
+        Width = 10
       end
       item
         Caption = 'charge_cost'
-        Width = 0
+        Width = 100
       end
       item
         Caption = 'id'
-        Width = 0
+        Width = 100
       end>
     FlatScrollBars = True
     GridLines = True
@@ -1248,14 +1249,6 @@ object TailerForm: TTailerForm
     Caption = #29983#25104#27966#36710#21333
     TabOrder = 9
     OnClick = btnPrnOutCarClick
-  end
-  object Edit1: TEdit
-    Left = 568
-    Top = 0
-    Width = 121
-    Height = 21
-    TabOrder = 10
-    Text = 'Edit1'
   end
   object TrayIcon1: TTrayIcon
     Hint = #28070#39034#25253#20851

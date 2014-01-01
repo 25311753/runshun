@@ -1,8 +1,9 @@
 object PrnCYDForm: TPrnCYDForm
-  Left = -1288
-  Top = -224
-  Width = 1296
-  Height = 1040
+  Left = -8
+  Top = 0
+  Width = 1292
+  Height = 812
+  VertScrollBar.Position = 199
   Caption = #25171#21360' '#25215#36816#21333
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +18,7 @@ object PrnCYDForm: TPrnCYDForm
   object PrnView: TQuickRep
     Tag = 1
     Left = 152
-    Top = -69
+    Top = -268
     Width = 952
     Height = 1347
     Frame.Color = clBlack
@@ -412,7 +413,7 @@ object PrnCYDForm: TPrnCYDForm
       object QRLabel7: TQRLabel
         Left = 7
         Top = 173
-        Width = 97
+        Width = 102
         Height = 20
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -423,7 +424,7 @@ object PrnCYDForm: TPrnCYDForm
           44.0972222222222
           15.4340277777778
           381.440972222222
-          213.871527777778)
+          224.895833333333)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
@@ -2219,7 +2220,7 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 10
       end
-      object QRLabel57: TQRLabel
+      object qrlBeiZhu2: TQRLabel
         Left = 136
         Top = 968
         Width = 74

@@ -30,8 +30,9 @@ bool isNum(AnsiString s){
 bool isMoney(AnsiString s, int decimal_place = 0){
         try{
                 if (s.IsEmpty()){
-                        return false;
+                        return true;
                 }
+
                 double money = 0;
                 if(!TryStrToFloat(s, money)){
 //                        ShowMessage("It's not a double!");
@@ -116,6 +117,16 @@ CString GetTimeBy2Dtp(TDateTimePicker *dtp_ymh, TDateTimePicker *dtp_hms){
   dtp_ymh->DateTime.DecodeDate(&y,&m,&d);
   dtp_hms->DateTime.DecodeTime(&h,&mi,&s,&u);
   sprintf(strDate,"%04d-%02d-%02d %02d:%02d:%02d",y,m,d,h,mi,s);
+  return CString(strDate);
+
+}
+CString GetTimeBy2DtpYMD(TDateTimePicker *dtp_ymh, TDateTimePicker *dtp_hms){
+  unsigned short y,m,d,h,mi,s,u;
+  char strDate[80];
+        memset(strDate, 0x00, sizeof(strDate));
+  dtp_ymh->DateTime.DecodeDate(&y,&m,&d);
+  dtp_hms->DateTime.DecodeTime(&h,&mi,&s,&u);
+  sprintf(strDate,"%04d-%02d-%02d",y,m,d);
   return CString(strDate);
 
 }

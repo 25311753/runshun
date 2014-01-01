@@ -2,8 +2,10 @@
 
 #include <vcl.h>
 #pragma hdrstop
-
+#include <vector>
 #include "Tailer.h"
+
+#include "PrnCYD.h"
 #include "DataModule.h"
 #include "BaseCode.h"
 #include "LdyInterface.h"
@@ -15,8 +17,10 @@
 #pragma link "trayicon"
 #pragma resource "*.dfm"
 TTailerForm *TailerForm;
+
+#define DECIMAL_PLACE_FARE 2
 #define DECIMAL_PLACE_CHARGE 2
-#define DECIMAL_COST_CHARGE 2
+#define DECIMAL_PLACE_COST 2
 
 enum E_TAILER_COL_NAME{
 	COL_OPDATE = 0,
@@ -52,7 +56,22 @@ __fastcall TTailerForm::TTailerForm(TComponent* Owner)
         : TForm(Owner)
 {
         m_enWorkState=EN_IDLE;
-        m_del_id = 0;
+        m_selected_id = 0;
+        m_mVarCharge.clear();
+        int i=1;
+        m_mVarCharge.insert(std::make_pair(i++, new CVarCharge(cbbVarChargeName1, edtCharge1, edtCost1)));
+        m_mVarCharge.insert(std::make_pair(i++, new CVarCharge(cbbVarChargeName2, edtCharge2, edtCost2)));
+        m_mVarCharge.insert(std::make_pair(i++, new CVarCharge(cbbVarChargeName3, edtCharge3, edtCost3)));
+        m_mVarCharge.insert(std::make_pair(i++, new CVarCharge(cbbVarChargeName4, edtCharge4, edtCost4)));
+        m_mVarCharge.insert(std::make_pair(i++, new CVarCharge(cbbVarChargeName5, edtCharge5, edtCost5)));
+}
+
+__fastcall TTailerForm::~TTailerForm(void){
+        for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end(); ++it){
+                CVarCharge *d = it->second;
+                delete d;
+                d=NULL;
+        }
 }
 //---------------------------------------------------------------------------
 void TTailerForm::clean_input(){
@@ -78,25 +97,13 @@ void TTailerForm::clean_input(){
         dtpOpDateHHMM->Time = EncodeTime(17,00,00,0);
 
         // var charge
-        cbbVarChargeName1->ItemIndex = 0;
-        edtCharge1->Text = "";
-        edtCost1->Text = "";
+        for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end(); it++){
+                CVarCharge *d = it->second;
+                d->cbbName->ItemIndex = 0;
+                d->edtCharge->Text = "";
+                d->edtCost->Text = "";
+        }
 
-        cbbVarChargeName2->ItemIndex = 0;
-        edtCharge2->Text = "";
-        edtCost2->Text = "";
-
-        cbbVarChargeName3->ItemIndex = 0;
-        edtCharge3->Text = "";
-        edtCost3->Text = "";
-
-        cbbVarChargeName4->ItemIndex = 0;
-        edtCharge4->Text = "";
-        edtCost4->Text = "";
-
-        cbbVarChargeName5->ItemIndex = 0;
-        edtCharge5->Text = "";
-        edtCost5->Text = "";
 }
 //---------------------------------------------------------------------------
 void TTailerForm::clean_query(){
@@ -117,11 +124,10 @@ void __fastcall TTailerForm::FormShow(TObject *Sender)
 {
         lstViewDown->Clear();
         //init varcharname first
-        cbbVarChargeName1->Items->Add("");
-        cbbVarChargeName2->Items->Add("");
-        cbbVarChargeName3->Items->Add("");
-        cbbVarChargeName4->Items->Add("");
-        cbbVarChargeName5->Items->Add("");
+        for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
+                CVarCharge *d = it->second;
+                d->cbbName->Items->Add("");
+        }
 
         CString szSQL;
         szSQL.Format("select * from charges order by chid");
@@ -131,11 +137,11 @@ void __fastcall TTailerForm::FormShow(TObject *Sender)
         {
                 int chid = dm1->Query1->FieldByName("chid")->AsInteger;
                 AnsiString chname = dm1->Query1->FieldByName("chname")->AsString;
-                cbbVarChargeName1->Items->Add(chname);
-                cbbVarChargeName2->Items->Add(chname);
-                cbbVarChargeName3->Items->Add(chname);
-                cbbVarChargeName4->Items->Add(chname);
-                cbbVarChargeName5->Items->Add(chname);
+
+                for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
+                        CVarCharge *d = it->second;
+                        d->cbbName->Items->Add(chname);
+                }
                 dm1->Query1->Next();
         }
         //~
@@ -238,10 +244,10 @@ void __fastcall TTailerForm::btnQueryClick(TObject *Sender)
                 szSQL += " and containerinfo like'%"; szSQL += edtQryJZS->Text.c_str(); szSQL+="%'";
         }
         if (!edtQryTranCompany->Text.IsEmpty()){
-                szSQL += " and licenseno="; szSQL += Str2DBString(edtQryTranCompany->Text.c_str());
+                szSQL += " and trancompany="; szSQL += Str2DBString(edtQryTranCompany->Text.c_str());
         }
         if (!edtQryDriver->Text.IsEmpty()){
-                szSQL += " and licenseno="; szSQL += Str2DBString(edtQryDriver->Text.c_str());
+                szSQL += " and driver="; szSQL += Str2DBString(edtQryDriver->Text.c_str());
         }
         if (!cbbQryGoodsPerf->Text.IsEmpty()){
                 szSQL += " and goodsperf="; szSQL += Str2DBString(cbbQryGoodsPerf->Text.c_str());
@@ -254,7 +260,6 @@ void __fastcall TTailerForm::btnQueryClick(TObject *Sender)
         }
 //        szSQL += " order by CONVERT(varchar(100), acceptdate, 23), endcustdate";   //accpetdate格式化yyyymmdd排序，以免endcustdate排序受干扰
         szSQL += " order by opdate";
-        
         TListItem *pItem;
         lstViewDown->Items->Clear();
 	RunSQL(dm1->Query1,szSQL,true);
@@ -272,7 +277,7 @@ void __fastcall TTailerForm::btnQueryClick(TObject *Sender)
                 pItem->Caption= column_no;
                 pItem->SubItems->Add(dm1->Query1->FieldByName("opdate")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("client")->AsString);
-//                pItem->SubItems->Add(AnsiString(getFirstContainerNo(dm1->Query1->FieldByName("containerinfo")->AsString)));
+                pItem->SubItems->Add(dm1->Query1->FieldByName("ladingid")->AsString);
                 pItem->SubItems->Add("");
                 pItem->SubItems->Add("");
                 pItem->SubItems->Add("");
@@ -295,13 +300,13 @@ void __fastcall TTailerForm::btnQueryClick(TObject *Sender)
                 pItem->SubItems->Add(dm1->Query1->FieldByName("loadlinkman")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("loadtel")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("beizhu")->AsString);
-                pItem->SubItems->Add(dm1->Query1->FieldByName("id")->AsInteger);
+                pItem->SubItems->Add(dm1->Query1->FieldByName("charge_cost")->AsString);
+                pItem->SubItems->Add(dm1->Query1->FieldByName("tid")->AsInteger);
 
                 lstViewContainer->Items->Clear();
 
 		dm1->Query1->Next();
 	}
-
        	ResetCtrl();
         clean_input();
 }
@@ -506,7 +511,7 @@ int TTailerForm::addData(TObject *Sender){
         }
 
         if (!chk_charge_valid()){
-                ShowMessage("请检查费用输入部分");
+                ShowMessage("请检查费用输入部分(空输入或费用有重复)");
                 return rt;
         }
 
@@ -514,7 +519,7 @@ int TTailerForm::addData(TObject *Sender){
         CString szSQL;
         szSQL="insert into tailer(client, opdate, ladingid, loadaddress, loadlinkman, loadtel, \
                                 containerinfo, fare, fareout, charge_cost, total_charge,\
-                                total_cost, trancompany, carno, driver, beizhu) \
+                                total_cost, trancompany, carno, driver, beizhu, goodsperf) \
                         values(";
         szSQL += Str2DBString(cbbClient->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
@@ -527,14 +532,15 @@ int TTailerForm::addData(TObject *Sender){
         szSQL +=","; szSQL += Text2DBFloat(edtFareOut->Text.IsEmpty()?AnsiString("0"):edtFareOut->Text,4).c_str();
         szSQL +=","; szSQL += Str2DBString(GetTailerChargeInfo());
         szSQL +=","; szSQL += Text2DBFloat(edtTotalCharge->Text.IsEmpty()?AnsiString("0"):edtTotalCharge->Text,DECIMAL_PLACE_CHARGE).c_str();
-        szSQL +=","; szSQL += Text2DBFloat(edtTotalCost->Text.IsEmpty()?AnsiString("0"):edtTotalCost->Text,DECIMAL_COST_CHARGE).c_str();
+        szSQL +=","; szSQL += Text2DBFloat(edtTotalCost->Text.IsEmpty()?AnsiString("0"):edtTotalCost->Text,DECIMAL_PLACE_COST).c_str();
         szSQL +=","; szSQL += Str2DBString(edtTranCompany->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(edtCarNo->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(edtDriver->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(edtBeiZhu->Text.c_str());
+        szSQL +=","; szSQL += Str2DBString(cbbGoodsPerf->Text.c_str());
+
         szSQL +=")";
 
-        Edit1->Text = AnsiString(szSQL);
         if(!RunSQL(dm1->Query1,szSQL))
         {
                 ShowMessage("insert fail!") ;
@@ -544,6 +550,7 @@ int TTailerForm::addData(TObject *Sender){
         //query auto-icr-key
         //select @@identity
         szSQL = "select @@identity as autokey";
+        RunSQL(dm1->Query1,szSQL,true);        
         if(dm1->Query1->Eof)
         {
                 ShowMessage("insert fail(akey)!") ;
@@ -551,12 +558,10 @@ int TTailerForm::addData(TObject *Sender){
         }
 
         int autokey = dm1->Query1->FieldByName("autokey")->AsInteger;
-
         int column_no = lstViewDown->Items->Count;
         int cnt_con = lstViewContainer->Items->Count;
         TListItem *pItem =lstViewDown->Items->Add();
         assert(pItem!=NULL);
-
         pItem->Caption=(column_no+1);
         pItem->SubItems->Add(AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM)));
         pItem->SubItems->Add(cbbClient->Text);
@@ -569,54 +574,90 @@ int TTailerForm::addData(TObject *Sender){
         pItem->SubItems->Add(edtDriver->Text);
         pItem->SubItems->Add(edtCarNo->Text);
         pItem->SubItems->Add(cbbGoodsPerf->Text);
+
         pItem->SubItems->Add(edtFare->Text);
         pItem->SubItems->Add(edtFareOut->Text);
         pItem->SubItems->Add(edtTotalCharge->Text);
         pItem->SubItems->Add(edtTotalCost->Text);
-        double lirun = StrToFloat(edtFare->Text.c_str())-StrToFloat(edtFareOut->Text.c_str())+ \
-                        StrToFloat(edtTotalCharge->Text.c_str())-StrToFloat(edtTotalCost->Text.c_str());
+        double lirun = edt2money(edtFare, DECIMAL_PLACE_CHARGE) - \
+                       edt2money(edtFareOut, DECIMAL_PLACE_CHARGE) + \
+                       edt2money(edtTotalCharge, DECIMAL_PLACE_CHARGE) - \
+                       edt2money(edtTotalCost, DECIMAL_PLACE_CHARGE);
         pItem->SubItems->Add(lirun);
-        pItem->SubItems->Add(GetContainerInfo(lstViewContainer));
+        pItem->SubItems->Add(AnsiString(GetContainerInfo(lstViewContainer)));
         pItem->SubItems->Add(edtLoadAddress->Text);
         pItem->SubItems->Add(edtLoadLinkMan->Text);
         pItem->SubItems->Add(edtLoadTel->Text);
         pItem->SubItems->Add(edtBeiZhu->Text);
-        pItem->SubItems->Add(autokey);
+        pItem->SubItems->Add(AnsiString(GetTailerChargeInfo()));
 
+        pItem->SubItems->Add(autokey);
         rt = 0;
         return rt;
 }
+CString TTailerForm::GetContainerInfo_local(TListView *lv){
+        CString szContInfo;
+        szContInfo += (IntToStr(lv->Items->Count)).c_str();
+        szContInfo += '|';
+        for (int i=0; i<lv->Items->Count; ++i) {  
+                szContInfo += lv->Items->Item[i]->Caption.c_str();
+                szContInfo += ' ';
+                szContInfo += lv->Items->Item[i]->SubItems->Strings[0].c_str();
+                szContInfo += ' ';
+                szContInfo += lv->Items->Item[i]->SubItems->Strings[1].c_str();
+                szContInfo += '#';
+        }
+        szContInfo += '@';
+        return szContInfo;
+}
 void  TTailerForm::modData(TObject *Sender){
-        if (lstViewContainer->Items->Count == 0){
+/*        if (lstViewContainer->Items->Count == 0){
                 ShowMessage("柜号信息不全");
                 return;
         }
+*/
+
         char strMsg[256],strSQL[512];
-        sprintf(strMsg,"\n  真要修改“%s”的记录吗？  \n",edtClient->Text.c_str());
+        sprintf(strMsg,"\n  真要修改“%s”的记录吗？  \n",cbbClient->Text.c_str());
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return;
+                
+        if(cbbClient->Text.IsEmpty() || edtLading->Text.IsEmpty() || edtLoadAddress->Text.IsEmpty() || \
+              edtLoadLinkMan->Text.IsEmpty() || edtLoadTel->Text.IsEmpty() || edtTranCompany->Text.IsEmpty() || \
+              edtFare->Text.IsEmpty() || edtFareOut->Text.IsEmpty() || edtCarNo->Text.IsEmpty() || edtDriver->Text.IsEmpty() || \
+              lstViewContainer->Items->Count == 0)
+        {
+                ShowMessage("请检查你的输入信息");
+                return ;
+        }
+
+        if (!chk_charge_valid()){
+                ShowMessage("请检查费用输入部分(空输入或费用有重复)");
+                return ;
+        }
+
 
         CString szSQL;
-        szSQL="update customs set ";     
+        szSQL="update tailer set ";     
         szSQL +="client="; szSQL += Str2DBString(cbbClient->Text.c_str());
         szSQL +=",opdate="; szSQL += Str2DBString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
-        szSQL +=",lading="; szSQL += Str2DBString(edtLading->Text.c_str());
+        szSQL +=",ladingid="; szSQL += Str2DBString(edtLading->Text.c_str());
         szSQL +=",loadaddress="; szSQL += Str2DBString(edtLoadAddress->Text.c_str());
-        szSQL +=",goodsperf="; szSQL += Str2DBString(edtLoadLinkMan->Text.c_str());
+        szSQL +=",goodsperf="; szSQL += Str2DBString(cbbGoodsPerf->Text.c_str());
         szSQL +=",loadtel="; szSQL += Str2DBString(edtLoadTel->Text.c_str());
-        szSQL +=",containerinfo="; szSQL += Str2DBString(GetContainerInfo(lstViewContainer));
+        szSQL +=",containerinfo="; szSQL += Str2DBString(GetContainerInfo_local(lstViewContainer));
         szSQL +=",fare="; szSQL += Text2DBFloat(edtFare->Text.IsEmpty()?AnsiString("0"):edtFare->Text,4).c_str();
         szSQL +=",fareout="; szSQL += Text2DBFloat(edtFareOut->Text.IsEmpty()?AnsiString("0"):edtFareOut->Text,4).c_str();
         szSQL +=",charge_cost="; szSQL += Str2DBString(GetTailerChargeInfo());
+
         szSQL +=",total_charge="; szSQL += Text2DBFloat(edtTotalCharge->Text.IsEmpty()?AnsiString("0"):edtTotalCharge->Text,DECIMAL_PLACE_CHARGE).c_str();
-        szSQL +=",total_cost="; szSQL += Text2DBFloat(edtTotalCost->Text.IsEmpty()?AnsiString("0"):edtTotalCost->Text,DECIMAL_COST_CHARGE).c_str();
+        szSQL +=",total_cost="; szSQL += Text2DBFloat(edtTotalCost->Text.IsEmpty()?AnsiString("0"):edtTotalCost->Text,DECIMAL_PLACE_COST).c_str();
         szSQL +=",trancompany="; szSQL += Str2DBString(edtTranCompany->Text.c_str());
         szSQL +=",carno="; szSQL += Str2DBString(edtCarNo->Text.c_str());
         szSQL +=",driver="; szSQL += Str2DBString(edtDriver->Text.c_str());
         szSQL +=",beizhu="; szSQL += Str2DBString(edtBeiZhu->Text.c_str());
-        szSQL += " where id="; szSQL+=Str2DBString(m_selected_id);
+        szSQL += " where tid="; szSQL+=Int2DBString(m_selected_id);
 
-        Edit1->Text = AnsiString(szSQL);
         if(!RunSQL(dm1->Query1,szSQL))
         {
                 ShowMessage("update fail!") ;
@@ -627,6 +668,64 @@ void  TTailerForm::modData(TObject *Sender){
 }
 
 void  TTailerForm::refreshMod(){
+/*        unsigned short year0,month0,day0;
+	dtpQryAcceptDate->DateTime.DecodeDate(&year0,&month0,&day0);
+        char strDate0[80];
+
+   	sprintf(strDate0,"%04d%02d%02d",year0,month0,day0);
+
+        unsigned short year1,month1,day1;
+	dtpQryAcceptDateEnd->DateTime.DecodeDate(&year1,&month1,&day1);
+        char strDate1[80];
+
+   	sprintf(strDate1,"%04d%02d%02d",year1,month1,day1);
+*/
+        TListItem *pItem  = lstViewDown->Selected;
+        CString szSQL;
+        szSQL="select *,substring(containerinfo,0,charindex('|',containerinfo)) as cnt_con \
+                from tailer where 1=1 ";
+
+        int tid = StrToInt(pItem->SubItems->Strings[COL_ID].c_str());
+        szSQL +=" and tid="; szSQL += Int2DBString(tid);
+
+	RunSQL(dm1->Query1,szSQL,true);
+        
+	if(!dm1->Query1->Eof)
+	{
+//        AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM))
+//                pItem->Caption=dm1->Query1->FieldByName("cid")->AsString;
+                pItem->SubItems->Strings[COL_OPDATE] = dm1->Query1->FieldByName("opdate")->AsString;
+	        pItem->SubItems->Strings[COL_CLIENT] = dm1->Query1->FieldByName("client")->AsString;         
+
+		pItem->SubItems->Strings[COL_LADING] = dm1->Query1->FieldByName("ladingid")->AsString;
+		pItem->SubItems->Strings[COL_CONTAINER_NO] = "";
+		pItem->SubItems->Strings[COL_SEALID] = "";
+
+		pItem->SubItems->Strings[COL_CONTAINER_TYPE] = "";
+		pItem->SubItems->Strings[COL_CONTAINER_CNT] = "";
+		pItem->SubItems->Strings[COL_TRANCOMPANY] = dm1->Query1->FieldByName("trancompany")->AsString;
+		pItem->SubItems->Strings[COL_DRIVER] = dm1->Query1->FieldByName("driver")->AsString;
+		pItem->SubItems->Strings[COL_CARNO] = dm1->Query1->FieldByName("carno")->AsString;
+		pItem->SubItems->Strings[COL_GOODSPERF] = dm1->Query1->FieldByName("goodsperf")->AsString;
+		pItem->SubItems->Strings[COL_FARE] = dm1->Query1->FieldByName("fare")->AsFloat;
+		pItem->SubItems->Strings[COL_FAREOUT] = dm1->Query1->FieldByName("fareout")->AsFloat;
+
+		pItem->SubItems->Strings[COL_TOTAL_CHARGE] = dm1->Query1->FieldByName("total_charge")->AsFloat;
+		pItem->SubItems->Strings[COL_TOTAL_COST] = dm1->Query1->FieldByName("total_cost")->AsFloat;
+                double lirun = dm1->Query1->FieldByName("fare")->AsFloat - \
+                               dm1->Query1->FieldByName("fareout")->AsFloat + \
+                               dm1->Query1->FieldByName("total_charge")->AsFloat - \
+                               dm1->Query1->FieldByName("total_cost")->AsFloat ;
+		pItem->SubItems->Strings[COL_LIRUN] = FloatToStr(lirun);
+		pItem->SubItems->Strings[COL_CONTAINERINFO] = dm1->Query1->FieldByName("containerinfo")->AsString;
+		pItem->SubItems->Strings[COL_LOADADDRESS] = dm1->Query1->FieldByName("loadaddress")->AsString;
+              
+		pItem->SubItems->Strings[COL_LOADLINKMAN] = dm1->Query1->FieldByName("loadlinkman")->AsString;
+                pItem->SubItems->Strings[COL_LOADTEL] = dm1->Query1->FieldByName("loadtel")->AsString;
+                pItem->SubItems->Strings[COL_BEIZHU] = dm1->Query1->FieldByName("beizhu")->AsString;
+                pItem->SubItems->Strings[COL_CHARGE_COST] = dm1->Query1->FieldByName("charge_cost")->AsString;
+//                pItem->SubItems->Strings[COL_ID] = dm1->Query1->FieldByName("containerinfo")->AsString; //not need
+	}
 
 }
 void __fastcall TTailerForm::btnCancelClick(TObject *Sender)
@@ -657,245 +756,204 @@ void __fastcall TTailerForm::btnCancelClick(TObject *Sender)
 //---------------------------------------------------------------------------
 
 double  TTailerForm::sum_charge(){
-        double total =   edt2money(edtCharge1, DECIMAL_PLACE_CHARGE) + \
-                                edt2money(edtCharge2, DECIMAL_PLACE_CHARGE) + \
-                                edt2money(edtCharge3, DECIMAL_PLACE_CHARGE) + \
-                                edt2money(edtCharge4, DECIMAL_PLACE_CHARGE) + \
-                                edt2money(edtCharge5, DECIMAL_PLACE_CHARGE);
+        double total = 0;
+
+        for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
+                CVarCharge *d = it->second;
+                total += edt2money(d->edtCharge, DECIMAL_PLACE_CHARGE);
+	}
         return total;
 }
 double  TTailerForm::sum_cost(){
-        double total =   edt2money(edtCost1, DECIMAL_COST_CHARGE) + \
-                                edt2money(edtCost2, DECIMAL_COST_CHARGE) + \
-                                edt2money(edtCost3, DECIMAL_COST_CHARGE) + \
-                                edt2money(edtCost4, DECIMAL_COST_CHARGE) + \
-                                edt2money(edtCost5, DECIMAL_COST_CHARGE);
+        double total = 0;
+
+        for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
+                CVarCharge *d = it->second;
+                total += edt2money(d->edtCost, DECIMAL_PLACE_COST);
+	}
         return total;
 }
-
+void  TTailerForm::cb_change_charge(int pos){
+        std::map<int, CVarCharge*>::iterator it = m_mVarCharge.find(pos);
+        if (it!=m_mVarCharge.end()){
+                CVarCharge *d = it->second;
+                if (!isMoney(d->edtCharge->Text, DECIMAL_PLACE_CHARGE)){
+                        ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
+                        return;
+                }
+                edtTotalCharge->Text = FloatToStr(sum_charge());
+        }
+}
 void __fastcall TTailerForm::edtCharge1Change(TObject *Sender)
 {
-        if (!isMoney(edtCharge1->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCharge->Text = FloatToStr(sum_charge());
+        cb_change_charge(1);
 }
 //---------------------------------------------------------------------------
 
 
 void __fastcall TTailerForm::edtCharge2Change(TObject *Sender)
 {
-        if (!isMoney(edtCharge2->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCharge->Text = FloatToStr(sum_charge());
+        cb_change_charge(2);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::edtCharge3Change(TObject *Sender)
 {
-        if (!isMoney(edtCharge3->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCharge->Text = FloatToStr(sum_charge());
+        cb_change_charge(3);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::edtCharge4Change(TObject *Sender)
 {
-        if (!isMoney(edtCharge4->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCharge->Text = FloatToStr(sum_charge());
+        cb_change_charge(4);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::edtCharge5Change(TObject *Sender)
 {
-        if (!isMoney(edtCharge5->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCharge->Text = FloatToStr(sum_charge());
+        cb_change_charge(5);
 }
 //---------------------------------------------------------------------------
+void  TTailerForm::cb_change_cost(int pos){
+        std::map<int, CVarCharge*>::iterator it = m_mVarCharge.find(pos);
+        if (it!=m_mVarCharge.end()){
+                CVarCharge *d = it->second;
+                if (!isMoney(d->edtCost->Text, DECIMAL_PLACE_COST)){
+                        ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_COST)+"位金额值");
+                        return;
+                }
+                edtTotalCost->Text = FloatToStr(sum_cost());
+        }
+}
 
 void __fastcall TTailerForm::edtCost1Change(TObject *Sender)
 {
-        if (!isMoney(edtCost1->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCost->Text = FloatToStr(sum_cost());
+        cb_change_cost(1);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::edtCost2Change(TObject *Sender)
 {
-        if (!isMoney(edtCost2->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCost->Text = FloatToStr(sum_cost());
+        cb_change_cost(2);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::edtCost3Change(TObject *Sender)
 {
-        if (!isMoney(edtCost3->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCost->Text = FloatToStr(sum_cost());
+       cb_change_cost(3);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::edtCost4Change(TObject *Sender)
 {
-        if (!isMoney(edtCost4->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCost->Text = FloatToStr(sum_cost());
+        cb_change_cost(4);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::edtCost5Change(TObject *Sender)
 {
-        if (!isMoney(edtCost5->Text, DECIMAL_PLACE_CHARGE)){
-                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
-                return;
-        }
-        edtTotalCost->Text = FloatToStr(sum_cost());
+        cb_change_cost(5);
 }
 //---------------------------------------------------------------------------
-
+void TTailerForm::cb_change_name(int pos){
+        std::map<int, CVarCharge*>::iterator it = m_mVarCharge.find(pos);
+        if (it!=m_mVarCharge.end()){
+                CVarCharge *d = it->second;
+                bool b_charge_empty = (d->cbbName->ItemIndex ==0);
+                d->edtCharge->ReadOnly = b_charge_empty;
+                d->edtCost->ReadOnly = b_charge_empty;
+                if (b_charge_empty){
+                        d->edtCharge->Text = "";
+                        d->edtCost->Text = "";
+                }
+        }
+}
 
 void __fastcall TTailerForm::cbbVarChargeName1Change(TObject *Sender)
 {
-        bool b_charge_empty = (cbbVarChargeName1->ItemIndex ==0);
-        edtCharge1->ReadOnly = b_charge_empty;
-        edtCost1->ReadOnly = b_charge_empty;
+        cb_change_name(1);
+
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::cbbVarChargeName2Change(TObject *Sender)
 {
-        bool b_charge_empty = (cbbVarChargeName2->ItemIndex ==0);
-        edtCharge2->ReadOnly = b_charge_empty;
-        edtCost2->ReadOnly = b_charge_empty;
+        cb_change_name(2);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::cbbVarChargeName3Change(TObject *Sender)
 {
-        bool b_charge_empty = (cbbVarChargeName3->ItemIndex ==0);
-        edtCharge3->ReadOnly = b_charge_empty;
-        edtCost3->ReadOnly = b_charge_empty;
+        cb_change_name(3);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::cbbVarChargeName4Change(TObject *Sender)
 {
-        bool b_charge_empty = (cbbVarChargeName4->ItemIndex ==0);
-        edtCharge4->ReadOnly = b_charge_empty;
-        edtCost4->ReadOnly = b_charge_empty;
+        cb_change_name(4);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TTailerForm::cbbVarChargeName5Change(TObject *Sender)
 {
-        bool b_charge_empty = (cbbVarChargeName5->ItemIndex ==0);
-        edtCharge5->ReadOnly = b_charge_empty;
-        edtCost5->ReadOnly = b_charge_empty;
+        cb_change_name(5);
 }
 //---------------------------------------------------------------------------
 
 //组装拖车费用:“费用个数|费用名称 费用 成本#费用名称 费用 成本#@”
 CString TTailerForm::GetTailerChargeInfo(){
         int n_valid_charge = 0;
+        CString _szContInfo;        
         CString szContInfo;
-        if (cbbVarChargeName1->ItemIndex != 0) {
-                n_valid_charge++;
-                szContInfo += cbbVarChargeName1->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCharge1->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCost1->Text.c_str();
-                szContInfo += '#';
-        }
-        if (cbbVarChargeName2->ItemIndex != 0) {
-                n_valid_charge++;
-                szContInfo += cbbVarChargeName2->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCharge2->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCost2->Text.c_str();
-                szContInfo += '#';
-        }
-        if (cbbVarChargeName3->ItemIndex != 0) {
-                n_valid_charge++;
-                szContInfo += cbbVarChargeName3->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCharge3->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCost3->Text.c_str();
-                szContInfo += '#';
-        }
-        if (cbbVarChargeName4->ItemIndex != 0) {
-                n_valid_charge++;
-                szContInfo += cbbVarChargeName4->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCharge4->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCost4->Text.c_str();
-                szContInfo += '#';
-        }
-        if (cbbVarChargeName5->ItemIndex != 0) {
-                n_valid_charge++;
-                szContInfo += cbbVarChargeName5->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCharge5->Text.c_str();
-                szContInfo += ' ';
-                szContInfo += edtCost5->Text.c_str();
-                szContInfo += '#';
+
+        for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
+                CVarCharge *d = it->second;
+
+                if (d->cbbName->ItemIndex != 0) {
+                        n_valid_charge++;
+                        szContInfo += d->cbbName->Text.c_str();
+                        szContInfo += ' ';
+                        szContInfo += d->edtCharge->Text.c_str();
+                        szContInfo += ' ';
+                        szContInfo += d->edtCost->Text.c_str();
+                        szContInfo += '#';
+                }
         }
         szContInfo += '@';
-//        szContInfo = (IntToStr(n_valid_charge).c_str()) + '|' + szContInfo;
-
-        return szContInfo;
+        _szContInfo += (IntToStr(n_valid_charge).c_str());
+        _szContInfo += '|';
+        _szContInfo += szContInfo;
+        return _szContInfo;
 }
 
 
 bool TTailerForm::chk_charge_valid(){
-        if (cbbVarChargeName1->ItemIndex != 0){
-                if (!isMoney(edtCharge1->Text, DECIMAL_PLACE_CHARGE) && !isMoney(edtCost1->Text, DECIMAL_COST_CHARGE) ){
-                        return false;
+        for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end(); it++ ){
+                CVarCharge *d = it->second;
+                //empty check
+                if (d->cbbName->ItemIndex != 0){
+                        //dup check
+                        for (std::map<int, CVarCharge*>::iterator it2 = m_mVarCharge.begin(); it2 != m_mVarCharge.end(); it2++ ){
+                                //skip mysell
+                                if (it->second == it2->second){
+                                        continue;
+                                }
+                                if (it2->second->cbbName->ItemIndex == d->cbbName->ItemIndex){
+                                        ShowMessage(AnsiString(IntToStr(it2->second->cbbName->ItemIndex)));
+                                        ShowMessage(AnsiString(IntToStr(it->second->cbbName->ItemIndex)));
+                                        return false;
+                                }
+                        }
+                        //empty check
+                        if (d->edtCharge->Text.IsEmpty() && d->edtCost->Text.IsEmpty()){
+                                return false;
+                        }
+                        if (!isMoney(d->edtCharge->Text, DECIMAL_PLACE_CHARGE) && !isMoney(d->edtCost->Text, DECIMAL_PLACE_COST) ){
+                                return false;
+                        }
+
                 }
-        }
-        if (cbbVarChargeName2->ItemIndex != 0){
-                if (!isMoney(edtCharge2->Text, DECIMAL_PLACE_CHARGE) && !isMoney(edtCost2->Text, DECIMAL_COST_CHARGE) ){
-                        return false;
-                }
-        }
-        if (cbbVarChargeName3->ItemIndex != 0){
-                if (!isMoney(edtCharge3->Text, DECIMAL_PLACE_CHARGE) && !isMoney(edtCost3->Text, DECIMAL_COST_CHARGE) ){
-                        return false;
-                }
-        }
-        if (cbbVarChargeName4->ItemIndex != 0){
-                if (!isMoney(edtCharge4->Text, DECIMAL_PLACE_CHARGE) && !isMoney(edtCost4->Text, DECIMAL_COST_CHARGE) ){
-                        return false;
-                }
-        }
-        if (cbbVarChargeName5->ItemIndex != 0){
-                if (!isMoney(edtCharge5->Text, DECIMAL_PLACE_CHARGE) && !isMoney(edtCost5->Text, DECIMAL_COST_CHARGE) ){
-                        return false;
-                }
+
         }
 
         return true;
@@ -962,28 +1020,19 @@ void TTailerForm::flushContainer(AnsiString c){
 
 }
 void TTailerForm::_flushVarCharge(AnsiString name, AnsiString charge, AnsiString cost){
-
-        if (!cbbVarChargeName1->Text.IsEmpty()){
-                cbbVarChargeName1->Text = name;
-                edtCharge1->Text = charge;
-                edtCost1->Text = cost
-        } else if (!cbbVarChargeName2->Text.IsEmpty()){
-                cbbVarChargeName2->Text = name;
-                edtCharge2->Text = charge;
-                edtCost2->Text = cost
-        } else if (!cbbVarChargeName3->Text.IsEmpty()){
-                cbbVarChargeName3->Text = name;
-                edtCharge3->Text = charge;
-                edtCost3->Text = cost
-        } else if (!cbbVarChargeName4->Text.IsEmpty()){
-                cbbVarChargeName4->Text = name;
-                edtCharge4->Text = charge;
-                edtCost4->Text = cost
-        } else if (!cbbVarChargeName5->Text.IsEmpty()){
-                cbbVarChargeName5->Text = name;
-                edtCharge5->Text = charge;
-                edtCost5->Text = cost
+        if (name == "" || charge == "" || cost == ""){
+                return;
         }
+        for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
+                CVarCharge *d = it->second;
+                if (d->cbbName->ItemIndex == 0){
+                        d->cbbName->ItemIndex=d->cbbName->Items->IndexOf(name);
+                        d->edtCharge->Text = charge;
+                        d->edtCost->Text = cost;
+                        return;
+                }
+	}
+
 }
 void TTailerForm::flushVarCharge(AnsiString c){
 		char cnt[10];memset(cnt,sizeof(cnt),0x00);
@@ -1001,7 +1050,7 @@ void TTailerForm::flushVarCharge(AnsiString c){
 			memset(str2,sizeof(str2),0x00);
 			memset(str3,sizeof(str3),0x00);
 			memset(str4,sizeof(str4),0x00);
-			memset(strSealId,sizeof(strCost),0x00);
+			memset(strCost,sizeof(strCost),0x00);
 
 			memset(strTmp,sizeof(strTmp),0x00);
 			strcpy(strTmp,strTmp1);
@@ -1009,8 +1058,8 @@ void TTailerForm::flushVarCharge(AnsiString c){
 			sscanf(str1,"%s %s %s",str3,str4,strCost);
 			sscanf(strTmp,"%*[^#]#%[^@]",strTmp1);
 
-                        TListItem *pItem =lstViewContainer->Items->Add();
-                        assert(pItem!=NULL);
+//                        TListItem *pItem =lstViewContainer->Items->Add();
+//                        assert(pItem!=NULL);
                         _flushVarCharge(AnsiString(str3), AnsiString(str4), AnsiString(strCost));
 		}
 }
@@ -1018,6 +1067,7 @@ void __fastcall TTailerForm::lstViewDownSelectItem(TObject *Sender,
       TListItem *Item, bool Selected)
 {
   if(Selected!=NULL){
+        clean_input();
         TDateTime tDate;
         tDate=StrToDateTime(Item->SubItems->Strings[COL_OPDATE].c_str());
         dtpOpDateYYYYMMDD->DateTime=tDate;
@@ -1031,16 +1081,15 @@ void __fastcall TTailerForm::lstViewDownSelectItem(TObject *Sender,
         edtTranCompany->Text = Item->SubItems->Strings[COL_TRANCOMPANY].c_str();
         edtFare->Text = Item->SubItems->Strings[COL_FARE].c_str();
         edtFareOut->Text = Item->SubItems->Strings[COL_FAREOUT].c_str();
-        edtDriver->Text = Item->SubItems->Strings[COL_DIRVER].c_str();
+        edtCarNo->Text = Item->SubItems->Strings[COL_CARNO].c_str();
+        edtDriver->Text = Item->SubItems->Strings[COL_DRIVER].c_str();
+        
         edtBeiZhu->Text = Item->SubItems->Strings[COL_BEIZHU].c_str();
+
         cbbGoodsPerf->ItemIndex=cbbGoodsPerf->Items->IndexOf(Item->SubItems->Strings[COL_GOODSPERF]);
-
-
-        cbbGoodsPerfQry->ItemIndex=cbbGoodsPerf->Items->IndexOf(Item->SubItems->Strings[1]) +1;
-
         flushContainer(AnsiString(Item->SubItems->Strings[COL_CONTAINERINFO].c_str()));
         flushVarCharge(AnsiString(Item->SubItems->Strings[COL_CHARGE_COST].c_str()));
-        m_del_id = StrToInt(Item->SubItems->Strings[COL_ID].c_str(0)
+        m_selected_id = StrToInt(Item->SubItems->Strings[COL_ID].c_str());
   }
         ResetCtrl();
 }
@@ -1050,17 +1099,17 @@ void __fastcall TTailerForm::lstViewDownSelectItem(TObject *Sender,
 void __fastcall TTailerForm::btnDelClick(TObject *Sender)
 {
         char strMsg[256],strSQL[512];
-        sprintf(strMsg,"\n  真要删除“%s”的记录吗？  \n",edtClient->Text.c_str());
+        sprintf(strMsg,"\n  真要删除“%s”的记录吗？  \n",cbbClient->Text.c_str());
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return;
 
         CString szSQL;
-        szSQL.Format("delete tailer where id=%d", m_del_id);
+        szSQL.Format("delete tailer where tid=%d", m_selected_id);
         if(!RunSQL(dm1->Query1,szSQL))
                 ShowMessage("delete fail!");
         //btnQueryClick(Sender);
         delLvItem(lstViewDown);
-        m_del_id = 0;
+        m_selected_id = 0;
         ShowMessage("删除成功");
 }
 //---------------------------------------------------------------------------
@@ -1071,15 +1120,24 @@ void __fastcall TTailerForm::btnPrnOutCarClick(TObject *Sender)
  	pForm=new TPrnCYDForm(this);
         assert(pForm!=NULL);
 
-        pForm->qrlOpDate->Caption = pForm->qrlOpDate2->Caption = AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
-        pForm->qrlCarNo->Caption  = pForm->qrlCarNo2->Caption  = edtCarNo->Text;
-        pForm->qrlLoadAddress->Caption = pForm->qrlLoadAddress2->Caption = edtLoadAddress->Text;
-        pForm->qrlLading->Caption = pForm->qrlLading2->Caption  = edtLading->Text;
-        pForm->qrlBeiZhu->Caption = pForm->qrlBeiZhu2->Caption  = edtBeiZhu->Text;
-        pForm->qrlDate->Caption = pForm->qrlDate2->Caption  = AnsiString(GetSysDate());
+        pForm->qrlOpDate->Caption = AnsiString(GetTimeBy2DtpYMD(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
+        pForm->qrlCarNo->Caption  = edtCarNo->Text;
+        pForm->qrlLoadAddress->Caption = edtLoadAddress->Text;
+        pForm->qrlLading->Caption = edtLading->Text;
+        pForm->qrlBeiZhu->Caption = edtBeiZhu->Text;
+        pForm->qrl_date->Caption = AnsiString(GetSysDate());
 
+        
+        //copy data
+        pForm->qrlOpDate2->Caption = AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
+        pForm->qrlCarNo2->Caption  = edtCarNo->Text;
+        pForm->qrlLoadAddress2->Caption = edtLoadAddress->Text;
+        pForm->qrlLading2->Caption = edtLading->Text;
+        pForm->qrlBeiZhu2->Caption = edtBeiZhu->Text;
+        pForm->qrl_date2->Caption = AnsiString(GetSysDate());
+        
         pForm->PrnView->PreviewModal() ;
-        delete pForm;        
+        delete pForm;
 }
 //---------------------------------------------------------------------------
 
@@ -1088,4 +1146,6 @@ void __fastcall TTailerForm::Button1Click(TObject *Sender)
          this->TrayIcon1->Minimize();        
 }
 //---------------------------------------------------------------------------
+
+
 

@@ -149,7 +149,7 @@ __published:	// IDE-managed Components
         TQRLabel *QRLabel54;
         TQRLabel *QRLabel55;
         TQRLabel *QRLabel56;
-        TQRLabel *QRLabel57;
+        TQRLabel *qrlBeiZhu2;
         TQRLabel *qrlLoadAddress2;
         TQRShape *QRShape70;
 private:	// User declarations
