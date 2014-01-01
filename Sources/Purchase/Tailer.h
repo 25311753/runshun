@@ -143,12 +143,13 @@ __published:	// IDE-managed Components
         void __fastcall cbbVarChargeName3Change(TObject *Sender);
         void __fastcall cbbVarChargeName4Change(TObject *Sender);
         void __fastcall cbbVarChargeName5Change(TObject *Sender);
-        void __fastcall btnPrnOutCarClick(TObject *Sender);
         void __fastcall edtFareChange(TObject *Sender);
         void __fastcall edtFareOutChange(TObject *Sender);
         void __fastcall lstViewDownSelectItem(TObject *Sender,
           TListItem *Item, bool Selected);
         void __fastcall btnDelClick(TObject *Sender);
+        void __fastcall btnPrnOutCarClick(TObject *Sender);
+        void __fastcall Button1Click(TObject *Sender);
 private:	// User declarations
         enum { EN_IDLE,EN_ADDNEW,EN_EDIT } m_enWorkState; //接单上区状态
         int m_selected_id; //待删除的id，listview-selected时先清空，然后赋值

@@ -870,11 +870,6 @@ CString TTailerForm::GetTailerChargeInfo(){
         return szContInfo;
 }
 
-void __fastcall TTailerForm::btnPrnOutCarClick(TObject *Sender)
-{
-        ShowMessage(AnsiString(GetTailerChargeInfo()));        
-}
-//---------------------------------------------------------------------------
 
 bool TTailerForm::chk_charge_valid(){
         if (cbbVarChargeName1->ItemIndex != 0){
@@ -1067,6 +1062,30 @@ void __fastcall TTailerForm::btnDelClick(TObject *Sender)
         delLvItem(lstViewDown);
         m_del_id = 0;
         ShowMessage("É¾³ý³É¹¦");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TTailerForm::btnPrnOutCarClick(TObject *Sender)
+{
+        TPrnCYDForm *pForm;
+ 	pForm=new TPrnCYDForm(this);
+        assert(pForm!=NULL);
+
+        pForm->qrlOpDate->Caption = pForm->qrlOpDate2->Caption = AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
+        pForm->qrlCarNo->Caption  = pForm->qrlCarNo2->Caption  = edtCarNo->Text;
+        pForm->qrlLoadAddress->Caption = pForm->qrlLoadAddress2->Caption = edtLoadAddress->Text;
+        pForm->qrlLading->Caption = pForm->qrlLading2->Caption  = edtLading->Text;
+        pForm->qrlBeiZhu->Caption = pForm->qrlBeiZhu2->Caption  = edtBeiZhu->Text;
+        pForm->qrlDate->Caption = pForm->qrlDate2->Caption  = AnsiString(GetSysDate());
+
+        pForm->PrnView->PreviewModal() ;
+        delete pForm;        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TTailerForm::Button1Click(TObject *Sender)
+{
+         this->TrayIcon1->Minimize();        
 }
 //---------------------------------------------------------------------------
 

@@ -1130,6 +1130,7 @@ object TailerForm: TTailerForm
     Height = 23
     Caption = #26368#23567#21270
     TabOrder = 7
+    OnClick = Button1Click
   end
   object lstViewDown: TListView
     Left = 8
