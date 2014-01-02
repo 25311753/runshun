@@ -278,10 +278,15 @@ void __fastcall TTailerForm::btnQueryClick(TObject *Sender)
                 pItem->SubItems->Add(dm1->Query1->FieldByName("opdate")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("client")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("ladingid")->AsString);
-                pItem->SubItems->Add("");
-                pItem->SubItems->Add("");
-                pItem->SubItems->Add("");
-                pItem->SubItems->Add("");
+                int cnt = 0;
+                AnsiString containerno = "";
+                AnsiString type = "";
+                AnsiString sealid = "";
+                getFirstContainerUnit(dm1->Query1->FieldByName("containerinfo")->AsString, cnt, containerno, type, sealid);
+                pItem->SubItems->Add(containerno);
+                pItem->SubItems->Add(sealid);
+                pItem->SubItems->Add(type);
+                pItem->SubItems->Add(cnt);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("trancompany")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("driver")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("carno")->AsString);
@@ -567,8 +572,8 @@ int TTailerForm::addData(TObject *Sender){
         pItem->SubItems->Add(cbbClient->Text);
         pItem->SubItems->Add(edtLading->Text);
         pItem->SubItems->Add(lstViewContainer->Items->Item[0]->Caption);
-        pItem->SubItems->Add("");
-        pItem->SubItems->Add("");        
+        pItem->SubItems->Add(lstViewContainer->Items->Item[0]->SubItems->Strings[1].c_str());
+        pItem->SubItems->Add(lstViewContainer->Items->Item[0]->SubItems->Strings[0].c_str());
         pItem->SubItems->Add(IntToStr(cnt_con));
         pItem->SubItems->Add(edtTranCompany->Text);
         pItem->SubItems->Add(edtDriver->Text);
@@ -698,11 +703,17 @@ void  TTailerForm::refreshMod(){
 	        pItem->SubItems->Strings[COL_CLIENT] = dm1->Query1->FieldByName("client")->AsString;         
 
 		pItem->SubItems->Strings[COL_LADING] = dm1->Query1->FieldByName("ladingid")->AsString;
-		pItem->SubItems->Strings[COL_CONTAINER_NO] = "";
-		pItem->SubItems->Strings[COL_SEALID] = "";
+                int cnt = 0;
+                AnsiString containerno = "";
+                AnsiString type = "";
+                AnsiString sealid = "";
+                getFirstContainerUnit(dm1->Query1->FieldByName("containerinfo")->AsString, cnt, containerno, type, sealid);
 
-		pItem->SubItems->Strings[COL_CONTAINER_TYPE] = "";
-		pItem->SubItems->Strings[COL_CONTAINER_CNT] = "";
+		pItem->SubItems->Strings[COL_CONTAINER_NO] = containerno;
+		pItem->SubItems->Strings[COL_SEALID] = sealid;
+
+		pItem->SubItems->Strings[COL_CONTAINER_TYPE] = type;
+		pItem->SubItems->Strings[COL_CONTAINER_CNT] = IntToStr(cnt);
 		pItem->SubItems->Strings[COL_TRANCOMPANY] = dm1->Query1->FieldByName("trancompany")->AsString;
 		pItem->SubItems->Strings[COL_DRIVER] = dm1->Query1->FieldByName("driver")->AsString;
 		pItem->SubItems->Strings[COL_CARNO] = dm1->Query1->FieldByName("carno")->AsString;
@@ -1120,22 +1131,24 @@ void __fastcall TTailerForm::btnPrnOutCarClick(TObject *Sender)
  	pForm=new TPrnCYDForm(this);
         assert(pForm!=NULL);
 
-        pForm->qrlOpDate->Caption = AnsiString(GetTimeBy2DtpYMD(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
+        pForm->qrlOpDate->Caption = AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
         pForm->qrlCarNo->Caption  = edtCarNo->Text;
         pForm->qrlLoadAddress->Caption = edtLoadAddress->Text;
         pForm->qrlLading->Caption = edtLading->Text;
         pForm->qrlBeiZhu->Caption = edtBeiZhu->Text;
         pForm->qrl_date->Caption = AnsiString(GetSysDate());
+        pForm->qrlContainerType->Caption = lstViewContainer->Items->Item[0]->SubItems->Strings[0].c_str();
+
 
         
         //copy data
-        pForm->qrlOpDate2->Caption = AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
-        pForm->qrlCarNo2->Caption  = edtCarNo->Text;
-        pForm->qrlLoadAddress2->Caption = edtLoadAddress->Text;
-        pForm->qrlLading2->Caption = edtLading->Text;
-        pForm->qrlBeiZhu2->Caption = edtBeiZhu->Text;
-        pForm->qrl_date2->Caption = AnsiString(GetSysDate());
-        
+        pForm->qrlOpDate2->Caption = pForm->qrlOpDate->Caption;
+        pForm->qrlCarNo2->Caption  = pForm->qrlCarNo->Caption;
+        pForm->qrlLoadAddress2->Caption = pForm->qrlLoadAddress->Caption;
+        pForm->qrlLading2->Caption = pForm->qrlLading->Caption;
+        pForm->qrlBeiZhu2->Caption = pForm->qrlBeiZhu->Caption;
+        pForm->qrl_date2->Caption = pForm->qrl_date->Caption;
+        pForm->qrlContainerType2->Caption = pForm->qrlContainerType->Caption;         
         pForm->PrnView->PreviewModal() ;
         delete pForm;
 }
@@ -1148,4 +1161,36 @@ void __fastcall TTailerForm::Button1Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
+void TTailerForm::getFirstContainerUnit(AnsiString c, int &_cnt, AnsiString &containerno, AnsiString &type, AnsiString &sealid)
+{
 
+        char cnt[10];memset(cnt,sizeof(cnt),0x00);
+        char body[2048];memset(body,sizeof(body),0x00);
+        sscanf(c.c_str(),"%[^|]|",cnt);
+        sscanf(c.c_str(),"%*[^|]|%[^@]",body);
+
+        char strTmp1[2048];
+        memset(strTmp1,sizeof(strTmp1),0x00);
+        strcpy(strTmp1,body);
+        int num = StrToInt(cnt);
+        _cnt = num;
+        for (int i =0; i<num && i<1; ++i){
+                char str1[100],str2[100],str3[100],str4[100],strTmp[2048],strSealId[100];
+                memset(str1,sizeof(str1),0x00);
+                memset(str2,sizeof(str2),0x00);
+                memset(str3,sizeof(str3),0x00);
+                memset(str4,sizeof(str4),0x00);
+                memset(strSealId,sizeof(strSealId),0x00);
+
+                memset(strTmp,sizeof(strTmp),0x00);
+                strcpy(strTmp,strTmp1);
+                sscanf(strTmp,"%[^#]#",str1);
+                sscanf(str1,"%s %s %s",str3,str4,strSealId);
+                sscanf(strTmp,"%*[^#]#%[^@]",strTmp1);
+//			printf("head:[%s] tail:[%s]\n", str1, strTmp1);
+//			printf("bno:[%s] type:[%s]\n\n", str3, str4);
+                containerno = AnsiString(str3);
+                type = AnsiString(str4);
+                sealid = AnsiString(strSealId);
+        }
+}

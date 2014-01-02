@@ -152,6 +152,9 @@ __published:	// IDE-managed Components
         TQRLabel *qrlBeiZhu2;
         TQRLabel *qrlLoadAddress2;
         TQRShape *QRShape70;
+        TQRLabel *QRLabel29;
+        TQRLabel *QRLabel32;
+        TQRLabel *QRLabel39;
 private:	// User declarations
 public:		// User declarations
         __fastcall TPrnCYDForm(TComponent* Owner);

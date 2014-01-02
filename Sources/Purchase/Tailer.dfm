@@ -1,6 +1,6 @@
 object TailerForm: TTailerForm
-  Left = -1244
-  Top = -42
+  Left = 0
+  Top = 0
   Width = 1257
   Height = 770
   Caption = #25302#36710#31995#32479

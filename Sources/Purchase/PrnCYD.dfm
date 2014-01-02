@@ -1,9 +1,9 @@
 object PrnCYDForm: TPrnCYDForm
-  Left = -8
+  Left = 598
   Top = 0
   Width = 1292
   Height = 812
-  VertScrollBar.Position = 199
+  VertScrollBar.Position = 131
   Caption = #25171#21360' '#25215#36816#21333
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,7 +18,7 @@ object PrnCYDForm: TPrnCYDForm
   object PrnView: TQuickRep
     Tag = 1
     Left = 152
-    Top = -268
+    Top = -200
     Width = 952
     Height = 1347
     Frame.Color = clBlack
@@ -1362,7 +1362,7 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 10
       end
       object qrlOpDate: TQRLabel
-        Left = 730
+        Left = 714
         Top = 240
         Width = 71
         Height = 20
@@ -1373,7 +1373,7 @@ object PrnCYDForm: TPrnCYDForm
         Frame.DrawRight = False
         Size.Values = (
           44.0972222222222
-          1609.54861111111
+          1574.27083333333
           529.166666666667
           156.545138888889)
         Alignment = taLeftJustify
@@ -2288,6 +2288,31 @@ object PrnCYDForm: TPrnCYDForm
         Pen.Width = 3
         Shape = qrsHorLine
       end
+      object QRLabel29: TQRLabel
+        Left = 349
+        Top = 666
+        Width = 78
+        Height = 20
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          44.0972222222222
+          769.496527777778
+          1468.4375
+          171.979166666667)
+        Alignment = taLeftJustify
+        AlignToBand = False
+        AutoSize = True
+        AutoStretch = False
+        Caption = #21496#26426#21517#31216
+        Color = clWhite
+        Transparent = False
+        WordWrap = True
+        FontSize = 10
+      end
     end
     object TitleBand1: TQRBand
       Left = 45
@@ -2915,7 +2940,7 @@ object PrnCYDForm: TPrnCYDForm
       Shape = qrsRectangle
     end
     object qrlOpDate2: TQRLabel
-      Left = 778
+      Left = 754
       Top = 845
       Width = 71
       Height = 20
@@ -2926,7 +2951,7 @@ object PrnCYDForm: TPrnCYDForm
       Frame.DrawRight = False
       Size.Values = (
         44.0972222222222
-        1715.38194444444
+        1662.46527777778
         1863.10763888889
         156.545138888889)
       Alignment = taLeftJustify
@@ -2934,6 +2959,56 @@ object PrnCYDForm: TPrnCYDForm
       AutoSize = True
       AutoStretch = False
       Caption = 'qrlOpDate'
+      Color = clWhite
+      Transparent = False
+      WordWrap = True
+      FontSize = 10
+    end
+    object QRLabel32: TQRLabel
+      Left = 397
+      Top = 850
+      Width = 78
+      Height = 20
+      Frame.Color = clBlack
+      Frame.DrawTop = False
+      Frame.DrawBottom = False
+      Frame.DrawLeft = False
+      Frame.DrawRight = False
+      Size.Values = (
+        44.0972222222222
+        875.329861111111
+        1874.13194444444
+        171.979166666667)
+      Alignment = taLeftJustify
+      AlignToBand = False
+      AutoSize = True
+      AutoStretch = False
+      Caption = #32852#31995#30005#35805
+      Color = clWhite
+      Transparent = False
+      WordWrap = True
+      FontSize = 10
+    end
+    object QRLabel39: TQRLabel
+      Left = 653
+      Top = 850
+      Width = 78
+      Height = 20
+      Frame.Color = clBlack
+      Frame.DrawTop = False
+      Frame.DrawBottom = False
+      Frame.DrawLeft = False
+      Frame.DrawRight = False
+      Size.Values = (
+        44.0972222222222
+        1439.77430555556
+        1874.13194444444
+        171.979166666667)
+      Alignment = taLeftJustify
+      AlignToBand = False
+      AutoSize = True
+      AutoStretch = False
+      Caption = #21040#21378#26102#38388
       Color = clWhite
       Transparent = False
       WordWrap = True

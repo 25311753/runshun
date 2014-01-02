@@ -1,5 +1,5 @@
 object ReceivablesForm: TReceivablesForm
-  Left = 201
+  Left = 320
   Top = 122
   Width = 1076
   Height = 644
@@ -121,10 +121,10 @@ object ReceivablesForm: TReceivablesForm
         Height = 21
         CalAlignment = dtaLeft
         Date = 40894.3857962963
-        Format = 'yyyy/mm'
+        Format = 'yyyy-MM'
         Time = 40894.3857962963
         DateFormat = dfShort
-        DateMode = dmComboBox
+        DateMode = dmUpDown
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         Kind = dtkDate
         ParseInput = False
@@ -182,11 +182,8 @@ object ReceivablesForm: TReceivablesForm
         ItemHeight = 13
         TabOrder = 7
         Items.Strings = (
-          '20GP'
-          '20HQ'
-          '40GP'
-          '40HQ'
-          '45HQ')
+          #24050#25910#27454
+          #26410#25910#27454)
       end
       object Panel13: TPanel
         Left = 652
@@ -355,11 +352,8 @@ object ReceivablesForm: TReceivablesForm
         ItemHeight = 13
         TabOrder = 6
         Items.Strings = (
-          '20GP'
-          '20HQ'
-          '40GP'
-          '40HQ'
-          '45HQ')
+          #24050#25910#27454
+          #26410#25910#27454)
       end
       object btnQry: TButton
         Left = 713
