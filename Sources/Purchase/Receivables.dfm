@@ -1,5 +1,5 @@
 object ReceivablesForm: TReceivablesForm
-  Left = 320
+  Left = 203
   Top = 122
   Width = 1076
   Height = 644

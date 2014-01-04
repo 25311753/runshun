@@ -118,6 +118,7 @@ void TTailerForm::clean_query(){
         TDateTime tNow=TDateTime::CurrentDateTime();
         dtpQryOpDate->DateTime=tNow;
         dtpQryOpDateEnd->DateTime=tNow;
+        cbIsQryByDate->Checked = false;
 }
 //---------------------------------------------------------------------------
 void __fastcall TTailerForm::FormShow(TObject *Sender)
@@ -507,7 +508,7 @@ int TTailerForm::addData(TObject *Sender){
         int rt = -1;
 
         if(cbbClient->Text.IsEmpty() || edtLading->Text.IsEmpty() || edtLoadAddress->Text.IsEmpty() || \
-              edtLoadLinkMan->Text.IsEmpty() || edtLoadTel->Text.IsEmpty() || edtTranCompany->Text.IsEmpty() || \
+              edtTranCompany->Text.IsEmpty() || \
               edtFare->Text.IsEmpty() || edtFareOut->Text.IsEmpty() || edtCarNo->Text.IsEmpty() || edtDriver->Text.IsEmpty() || \
               lstViewContainer->Items->Count == 0)
         {
@@ -628,7 +629,7 @@ void  TTailerForm::modData(TObject *Sender){
                 return;
                 
         if(cbbClient->Text.IsEmpty() || edtLading->Text.IsEmpty() || edtLoadAddress->Text.IsEmpty() || \
-              edtLoadLinkMan->Text.IsEmpty() || edtLoadTel->Text.IsEmpty() || edtTranCompany->Text.IsEmpty() || \
+              edtTranCompany->Text.IsEmpty() || \
               edtFare->Text.IsEmpty() || edtFareOut->Text.IsEmpty() || edtCarNo->Text.IsEmpty() || edtDriver->Text.IsEmpty() || \
               lstViewContainer->Items->Count == 0)
         {

@@ -1,6 +1,6 @@
 object PrnCYDForm: TPrnCYDForm
-  Left = 598
-  Top = 0
+  Left = 298
+  Top = 40
   Width = 1292
   Height = 812
   VertScrollBar.Position = 131
@@ -17,8 +17,8 @@ object PrnCYDForm: TPrnCYDForm
   TextHeight = 13
   object PrnView: TQuickRep
     Tag = 1
-    Left = 152
-    Top = -200
+    Left = 120
+    Top = -8
     Width = 952
     Height = 1347
     Frame.Color = clBlack
@@ -1337,8 +1337,8 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 10
       end
       object qrlLoadAddress: TQRLabel
-        Left = 125
-        Top = 173
+        Left = 117
+        Top = 141
         Width = 109
         Height = 20
         Frame.Color = clBlack
@@ -1348,8 +1348,8 @@ object PrnCYDForm: TPrnCYDForm
         Frame.DrawRight = False
         Size.Values = (
           44.0972222222222
-          275.607638888889
-          381.440972222222
+          257.96875
+          310.885416666667
           240.329861111111)
         Alignment = taLeftJustify
         AlignToBand = False
