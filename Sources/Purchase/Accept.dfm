@@ -1,6 +1,6 @@
 object AcceptForm: TAcceptForm
-  Left = 334
-  Top = 90
+  Left = 0
+  Top = 33
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25509#21333

@@ -84,17 +84,23 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     Application->Initialize();
     Application->Title = "润顺报关系统";
     Application->CreateForm(__classid(Tdm1), &dm1);
+
 #ifdef _DEBUG
 	operatorcode="root";
   operatorname="root";
   operator_class="1";
 #else
-
+	operatorcode="root";
+  operatorname="root";
+  operator_class="1";
 		InitialODBC();
 
 		TUserLoginForm *pLogin;
 		pLogin=new TUserLoginForm(Application);
-		pLogin->ShowModal();
+	operatorcode="110";
+  operatorname="888";
+  operator_class="1";
+//		pLogin->ShowModal();
 
 		int nLogin;
 		nLogin=pLogin->ModalResult;

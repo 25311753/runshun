@@ -1,6 +1,6 @@
 object ReceivablesForm: TReceivablesForm
-  Left = 203
-  Top = 122
+  Left = -1257
+  Top = 38
   Width = 1076
   Height = 644
   Caption = #24212#25910#27454
@@ -12,6 +12,7 @@ object ReceivablesForm: TReceivablesForm
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Button1: TButton
@@ -27,7 +28,7 @@ object ReceivablesForm: TReceivablesForm
     Top = 0
     Width = 75
     Height = 25
-    Caption = #28155#21152
+    Caption = #26032#22686
     TabOrder = 1
   end
   object btnMod: TButton
@@ -39,20 +40,12 @@ object ReceivablesForm: TReceivablesForm
     TabOrder = 2
   end
   object btnNew: TButton
-    Left = 1
+    Left = 825
     Top = 0
     Width = 75
     Height = 25
     Caption = #26032#22686
     TabOrder = 3
-  end
-  object btnOK: TButton
-    Left = 541
-    Top = 0
-    Width = 114
-    Height = 25
-    Caption = #30830#35748#25910#27454
-    TabOrder = 4
   end
   object pl: TPanel
     Left = 0
@@ -60,7 +53,7 @@ object ReceivablesForm: TReceivablesForm
     Width = 1060
     Height = 85
     Color = cl3DDkShadow
-    TabOrder = 5
+    TabOrder = 4
     object pl_input: TPanel
       Left = 2
       Top = 3
@@ -203,8 +196,8 @@ object ReceivablesForm: TReceivablesForm
         TabOrder = 8
       end
       object dtpRecvDate: TDateTimePicker
-        Left = 712
-        Top = 3
+        Left = 713
+        Top = 2
         Width = 83
         Height = 21
         CalAlignment = dtaLeft
@@ -242,6 +235,20 @@ object ReceivablesForm: TReceivablesForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 11
       end
+      object cbRecvFlag: TCheckBox
+        Left = 799
+        Top = 8
+        Width = 97
+        Height = 16
+        Caption = #30830#35748#25910#27454
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 12
+      end
     end
     object pl_query: TPanel
       Left = 2
@@ -277,56 +284,11 @@ object ReceivablesForm: TReceivablesForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 13
         TabOrder = 1
-      end
-      object dtpQryRecvDateEnd: TDateTimePicker
-        Left = 356
-        Top = 3
-        Width = 83
-        Height = 21
-        CalAlignment = dtaLeft
-        Date = 40894.3686127199
-        Time = 40894.3686127199
-        DateFormat = dfShort
-        DateMode = dmComboBox
-        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        Kind = dtkDate
-        ParseInput = False
-        TabOrder = 2
-      end
-      object Panel4: TPanel
-        Left = 213
-        Top = 3
-        Width = 60
-        Height = 21
-        BevelInner = bvLowered
-        BevelOuter = bvLowered
-        Caption = #25910#27454#26085#26399
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentColor = True
-        ParentFont = False
-        TabOrder = 3
-      end
-      object dtpQryRecvDate: TDateTimePicker
-        Left = 273
-        Top = 3
-        Width = 83
-        Height = 21
-        CalAlignment = dtaLeft
-        Date = 40894.3686127199
-        Time = 40894.3686127199
-        DateFormat = dfShort
-        DateMode = dmComboBox
-        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        Kind = dtkDate
-        ParseInput = False
-        TabOrder = 4
+        OnChange = cbbQryClientChange
+        OnSelect = cbbQryClientSelect
       end
       object Panel3: TPanel
-        Left = 439
+        Left = 443
         Top = 3
         Width = 35
         Height = 21
@@ -340,18 +302,19 @@ object ReceivablesForm: TReceivablesForm
         Font.Style = [fsBold]
         ParentColor = True
         ParentFont = False
-        TabOrder = 5
+        TabOrder = 2
       end
       object cbbQryStatus: TComboBox
-        Left = 473
+        Left = 477
         Top = 3
         Width = 79
         Height = 21
         Style = csDropDownList
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 13
-        TabOrder = 6
+        TabOrder = 3
         Items.Strings = (
+          ''
           #24050#25910#27454
           #26410#25910#27454)
       end
@@ -361,7 +324,85 @@ object ReceivablesForm: TReceivablesForm
         Width = 82
         Height = 19
         Caption = #26597#35810
+        TabOrder = 4
+        OnClick = btnQryClick
+      end
+      object Panel4: TPanel
+        Left = 214
+        Top = 3
+        Width = 88
+        Height = 21
+        Alignment = taLeftJustify
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #24212#25910#27454#26085#26399
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 5
+        object cbIsQryByDate: TCheckBox
+          Left = 70
+          Top = 3
+          Width = 16
+          Height = 17
+          Caption = 'cbIsQryByDate'
+          Checked = True
+          State = cbChecked
+          TabOrder = 0
+        end
+      end
+      object dtpQryShouldRecvDate: TDateTimePicker
+        Left = 303
+        Top = 3
+        Width = 69
+        Height = 21
+        CalAlignment = dtaLeft
+        Date = 40894.3857962963
+        Format = 'yyyy-MM'
+        Time = 40894.3857962963
+        DateFormat = dfShort
+        DateMode = dmUpDown
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        Kind = dtkDate
+        ParseInput = False
+        TabOrder = 6
+      end
+      object dtpQryShouldRecvDateEnd: TDateTimePicker
+        Left = 372
+        Top = 3
+        Width = 69
+        Height = 21
+        CalAlignment = dtaLeft
+        Date = 40894.3857962963
+        Format = 'yyyy-MM'
+        Time = 40894.3857962963
+        DateFormat = dfShort
+        DateMode = dmUpDown
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        Kind = dtkDate
+        ParseInput = False
         TabOrder = 7
+      end
+      object btnCleanQry: TButton
+        Left = 798
+        Top = 3
+        Width = 82
+        Height = 19
+        Caption = #28165#38500
+        TabOrder = 8
+        OnClick = btnCleanQryClick
+      end
+      object Edit1: TEdit
+        Left = 920
+        Top = 0
+        Width = 121
+        Height = 21
+        TabOrder = 9
+        Text = 'Edit1'
       end
     end
   end
@@ -384,8 +425,9 @@ object ReceivablesForm: TReceivablesForm
     ReadOnly = True
     RowSelect = True
     SortType = stData
-    TabOrder = 6
+    TabOrder = 5
     ViewStyle = vsReport
+    OnMouseDown = lstViewDownMouseDown
   end
   object TrayIcon1: TTrayIcon
     Hint = #28070#39034#25253#20851
