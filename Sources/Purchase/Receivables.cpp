@@ -17,6 +17,7 @@
 #pragma link "trayicon"
 #pragma resource "*.dfm"
 
+#define DECIMAL_PLACE_CHARGE 2
 #define EXTEND_YYYYMM_HEAD 3
 #define EXTEND_YYYYMM_TAIL 3
 
@@ -41,8 +42,9 @@ void TReceivablesForm::clean_input(){
         TDateTime tNow=TDateTime::CurrentDateTime();
         dtpShouldRecvDate->DateTime=tNow;
         dtpRecvDate->DateTime=tNow;
+        dtpRecvDate->Visible=false;
         edtCharge->Text = "";
-        cbbStatus->ItemIndex=-1;
+        cbbStatus->ItemIndex=0;
         cbRecvFlag->Checked = false;
         edtBeiZhu->Text = "";
 
@@ -262,48 +264,32 @@ void __fastcall TReceivablesForm::btnQryClick(TObject *Sender)
         }
 }
 //---------------------------------------------------------------------------
-
-/*
-void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
-      TMouseButton Button, TShiftState Shift, int X, int Y)
-{
-        if(Button == mbLeft)
-        {
-                int column = 0;
-                int total = 0;
-                for (int i=0; i< lstViewDown->Columns->Count; ++i){
-                        total = total +lstViewDown->Columns->Items[i]->Width;
-                        if (X<total){
-                        column=i;
-                        m_enWorkState=EN_EDIT;
-                        break;
-                }
-        }
-        m_enWorkState==EN_IDLE;
-
-}
-*/
-//---------------------------------------------------------------------------
 void TReceivablesForm::ResetCtrl(){
  
   if(m_enWorkState==EN_IDLE)
   {
     btnAdd->Enabled=false;
     btnMod->Enabled=false;
-
     pl_input->Enabled = false;
   }
-  else
+  else if (m_enWorkState==EN_EDIT)
   {
-    btnAdd->Enabled=true;
+    btnAdd->Enabled=false;
     btnMod->Enabled=true;
-
     pl_input->Enabled = true;
+    cbbClient->Enabled = false;
+  }else if (m_enWorkState==EN_ADD){
+    btnAdd->Enabled=true;
+    btnMod->Enabled=false;
+    pl_input->Enabled = true;
+    cbbClient->Enabled = false;
   }
+
 }
 
 
-void TReceivablesForm::cell2input(AnsiString client, int recv_date){
+bool TReceivablesForm::cell2input(AnsiString client, int recv_date){
+        bool ret = false;
         CString szSQL;
         szSQL.Format("select * from recvcharge where client='%s' and recvdate=%d", client.c_str(), recv_date);
         RunSQL(dm1->Query1,szSQL,true);
@@ -321,9 +307,10 @@ void TReceivablesForm::cell2input(AnsiString client, int recv_date){
                 cbRecvFlag->Checked = dm1->Query1->FieldByName("recv_flag")->AsInteger == 1;
                 edtBeiZhu->Text = dm1->Query1->FieldByName("beizhu")->AsString;
                 setDtp(dtpRecvDate, dm1->Query1->FieldByName("recveddate")->AsString);
-        }else{
-                clean_input();
+                dtpRecvDate->Visible = cbbStatus->Text == "已收款";
+                ret = true;
         }
+        return ret;
 }
 
 void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
@@ -331,21 +318,24 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
 {
 
         m_enWorkState=EN_IDLE;
+        clean_input();
         if(Button == mbLeft)
         {
                 if (lstViewDown->Selected){
+                        AnsiString client = lstViewDown->Selected->SubItems->Strings[COL_CLIENT];                
                         int column = 0;
                         int total = 0;
                         for (int i=0; i< lstViewDown->Columns->Count; ++i){
                                 total = total +lstViewDown->Columns->Items[i]->Width;
                                 if (X<total){
                                         column=i;
-                                        AnsiString client = lstViewDown->Selected->SubItems->Strings[COL_CLIENT];
-                                        int recv_date = StrToInt(lstViewDown->Columns->Items[column]->Caption);
                                         if (column>1){
-                                                cell2input(client, recv_date);
+
+                                                int recv_date = StrToInt(lstViewDown->Columns->Items[column]->Caption);
+                                                bool b_have_data = cell2input(client, recv_date);  //may change workstate
+                                                m_enWorkState= b_have_data?EN_EDIT:EN_ADD;
                                         }
-                                        m_enWorkState=EN_EDIT;
+                                        cbbClient->Text = client;
                                         break;
                                 }
                         }
@@ -355,10 +345,92 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TReceivablesForm::btnModClick(TObject *Sender)
+{
+        int recv_date = GetYYYYMM(dtpShouldRecvDate);
+        AnsiString status = cbbStatus->Text;
+        AnsiString client = cbbClient->Text;
+                
+        if(edtCharge->Text.IsEmpty())
+        {
+                ShowMessage("请输入应收款");
+                return ;
+        }
+        CString szSQL;
+        szSQL="update recvcharge set ";
+        szSQL +="charge="; szSQL += Text2DBFloat(edtCharge->Text.IsEmpty()?AnsiString("0"):edtCharge->Text,DECIMAL_PLACE_CHARGE).c_str();
+        szSQL +=",status="; szSQL += Str2DBString(status.c_str());
+        szSQL +=",recveddate="; szSQL += Str2DBString(GetTime(dtpRecvDate));
+        szSQL +=",beizhu="; szSQL += Str2DBString(edtBeiZhu->Text.c_str());
+        szSQL +=",recv_flag="; szSQL += Int2DBString(cbRecvFlag->Checked?1:0);
+        szSQL += " where client="; szSQL+=Str2DBString(client.c_str());
+        szSQL += " and recvdate="; szSQL+=Int2DBString(recv_date);
+
+        if(!RunSQL(dm1->Query1,szSQL))
+        {
+                ShowMessage("update fail!") ;
+                return;
+        }
+
+        ShowMessage("修改成功");
+        m_enWorkState=EN_IDLE;
+        ResetCtrl();
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TReceivablesForm::edtChargeChange(TObject *Sender)
+{
+        if (!isMoney(edtCharge->Text, DECIMAL_PLACE_CHARGE)){
+                ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
+                edtCharge->Text = 0;
+                return;
+        }
+}
+//---------------------------------------------------------------------------
 
 
+void __fastcall TReceivablesForm::cbbStatusChange(TObject *Sender)
+{
+        dtpRecvDate->Visible = cbbStatus->Text == "已收款";
+}
+//---------------------------------------------------------------------------
 
+void __fastcall TReceivablesForm::btnAddClick(TObject *Sender)
+{
+        int recv_date = GetYYYYMM(dtpShouldRecvDate);
+        AnsiString status = cbbStatus->Text;
+        AnsiString client = cbbClient->Text;
+                
+        if(edtCharge->Text.IsEmpty())
+        {
+                ShowMessage("请输入应收款");
+                return ;
+        }
 
+       CString szSQL;
+       szSQL="insert into recvcharge(client, recvdate, status, charge, \
+                                        recveddate, beizhu, recv_flag) \
+                        values(";
+        szSQL += Str2DBString(cbbClient->Text.c_str());
+        szSQL +=","; szSQL += Int2DBString(GetYYYYMM(dtpShouldRecvDate));
+        szSQL +=","; szSQL += Str2DBString(cbbStatus->Text.c_str());
+        szSQL +=","; szSQL += Text2DBFloat(edtCharge->Text.IsEmpty()?AnsiString("0"):edtCharge->Text,DECIMAL_PLACE_CHARGE).c_str();
+        szSQL +=","; szSQL += Str2DBString(GetTime(dtpRecvDate));
+        szSQL +=","; szSQL += Str2DBString(edtBeiZhu->Text.c_str());
+        szSQL +=","; szSQL += Int2DBString(cbRecvFlag->Checked?1:0);
+        szSQL +=")";
+        Edit1->Text = AnsiString(szSQL);
+        .... 错位 导致 key 冲突
+        if(!RunSQL(dm1->Query1,szSQL))
+        {
+                ShowMessage("insert fail!") ;
+                return;
+        }
 
-
+        ShowMessage("新增成功");
+        m_enWorkState=EN_IDLE;
+        ResetCtrl();
+}
+//---------------------------------------------------------------------------
 

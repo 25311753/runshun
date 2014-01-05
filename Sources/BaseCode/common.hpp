@@ -111,7 +111,7 @@ CString GetTime(TDateTimePicker *dtp){
   char strDate[80];
         memset(strDate, 0x00, sizeof(strDate));
   dtp->DateTime.DecodeDate(&y,&m,&d);
-  dtp->DateTime.DecodeTime(&h,&m,&s,&u);
+  dtp->DateTime.DecodeTime(&h,&mi,&s,&u);
   sprintf(strDate,"%04d-%02d-%02d %02d:%02d:%02d",y,m,d,h,mi,s);
   return CString(strDate);
 

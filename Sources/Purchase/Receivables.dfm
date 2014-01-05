@@ -1,6 +1,6 @@
 object ReceivablesForm: TReceivablesForm
-  Left = -1257
-  Top = 38
+  Left = -1181
+  Top = -58
   Width = 1076
   Height = 644
   Caption = #24212#25910#27454
@@ -30,6 +30,7 @@ object ReceivablesForm: TReceivablesForm
     Height = 25
     Caption = #26032#22686
     TabOrder = 1
+    OnClick = btnAddClick
   end
   object btnMod: TButton
     Left = 150
@@ -38,6 +39,7 @@ object ReceivablesForm: TReceivablesForm
     Height = 25
     Caption = #20462#25913
     TabOrder = 2
+    OnClick = btnModClick
   end
   object btnNew: TButton
     Left = 825
@@ -147,6 +149,7 @@ object ReceivablesForm: TReceivablesForm
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 5
+        OnChange = edtChargeChange
       end
       object Panel5: TPanel
         Left = 539
@@ -174,9 +177,10 @@ object ReceivablesForm: TReceivablesForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 13
         TabOrder = 7
+        OnChange = cbbStatusChange
         Items.Strings = (
-          #24050#25910#27454
-          #26410#25910#27454)
+          #26410#25910#27454
+          #24050#25910#27454)
       end
       object Panel13: TPanel
         Left = 652
@@ -209,6 +213,7 @@ object ReceivablesForm: TReceivablesForm
         Kind = dtkDate
         ParseInput = False
         TabOrder = 9
+        Visible = False
       end
       object Panel14: TPanel
         Left = 1

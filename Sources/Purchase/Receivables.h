@@ -56,8 +56,12 @@ __published:	// IDE-managed Components
         void __fastcall btnQryClick(TObject *Sender);
         void __fastcall lstViewDownMouseDown(TObject *Sender,
           TMouseButton Button, TShiftState Shift, int X, int Y);
-private:	// User declarations                
-        enum { EN_IDLE, EN_EDIT } m_enWorkState;
+        void __fastcall btnModClick(TObject *Sender);
+        void __fastcall edtChargeChange(TObject *Sender);
+        void __fastcall cbbStatusChange(TObject *Sender);
+        void __fastcall btnAddClick(TObject *Sender);
+private:	// User declarations
+        enum { EN_IDLE, EN_EDIT, EN_ADD } m_enWorkState;
              
 //        bool m_cell_selected;
 public:		// User declarations
@@ -69,7 +73,7 @@ public:		// User declarations
         int get_col_pos(int redv_date);
         void ResetCtrl();
         void clean_listview();
-        void cell2input(AnsiString client, int recv_date);        
+        bool cell2input(AnsiString client, int recv_date);    //true-have data, edit status; false-no data, new status    
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TReceivablesForm *ReceivablesForm;

@@ -104,14 +104,14 @@ int GetYYYYMM(TDateTimePicker *dtp)
 {
         unsigned short year,month,day;
 	dtp->DateTime.DecodeDate(&year,&month,&day);
-        return year*10)+month;
+        return year*100+month;
 }
 CString GetTime(TDateTimePicker *dtp){
   unsigned short y,m,d,h,mi,s,u;
   char strDate[80];
         memset(strDate, 0x00, sizeof(strDate));
   dtp->DateTime.DecodeDate(&y,&m,&d);
-  dtp->DateTime.DecodeTime(&h,&m,&s,&u);
+  dtp->DateTime.DecodeTime(&h,&mi,&s,&u);
   sprintf(strDate,"%04d-%02d-%02d %02d:%02d:%02d",y,m,d,h,mi,s);
   return CString(strDate);
 
