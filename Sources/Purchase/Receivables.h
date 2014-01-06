@@ -48,6 +48,7 @@ __published:	// IDE-managed Components
         TCheckBox *cbIsQryByDate;
         TButton *btnCleanQry;
         TCheckBox *cbRecvFlag;
+        TButton *btnNewGoOn;
         void __fastcall btnCleanQryClick(TObject *Sender);
         void __fastcall FormShow(TObject *Sender);
         void __fastcall cbbQryClientSelect(TObject *Sender);
@@ -69,8 +70,10 @@ __published:	// IDE-managed Components
         void __fastcall lstViewDownAdvancedCustomDrawItem(
           TCustomListView *Sender, TListItem *Item, TCustomDrawState State,
           TCustomDrawStage Stage, bool &DefaultDraw);
+        void __fastcall btnNewClick(TObject *Sender);
+        void __fastcall btnNewGoOnClick(TObject *Sender);
 private:	// User declarations
-        enum { EN_IDLE, EN_EDIT, EN_ADD } m_enWorkState;
+        enum { EN_IDLE, EN_EDIT, EN_ADD, EN_NEW } m_enWorkState;
         int m_hl_col;
 //        bool m_cell_selected;
 public:		// User declarations

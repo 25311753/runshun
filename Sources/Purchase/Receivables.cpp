@@ -270,10 +270,34 @@ void __fastcall TReceivablesForm::btnQryClick(TObject *Sender)
                 flush_total_row(row);
         }
         //add total_col
+        int row_total = add_empty_row();
+        TListItem *pItem_row_total = lstViewDown->Items->Item[row_total];
+        pItem_row_total->Caption = "合计";
+
+        for (int pos_col=COL_CLIENT+1; pos_col<lstViewDown->Columns->Count-1; ++pos_col){
+                double sum_col = 0;
+                for(int i=2;i<lstViewDown->Items->Count;i++)
+                {
+                        AnsiString str_charge = lstViewDown->Items->Item[i]->SubItems->Strings[pos_col];
+                        sum_col += str_charge.IsEmpty()?0:StrToFloat(str_charge.c_str());
+                }
+                pItem_row_total->SubItems->Strings[pos_col] = sum_col;
+
+        }
+
 }
 //---------------------------------------------------------------------------
 void TReceivablesForm::flush_total_row(int row){
+        TListItem *pItem = lstViewDown->Items->Item[row];
+        double total_row = 0;
+        for (int pos=COL_CLIENT+1; pos<lstViewDown->Columns->Count-2; ++pos){
+                AnsiString str_charge = pItem->SubItems->Strings[pos];
+                if (!str_charge.IsEmpty()){
+                        total_row += StrToFloat(str_charge.c_str());
+                }
 
+        }
+        pItem->SubItems->Strings[lstViewDown->Columns->Count-2] = total_row;
 }
 
 void TReceivablesForm::flush_total_col(int col){
@@ -285,22 +309,34 @@ void TReceivablesForm::ResetCtrl(){
  
   if(m_enWorkState==EN_IDLE)
   {
+    btnNew->Enabled=true;
+    btnNewGoOn->Enabled=false;
     btnAdd->Enabled=false;
     btnMod->Enabled=false;
-    pl_input->Enabled = false;
+    cbbClient->Enabled = true;
+    dtpShouldRecvDate->Enabled = true;
   }
   else if (m_enWorkState==EN_EDIT)
-  {
+  {                         
+    btnNew->Enabled=false;
+    btnNewGoOn->Enabled=false;
     btnAdd->Enabled=false;
     btnMod->Enabled=true;
-    pl_input->Enabled = true;
     cbbClient->Enabled = false;
     dtpShouldRecvDate->Enabled = false;
   }else if (m_enWorkState==EN_ADD){
+    btnNew->Enabled=false;
+    btnNewGoOn->Enabled=false;
     btnAdd->Enabled=true;
     btnMod->Enabled=false;
-    pl_input->Enabled = true;
-    cbbClient->Enabled = false;     
+    cbbClient->Enabled = false;
+    dtpShouldRecvDate->Enabled = false;
+  }else if (m_enWorkState==EN_NEW){
+    btnNew->Enabled=false;
+    btnNewGoOn->Enabled=true;
+    btnAdd->Enabled=false;
+    btnMod->Enabled=false;
+    cbbClient->Enabled = false;
     dtpShouldRecvDate->Enabled = false;
   }
 
@@ -381,6 +417,7 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
 void  TReceivablesForm::refreshLvByInput(){
         if (lstViewDown->Selected){
                 lstViewDown->Selected->SubItems->Strings[get_col_pos(GetYYYYMM(dtpShouldRecvDate))] = edtCharge->Text;
+                flush_total_row(lstViewDown->Selected->Index);
         }
 }
 void __fastcall TReceivablesForm::btnModClick(TObject *Sender)
@@ -477,7 +514,7 @@ void __fastcall TReceivablesForm::btnAddClick(TObject *Sender)
                 return;
         }
         refreshLvByInput();
-        ShowMessage("新增成功");
+        ShowMessage("添加成功");
         m_enWorkState=EN_IDLE;
         ResetCtrl();
 }
@@ -575,4 +612,55 @@ return;
 
 
 
+
+void __fastcall TReceivablesForm::btnNewClick(TObject *Sender)
+{
+/*
+        int recv_date = GetYYYYMM(dtpShouldRecvDate);
+        AnsiString status = cbbStatus->Text;
+        AnsiString client = cbbClient->Text;
+                
+        if (!chk_input()){
+                return;
+        }
+
+       CString szSQL;
+       szSQL="insert into recvcharge(client, recvdate, status, charge, \
+                                        recveddate, beizhu, recv_flag) \
+                        values(";
+        szSQL += Str2DBString(cbbClient->Text.c_str());
+        szSQL +=","; szSQL += Int2DBString(GetYYYYMM(dtpShouldRecvDate));
+        szSQL +=","; szSQL += Str2DBString(cbbStatus->Text.c_str());
+        szSQL +=","; szSQL += Text2DBFloat(edtCharge->Text.IsEmpty()?AnsiString("0"):edtCharge->Text,DECIMAL_PLACE_CHARGE).c_str();
+        szSQL +=","; szSQL += Str2DBString(GetTime(dtpRecvDate));
+        szSQL +=","; szSQL += Str2DBString(edtBeiZhu->Text.c_str());
+        szSQL +=","; szSQL += Int2DBString(cbRecvFlag->Checked?1:0);
+        szSQL +=")";
+//        Edit1->Text = AnsiString(szSQL);
+//        .... 错位 导致 key 冲突
+        if(!RunSQL(dm1->Query1,szSQL))
+        {
+                ShowMessage("insert fail!") ;
+                return;
+        }
+        refreshLvByInput();
+        ShowMessage("新增成功");
+*/
+        m_enWorkState=EN_NEW;
+        ResetCtrl();
+
+//        btnNew->Enabled = false;
+//        btnNewGoOn->Enabled = !btnNew->Enabled;
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TReceivablesForm::btnNewGoOnClick(TObject *Sender)
+{
+        m_enWorkState=EN_IDLE;
+        ResetCtrl();
+//        btnNewGoOn->Enabled = false;
+//        btnNew->Enabled = !btnNewGoOn->Enabled;
+}
+//---------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 object ReceivablesForm: TReceivablesForm
-  Left = 59
-  Top = 81
+  Left = 89
+  Top = 156
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = #24212#25910#27454
@@ -26,7 +26,7 @@ object ReceivablesForm: TReceivablesForm
     TabOrder = 0
   end
   object btnAdd: TButton
-    Left = 92
+    Left = 2
     Top = 0
     Width = 75
     Height = 25
@@ -35,7 +35,7 @@ object ReceivablesForm: TReceivablesForm
     OnClick = btnAddClick
   end
   object btnMod: TButton
-    Left = 166
+    Left = 76
     Top = 0
     Width = 75
     Height = 25
@@ -44,12 +44,13 @@ object ReceivablesForm: TReceivablesForm
     OnClick = btnModClick
   end
   object btnNew: TButton
-    Left = 1
+    Left = 217
     Top = 0
     Width = 88
     Height = 25
     Caption = #26032#22686#25910#27454#35760#24405
     TabOrder = 3
+    OnClick = btnNewClick
   end
   object pl: TPanel
     Left = 0
@@ -430,6 +431,15 @@ object ReceivablesForm: TReceivablesForm
     OnAdvancedCustomDrawSubItem = lstViewDownAdvancedCustomDrawSubItem
     OnCustomDrawSubItem = lstViewDownCustomDrawSubItem
     OnMouseDown = lstViewDownMouseDown
+  end
+  object btnNewGoOn: TButton
+    Left = 304
+    Top = 0
+    Width = 75
+    Height = 25
+    Caption = #32487#32493#26032#22686
+    TabOrder = 6
+    OnClick = btnNewGoOnClick
   end
   object TrayIcon1: TTrayIcon
     Hint = #28070#39034#25253#20851
