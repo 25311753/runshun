@@ -35,6 +35,8 @@ __fastcall TReceivablesForm::TReceivablesForm(TComponent* Owner)
         : TForm(Owner)
 {
         m_enWorkState=EN_IDLE;
+//        m_highlight = false;
+        m_hl_col = -1;
 }
 //---------------------------------------------------------------------------
 void TReceivablesForm::clean_input(){
@@ -131,7 +133,9 @@ void TReceivablesForm::draw_column(TListView *lv, int start_date, int end_date){
                 }else{                    
                         ++i;
                 }
-        }
+        }  
+        lv->Columns->Add();
+        lv->Columns->Items[col_order++]->Caption="合计";
 
 }
 int TReceivablesForm::get_col_pos(int recv_date){
@@ -253,17 +257,30 @@ void __fastcall TReceivablesForm::btnQryClick(TObject *Sender)
                 int row = add_empty_row();
                 TListItem *pItem = lstViewDown->Items->Item[row];
                 AnsiString client = it->first;
+                double total_row = 0;
                 for (std::map<int, double>::iterator it2 = it->second.begin(); \
                                                                 it2 != it->second.end(); \
                                                                 ++it2)
                 {
                         pItem->SubItems->Strings[0] = client;
                         pItem->SubItems->Strings[get_col_pos(it2->first)] = it2->second;
+                        total_row += it2->second;
                 }
-
+//                 pItem->SubItems->Strings[lstViewDown->Columns->Count -2] = AnsiString(total_row);
+                flush_total_row(row);
         }
+        //add total_col
 }
 //---------------------------------------------------------------------------
+void TReceivablesForm::flush_total_row(int row){
+
+}
+
+void TReceivablesForm::flush_total_col(int col){
+
+}
+
+
 void TReceivablesForm::ResetCtrl(){
  
   if(m_enWorkState==EN_IDLE)
@@ -278,11 +295,13 @@ void TReceivablesForm::ResetCtrl(){
     btnMod->Enabled=true;
     pl_input->Enabled = true;
     cbbClient->Enabled = false;
+    dtpShouldRecvDate->Enabled = false;
   }else if (m_enWorkState==EN_ADD){
     btnAdd->Enabled=true;
     btnMod->Enabled=false;
     pl_input->Enabled = true;
-    cbbClient->Enabled = false;
+    cbbClient->Enabled = false;     
+    dtpShouldRecvDate->Enabled = false;
   }
 
 }
@@ -296,7 +315,7 @@ bool TReceivablesForm::cell2input(AnsiString client, int recv_date){
         if(!dm1->Query1->Eof)
         {
                 cbbClient->Text = dm1->Query1->FieldByName("client")->AsString;
-
+                //cat be set outside!!
                 CString sdate;
 		sdate.Format("%04d-%02d-01 00:00:01",recv_date/100, recv_date%100);
 
@@ -316,26 +335,41 @@ bool TReceivablesForm::cell2input(AnsiString client, int recv_date){
 void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-
         m_enWorkState=EN_IDLE;
         clean_input();
         if(Button == mbLeft)
         {
                 if (lstViewDown->Selected){
-                        AnsiString client = lstViewDown->Selected->SubItems->Strings[COL_CLIENT];                
+                        AnsiString client = lstViewDown->Selected->SubItems->Strings[COL_CLIENT];
+                        cbbClient->Text = client;
                         int column = 0;
                         int total = 0;
+                        int delta_scroll = GetScrollPos(lstViewDown->Handle,SB_HORZ);
+                        int real_x = X+ delta_scroll;
                         for (int i=0; i< lstViewDown->Columns->Count; ++i){
                                 total = total +lstViewDown->Columns->Items[i]->Width;
-                                if (X<total){
+                                if (real_x<total){
                                         column=i;
-                                        if (column>1){
+                                        if (1<column && column<lstViewDown->Columns->Count-1){
 
                                                 int recv_date = StrToInt(lstViewDown->Columns->Items[column]->Caption);
+//                                                ShowMessage(AnsiString(column)+"~"+AnsiString(recv_date)+"~x:"+AnsiString(X)+"~total:"+AnsiString(total));
                                                 bool b_have_data = cell2input(client, recv_date);  //may change workstate
                                                 m_enWorkState= b_have_data?EN_EDIT:EN_ADD;
+
+                                                //if b_have_data=false, this work!!
+                                                CString sdate;
+		                                sdate.Format("%04d-%02d-01 00:00:01",recv_date/100, recv_date%100);
+                                                setDtp(dtpShouldRecvDate, AnsiString(sdate));
+
+                m_hl_col = get_col_pos(StrToInt(lstViewDown->Columns->Items[column]->Caption));
+
+                //只是为了触发重画
+                lstViewDown->Selected->SubItems->Strings[m_hl_col] = \
+                lstViewDown->Selected->SubItems->Strings[m_hl_col];
+
                                         }
-                                        cbbClient->Text = client;
+//                                        cbbClient->Text = client;
                                         break;
                                 }
                         }
@@ -344,18 +378,21 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
         ResetCtrl();
 }
 //---------------------------------------------------------------------------
-
+void  TReceivablesForm::refreshLvByInput(){
+        if (lstViewDown->Selected){
+                lstViewDown->Selected->SubItems->Strings[get_col_pos(GetYYYYMM(dtpShouldRecvDate))] = edtCharge->Text;
+        }
+}
 void __fastcall TReceivablesForm::btnModClick(TObject *Sender)
 {
         int recv_date = GetYYYYMM(dtpShouldRecvDate);
         AnsiString status = cbbStatus->Text;
         AnsiString client = cbbClient->Text;
                 
-        if(edtCharge->Text.IsEmpty())
-        {
-                ShowMessage("请输入应收款");
-                return ;
+        if (!chk_input()){
+                return;
         }
+        
         CString szSQL;
         szSQL="update recvcharge set ";
         szSQL +="charge="; szSQL += Text2DBFloat(edtCharge->Text.IsEmpty()?AnsiString("0"):edtCharge->Text,DECIMAL_PLACE_CHARGE).c_str();
@@ -371,6 +408,8 @@ void __fastcall TReceivablesForm::btnModClick(TObject *Sender)
                 ShowMessage("update fail!") ;
                 return;
         }
+        //reset charge in ori-cell by recv_date(column):
+        refreshLvByInput();
 
         ShowMessage("修改成功");
         m_enWorkState=EN_IDLE;
@@ -395,6 +434,18 @@ void __fastcall TReceivablesForm::cbbStatusChange(TObject *Sender)
         dtpRecvDate->Visible = cbbStatus->Text == "已收款";
 }
 //---------------------------------------------------------------------------
+bool TReceivablesForm::chk_input(){
+        if (cbRecvFlag->Checked && cbbStatus->Text == "未收款"){
+                ShowMessage("状态为[未收款],不能勾选确认收款！");
+                return false;
+        }
+        if(edtCharge->Text.IsEmpty())
+        {
+                ShowMessage("请输入应收款");
+                return false;
+        }
+        return true;
+}
 
 void __fastcall TReceivablesForm::btnAddClick(TObject *Sender)
 {
@@ -402,10 +453,8 @@ void __fastcall TReceivablesForm::btnAddClick(TObject *Sender)
         AnsiString status = cbbStatus->Text;
         AnsiString client = cbbClient->Text;
                 
-        if(edtCharge->Text.IsEmpty())
-        {
-                ShowMessage("请输入应收款");
-                return ;
+        if (!chk_input()){
+                return;
         }
 
        CString szSQL;
@@ -420,17 +469,110 @@ void __fastcall TReceivablesForm::btnAddClick(TObject *Sender)
         szSQL +=","; szSQL += Str2DBString(edtBeiZhu->Text.c_str());
         szSQL +=","; szSQL += Int2DBString(cbRecvFlag->Checked?1:0);
         szSQL +=")";
-        Edit1->Text = AnsiString(szSQL);
-        .... 错位 导致 key 冲突
+//        Edit1->Text = AnsiString(szSQL);
+//        .... 错位 导致 key 冲突
         if(!RunSQL(dm1->Query1,szSQL))
         {
                 ShowMessage("insert fail!") ;
                 return;
         }
-
+        refreshLvByInput();
         ShowMessage("新增成功");
         m_enWorkState=EN_IDLE;
         ResetCtrl();
 }
 //---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void __fastcall TReceivablesForm::lstViewDownCustomDrawSubItem(
+      TCustomListView *Sender, TListItem *Item, int SubItem,
+      TCustomDrawState State, bool &DefaultDraw)
+{
+
+        return;
+     if(SubItem==4)//2列
+     {
+//        ShowMessage(AnsiString(SubItem)+"-"+AnsiString(m_hl_col));
+        lstViewDown->Canvas->Brush->Color   =   clLime   ;
+     }
+
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+
+void __fastcall TReceivablesForm::lstViewDownAdvancedCustomDrawSubItem(
+      TCustomListView *Sender, TListItem *Item, int SubItem,
+      TCustomDrawState State, TCustomDrawStage Stage, bool &DefaultDraw)
+{
+return;
+   if(Item->Index==1)//1行 
+  {
+
+     if(SubItem==4)//2列
+     {
+//        ShowMessage(AnsiString(SubItem)+"-"+AnsiString(m_hl_col));
+        lstViewDown->Canvas->Brush->Color   =   clLime   ;
+     }
+     else
+     {
+      lstViewDown->Canvas->Brush->Color   =   clWhite;
+     }
+    }
+    m_hl_col=-1;
+
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+
+void __fastcall TReceivablesForm::lstViewDownAdvancedCustomDrawItem(
+      TCustomListView *Sender, TListItem *Item, TCustomDrawState State,
+      TCustomDrawStage Stage, bool &DefaultDraw)
+{
+return;
+   if (m_hl_col==-1){
+        return;
+   }
+      ShowMessage(AnsiString(m_hl_col)+"-"+AnsiString(lstViewDown->Selected?1:0));
+
+        lstViewDown->Canvas->Brush->Color   =   clLime   ;
+
+
+
+   m_hl_col=-1;
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
 

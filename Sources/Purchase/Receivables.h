@@ -47,7 +47,6 @@ __published:	// IDE-managed Components
         TDateTimePicker *dtpQryShouldRecvDateEnd;
         TCheckBox *cbIsQryByDate;
         TButton *btnCleanQry;
-        TEdit *Edit1;
         TCheckBox *cbRecvFlag;
         void __fastcall btnCleanQryClick(TObject *Sender);
         void __fastcall FormShow(TObject *Sender);
@@ -60,9 +59,19 @@ __published:	// IDE-managed Components
         void __fastcall edtChargeChange(TObject *Sender);
         void __fastcall cbbStatusChange(TObject *Sender);
         void __fastcall btnAddClick(TObject *Sender);
+        void __fastcall lstViewDownCustomDrawSubItem(
+          TCustomListView *Sender, TListItem *Item, int SubItem,
+          TCustomDrawState State, bool &DefaultDraw);
+        void __fastcall lstViewDownAdvancedCustomDrawSubItem(
+          TCustomListView *Sender, TListItem *Item, int SubItem,
+          TCustomDrawState State, TCustomDrawStage Stage,
+          bool &DefaultDraw);
+        void __fastcall lstViewDownAdvancedCustomDrawItem(
+          TCustomListView *Sender, TListItem *Item, TCustomDrawState State,
+          TCustomDrawStage Stage, bool &DefaultDraw);
 private:	// User declarations
         enum { EN_IDLE, EN_EDIT, EN_ADD } m_enWorkState;
-             
+        int m_hl_col;
 //        bool m_cell_selected;
 public:		// User declarations
         __fastcall TReceivablesForm(TComponent* Owner);
@@ -73,7 +82,12 @@ public:		// User declarations
         int get_col_pos(int redv_date);
         void ResetCtrl();
         void clean_listview();
-        bool cell2input(AnsiString client, int recv_date);    //true-have data, edit status; false-no data, new status    
+        bool cell2input(AnsiString client, int recv_date);    //true-have data, edit status; false-no data, new status
+        bool chk_input();
+        void refreshLvByInput();
+        void flush_total_row(int row);
+        void flush_total_col(int col);
+
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TReceivablesForm *ReceivablesForm;

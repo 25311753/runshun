@@ -1,9 +1,11 @@
 object ReceivablesForm: TReceivablesForm
-  Left = -1181
-  Top = -58
-  Width = 1076
-  Height = 644
+  Left = 59
+  Top = 81
+  AutoScroll = False
+  BorderIcons = [biSystemMenu]
   Caption = #24212#25910#27454
+  ClientHeight = 606
+  ClientWidth = 1060
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,16 +26,16 @@ object ReceivablesForm: TReceivablesForm
     TabOrder = 0
   end
   object btnAdd: TButton
-    Left = 76
+    Left = 92
     Top = 0
     Width = 75
     Height = 25
-    Caption = #26032#22686
+    Caption = #28155#21152
     TabOrder = 1
     OnClick = btnAddClick
   end
   object btnMod: TButton
-    Left = 150
+    Left = 166
     Top = 0
     Width = 75
     Height = 25
@@ -42,11 +44,11 @@ object ReceivablesForm: TReceivablesForm
     OnClick = btnModClick
   end
   object btnNew: TButton
-    Left = 825
+    Left = 1
     Top = 0
-    Width = 75
+    Width = 88
     Height = 25
-    Caption = #26032#22686
+    Caption = #26032#22686#25910#27454#35760#24405
     TabOrder = 3
   end
   object pl: TPanel
@@ -401,14 +403,6 @@ object ReceivablesForm: TReceivablesForm
         TabOrder = 8
         OnClick = btnCleanQryClick
       end
-      object Edit1: TEdit
-        Left = 920
-        Top = 0
-        Width = 121
-        Height = 21
-        TabOrder = 9
-        Text = 'Edit1'
-      end
     end
   end
   object lstViewDown: TListView
@@ -432,6 +426,9 @@ object ReceivablesForm: TReceivablesForm
     SortType = stData
     TabOrder = 5
     ViewStyle = vsReport
+    OnAdvancedCustomDrawItem = lstViewDownAdvancedCustomDrawItem
+    OnAdvancedCustomDrawSubItem = lstViewDownAdvancedCustomDrawSubItem
+    OnCustomDrawSubItem = lstViewDownCustomDrawSubItem
     OnMouseDown = lstViewDownMouseDown
   end
   object TrayIcon1: TTrayIcon

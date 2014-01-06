@@ -32,7 +32,6 @@ class TTailerForm : public TForm
 __published:	// IDE-managed Components
         TPanel *PanelUp;
         TComboBox *cbbClient;
-        TEdit *edtLading;
         TEdit *edtTranCompany;
         TEdit *edtBeiZhu;
         TComboBox *cbbGoodsPerf;
@@ -81,7 +80,6 @@ __published:	// IDE-managed Components
         TImageList *ImageList1;
         TButton *btnPrnOutCar;
         TPanel *Panel1;
-        TEdit *edtLoadAddress;
         TPanel *Panel8;
         TEdit *edtLoadTel;
         TPanel *Panel9;
@@ -124,6 +122,8 @@ __published:	// IDE-managed Components
         TPanel *pl_input;
         TPanel *Panel45;
         TCheckBox *cbIsQryByDate;
+        TMemo *memoLoadAddress;
+        TMemo *memoLading;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnClearQryCondClick(TObject *Sender);
         void __fastcall btnAddClick(TObject *Sender);

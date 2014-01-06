@@ -77,9 +77,7 @@ __published:	// IDE-managed Components
         TQRLabel *QRLabel23;
         TQRLabel *QRLabel24;
         TQRLabel *qrlCarNo;
-        TQRLabel *qrlLoadAddress;
         TQRLabel *qrlOpDate;
-        TQRLabel *qrlLading;
         TQRLabel *qrlContainerType;
         TQRLabel *qrlBeiZhu;
         TQRBand *TitleBand1;
@@ -110,8 +108,6 @@ __published:	// IDE-managed Components
         TQRLabel *QRLabel38;
         TQRShape *QRShape47;
         TQRLabel *qrlContainerType2;
-        TQRShape *QRShape48;
-        TQRLabel *qrlLading2;
         TQRShape *QRShape49;
         TQRLabel *QRLabel41;
         TQRShape *QRShape50;
@@ -150,11 +146,14 @@ __published:	// IDE-managed Components
         TQRLabel *QRLabel55;
         TQRLabel *QRLabel56;
         TQRLabel *qrlBeiZhu2;
-        TQRLabel *qrlLoadAddress2;
         TQRShape *QRShape70;
         TQRLabel *QRLabel29;
         TQRLabel *QRLabel32;
         TQRLabel *QRLabel39;
+        TQRMemo *qrmLoadAddress;
+        TQRMemo *qrmLoadAddress2;
+        TQRMemo *qrmLading;
+        TQRMemo *qrmLading2;
 private:	// User declarations
 public:		// User declarations
         __fastcall TPrnCYDForm(TComponent* Owner);

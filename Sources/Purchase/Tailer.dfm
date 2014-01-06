@@ -1,6 +1,6 @@
 object TailerForm: TTailerForm
-  Left = -1261
-  Top = 142
+  Left = 36
+  Top = 41
   Width = 1257
   Height = 770
   Caption = #25302#36710#31995#32479
@@ -634,29 +634,13 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 19
       end
-      object edtLoadAddress: TEdit
-        Left = 62
-        Top = 24
-        Width = 670
-        Height = 21
-        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        TabOrder = 20
-      end
-      object edtLading: TEdit
-        Left = 488
-        Top = 3
-        Width = 121
-        Height = 21
-        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        TabOrder = 21
-      end
       object edtFareOut: TEdit
         Left = 245
         Top = 68
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        TabOrder = 22
+        TabOrder = 20
         OnChange = edtFareOutChange
       end
       object edtFare: TEdit
@@ -665,7 +649,7 @@ object TailerForm: TTailerForm
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        TabOrder = 23
+        TabOrder = 21
         OnChange = edtFareChange
       end
       object edtDriver: TEdit
@@ -674,7 +658,7 @@ object TailerForm: TTailerForm
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        TabOrder = 24
+        TabOrder = 22
       end
       object edtContainerNo: TEdit
         Left = 796
@@ -682,7 +666,7 @@ object TailerForm: TTailerForm
         Width = 88
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        TabOrder = 25
+        TabOrder = 23
       end
       object edtCarNo: TEdit
         Left = 428
@@ -690,7 +674,7 @@ object TailerForm: TTailerForm
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        TabOrder = 26
+        TabOrder = 24
       end
       object edtBeiZhu: TEdit
         Left = 62
@@ -698,7 +682,7 @@ object TailerForm: TTailerForm
         Width = 670
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-        TabOrder = 27
+        TabOrder = 25
       end
       object dtpOpDateYYYYMMDD: TDateTimePicker
         Left = 62
@@ -713,7 +697,7 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         Kind = dtkDate
         ParseInput = False
-        TabOrder = 28
+        TabOrder = 26
       end
       object dtpOpDateHHMM: TDateTimePicker
         Left = 146
@@ -728,7 +712,7 @@ object TailerForm: TTailerForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         Kind = dtkTime
         ParseInput = False
-        TabOrder = 29
+        TabOrder = 27
       end
       object cbbGoodsPerf: TComboBox
         Left = 62
@@ -738,7 +722,7 @@ object TailerForm: TTailerForm
         Style = csDropDownList
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 13
-        TabOrder = 30
+        TabOrder = 28
         Items.Strings = (
           #23567#21830#21697
           #20080#21333
@@ -752,7 +736,7 @@ object TailerForm: TTailerForm
         Style = csDropDownList
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 13
-        TabOrder = 31
+        TabOrder = 29
         Items.Strings = (
           '20GP'
           '20HQ'
@@ -769,7 +753,7 @@ object TailerForm: TTailerForm
         Color = clHighlightText
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 13
-        TabOrder = 32
+        TabOrder = 30
         OnChange = cbbClientChange
         OnSelect = cbbClientSelect
       end
@@ -779,7 +763,7 @@ object TailerForm: TTailerForm
         Width = 64
         Height = 22
         Caption = #20462#25913
-        TabOrder = 33
+        TabOrder = 31
         OnClick = btnModContainerClick
       end
       object btnDelContainer: TButton
@@ -788,7 +772,7 @@ object TailerForm: TTailerForm
         Width = 64
         Height = 23
         Caption = #21024#38500
-        TabOrder = 34
+        TabOrder = 32
         OnClick = btnDelContainerClick
       end
       object btnAddContainer: TButton
@@ -797,7 +781,7 @@ object TailerForm: TTailerForm
         Width = 64
         Height = 21
         Caption = #28155#21152
-        TabOrder = 35
+        TabOrder = 33
         OnClick = btnAddContainerClick
       end
       object lstViewContainer: TListView
@@ -821,9 +805,17 @@ object TailerForm: TTailerForm
         GridLines = True
         ReadOnly = True
         RowSelect = True
-        TabOrder = 36
+        TabOrder = 34
         ViewStyle = vsReport
         OnSelectItem = lstViewContainerSelectItem
+      end
+      object memoLading: TMemo
+        Left = 488
+        Top = 3
+        Width = 122
+        Height = 20
+        ScrollBars = ssVertical
+        TabOrder = 35
       end
     end
     object Panel45: TPanel
@@ -1249,6 +1241,14 @@ object TailerForm: TTailerForm
     Caption = #29983#25104#27966#36710#21333
     TabOrder = 9
     OnClick = btnPrnOutCarClick
+  end
+  object memoLoadAddress: TMemo
+    Left = 63
+    Top = 51
+    Width = 672
+    Height = 20
+    ScrollBars = ssVertical
+    TabOrder = 10
   end
   object TrayIcon1: TTrayIcon
     Hint = #28070#39034#25253#20851

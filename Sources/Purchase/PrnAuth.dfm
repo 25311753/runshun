@@ -1,8 +1,8 @@
 object PrnAuthForm: TPrnAuthForm
-  Left = 133
-  Top = 30
-  Width = 1296
-  Height = 816
+  Left = 0
+  Top = 0
+  Width = 1280
+  Height = 800
   Caption = #25171#21360#22996#25176#20070
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -74,7 +74,7 @@ object PrnAuthForm: TPrnAuthForm
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        2712
+        2711.97916666667
         2100.79166666667)
       BandType = rbTitle
       object qrlValidDateYYYY: TQRLabel
