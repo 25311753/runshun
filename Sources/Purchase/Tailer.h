@@ -192,7 +192,8 @@ public:		// User declarations
         void cb_change_charge(int pos);      
         void cb_change_cost(int pos);
         CString GetContainerInfo_local(TListView *lv);
-        void getFirstContainerUnit(AnsiString c, int &_cnt, AnsiString &containerno, AnsiString &type, AnsiString &sealid);                
+        void getFirstContainerUnit(AnsiString c, int &_cnt, AnsiString &containerno, AnsiString &type, AnsiString &sealid);
+        bool chk_input_valid();                
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TTailerForm *TailerForm;

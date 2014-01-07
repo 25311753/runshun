@@ -1,6 +1,6 @@
 object TailerForm: TTailerForm
-  Left = -1257
-  Top = -89
+  Left = 333
+  Top = 148
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = #25302#36710#31995#32479

@@ -1,6 +1,6 @@
 object PrnCYDForm: TPrnCYDForm
-  Left = -1288
-  Top = -232
+  Left = 405
+  Top = 36
   Width = 1296
   Height = 1040
   VertScrollBar.Position = 298
@@ -82,7 +82,7 @@ object PrnCYDForm: TPrnCYDForm
       object QRLabel16: TQRLabel
         Left = 379
         Top = 1
-        Width = 0
+        Width = 12
         Height = 36
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -93,7 +93,7 @@ object PrnCYDForm: TPrnCYDForm
           79.375
           835.642361111111
           2.20486111111111
-          0)
+          26.4583333333333)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
@@ -792,7 +792,7 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 10
       end
       object qrlBeiZhu: TQRLabel
-        Left = 125
+        Left = 134
         Top = 403
         Width = 66
         Height = 20
@@ -803,10 +803,10 @@ object PrnCYDForm: TPrnCYDForm
         Frame.DrawRight = False
         Size.Values = (
           44.0972222222222
-          275.607638888889
+          295.451388888889
           888.559027777778
           145.520833333333)
-        Alignment = taCenter
+        Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = True
@@ -2457,7 +2457,7 @@ object PrnCYDForm: TPrnCYDForm
     object QRLabel44: TQRLabel
       Left = 547
       Top = 939
-      Width = 0
+      Width = 20
       Height = 20
       Frame.Color = clBlack
       Frame.DrawTop = False
@@ -2468,7 +2468,7 @@ object PrnCYDForm: TPrnCYDForm
         44.0972222222222
         1206.05902777778
         2070.36458333333
-        0)
+        44.0972222222222)
       Alignment = taLeftJustify
       AlignToBand = False
       AutoSize = True
@@ -2507,7 +2507,7 @@ object PrnCYDForm: TPrnCYDForm
     object QRLabel46: TQRLabel
       Left = 656
       Top = 893
-      Width = 0
+      Width = 68
       Height = 20
       Frame.Color = clBlack
       Frame.DrawTop = False
@@ -2518,7 +2518,7 @@ object PrnCYDForm: TPrnCYDForm
         44.0972222222222
         1446.38888888889
         1968.94097222222
-        0)
+        149.930555555556)
       Alignment = taLeftJustify
       AlignToBand = False
       AutoSize = True

@@ -504,13 +504,24 @@ void __fastcall TTailerForm::btnOKClick(TObject *Sender)
     }        
 }
 //---------------------------------------------------------------------------
-int TTailerForm::addData(TObject *Sender){
-        int rt = -1;
-
+bool TTailerForm::chk_input_valid(){
+/*
         if(cbbClient->Text.IsEmpty() || memoLading->Text.IsEmpty() || memoLoadAddress->Text.IsEmpty() || \
               edtTranCompany->Text.IsEmpty() || \
               edtFare->Text.IsEmpty() || edtFareOut->Text.IsEmpty() || edtCarNo->Text.IsEmpty() || edtDriver->Text.IsEmpty() || \
               lstViewContainer->Items->Count == 0)
+        {
+                ShowMessage("请检查你的输入信息");
+                return rt;
+        }
+*/
+        return !(cbbClient->Text.IsEmpty());
+
+}
+int TTailerForm::addData(TObject *Sender){
+        int rt = -1;
+
+        if(!chk_input_valid())
         {
                 ShowMessage("请检查你的输入信息");
                 return rt;
@@ -630,10 +641,7 @@ void  TTailerForm::modData(TObject *Sender){
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return;
                 
-        if(cbbClient->Text.IsEmpty() || memoLading->Text.IsEmpty() || memoLoadAddress->Text.IsEmpty() || \
-              edtTranCompany->Text.IsEmpty() || \
-              edtFare->Text.IsEmpty() || edtFareOut->Text.IsEmpty() || edtCarNo->Text.IsEmpty() || edtDriver->Text.IsEmpty() || \
-              lstViewContainer->Items->Count == 0)
+        if(!chk_input_valid())
         {
                 ShowMessage("请检查你的输入信息");
                 return ;
