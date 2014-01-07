@@ -1,9 +1,9 @@
 object PrnCYDForm: TPrnCYDForm
-  Left = 398
-  Top = 21
-  Width = 1143
-  Height = 770
-  VertScrollBar.Position = 131
+  Left = -1288
+  Top = -232
+  Width = 1296
+  Height = 1040
+  VertScrollBar.Position = 298
   Caption = #25171#21360' '#25215#36816#21333
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,8 +17,8 @@ object PrnCYDForm: TPrnCYDForm
   TextHeight = 13
   object PrnView: TQuickRep
     Tag = 1
-    Left = 48
-    Top = -496
+    Left = 224
+    Top = -119
     Width = 952
     Height = 1347
     Frame.Color = clBlack
@@ -65,7 +65,7 @@ object PrnCYDForm: TPrnCYDForm
       Left = 45
       Top = 45
       Width = 861
-      Height = 1252
+      Height = 1249
       Frame.Color = clBlack
       Frame.DrawTop = False
       Frame.DrawBottom = False
@@ -76,47 +76,13 @@ object PrnCYDForm: TPrnCYDForm
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        2760.48611111111
+        2753.87152777778
         1898.38541666667)
       BandType = rbPageHeader
-      object QRShape10: TQRShape
-        Left = 0
-        Top = 90
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          0
-          198.4375
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape15: TQRShape
-        Left = 113
-        Top = 90
-        Width = 229
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          248.708333333333
-          198.4375
-          505.354166666667)
-        Shape = qrsRectangle
-      end
       object QRLabel16: TQRLabel
         Left = 379
         Top = 1
-        Width = 91
+        Width = 0
         Height = 36
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -127,7 +93,7 @@ object PrnCYDForm: TPrnCYDForm
           79.375
           835.642361111111
           2.20486111111111
-          200.642361111111)
+          0)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
@@ -275,23 +241,6 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 10
       end
-      object QRShape1: TQRShape
-        Left = 341
-        Top = 90
-        Width = 91
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          751.416666666667
-          198.4375
-          201.083333333333)
-        Shape = qrsRectangle
-      end
       object QRLabel5: TQRLabel
         Left = 349
         Top = 106
@@ -317,59 +266,8 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 10
       end
-      object QRShape3: TQRShape
-        Left = 431
-        Top = 90
-        Width = 160
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          949.854166666667
-          198.4375
-          351.895833333333)
-        Shape = qrsRectangle
-      end
-      object QRShape4: TQRShape
-        Left = 589
-        Top = 90
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1299.10416666667
-          198.4375
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape5: TQRShape
-        Left = 702
-        Top = 90
-        Width = 158
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1547.8125
-          198.4375
-          349.25)
-        Shape = qrsRectangle
-      end
       object QRLabel6: TQRLabel
-        Left = 605
+        Left = 609
         Top = 106
         Width = 78
         Height = 20
@@ -380,7 +278,7 @@ object PrnCYDForm: TPrnCYDForm
         Frame.DrawRight = False
         Size.Values = (
           44.0972222222222
-          1333.94097222222
+          1342.76041666667
           233.715277777778
           171.979166666667)
         Alignment = taLeftJustify
@@ -392,23 +290,6 @@ object PrnCYDForm: TPrnCYDForm
         Transparent = False
         WordWrap = True
         FontSize = 10
-      end
-      object QRShape6: TQRShape
-        Left = 0
-        Top = 136
-        Width = 114
-        Height = 92
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          203.729166666667
-          0
-          298.979166666667
-          251.354166666667)
-        Shape = qrsRectangle
       end
       object QRLabel7: TQRLabel
         Left = 7
@@ -434,482 +315,6 @@ object PrnCYDForm: TPrnCYDForm
         Transparent = False
         WordWrap = True
         FontSize = 10
-      end
-      object QRShape7: TQRShape
-        Left = 113
-        Top = 136
-        Width = 747
-        Height = 92
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          202.847222222222
-          249.149305555556
-          299.861111111111
-          1647.03125)
-        Shape = qrsRectangle
-      end
-      object QRShape8: TQRShape
-        Left = 0
-        Top = 227
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          0
-          500.0625
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape9: TQRShape
-        Left = 113
-        Top = 227
-        Width = 229
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          248.708333333333
-          500.0625
-          505.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape11: TQRShape
-        Left = 341
-        Top = 227
-        Width = 91
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          751.416666666667
-          500.0625
-          201.083333333333)
-        Shape = qrsRectangle
-      end
-      object QRShape12: TQRShape
-        Left = 431
-        Top = 227
-        Width = 160
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          949.854166666667
-          500.0625
-          351.895833333333)
-        Shape = qrsRectangle
-      end
-      object QRShape13: TQRShape
-        Left = 589
-        Top = 227
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1299.10416666667
-          500.0625
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape14: TQRShape
-        Left = 702
-        Top = 227
-        Width = 158
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1547.8125
-          500.0625
-          349.25)
-        Shape = qrsRectangle
-      end
-      object QRShape16: TQRShape
-        Left = 0
-        Top = 272
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          0
-          600.604166666667
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape17: TQRShape
-        Left = 113
-        Top = 272
-        Width = 229
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          248.708333333333
-          600.604166666667
-          505.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape18: TQRShape
-        Left = 341
-        Top = 272
-        Width = 91
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          751.416666666667
-          600.604166666667
-          201.083333333333)
-        Shape = qrsRectangle
-      end
-      object QRShape19: TQRShape
-        Left = 431
-        Top = 272
-        Width = 160
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          949.854166666667
-          600.604166666667
-          351.895833333333)
-        Shape = qrsRectangle
-      end
-      object QRShape20: TQRShape
-        Left = 589
-        Top = 272
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1299.10416666667
-          600.604166666667
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape21: TQRShape
-        Left = 702
-        Top = 272
-        Width = 158
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1547.8125
-          600.604166666667
-          349.25)
-        Shape = qrsRectangle
-      end
-      object QRShape22: TQRShape
-        Left = 0
-        Top = 318
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          0
-          701.145833333333
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape23: TQRShape
-        Left = 113
-        Top = 318
-        Width = 229
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          248.708333333333
-          701.145833333333
-          505.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape24: TQRShape
-        Left = 341
-        Top = 318
-        Width = 91
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          751.416666666667
-          701.145833333333
-          201.083333333333)
-        Shape = qrsRectangle
-      end
-      object QRShape25: TQRShape
-        Left = 431
-        Top = 318
-        Width = 160
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          949.854166666667
-          701.145833333333
-          351.895833333333)
-        Shape = qrsRectangle
-      end
-      object QRShape26: TQRShape
-        Left = 589
-        Top = 318
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1299.10416666667
-          701.145833333333
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape27: TQRShape
-        Left = 702
-        Top = 318
-        Width = 158
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1547.8125
-          701.145833333333
-          349.25)
-        Shape = qrsRectangle
-      end
-      object QRShape28: TQRShape
-        Left = 0
-        Top = 364
-        Width = 114
-        Height = 91
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          201.083333333333
-          0
-          801.6875
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape29: TQRShape
-        Left = 113
-        Top = 364
-        Width = 747
-        Height = 91
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          200.642361111111
-          249.149305555556
-          802.569444444444
-          1647.03125)
-        Shape = qrsRectangle
-      end
-      object QRShape30: TQRShape
-        Left = 0
-        Top = 454
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          0
-          1000.125
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape31: TQRShape
-        Left = 113
-        Top = 454
-        Width = 229
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          248.708333333333
-          1000.125
-          505.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape32: TQRShape
-        Left = 341
-        Top = 454
-        Width = 91
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          751.416666666667
-          1000.125
-          201.083333333333)
-        Shape = qrsRectangle
-      end
-      object QRShape33: TQRShape
-        Left = 431
-        Top = 454
-        Width = 160
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          949.854166666667
-          1000.125
-          351.895833333333)
-        Shape = qrsRectangle
-      end
-      object QRShape34: TQRShape
-        Left = 589
-        Top = 454
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1299.10416666667
-          1000.125
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape35: TQRShape
-        Left = 702
-        Top = 454
-        Width = 158
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.1875
-          1547.8125
-          1000.125
-          349.25)
-        Shape = qrsRectangle
-      end
-      object QRShape36: TQRShape
-        Left = 0
-        Top = 499
-        Width = 860
-        Height = 48
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          105.833333333333
-          0
-          1100.66666666667
-          1897.0625)
-        Shape = qrsRectangle
       end
       object QRLabel8: TQRLabel
         Left = 10
@@ -1012,7 +417,7 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 10
       end
       object QRLabel12: TQRLabel
-        Left = 608
+        Left = 612
         Top = 288
         Width = 68
         Height = 20
@@ -1023,7 +428,7 @@ object PrnCYDForm: TPrnCYDForm
         Frame.DrawRight = False
         Size.Values = (
           44.0972222222222
-          1340.55555555556
+          1349.375
           635
           149.930555555556)
         Alignment = taLeftJustify
@@ -1037,7 +442,7 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 10
       end
       object QRLabel13: TQRLabel
-        Left = 605
+        Left = 609
         Top = 242
         Width = 78
         Height = 20
@@ -1048,7 +453,7 @@ object PrnCYDForm: TPrnCYDForm
         Frame.DrawRight = False
         Size.Values = (
           44.0972222222222
-          1333.94097222222
+          1342.76041666667
           533.576388888889
           171.979166666667)
         Alignment = taLeftJustify
@@ -1062,9 +467,9 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 10
       end
       object QRLabel14: TQRLabel
-        Left = 608
+        Left = 612
         Top = 334
-        Width = 0
+        Width = 68
         Height = 20
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -1073,9 +478,9 @@ object PrnCYDForm: TPrnCYDForm
         Frame.DrawRight = False
         Size.Values = (
           44.0972222222222
-          1340.55555555556
+          1349.375
           736.423611111111
-          0)
+          149.930555555556)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
@@ -1289,7 +694,7 @@ object PrnCYDForm: TPrnCYDForm
       object QRLabel24: TQRLabel
         Left = 367
         Top = 478
-        Width = 0
+        Width = 40
         Height = 20
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -1300,7 +705,7 @@ object PrnCYDForm: TPrnCYDForm
           44.0972222222222
           809.184027777778
           1053.92361111111
-          0)
+          88.1944444444444)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
@@ -1548,44 +953,10 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 10
       end
-      object QRShape2: TQRShape
-        Left = 702
-        Top = 650
-        Width = 158
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          1547.8125
-          1433.15972222222
-          348.368055555556)
-        Shape = qrsRectangle
-      end
-      object QRShape37: TQRShape
-        Left = 589
-        Top = 650
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          1298.66319444444
-          1433.15972222222
-          251.354166666667)
-        Shape = qrsRectangle
-      end
       object QRLabel30: TQRLabel
         Left = 605
         Top = 666
-        Width = 0
+        Width = 78
         Height = 20
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -1596,7 +967,7 @@ object PrnCYDForm: TPrnCYDForm
           44.0972222222222
           1333.94097222222
           1468.4375
-          0)
+          171.979166666667)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
@@ -1606,23 +977,6 @@ object PrnCYDForm: TPrnCYDForm
         Transparent = False
         WordWrap = True
         FontSize = 10
-      end
-      object QRShape38: TQRShape
-        Left = 431
-        Top = 650
-        Width = 160
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          950.295138888889
-          1433.15972222222
-          352.777777777778)
-        Shape = qrsRectangle
       end
       object QRLabel31: TQRLabel
         Left = 349
@@ -1649,40 +1003,6 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 10
       end
-      object QRShape39: TQRShape
-        Left = 341
-        Top = 650
-        Width = 91
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          751.857638888889
-          1433.15972222222
-          200.642361111111)
-        Shape = qrsRectangle
-      end
-      object QRShape40: TQRShape
-        Left = 113
-        Top = 650
-        Width = 229
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          249.149305555556
-          1433.15972222222
-          504.913194444444)
-        Shape = qrsRectangle
-      end
       object qrlCarNo2: TQRLabel
         Left = 192
         Top = 666
@@ -1707,23 +1027,6 @@ object PrnCYDForm: TPrnCYDForm
         Transparent = False
         WordWrap = True
         FontSize = 10
-      end
-      object QRShape41: TQRShape
-        Left = 0
-        Top = 650
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          0
-          1433.15972222222
-          251.354166666667)
-        Shape = qrsRectangle
       end
       object QRLabel33: TQRLabel
         Left = 19
@@ -1750,23 +1053,6 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 10
       end
-      object QRShape42: TQRShape
-        Left = 0
-        Top = 696
-        Width = 114
-        Height = 92
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          202.847222222222
-          0
-          1534.58333333333
-          251.354166666667)
-        Shape = qrsRectangle
-      end
       object QRLabel34: TQRLabel
         Left = 7
         Top = 733
@@ -1792,65 +1078,6 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 10
       end
-      object QRLabel35: TQRLabel
-        Left = 125
-        Top = 733
-        Width = 109
-        Height = 20
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.0972222222222
-          275.607638888889
-          1616.16319444444
-          240.329861111111)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = True
-        Caption = 'qrlLoadAddress'
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRShape43: TQRShape
-        Left = 113
-        Top = 696
-        Width = 747
-        Height = 92
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          202.847222222222
-          249.149305555556
-          1534.58333333333
-          1647.03125)
-        Shape = qrsRectangle
-      end
-      object QRShape62: TQRShape
-        Left = 0
-        Top = 923
-        Width = 114
-        Height = 92
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          202.847222222222
-          0
-          2035.08680555556
-          251.354166666667)
-        Shape = qrsRectangle
-      end
       object QRLabel49: TQRLabel
         Left = 24
         Top = 963
@@ -1875,82 +1102,6 @@ object PrnCYDForm: TPrnCYDForm
         Transparent = False
         WordWrap = True
         FontSize = 10
-      end
-      object QRLabel50: TQRLabel
-        Left = 125
-        Top = 963
-        Width = 66
-        Height = 20
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.0972222222222
-          275.607638888889
-          2123.28125
-          145.520833333333)
-        Alignment = taCenter
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = True
-        Caption = 'qrlBeiZhu'
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRShape63: TQRShape
-        Left = 113
-        Top = 923
-        Width = 747
-        Height = 92
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          202.847222222222
-          249.149305555556
-          2035.08680555556
-          1647.03125)
-        Shape = qrsRectangle
-      end
-      object QRShape64: TQRShape
-        Left = 0
-        Top = 1014
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          0
-          2235.72916666667
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape65: TQRShape
-        Left = 113
-        Top = 1014
-        Width = 229
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          249.149305555556
-          2235.72916666667
-          504.913194444444)
-        Shape = qrsRectangle
       end
       object QRLabel51: TQRLabel
         Left = 347
@@ -2002,23 +1153,6 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 10
       end
-      object QRShape66: TQRShape
-        Left = 431
-        Top = 1014
-        Width = 160
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          950.295138888889
-          2235.72916666667
-          352.777777777778)
-        Shape = qrsRectangle
-      end
       object QRLabel53: TQRLabel
         Left = 614
         Top = 1030
@@ -2044,61 +1178,10 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 10
       end
-      object QRShape67: TQRShape
-        Left = 589
-        Top = 1014
-        Width = 114
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          1298.66319444444
-          2235.72916666667
-          251.354166666667)
-        Shape = qrsRectangle
-      end
-      object QRShape68: TQRShape
-        Left = 702
-        Top = 1014
-        Width = 158
-        Height = 47
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          103.628472222222
-          1547.8125
-          2235.72916666667
-          348.368055555556)
-        Shape = qrsRectangle
-      end
-      object QRShape69: TQRShape
-        Left = 0
-        Top = 1059
-        Width = 860
-        Height = 48
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          105.833333333333
-          0
-          2334.94791666667
-          1896.18055555556)
-        Shape = qrsRectangle
-      end
       object QRLabel54: TQRLabel
         Left = 125
         Top = 1069
-        Width = 0
+        Width = 665
         Height = 20
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -2109,7 +1192,7 @@ object PrnCYDForm: TPrnCYDForm
           44.0972222222222
           275.607638888889
           2356.99652777778
-          0)
+          1466.23263888889)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
@@ -2171,8 +1254,8 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 10
       end
       object qrlBeiZhu2: TQRLabel
-        Left = 136
-        Top = 968
+        Left = 132
+        Top = 963
         Width = 74
         Height = 20
         Frame.Color = clBlack
@@ -2182,8 +1265,8 @@ object PrnCYDForm: TPrnCYDForm
         Frame.DrawRight = False
         Size.Values = (
           44.0972222222222
-          299.861111111111
-          2134.30555555556
+          291.041666666667
+          2123.28125
           163.159722222222)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2194,24 +1277,6 @@ object PrnCYDForm: TPrnCYDForm
         Transparent = False
         WordWrap = True
         FontSize = 10
-      end
-      object QRShape70: TQRShape
-        Left = 0
-        Top = 547
-        Width = 865
-        Height = 2
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          4.40972222222222
-          0
-          1206.05902777778
-          1907.20486111111)
-        Pen.Width = 3
-        Shape = qrsHorLine
       end
       object QRLabel29: TQRLabel
         Left = 349
@@ -2299,19 +1364,19 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 8
       end
       object qrmLading: TQRMemo
-        Left = 119
-        Top = 275
+        Left = 116
+        Top = 269
         Width = 61
-        Height = 40
+        Height = 50
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          88.1944444444444
-          262.378472222222
-          606.336805555556
+          110.243055555556
+          255.763888888889
+          593.107638888889
           134.496527777778)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2329,19 +1394,19 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 8
       end
       object qrmLading2: TQRMemo
-        Left = 119
-        Top = 835
+        Left = 118
+        Top = 831
         Width = 68
-        Height = 40
+        Height = 50
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          88.1944444444444
-          262.378472222222
-          1841.05902777778
+          110.243055555556
+          260.173611111111
+          1832.23958333333
           149.930555555556)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2358,10 +1423,846 @@ object PrnCYDForm: TPrnCYDForm
         WordWrap = True
         FontSize = 8
       end
+      object QRShape1: TQRShape
+        Left = 0
+        Top = 100
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          220.486111111111
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape2: TQRShape
+        Left = 0
+        Top = 132
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          291.041666666667
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape3: TQRShape
+        Left = 0
+        Top = 230
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          507.118055555556
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape4: TQRShape
+        Left = 0
+        Top = 267
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          588.697916666667
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape5: TQRShape
+        Left = 0
+        Top = 322
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          709.965277777778
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape6: TQRShape
+        Left = 0
+        Top = 364
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          802.569444444444
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape7: TQRShape
+        Left = 0
+        Top = 454
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          1001.00694444444
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape8: TQRShape
+        Left = 0
+        Top = 500
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          1102.43055555556
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape9: TQRShape
+        Left = 0
+        Top = 532
+        Width = 861
+        Height = 3
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          6.61458333333333
+          0
+          1172.98611111111
+          1898.38541666667)
+        Pen.Width = 3
+        Shape = qrsHorLine
+      end
+      object QRShape10: TQRShape
+        Left = 0
+        Top = 657
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          1448.59375
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape11: TQRShape
+        Left = 0
+        Top = 692
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          1525.76388888889
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape12: TQRShape
+        Left = 0
+        Top = 792
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          1746.25
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape13: TQRShape
+        Left = 0
+        Top = 829
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          1827.82986111111
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape14: TQRShape
+        Left = 0
+        Top = 883
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          1946.89236111111
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape15: TQRShape
+        Left = 0
+        Top = 924
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          2037.29166666667
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape16: TQRShape
+        Left = 0
+        Top = 1012
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          2231.31944444444
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape17: TQRShape
+        Left = 0
+        Top = 1060
+        Width = 861
+        Height = 1
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          2.20486111111111
+          0
+          2337.15277777778
+          1898.38541666667)
+        Shape = qrsHorLine
+      end
+      object QRShape19: TQRShape
+        Left = 0
+        Top = 1092
+        Width = 861
+        Height = 3
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          6.61458333333333
+          0
+          2407.70833333333
+          1898.38541666667)
+        Pen.Width = 3
+        Shape = qrsHorLine
+      end
+      object QRShape18: TQRShape
+        Left = 112
+        Top = 101
+        Width = 1
+        Height = 400
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          881.944444444444
+          246.944444444444
+          222.690972222222
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape20: TQRShape
+        Left = 0
+        Top = 532
+        Width = 861
+        Height = 3
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          6.61458333333333
+          0
+          1172.98611111111
+          1898.38541666667)
+        Pen.Width = 3
+        Shape = qrsHorLine
+      end
+      object QRShape21: TQRShape
+        Left = 338
+        Top = 101
+        Width = 1
+        Height = 32
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          70.5555555555556
+          745.243055555556
+          222.690972222222
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape25: TQRShape
+        Left = 338
+        Top = 230
+        Width = 1
+        Height = 134
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          295.451388888889
+          745.243055555556
+          507.118055555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape26: TQRShape
+        Left = 338
+        Top = 455
+        Width = 1
+        Height = 45
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          99.21875
+          745.243055555556
+          1003.21180555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape22: TQRShape
+        Left = 434
+        Top = 101
+        Width = 1
+        Height = 32
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          70.5555555555556
+          956.909722222222
+          222.690972222222
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape27: TQRShape
+        Left = 434
+        Top = 230
+        Width = 1
+        Height = 134
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          295.451388888889
+          956.909722222222
+          507.118055555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape28: TQRShape
+        Left = 434
+        Top = 455
+        Width = 1
+        Height = 45
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          99.21875
+          956.909722222222
+          1003.21180555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape23: TQRShape
+        Left = 602
+        Top = 455
+        Width = 1
+        Height = 45
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          99.21875
+          1327.32638888889
+          1003.21180555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape24: TQRShape
+        Left = 690
+        Top = 455
+        Width = 1
+        Height = 45
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          99.21875
+          1521.35416666667
+          1003.21180555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape29: TQRShape
+        Left = 602
+        Top = 230
+        Width = 1
+        Height = 134
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          295.451388888889
+          1327.32638888889
+          507.118055555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape30: TQRShape
+        Left = 690
+        Top = 230
+        Width = 1
+        Height = 134
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          295.451388888889
+          1521.35416666667
+          507.118055555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape31: TQRShape
+        Left = 602
+        Top = 101
+        Width = 1
+        Height = 32
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          70.5555555555556
+          1327.32638888889
+          222.690972222222
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape32: TQRShape
+        Left = 690
+        Top = 101
+        Width = 1
+        Height = 32
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          70.5555555555556
+          1521.35416666667
+          222.690972222222
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape33: TQRShape
+        Left = 112
+        Top = 658
+        Width = 1
+        Height = 401
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          884.149305555556
+          246.944444444444
+          1450.79861111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape34: TQRShape
+        Left = 338
+        Top = 658
+        Width = 1
+        Height = 34
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          74.9652777777778
+          745.243055555556
+          1450.79861111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape35: TQRShape
+        Left = 338
+        Top = 793
+        Width = 1
+        Height = 131
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          288.836805555556
+          745.243055555556
+          1748.45486111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape36: TQRShape
+        Left = 434
+        Top = 793
+        Width = 1
+        Height = 131
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          288.836805555556
+          956.909722222222
+          1748.45486111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape37: TQRShape
+        Left = 602
+        Top = 793
+        Width = 1
+        Height = 131
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          288.836805555556
+          1327.32638888889
+          1748.45486111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape38: TQRShape
+        Left = 690
+        Top = 793
+        Width = 1
+        Height = 131
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          288.836805555556
+          1521.35416666667
+          1748.45486111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape39: TQRShape
+        Left = 338
+        Top = 1013
+        Width = 1
+        Height = 47
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          103.628472222222
+          745.243055555556
+          2233.52430555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape40: TQRShape
+        Left = 434
+        Top = 1013
+        Width = 1
+        Height = 47
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          103.628472222222
+          956.909722222222
+          2233.52430555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape41: TQRShape
+        Left = 602
+        Top = 1013
+        Width = 1
+        Height = 47
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          103.628472222222
+          1327.32638888889
+          2233.52430555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape42: TQRShape
+        Left = 690
+        Top = 1013
+        Width = 1
+        Height = 47
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          103.628472222222
+          1521.35416666667
+          2233.52430555556
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape43: TQRShape
+        Left = 690
+        Top = 658
+        Width = 1
+        Height = 34
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          74.9652777777778
+          1521.35416666667
+          1450.79861111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape44: TQRShape
+        Left = 602
+        Top = 658
+        Width = 1
+        Height = 34
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          74.9652777777778
+          1327.32638888889
+          1450.79861111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape45: TQRShape
+        Left = 434
+        Top = 658
+        Width = 1
+        Height = 34
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          74.9652777777778
+          956.909722222222
+          1450.79861111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape46: TQRShape
+        Left = 0
+        Top = 101
+        Width = 1
+        Height = 400
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          881.944444444444
+          0
+          222.690972222222
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape49: TQRShape
+        Left = 860
+        Top = 658
+        Width = 1
+        Height = 401
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          884.149305555556
+          1896.18055555556
+          1450.79861111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape50: TQRShape
+        Left = 860
+        Top = 101
+        Width = 1
+        Height = 401
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          884.149305555556
+          1896.18055555556
+          222.690972222222
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
+      object QRShape47: TQRShape
+        Left = 0
+        Top = 658
+        Width = 1
+        Height = 401
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          884.149305555556
+          0
+          1450.79861111111
+          2.20486111111111)
+        Shape = qrsVertLine
+      end
     end
     object TitleBand1: TQRBand
       Left = 45
-      Top = 1297
+      Top = 1294
       Width = 861
       Height = 16
       Frame.Color = clBlack
@@ -2377,23 +2278,6 @@ object PrnCYDForm: TPrnCYDForm
         35.2777777777778
         1898.38541666667)
       BandType = rbTitle
-    end
-    object QRShape44: TQRShape
-      Left = 45
-      Top = 832
-      Width = 114
-      Height = 47
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        103.628472222222
-        99.21875
-        1834.44444444444
-        251.354166666667)
-      Shape = qrsRectangle
     end
     object QRLabel36: TQRLabel
       Left = 58
@@ -2420,23 +2304,6 @@ object PrnCYDForm: TPrnCYDForm
       WordWrap = True
       FontSize = 10
     end
-    object QRShape45: TQRShape
-      Left = 45
-      Top = 877
-      Width = 114
-      Height = 48
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        105.833333333333
-        99.21875
-        1933.66319444444
-        251.354166666667)
-      Shape = qrsRectangle
-    end
     object QRLabel37: TQRLabel
       Left = 67
       Top = 893
@@ -2461,23 +2328,6 @@ object PrnCYDForm: TPrnCYDForm
       Transparent = False
       WordWrap = True
       FontSize = 10
-    end
-    object QRShape46: TQRShape
-      Left = 45
-      Top = 924
-      Width = 114
-      Height = 46
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        101.423611111111
-        99.21875
-        2037.29166666667
-        251.354166666667)
-      Shape = qrsRectangle
     end
     object QRLabel38: TQRLabel
       Left = 72
@@ -2504,23 +2354,6 @@ object PrnCYDForm: TPrnCYDForm
       WordWrap = True
       FontSize = 10
     end
-    object QRShape47: TQRShape
-      Left = 158
-      Top = 924
-      Width = 230
-      Height = 46
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        101.423611111111
-        348.368055555556
-        2037.29166666667
-        507.118055555556)
-      Shape = qrsRectangle
-    end
     object qrlContainerType2: TQRLabel
       Left = 221
       Top = 939
@@ -2545,23 +2378,6 @@ object PrnCYDForm: TPrnCYDForm
       Transparent = False
       WordWrap = True
       FontSize = 10
-    end
-    object QRShape49: TQRShape
-      Left = 158
-      Top = 832
-      Width = 230
-      Height = 47
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        103.628472222222
-        348.368055555556
-        1834.44444444444
-        507.118055555556)
-      Shape = qrsRectangle
     end
     object QRLabel41: TQRLabel
       Left = 397
@@ -2588,44 +2404,10 @@ object PrnCYDForm: TPrnCYDForm
       WordWrap = True
       FontSize = 10
     end
-    object QRShape50: TQRShape
-      Left = 386
-      Top = 832
-      Width = 91
-      Height = 47
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        103.628472222222
-        851.076388888889
-        1834.44444444444
-        200.642361111111)
-      Shape = qrsRectangle
-    end
-    object QRShape51: TQRShape
-      Left = 386
-      Top = 877
-      Width = 91
-      Height = 48
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        105.833333333333
-        851.076388888889
-        1933.66319444444
-        200.642361111111)
-      Shape = qrsRectangle
-    end
     object QRLabel42: TQRLabel
       Left = 407
       Top = 893
-      Width = 0
+      Width = 59
       Height = 20
       Frame.Color = clBlack
       Frame.DrawTop = False
@@ -2636,7 +2418,7 @@ object PrnCYDForm: TPrnCYDForm
         44.0972222222222
         897.378472222222
         1968.94097222222
-        0)
+        130.086805555556)
       Alignment = taLeftJustify
       AlignToBand = False
       AutoSize = True
@@ -2646,23 +2428,6 @@ object PrnCYDForm: TPrnCYDForm
       Transparent = False
       WordWrap = True
       FontSize = 10
-    end
-    object QRShape52: TQRShape
-      Left = 386
-      Top = 924
-      Width = 91
-      Height = 46
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        101.423611111111
-        851.076388888889
-        2037.29166666667
-        200.642361111111)
-      Shape = qrsRectangle
     end
     object QRLabel43: TQRLabel
       Left = 402
@@ -2689,27 +2454,10 @@ object PrnCYDForm: TPrnCYDForm
       WordWrap = True
       FontSize = 10
     end
-    object QRShape53: TQRShape
-      Left = 476
-      Top = 923
-      Width = 160
-      Height = 47
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        103.628472222222
-        1049.51388888889
-        2035.08680555556
-        352.777777777778)
-      Shape = qrsRectangle
-    end
     object QRLabel44: TQRLabel
       Left = 547
       Top = 939
-      Width = 20
+      Width = 0
       Height = 20
       Frame.Color = clBlack
       Frame.DrawTop = False
@@ -2720,7 +2468,7 @@ object PrnCYDForm: TPrnCYDForm
         44.0972222222222
         1206.05902777778
         2070.36458333333
-        44.0972222222222)
+        0)
       Alignment = taLeftJustify
       AlignToBand = False
       AutoSize = True
@@ -2730,40 +2478,6 @@ object PrnCYDForm: TPrnCYDForm
       Transparent = False
       WordWrap = True
       FontSize = 10
-    end
-    object QRShape54: TQRShape
-      Left = 476
-      Top = 877
-      Width = 160
-      Height = 48
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        105.833333333333
-        1049.51388888889
-        1933.66319444444
-        352.777777777778)
-      Shape = qrsRectangle
-    end
-    object QRShape55: TQRShape
-      Left = 476
-      Top = 832
-      Width = 160
-      Height = 47
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        103.628472222222
-        1049.51388888889
-        1834.44444444444
-        352.777777777778)
-      Shape = qrsRectangle
     end
     object QRLabel45: TQRLabel
       Left = 653
@@ -2790,44 +2504,10 @@ object PrnCYDForm: TPrnCYDForm
       WordWrap = True
       FontSize = 10
     end
-    object QRShape56: TQRShape
-      Left = 635
-      Top = 832
-      Width = 114
-      Height = 47
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        103.628472222222
-        1400.08680555556
-        1834.44444444444
-        251.354166666667)
-      Shape = qrsRectangle
-    end
-    object QRShape57: TQRShape
-      Left = 635
-      Top = 877
-      Width = 114
-      Height = 48
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        105.833333333333
-        1400.08680555556
-        1933.66319444444
-        251.354166666667)
-      Shape = qrsRectangle
-    end
     object QRLabel46: TQRLabel
       Left = 656
       Top = 893
-      Width = 68
+      Width = 0
       Height = 20
       Frame.Color = clBlack
       Frame.DrawTop = False
@@ -2838,7 +2518,7 @@ object PrnCYDForm: TPrnCYDForm
         44.0972222222222
         1446.38888888889
         1968.94097222222
-        149.930555555556)
+        0)
       Alignment = taLeftJustify
       AlignToBand = False
       AutoSize = True
@@ -2848,23 +2528,6 @@ object PrnCYDForm: TPrnCYDForm
       Transparent = False
       WordWrap = True
       FontSize = 10
-    end
-    object QRShape58: TQRShape
-      Left = 635
-      Top = 924
-      Width = 114
-      Height = 46
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        101.423611111111
-        1400.08680555556
-        2037.29166666667
-        251.354166666667)
-      Shape = qrsRectangle
     end
     object QRLabel47: TQRLabel
       Left = 656
@@ -2891,57 +2554,6 @@ object PrnCYDForm: TPrnCYDForm
       WordWrap = True
       FontSize = 10
     end
-    object QRShape59: TQRShape
-      Left = 747
-      Top = 923
-      Width = 158
-      Height = 47
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        103.628472222222
-        1647.03125
-        2035.08680555556
-        348.368055555556)
-      Shape = qrsRectangle
-    end
-    object QRShape60: TQRShape
-      Left = 747
-      Top = 877
-      Width = 158
-      Height = 48
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        105.833333333333
-        1647.03125
-        1933.66319444444
-        348.368055555556)
-      Shape = qrsRectangle
-    end
-    object QRShape61: TQRShape
-      Left = 747
-      Top = 832
-      Width = 158
-      Height = 47
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        103.628472222222
-        1647.03125
-        1834.44444444444
-        348.368055555556)
-      Shape = qrsRectangle
-    end
     object qrlOpDate2: TQRLabel
       Left = 754
       Top = 845
@@ -2962,56 +2574,6 @@ object PrnCYDForm: TPrnCYDForm
       AutoSize = True
       AutoStretch = False
       Caption = 'qrlOpDate'
-      Color = clWhite
-      Transparent = False
-      WordWrap = True
-      FontSize = 10
-    end
-    object QRLabel32: TQRLabel
-      Left = 397
-      Top = 850
-      Width = 78
-      Height = 20
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        44.0972222222222
-        875.329861111111
-        1874.13194444444
-        171.979166666667)
-      Alignment = taLeftJustify
-      AlignToBand = False
-      AutoSize = True
-      AutoStretch = False
-      Caption = #32852#31995#30005#35805
-      Color = clWhite
-      Transparent = False
-      WordWrap = True
-      FontSize = 10
-    end
-    object QRLabel39: TQRLabel
-      Left = 653
-      Top = 850
-      Width = 78
-      Height = 20
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      Size.Values = (
-        44.0972222222222
-        1439.77430555556
-        1874.13194444444
-        171.979166666667)
-      Alignment = taLeftJustify
-      AlignToBand = False
-      AutoSize = True
-      AutoStretch = False
-      Caption = #21040#21378#26102#38388
       Color = clWhite
       Transparent = False
       WordWrap = True

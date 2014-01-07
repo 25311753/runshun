@@ -120,7 +120,6 @@ __published:	// IDE-managed Components
         TPanel *Panel19;
         TEdit *edtQryDriver;
         TPanel *pl_input;
-        TPanel *Panel45;
         TCheckBox *cbIsQryByDate;
         TMemo *memoLoadAddress;
         TMemo *memoLading;

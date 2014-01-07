@@ -90,17 +90,15 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
   operatorname="root";
   operator_class="1";
 #else
-	operatorcode="root";
-  operatorname="root";
-  operator_class="1";
 		InitialODBC();
 
 		TUserLoginForm *pLogin;
 		pLogin=new TUserLoginForm(Application);
-	operatorcode="110";
+/*	operatorcode="110";
   operatorname="888";
   operator_class="1";
-//		pLogin->ShowModal();
+*/
+        	pLogin->ShowModal();
 
 		int nLogin;
 		nLogin=pLogin->ModalResult;

@@ -270,21 +270,11 @@ void __fastcall TReceivablesForm::btnQryClick(TObject *Sender)
                 flush_total_row(row);
         }
         //add total_col
-        int row_total = add_empty_row();
-        TListItem *pItem_row_total = lstViewDown->Items->Item[row_total];
-        pItem_row_total->Caption = "合计";
+        add_empty_row();
 
         for (int pos_col=COL_CLIENT+1; pos_col<lstViewDown->Columns->Count-1; ++pos_col){
-                double sum_col = 0;
-                for(int i=2;i<lstViewDown->Items->Count;i++)
-                {
-                        AnsiString str_charge = lstViewDown->Items->Item[i]->SubItems->Strings[pos_col];
-                        sum_col += str_charge.IsEmpty()?0:StrToFloat(str_charge.c_str());
-                }
-                pItem_row_total->SubItems->Strings[pos_col] = sum_col;
-
+             flush_total_col(pos_col);
         }
-
 }
 //---------------------------------------------------------------------------
 void TReceivablesForm::flush_total_row(int row){
@@ -301,7 +291,17 @@ void TReceivablesForm::flush_total_row(int row){
 }
 
 void TReceivablesForm::flush_total_col(int col){
-
+        //末行
+        int row = lstViewDown->Items->Count-1;
+        TListItem *pItem = lstViewDown->Items->Item[row];
+        pItem->Caption = "合计";
+        double sum_col = 0;
+        for(int i=0;i<lstViewDown->Items->Count-1;i++)
+        {
+                AnsiString str_charge = lstViewDown->Items->Item[i]->SubItems->Strings[col];
+                sum_col += str_charge.IsEmpty()?0:StrToFloat(str_charge.c_str());
+        }
+        pItem->SubItems->Strings[col] = sum_col;
 }
 
 
@@ -376,6 +376,8 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
         if(Button == mbLeft)
         {
                 if (lstViewDown->Selected){
+                    //不处理末行
+                    if (lstViewDown->Selected->Index < lstViewDown->Items->Count-1){
                         AnsiString client = lstViewDown->Selected->SubItems->Strings[COL_CLIENT];
                         cbbClient->Text = client;
                         int column = 0;
@@ -389,7 +391,6 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
                                         if (1<column && column<lstViewDown->Columns->Count-1){
 
                                                 int recv_date = StrToInt(lstViewDown->Columns->Items[column]->Caption);
-//                                                ShowMessage(AnsiString(column)+"~"+AnsiString(recv_date)+"~x:"+AnsiString(X)+"~total:"+AnsiString(total));
                                                 bool b_have_data = cell2input(client, recv_date);  //may change workstate
                                                 m_enWorkState= b_have_data?EN_EDIT:EN_ADD;
 
@@ -398,17 +399,18 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
 		                                sdate.Format("%04d-%02d-01 00:00:01",recv_date/100, recv_date%100);
                                                 setDtp(dtpShouldRecvDate, AnsiString(sdate));
 
+/*
                 m_hl_col = get_col_pos(StrToInt(lstViewDown->Columns->Items[column]->Caption));
 
                 //只是为了触发重画
                 lstViewDown->Selected->SubItems->Strings[m_hl_col] = \
                 lstViewDown->Selected->SubItems->Strings[m_hl_col];
-
+*/
                                         }
-//                                        cbbClient->Text = client;
                                         break;
                                 }
                         }
+                    }
                 }
         }
         ResetCtrl();
@@ -416,8 +418,23 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
 //---------------------------------------------------------------------------
 void  TReceivablesForm::refreshLvByInput(){
         if (lstViewDown->Selected){
-                lstViewDown->Selected->SubItems->Strings[get_col_pos(GetYYYYMM(dtpShouldRecvDate))] = edtCharge->Text;
+                int col = get_col_pos(GetYYYYMM(dtpShouldRecvDate));
+                lstViewDown->Selected->SubItems->Strings[col] = edtCharge->Text;
                 flush_total_row(lstViewDown->Selected->Index);
+                flush_total_col(col);
+        }
+}
+void  TReceivablesForm::refreshLvByInputNew(){
+        for(int i=0;i<lstViewDown->Items->Count-1;i++)
+        {
+                if (lstViewDown->Items->Item[i]->SubItems->Strings[0] == cbbClient->Text){
+                        TListItem *pItem = lstViewDown->Items->Item[i];                
+                        int col = get_col_pos(GetYYYYMM(dtpShouldRecvDate));
+                        pItem->SubItems->Strings[col] = edtCharge->Text;
+                        flush_total_row(i);
+                        flush_total_col(col);
+                        break;
+                }
         }
 }
 void __fastcall TReceivablesForm::btnModClick(TObject *Sender)
@@ -425,7 +442,12 @@ void __fastcall TReceivablesForm::btnModClick(TObject *Sender)
         int recv_date = GetYYYYMM(dtpShouldRecvDate);
         AnsiString status = cbbStatus->Text;
         AnsiString client = cbbClient->Text;
-                
+
+        char strMsg[256],strSQL[512];
+        sprintf(strMsg,"\n  真要修改 [%s][%d] 的记录吗？  \n",cbbClient->Text.c_str(), recv_date);
+        if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                return;
+
         if (!chk_input()){
                 return;
         }
@@ -489,7 +511,12 @@ void __fastcall TReceivablesForm::btnAddClick(TObject *Sender)
         int recv_date = GetYYYYMM(dtpShouldRecvDate);
         AnsiString status = cbbStatus->Text;
         AnsiString client = cbbClient->Text;
-                
+
+        char strMsg[256],strSQL[512];
+        sprintf(strMsg,"\n  真要添加 [%s][%d] 的记录吗？  \n",cbbClient->Text.c_str(), recv_date);
+        if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                return;
+
         if (!chk_input()){
                 return;
         }
@@ -615,17 +642,41 @@ return;
 
 void __fastcall TReceivablesForm::btnNewClick(TObject *Sender)
 {
-/*
         int recv_date = GetYYYYMM(dtpShouldRecvDate);
         AnsiString status = cbbStatus->Text;
         AnsiString client = cbbClient->Text;
-                
+
+        char strMsg[256],strSQL[512];
+        sprintf(strMsg,"\n  真要新增 [%s][%d] 的记录吗？  \n",cbbClient->Text.c_str(), recv_date);
+        if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                return;
+
         if (!chk_input()){
                 return;
         }
 
-       CString szSQL;
-       szSQL="insert into recvcharge(client, recvdate, status, charge, \
+        CString szSQL;
+        //先查询记录是否已经存在
+        szSQL="select * from recvcharge where 1=1 ";
+        if (!cbbClient->Text.IsEmpty()) {
+                szSQL += " and client="; szSQL += Str2DBString(cbbClient->Text.c_str());
+                szSQL += " and recvdate="; szSQL += Int2DBString(recv_date);
+        }
+	RunSQL(dm1->Query1,szSQL,true);
+        if (!dm1->Query1->Eof){
+                CString msg;
+                msg.Format("记录已存在!\n\n客户:%s\n应收款日期:%d\n状态:%s\n备注:%s\n",
+                                dm1->Query1->FieldByName("client")->AsString.c_str(),
+                                dm1->Query1->FieldByName("recvdate")->AsInteger,
+                                dm1->Query1->FieldByName("status")->AsString.c_str(),
+                                dm1->Query1->FieldByName("beizhu")->AsString.c_str()
+                                );
+                ShowMessage(AnsiString(msg));
+                return;
+        }
+        //～
+
+        szSQL="insert into recvcharge(client, recvdate, status, charge, \
                                         recveddate, beizhu, recv_flag) \
                         values(";
         szSQL += Str2DBString(cbbClient->Text.c_str());
@@ -636,21 +687,18 @@ void __fastcall TReceivablesForm::btnNewClick(TObject *Sender)
         szSQL +=","; szSQL += Str2DBString(edtBeiZhu->Text.c_str());
         szSQL +=","; szSQL += Int2DBString(cbRecvFlag->Checked?1:0);
         szSQL +=")";
-//        Edit1->Text = AnsiString(szSQL);
-//        .... 错位 导致 key 冲突
+        
         if(!RunSQL(dm1->Query1,szSQL))
         {
                 ShowMessage("insert fail!") ;
                 return;
         }
-        refreshLvByInput();
+        refreshLvByInputNew();
         ShowMessage("新增成功");
-*/
+
         m_enWorkState=EN_NEW;
         ResetCtrl();
 
-//        btnNew->Enabled = false;
-//        btnNewGoOn->Enabled = !btnNew->Enabled;
 
 }
 //---------------------------------------------------------------------------
@@ -661,6 +709,45 @@ void __fastcall TReceivablesForm::btnNewGoOnClick(TObject *Sender)
         ResetCtrl();
 //        btnNewGoOn->Enabled = false;
 //        btnNew->Enabled = !btnNewGoOn->Enabled;
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TReceivablesForm::cbbClientChange(TObject *Sender)
+{
+        cbbClient->Items->Clear();
+
+        AnsiString val = cbbClient->Text;
+        if (cbbClient->Text.IsEmpty()) {
+                return;
+        }
+        cbbClient->SelStart = AnsiString(cbbClient->Text).Length();
+        CString szSQL;
+	szSQL.Format("select shortname,customs_charge from client where shortname like '%%%s%%'", cbbClient->Text.c_str());
+	RunSQL(dm1->Query1,szSQL,true);
+
+	while(!dm1->Query1->Eof)
+	{
+                cbbClient->Items->Add(dm1->Query1->FieldByName("shortname")->AsString); //0107
+		dm1->Query1->Next();
+        }
+
+        cbbClient->Text = val;        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TReceivablesForm::cbbClientSelect(TObject *Sender)
+{
+        int nSel = cbbClient->ItemIndex;
+        if (nSel == -1)
+                return;               
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TReceivablesForm::Button1Click(TObject *Sender)
+{
+         this->TrayIcon1->Minimize();            
 }
 //---------------------------------------------------------------------------
 

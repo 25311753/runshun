@@ -1,6 +1,6 @@
 object ReceivablesForm: TReceivablesForm
-  Left = 89
-  Top = 156
+  Left = -1337
+  Top = -206
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = #24212#25910#27454
@@ -24,6 +24,7 @@ object ReceivablesForm: TReceivablesForm
     Height = 23
     Caption = #26368#23567#21270
     TabOrder = 0
+    OnClick = Button1Click
   end
   object btnAdd: TButton
     Left = 2
@@ -46,9 +47,9 @@ object ReceivablesForm: TReceivablesForm
   object btnNew: TButton
     Left = 217
     Top = 0
-    Width = 88
+    Width = 73
     Height = 25
-    Caption = #26032#22686#25910#27454#35760#24405
+    Caption = #26032#22686
     TabOrder = 3
     OnClick = btnNewClick
   end
@@ -93,6 +94,8 @@ object ReceivablesForm: TReceivablesForm
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 13
         TabOrder = 1
+        OnChange = cbbClientChange
+        OnSelect = cbbClientSelect
       end
       object Panel20: TPanel
         Left = 214
@@ -433,7 +436,7 @@ object ReceivablesForm: TReceivablesForm
     OnMouseDown = lstViewDownMouseDown
   end
   object btnNewGoOn: TButton
-    Left = 304
+    Left = 289
     Top = 0
     Width = 75
     Height = 25

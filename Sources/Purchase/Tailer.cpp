@@ -1132,6 +1132,9 @@ void __fastcall TTailerForm::btnDelClick(TObject *Sender)
 
 void __fastcall TTailerForm::btnPrnOutCarClick(TObject *Sender)
 {
+        if (!lstViewDown->Selected){
+                return;
+        }
         TPrnCYDForm *pForm;
  	pForm=new TPrnCYDForm(this);
         assert(pForm!=NULL);

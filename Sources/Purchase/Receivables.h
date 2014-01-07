@@ -72,6 +72,9 @@ __published:	// IDE-managed Components
           TCustomDrawStage Stage, bool &DefaultDraw);
         void __fastcall btnNewClick(TObject *Sender);
         void __fastcall btnNewGoOnClick(TObject *Sender);
+        void __fastcall cbbClientChange(TObject *Sender);
+        void __fastcall cbbClientSelect(TObject *Sender);
+        void __fastcall Button1Click(TObject *Sender);
 private:	// User declarations
         enum { EN_IDLE, EN_EDIT, EN_ADD, EN_NEW } m_enWorkState;
         int m_hl_col;
@@ -90,6 +93,7 @@ public:		// User declarations
         void refreshLvByInput();
         void flush_total_row(int row);
         void flush_total_col(int col);
+        void refreshLvByInputNew();
 
 };
 //---------------------------------------------------------------------------

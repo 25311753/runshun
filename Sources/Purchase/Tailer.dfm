@@ -1,9 +1,11 @@
 object TailerForm: TTailerForm
-  Left = 23
-  Top = 0
-  Width = 1257
-  Height = 770
+  Left = -1257
+  Top = -89
+  AutoScroll = False
+  BorderIcons = [biSystemMenu]
   Caption = #25302#36710#31995#32479
+  ClientHeight = 732
+  ClientWidth = 1241
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,12 +21,12 @@ object TailerForm: TTailerForm
     Left = -1
     Top = 24
     Width = 1142
-    Height = 225
-    Color = clInactiveCaption
+    Height = 287
+    Color = clInactiveCaptionText
     TabOrder = 0
     object pl_input_varcharge: TPanel
       Left = 2
-      Top = 118
+      Top = 181
       Width = 1140
       Height = 50
       Color = clInactiveCaption
@@ -326,13 +328,13 @@ object TailerForm: TTailerForm
       Left = 2
       Top = 2
       Width = 1144
-      Height = 117
+      Height = 178
       Color = clInactiveCaption
       Locked = True
       TabOrder = 1
       object Panel9: TPanel
         Left = 2
-        Top = 68
+        Top = 132
         Width = 60
         Height = 21
         BevelInner = bvLowered
@@ -349,7 +351,7 @@ object TailerForm: TTailerForm
       end
       object Panel8: TPanel
         Left = 368
-        Top = 46
+        Top = 110
         Width = 60
         Height = 21
         BevelInner = bvLowered
@@ -366,7 +368,7 @@ object TailerForm: TTailerForm
       end
       object Panel7: TPanel
         Left = 185
-        Top = 46
+        Top = 110
         Width = 60
         Height = 21
         BevelInner = bvLowered
@@ -433,7 +435,7 @@ object TailerForm: TTailerForm
         TabOrder = 5
       end
       object Panel3: TPanel
-        Left = 428
+        Left = 550
         Top = 3
         Width = 60
         Height = 21
@@ -451,7 +453,7 @@ object TailerForm: TTailerForm
       end
       object Panel25: TPanel
         Left = 550
-        Top = 68
+        Top = 132
         Width = 60
         Height = 21
         BevelInner = bvLowered
@@ -468,7 +470,7 @@ object TailerForm: TTailerForm
       end
       object Panel24: TPanel
         Left = 368
-        Top = 68
+        Top = 132
         Width = 60
         Height = 21
         BevelInner = bvLowered
@@ -502,7 +504,7 @@ object TailerForm: TTailerForm
       end
       object Panel14: TPanel
         Left = 2
-        Top = 90
+        Top = 154
         Width = 60
         Height = 21
         BevelInner = bvLowered
@@ -536,7 +538,7 @@ object TailerForm: TTailerForm
       end
       object Panel12: TPanel
         Left = 185
-        Top = 68
+        Top = 132
         Width = 60
         Height = 21
         BevelInner = bvLowered
@@ -553,7 +555,7 @@ object TailerForm: TTailerForm
       end
       object Panel11: TPanel
         Left = 2
-        Top = 46
+        Top = 110
         Width = 60
         Height = 21
         BevelInner = bvLowered
@@ -570,7 +572,7 @@ object TailerForm: TTailerForm
       end
       object Panel10: TPanel
         Left = 550
-        Top = 46
+        Top = 110
         Width = 60
         Height = 21
         BevelInner = bvLowered
@@ -604,7 +606,7 @@ object TailerForm: TTailerForm
       end
       object edtTranCompany: TEdit
         Left = 610
-        Top = 46
+        Top = 110
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -620,7 +622,7 @@ object TailerForm: TTailerForm
       end
       object edtLoadTel: TEdit
         Left = 428
-        Top = 46
+        Top = 110
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -628,7 +630,7 @@ object TailerForm: TTailerForm
       end
       object edtLoadLinkMan: TEdit
         Left = 245
-        Top = 46
+        Top = 110
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -636,7 +638,7 @@ object TailerForm: TTailerForm
       end
       object edtFareOut: TEdit
         Left = 245
-        Top = 68
+        Top = 132
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -645,7 +647,7 @@ object TailerForm: TTailerForm
       end
       object edtFare: TEdit
         Left = 62
-        Top = 68
+        Top = 132
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -654,7 +656,7 @@ object TailerForm: TTailerForm
       end
       object edtDriver: TEdit
         Left = 610
-        Top = 68
+        Top = 132
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -670,7 +672,7 @@ object TailerForm: TTailerForm
       end
       object edtCarNo: TEdit
         Left = 428
-        Top = 68
+        Top = 132
         Width = 122
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -678,7 +680,7 @@ object TailerForm: TTailerForm
       end
       object edtBeiZhu: TEdit
         Left = 62
-        Top = 90
+        Top = 154
         Width = 670
         Height = 21
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -716,7 +718,7 @@ object TailerForm: TTailerForm
       end
       object cbbGoodsPerf: TComboBox
         Left = 62
-        Top = 46
+        Top = 110
         Width = 122
         Height = 21
         Style = csDropDownList
@@ -788,7 +790,7 @@ object TailerForm: TTailerForm
         Left = 736
         Top = 22
         Width = 339
-        Height = 93
+        Height = 153
         Columns = <
           item
             Caption = #38598#35013#31665#21495
@@ -810,21 +812,21 @@ object TailerForm: TTailerForm
         OnSelectItem = lstViewContainerSelectItem
       end
       object memoLading: TMemo
-        Left = 488
+        Left = 610
         Top = 3
         Width = 122
-        Height = 20
+        Height = 106
         ScrollBars = ssVertical
         TabOrder = 35
       end
-    end
-    object Panel45: TPanel
-      Left = 1
-      Top = 168
-      Width = 1140
-      Height = 5
-      Color = 16349446
-      TabOrder = 2
+      object memoLoadAddress: TMemo
+        Left = 61
+        Top = 25
+        Width = 548
+        Height = 85
+        ScrollBars = ssVertical
+        TabOrder = 36
+      end
     end
   end
   object btnAdd: TButton
@@ -856,7 +858,7 @@ object TailerForm: TTailerForm
   end
   object pl_query: TPanel
     Left = -1
-    Top = 196
+    Top = 259
     Width = 1140
     Height = 51
     Color = clInactiveCaption
@@ -1125,10 +1127,10 @@ object TailerForm: TTailerForm
     OnClick = Button1Click
   end
   object lstViewDown: TListView
-    Left = 8
-    Top = 256
+    Left = 0
+    Top = 312
     Width = 1235
-    Height = 442
+    Height = 419
     Columns = <
       item
         Caption = 'N'
@@ -1198,31 +1200,31 @@ object TailerForm: TTailerForm
       end
       item
         Caption = 'containerinfo'
-        Width = 10
+        Width = 0
       end
       item
         Caption = 'loadaddress'
-        Width = 10
+        Width = 0
       end
       item
         Caption = 'loadlinkman'
-        Width = 10
+        Width = 0
       end
       item
         Caption = 'loadtel'
-        Width = 10
+        Width = 0
       end
       item
         Caption = 'beizhu'
-        Width = 10
+        Width = 0
       end
       item
         Caption = 'charge_cost'
-        Width = 100
+        Width = 0
       end
       item
         Caption = 'id'
-        Width = 100
+        Width = 0
       end>
     FlatScrollBars = True
     GridLines = True
@@ -1241,14 +1243,6 @@ object TailerForm: TTailerForm
     Caption = #29983#25104#27966#36710#21333
     TabOrder = 9
     OnClick = btnPrnOutCarClick
-  end
-  object memoLoadAddress: TMemo
-    Left = 63
-    Top = 51
-    Width = 672
-    Height = 20
-    ScrollBars = ssVertical
-    TabOrder = 10
   end
   object TrayIcon1: TTrayIcon
     Hint = #28070#39034#25253#20851
