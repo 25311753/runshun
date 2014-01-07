@@ -1,11 +1,11 @@
 object ReceivablesForm: TReceivablesForm
-  Left = -1337
-  Top = -206
+  Left = 118
+  Top = 150
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = #24212#25910#27454
-  ClientHeight = 606
-  ClientWidth = 1060
+  ClientHeight = 779
+  ClientWidth = 1412
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,7 +18,7 @@ object ReceivablesForm: TReceivablesForm
   PixelsPerInch = 96
   TextHeight = 13
   object Button1: TButton
-    Left = 996
+    Left = 1348
     Top = 0
     Width = 64
     Height = 23
@@ -412,8 +412,8 @@ object ReceivablesForm: TReceivablesForm
   object lstViewDown: TListView
     Left = 1
     Top = 112
-    Width = 1058
-    Height = 490
+    Width = 1408
+    Height = 665
     Columns = <
       item
         Caption = 'N'

@@ -49,6 +49,18 @@ bool isMoney(AnsiString s, int decimal_place = 0){
         }
         return true;
 }
+bool isMoneyUnsign(AnsiString s, int decimal_place = 0){
+
+     AnsiString s_unsign;
+     if (s.Length()>0){
+             if (s.SubString(1,1)=="-"){
+                if (s.Length()>1){
+                        s_unsign = s.SubString(2,s.Length()-1);
+                }
+             }
+     }
+     return isMoney(s_unsign, decimal_place);
+}
 //设置panle里所有元素enabled属性
 void enablePlCtrl(TPanel *pl, bool enabled = true){
 	for(int i=0; i <pl->ControlCount; i++)

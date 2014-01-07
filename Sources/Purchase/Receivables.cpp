@@ -41,8 +41,10 @@ __fastcall TReceivablesForm::TReceivablesForm(TComponent* Owner)
 //---------------------------------------------------------------------------
 void TReceivablesForm::clean_input(){
         cbbClient->Text = "";
+
         TDateTime tNow=TDateTime::CurrentDateTime();
-        dtpShouldRecvDate->DateTime=tNow;
+        TDateTime amonth_ago = IncMonth(Now(), -1);
+        dtpShouldRecvDate->DateTime=amonth_ago;
         dtpRecvDate->DateTime=tNow;
         dtpRecvDate->Visible=false;
         edtCharge->Text = "";
@@ -201,16 +203,18 @@ void __fastcall TReceivablesForm::btnQryClick(TObject *Sender)
                 return;
         }
         //buf data first
-        std::map<AnsiString, std::map<int, double> > map_recv;   
+        //protocl: <client,<recvdatge, <charge, recvflag>>>
+        std::map<AnsiString, std::map<int, std::pair<double, int> > > map_recv;
         map_recv.clear();
 	while(!dm1->Query1->Eof)
 	{
                 AnsiString client = dm1->Query1->FieldByName("client")->AsString;
                 int recv_date = dm1->Query1->FieldByName("recvdate")->AsInteger;
                 double charge = dm1->Query1->FieldByName("charge")->AsFloat;
+                int recv_flag = dm1->Query1->FieldByName("recv_flag")->AsInteger;
 
-                std::map<AnsiString, std::map<int, double> >::iterator it = map_recv.find(client);
-                map_recv[client].insert(std::make_pair(recv_date, charge));
+                std::map<AnsiString, std::map<int, std::pair<double, int> > >::iterator it = map_recv.find(client);
+                map_recv[client].insert(std::make_pair(recv_date, std::make_pair(charge, recv_flag)));
 
 		dm1->Query1->Next();
 	}
@@ -220,12 +224,14 @@ void __fastcall TReceivablesForm::btnQryClick(TObject *Sender)
                 int min_recv_date = 0;
                 int max_recv_date = 0;
                 //if qry all, mod date scope
-                for (std::map<AnsiString, std::map<int, double> >::iterator it = map_recv.begin(); \
+                for (std::map<AnsiString, std::map<int, std::pair<double, int> > >::iterator it = map_recv.begin(); \
                                                                 it != map_recv.end(); \
                                                                 ++it)
-
                 {
-                        for (std::map<int, double>::iterator it_date_charge = it->second.begin(); it_date_charge!=it->second.end(); ++it_date_charge){
+                        for (std::map<int, std::pair<double, int> >::iterator it_date_charge = \
+                                 it->second.begin(); it_date_charge!=it->second.end(); \
+                                 ++it_date_charge)
+                        {
                                 int recv_date = it_date_charge->first;
                                 //init
                                 if (min_recv_date==0){
@@ -249,8 +255,16 @@ void __fastcall TReceivablesForm::btnQryClick(TObject *Sender)
         draw_column(lstViewDown, start_recv_date, end_recv_date);
 
         //fill data
+        //for calcu total_col data
+        std::map<int, double> total_col_buf;
+        total_col_buf.clear();
+        //init
+        for (int i=start_recv_date; i<=end_recv_date; ++i){
+                total_col_buf.insert(std::make_pair(i, 0));
+        }
 
-        for (std::map<AnsiString, std::map<int, double> >::iterator it = map_recv.begin(); \
+        for (std::map<AnsiString, std::map<int, std::pair<double, int> > >::iterator it= \
+                                                                map_recv.begin();
                                                                 it != map_recv.end(); \
                                                                 ++it)
         {
@@ -258,23 +272,34 @@ void __fastcall TReceivablesForm::btnQryClick(TObject *Sender)
                 TListItem *pItem = lstViewDown->Items->Item[row];
                 AnsiString client = it->first;
                 double total_row = 0;
-                for (std::map<int, double>::iterator it2 = it->second.begin(); \
+                for (std::map<int, std::pair<double, int> >::iterator it2 = it->second.begin(); \
                                                                 it2 != it->second.end(); \
                                                                 ++it2)
                 {
                         pItem->SubItems->Strings[0] = client;
-                        pItem->SubItems->Strings[get_col_pos(it2->first)] = it2->second;
-                        total_row += it2->second;
+                        pItem->SubItems->Strings[get_col_pos(it2->first)] = it2->second.first;
+                        if (it2->second.second==0){
+                                total_row += it2->second.first;
+                                total_col_buf[it2->first] += it2->second.first;
+                        }
                 }
-//                 pItem->SubItems->Strings[lstViewDown->Columns->Count -2] = AnsiString(total_row);
-                flush_total_row(row);
+                 pItem->SubItems->Strings[lstViewDown->Columns->Count -2] = AnsiString(total_row);
+//                flush_total_row(row);
         }
-        //add total_col
-        add_empty_row();
 
+        //add total_col
+        int row = add_empty_row();
+        TListItem *pItem_total_col = lstViewDown->Items->Item[row];
+        pItem_total_col->Caption = "合计";
+        for (std::map<int, double >::iterator it=total_col_buf.begin(); it!=total_col_buf.end(); ++it){
+                pItem_total_col->SubItems->Strings[get_col_pos(it->first)] = it->second;
+        }
+        flush_total_col(lstViewDown->Columns->Count-2);
+/*
         for (int pos_col=COL_CLIENT+1; pos_col<lstViewDown->Columns->Count-1; ++pos_col){
              flush_total_col(pos_col);
         }
+*/
 }
 //---------------------------------------------------------------------------
 void TReceivablesForm::flush_total_row(int row){
@@ -393,6 +418,8 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
                                                 int recv_date = StrToInt(lstViewDown->Columns->Items[column]->Caption);
                                                 bool b_have_data = cell2input(client, recv_date);  //may change workstate
                                                 m_enWorkState= b_have_data?EN_EDIT:EN_ADD;
+                                                m_bRecvFlag = cbRecvFlag->Checked;
+
 
                                                 //if b_have_data=false, this work!!
                                                 CString sdate;
@@ -416,6 +443,48 @@ void __fastcall TReceivablesForm::lstViewDownMouseDown(TObject *Sender,
         ResetCtrl();
 }
 //---------------------------------------------------------------------------
+void  TReceivablesForm::refreshLvByInput2(){
+        if (lstViewDown->Selected){
+                int pos_last_row = lstViewDown->Items->Count -1;;
+                int pos_last_col = lstViewDown->Columns->Count-2;
+                int col = get_col_pos(GetYYYYMM(dtpShouldRecvDate));
+                AnsiString str_old_charge = lstViewDown->Selected->SubItems->Strings[col];
+                double old_charge = StrToFloat(str_old_charge.IsEmpty()?"0":str_old_charge.c_str());
+                double new_charge = StrToFloat(edtCharge->Text.c_str());
+                double old_charge_total_row = StrToFloat(lstViewDown->Selected->SubItems->Strings[pos_last_col].c_str());
+                TListItem *pItem_last_row = lstViewDown->Items->Item[pos_last_row];
+                double old_charge_total_col = StrToFloat(pItem_last_row->SubItems->Strings[pos_last_col]);
+                double old_charge_total_col_current = StrToFloat(pItem_last_row->SubItems->Strings[col]);
+                lstViewDown->Selected->SubItems->Strings[col] = edtCharge->Text;
+/*
+                old_cbRecvFlag-Checked ~ new_cbRecvFlag->Checked
+                0->0 des old, inc new
+                0->1 des old
+                1->0 inc new
+                1->1 skip
+*/
+                if (!m_bRecvFlag){
+                    old_charge_total_row -= old_charge;
+                    old_charge_total_col -= old_charge;
+                    old_charge_total_col_current -= old_charge;
+
+                }
+                if (!cbRecvFlag->Checked){
+                    old_charge_total_row += new_charge;
+                    old_charge_total_col += new_charge;
+                    old_charge_total_col_current += new_charge;
+                }
+                //flush last col
+                lstViewDown->Selected->SubItems->Strings[pos_last_col] = old_charge_total_row;
+                //flush last row
+                pItem_last_row->SubItems->Strings[pos_last_col] = old_charge_total_col;
+
+                //flush current col       
+                pItem_last_row->SubItems->Strings[col] = old_charge_total_col_current;
+
+        }
+}
+
 void  TReceivablesForm::refreshLvByInput(){
         if (lstViewDown->Selected){
                 int col = get_col_pos(GetYYYYMM(dtpShouldRecvDate));
@@ -468,7 +537,7 @@ void __fastcall TReceivablesForm::btnModClick(TObject *Sender)
                 return;
         }
         //reset charge in ori-cell by recv_date(column):
-        refreshLvByInput();
+        refreshLvByInput2();
 
         ShowMessage("修改成功");
         m_enWorkState=EN_IDLE;
@@ -479,7 +548,7 @@ void __fastcall TReceivablesForm::btnModClick(TObject *Sender)
 
 void __fastcall TReceivablesForm::edtChargeChange(TObject *Sender)
 {
-        if (!isMoney(edtCharge->Text, DECIMAL_PLACE_CHARGE)){
+        if (!isMoneyUnsign(edtCharge->Text, DECIMAL_PLACE_CHARGE)){
                 ShowMessage("输入非法, 请输入"+AnsiString(DECIMAL_PLACE_CHARGE)+"位金额值");
                 edtCharge->Text = 0;
                 return;
@@ -540,7 +609,7 @@ void __fastcall TReceivablesForm::btnAddClick(TObject *Sender)
                 ShowMessage("insert fail!") ;
                 return;
         }
-        refreshLvByInput();
+        refreshLvByInput2();
         ShowMessage("添加成功");
         m_enWorkState=EN_IDLE;
         ResetCtrl();
@@ -750,4 +819,5 @@ void __fastcall TReceivablesForm::Button1Click(TObject *Sender)
          this->TrayIcon1->Minimize();            
 }
 //---------------------------------------------------------------------------
+
 

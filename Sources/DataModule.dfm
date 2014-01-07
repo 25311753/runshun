@@ -9,8 +9,8 @@ object dm1: Tdm1
     DatabaseName = 'runshun'
     LoginPrompt = False
     Params.Strings = (
-      'user name=runshunuser2'
-      'password=runshunuser2')
+      'user name=runshunuser'
+      'password=runshunuser')
     SessionName = 'Default'
     Left = 24
     Top = 14

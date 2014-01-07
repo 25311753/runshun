@@ -78,6 +78,7 @@ __published:	// IDE-managed Components
 private:	// User declarations
         enum { EN_IDLE, EN_EDIT, EN_ADD, EN_NEW } m_enWorkState;
         int m_hl_col;
+        bool m_bRecvFlag; //缓存修改前的收款状态，用于刷新total。
 //        bool m_cell_selected;
 public:		// User declarations
         __fastcall TReceivablesForm(TComponent* Owner);
@@ -94,6 +95,7 @@ public:		// User declarations
         void flush_total_row(int row);
         void flush_total_col(int col);
         void refreshLvByInputNew();
+        void refreshLvByInput2();
 
 };
 //---------------------------------------------------------------------------
