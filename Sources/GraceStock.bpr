@@ -3,7 +3,7 @@
 <PROJECT>
   <MACROS>
     <VERSION value="BCB.06.00"/>
-    <PROJECT value="e:\work_space\bin\runshun\Exec\GraceStock.exe"/>
+    <PROJECT value="d:\workspace\bin\runshun\Exec\GraceStock.exe"/>
     <OBJFILES value="..\..\..\bin\runshun\TempOBJ\GraceStock.obj 
       ..\..\..\bin\runshun\TempOBJ\DataModule.obj 
       ..\..\..\bin\runshun\TempOBJ\UserLogin.obj 
@@ -116,7 +116,7 @@
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="GraceStock.cpp"/>
     <INCLUDEPATH value="tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;&quot;E:\Program Files\Borland\CBuilder6\Bin&quot;;..\..;&quot;E:\Program Files\Borland\CBuilder6\Projects&quot;;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl"/>
-    <LIBPATH value="e:\work_space\bin\runshun\Exec;tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;&quot;E:\Program Files\Borland\CBuilder6\Bin&quot;;..\..;&quot;E:\Program Files\Borland\CBuilder6\Projects&quot;;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <LIBPATH value="d:\workspace\bin\runshun\Exec;tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;&quot;E:\Program Files\Borland\CBuilder6\Bin&quot;;..\..;&quot;E:\Program Files\Borland\CBuilder6\Projects&quot;;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib"/>
     <WARNINGS value="-w-par -w-8027 -w-8026 -w-aus"/>
     <OTHERFILES value=""/>
   </MACROS>
@@ -128,12 +128,12 @@
       -IBaseData -I&quot;C:\Program Files\Borland\CBuilder6\Bin&quot; -IBaseCode -ISystem 
       -IFromLCG -I$(BCB)\include -I$(BCB)\include\vcl -src_suffix cpp -boa"/>
     <CFLAG1 value="-O2 -H=$(BCB)\lib\vcl50.csm -Hc -Vx -Ve -X- -a8 -5 -b- -k- -vi -c -tW -tWM"/>
-    <PFLAGS value="-N2e:\work_space\bin\runshun\TempOBJ -N0e:\work_space\bin\runshun\TempOBJ 
+    <PFLAGS value="-N2d:\workspace\bin\runshun\TempOBJ -N0d:\workspace\bin\runshun\TempOBJ 
       -$Y- -$L- -$D- -$A8 -v -JPHNE -M"/>
     <RFLAGS value=""/>
     <AFLAGS value="/mx /w2 /zn"/>
-    <LFLAGS value="-le:\work_space\bin\runshun\TempOBJ -Ie:\work_space\bin\runshun\TempOBJ 
-      -D&quot;&quot; -aa -Tpe -x -Gn"/>
+    <LFLAGS value="-ld:\workspace\bin\runshun\TempOBJ -Id:\workspace\bin\runshun\TempOBJ -D&quot;&quot; 
+      -aa -Tpe -x -Gn"/>
     <OTHERFILES value=""/>
   </OPTIONS>
   <LINKER>
@@ -266,8 +266,8 @@ Item16=$(BCB)\include;$(BCB)\include\vcl
 
 [HistoryLists\hlLibraryPath]
 Count=19
-Item0=e:\work_space\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
-Item1=d:\workspace\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
+Item0=d:\workspace\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
+Item1=e:\work_space\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
 Item2=..\..\asi\Sources\Purchase;E:\work_space\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
 Item3=E:\work_space\bin_runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
 Item4=E:\work_space\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
@@ -296,8 +296,8 @@ Item0=_DEBUG
 
 [HistoryLists\hlIntOutputDir]
 Count=6
-Item0=e:\work_space\bin\runshun\TempOBJ
-Item1=d:\workspace\bin\runshun\TempOBJ
+Item0=d:\workspace\bin\runshun\TempOBJ
+Item1=e:\work_space\bin\runshun\TempOBJ
 Item2=E:\work_space\bin_runshun\TempOBJ
 Item3=E:\work_space\runshun\TempOBJ
 Item4=..\TempOBJ
@@ -305,8 +305,8 @@ Item5=D:\lao\GraceStock\TempOBJ
 
 [HistoryLists\hlFinalOutputDir]
 Count=8
-Item0=e:\work_space\bin\runshun\Exec\
-Item1=d:\workspace\bin\runshun\Exec\
+Item0=d:\workspace\bin\runshun\Exec\
+Item1=e:\work_space\bin\runshun\Exec\
 Item2=E:\work_space\bin_runshun\Exec\
 Item3=E:\work_space\runshun\Exec\
 Item4=..\Exec\
@@ -316,8 +316,8 @@ Item7=D:\lao\Share
 
 [HistoryLists\hIBPIOutputDir]
 Count=9
-Item0=e:\work_space\bin\runshun\TempOBJ
-Item1=d:\workspace\bin\runshun\TempOBJ
+Item0=d:\workspace\bin\runshun\TempOBJ
+Item1=e:\work_space\bin\runshun\TempOBJ
 Item2=E:\work_space\bin_runshun\TempOBJ
 Item3=E:\work_space\runshun\TempOBJ
 Item4=..\TempOBJ
@@ -350,5 +350,10 @@ LinkCGLIB=0
 AddServerUnit=1
 AddClientUnit=1
 PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
   </IDEOPTIONS>
 </PROJECT>

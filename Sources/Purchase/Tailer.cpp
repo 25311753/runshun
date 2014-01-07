@@ -540,9 +540,9 @@ int TTailerForm::addData(TObject *Sender){
                         values(";
         szSQL += Str2DBString(cbbClient->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
-        szSQL +=","; szSQL += Str2DBString(memoLading->Text.c_str());
-//        szSQL +=","; szSQL += Str2DBString(edtLoadAddress->Text.c_str());
-        szSQL +=","; szSQL += Str2DBString(memoLoadAddress->Text.c_str());
+        szSQL +=","; szSQL += Str2DBString(memoLading->Text.IsEmpty()?"":memoLading->Text.c_str());
+
+/*        szSQL +=","; szSQL += Str2DBString(memoLoadAddress->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(edtLoadLinkMan->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(edtLoadTel->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(GetContainerInfo(lstViewContainer));
@@ -556,7 +556,21 @@ int TTailerForm::addData(TObject *Sender){
         szSQL +=","; szSQL += Str2DBString(edtDriver->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(edtBeiZhu->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(cbbGoodsPerf->Text.c_str());
-
+*/
+        szSQL +=","; szSQL += Str2DBString(memoLoadAddress->Text.IsEmpty()?"":memoLoadAddress->Text.c_str());  
+        szSQL +=","; szSQL += Str2DBString(getByEdt2(edtLoadLinkMan));
+        szSQL +=","; szSQL += Str2DBString(getByEdt2(edtLoadTel));
+        szSQL +=","; szSQL += Str2DBString(GetContainerInfo(lstViewContainer));   
+        szSQL +=","; szSQL += Text2DBFloat(edtFare->Text.IsEmpty()?AnsiString("0"):edtFare->Text,4).c_str();
+        szSQL +=","; szSQL += Text2DBFloat(edtFareOut->Text.IsEmpty()?AnsiString("0"):edtFareOut->Text,4).c_str();
+        szSQL +=","; szSQL += Str2DBString(GetTailerChargeInfo());            
+        szSQL +=","; szSQL += Text2DBFloat(edtTotalCharge->Text.IsEmpty()?AnsiString("0"):edtTotalCharge->Text,DECIMAL_PLACE_CHARGE).c_str();
+        szSQL +=","; szSQL += Text2DBFloat(edtTotalCost->Text.IsEmpty()?AnsiString("0"):edtTotalCost->Text,DECIMAL_PLACE_COST).c_str();
+        szSQL +=","; szSQL += Str2DBString(getByEdt2(edtTranCompany));
+        szSQL +=","; szSQL += Str2DBString(getByEdt2(edtCarNo));
+        szSQL +=","; szSQL += Str2DBString(getByEdt2(edtDriver));
+        szSQL +=","; szSQL += Str2DBString(getByEdt2(edtBeiZhu));
+        szSQL +=","; szSQL += Str2DBString(cbbGoodsPerf->Text.IsEmpty()?"":cbbGoodsPerf->Text.c_str());
         szSQL +=")";
 
         if(!RunSQL(dm1->Query1,szSQL))
@@ -584,9 +598,18 @@ int TTailerForm::addData(TObject *Sender){
         pItem->SubItems->Add(AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM)));
         pItem->SubItems->Add(cbbClient->Text);
         pItem->SubItems->Add(memoLading->Text);
-        pItem->SubItems->Add(lstViewContainer->Items->Item[0]->Caption);
-        pItem->SubItems->Add(lstViewContainer->Items->Item[0]->SubItems->Strings[1].c_str());
-        pItem->SubItems->Add(lstViewContainer->Items->Item[0]->SubItems->Strings[0].c_str());
+
+        AnsiString container_no = "";
+        AnsiString sealid = "";
+        AnsiString container_type = "";
+        if (cnt_con>0){
+                container_no = lstViewContainer->Items->Item[0]->Caption;
+                sealid  = lstViewContainer->Items->Item[0]->SubItems->Strings[1];
+                container_type = lstViewContainer->Items->Item[0]->SubItems->Strings[0];
+        }
+        pItem->SubItems->Add(container_no.c_str());
+        pItem->SubItems->Add(sealid.c_str());
+        pItem->SubItems->Add(container_type.c_str());
         pItem->SubItems->Add(IntToStr(cnt_con));
         pItem->SubItems->Add(edtTranCompany->Text);
         pItem->SubItems->Add(edtDriver->Text);
@@ -603,7 +626,7 @@ int TTailerForm::addData(TObject *Sender){
                        edt2money(edtTotalCost, DECIMAL_PLACE_CHARGE);
         pItem->SubItems->Add(lirun);
         pItem->SubItems->Add(AnsiString(GetContainerInfo(lstViewContainer)));
-//        pItem->SubItems->Add(edtLoadAddress->Text);
+
         pItem->SubItems->Add(memoLoadAddress->Text);
         pItem->SubItems->Add(edtLoadLinkMan->Text);
         pItem->SubItems->Add(edtLoadTel->Text);
@@ -1155,7 +1178,8 @@ void __fastcall TTailerForm::btnPrnOutCarClick(TObject *Sender)
         pForm->qrmLading->Lines = memoLading->Lines;
         pForm->qrlBeiZhu->Caption = edtBeiZhu->Text;
         pForm->qrl_date->Caption = AnsiString(GetSysDate());
-        pForm->qrlContainerType->Caption = lstViewContainer->Items->Item[0]->SubItems->Strings[0].c_str();
+
+        pForm->qrlContainerType->Caption = lstViewContainer->Items->Count>0?lstViewContainer->Items->Item[0]->SubItems->Strings[0].c_str():"";
 
 
         
