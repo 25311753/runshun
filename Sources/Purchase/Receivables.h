@@ -49,6 +49,10 @@ __published:	// IDE-managed Components
         TButton *btnCleanQry;
         TCheckBox *cbRecvFlag;
         TButton *btnNewGoOn;
+        TPanel *Panel6;
+        TEdit *edtQryCharge;
+        TEdit *edtQryChargeEnd;
+        TCheckBox *cbIsQryByCharge;
         void __fastcall btnCleanQryClick(TObject *Sender);
         void __fastcall FormShow(TObject *Sender);
         void __fastcall cbbQryClientSelect(TObject *Sender);

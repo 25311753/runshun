@@ -60,10 +60,16 @@ void TReceivablesForm::clean_query(){
         cbbQryStatus->ItemIndex = -1;
         cbbQryStatus->Text = "";
 
+        edtQryCharge->Text = "";
+        edtQryChargeEnd->Text = "";
+
+
         TDateTime tNow=TDateTime::CurrentDateTime();
         dtpQryShouldRecvDate->DateTime=tNow;
         dtpQryShouldRecvDateEnd->DateTime=tNow;
         cbIsQryByDate->Checked = false;
+        cbIsQryByCharge->Checked = false;
+
 }
 
 void __fastcall TReceivablesForm::btnCleanQryClick(TObject *Sender)
@@ -190,6 +196,12 @@ void __fastcall TReceivablesForm::btnQryClick(TObject *Sender)
                 szSQL += " and ";
                 szSQL += Int2DBString(end_recv_date);
         }
+        if (cbIsQryByCharge->Checked) {
+                szSQL += " and charge between "; szSQL += Text2DBFloat(edtQryCharge->Text.IsEmpty()?AnsiString("0"):edtQryCharge->Text,4).c_str();
+                szSQL += " and ";
+                szSQL += Text2DBFloat(edtQryChargeEnd->Text.IsEmpty()?AnsiString("0"):edtQryChargeEnd->Text,4).c_str();
+        }
+
         szSQL += " order by recvdate";
 //        Edit1->Text = AnsiString(szSQL);
         TListItem *pItem;
@@ -819,5 +831,7 @@ void __fastcall TReceivablesForm::Button1Click(TObject *Sender)
          this->TrayIcon1->Minimize();            
 }
 //---------------------------------------------------------------------------
+
+
 
 

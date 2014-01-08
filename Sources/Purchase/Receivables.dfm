@@ -1,6 +1,6 @@
 object ReceivablesForm: TReceivablesForm
-  Left = 118
-  Top = 150
+  Left = 222
+  Top = 154
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = #24212#25910#27454
@@ -330,7 +330,7 @@ object ReceivablesForm: TReceivablesForm
           #26410#25910#27454)
       end
       object btnQry: TButton
-        Left = 713
+        Left = 825
         Top = 3
         Width = 82
         Height = 19
@@ -399,13 +399,58 @@ object ReceivablesForm: TReceivablesForm
         TabOrder = 7
       end
       object btnCleanQry: TButton
-        Left = 798
+        Left = 907
         Top = 3
         Width = 82
         Height = 19
         Caption = #28165#38500
         TabOrder = 8
         OnClick = btnCleanQryClick
+      end
+      object Panel6: TPanel
+        Left = 556
+        Top = 3
+        Width = 74
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #24212#25910#27454
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 9
+        object cbIsQryByCharge: TCheckBox
+          Left = 58
+          Top = 3
+          Width = 16
+          Height = 17
+          Caption = 'cbIsQryByDate'
+          Checked = True
+          State = cbChecked
+          TabOrder = 0
+        end
+      end
+      object edtQryCharge: TEdit
+        Left = 632
+        Top = 3
+        Width = 79
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 10
+        OnChange = edtChargeChange
+      end
+      object edtQryChargeEnd: TEdit
+        Left = 714
+        Top = 3
+        Width = 79
+        Height = 21
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        TabOrder = 11
+        OnChange = edtChargeChange
       end
     end
   end
