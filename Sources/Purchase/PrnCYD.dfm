@@ -1304,20 +1304,20 @@ object PrnCYDForm: TPrnCYDForm
         FontSize = 10
       end
       object qrmLoadAddress: TQRMemo
-        Left = 120
-        Top = 139
-        Width = 102
-        Height = 84
+        Left = 121
+        Top = 136
+        Width = 119
+        Height = 92
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          185.208333333333
-          264.583333333333
-          306.475694444444
-          224.895833333333)
+          202.847222222222
+          266.788194444444
+          299.861111111111
+          262.378472222222)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
@@ -1325,29 +1325,29 @@ object PrnCYDForm: TPrnCYDForm
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -11
+        Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = []
         ParentFont = False
         Transparent = False
         WordWrap = True
-        FontSize = 8
+        FontSize = 10
       end
       object qrmLoadAddress2: TQRMemo
         Left = 120
-        Top = 699
-        Width = 109
-        Height = 84
+        Top = 695
+        Width = 127
+        Height = 96
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          185.208333333333
+          211.666666666667
           264.583333333333
-          1541.19791666667
-          240.329861111111)
+          1532.37847222222
+          280.017361111111)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
@@ -1355,13 +1355,13 @@ object PrnCYDForm: TPrnCYDForm
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -11
+        Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = []
         ParentFont = False
         Transparent = False
         WordWrap = True
-        FontSize = 8
+        FontSize = 10
       end
       object qrmLading: TQRMemo
         Left = 116
