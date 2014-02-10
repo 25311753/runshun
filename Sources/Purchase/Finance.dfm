@@ -1,6 +1,6 @@
 object FinanceForm: TFinanceForm
-  Left = 197
-  Top = 132
+  Left = 312
+  Top = 139
   Width = 1264
   Height = 761
   Caption = #36130#21153

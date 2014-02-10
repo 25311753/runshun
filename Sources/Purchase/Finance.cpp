@@ -1055,9 +1055,11 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
                 vExcel = Unassigned;
                 ShowMessage("导出完毕");
 
+
         }catch(...){
                 ShowMessage("导出失败");
         }
+
 }
 //---------------------------------------------------------------------------
 
