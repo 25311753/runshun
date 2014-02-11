@@ -37,8 +37,8 @@ COL_CID = 0,
         COL_CUSTFREE,
         COL_BEIZHU,
 };
-//add connoã€å¤‡æ³¨ã€å®¢æˆ·å·¥å•å·
-int charge_start_column = COL_BEIZHU+1; // è´¹ç”¨åˆ—èµ·å§‹åˆ—åç§». +0 ->ç¬¬ä¸€ä¸ªè´¹ç”¨ï¼› +1 ç¬¬äºŒä¸ªè´¹ç”¨
+//add conno¡¢±¸×¢¡¢¿Í»§¹¤µ¥ºÅ
+int charge_start_column = COL_BEIZHU+1; // ·ÑÓÃÁĞÆğÊ¼ÁĞÆ«ÒÆ. +0 ->µÚÒ»¸ö·ÑÓÃ£» +1 µÚ¶ş¸ö·ÑÓÃ
 //---------------------------------------------------------------------------
 void Finance(int nAuth)
 {
@@ -91,7 +91,7 @@ void __fastcall TFinanceForm::FormShow(TObject *Sender)
 
                 dm1->Query1->Next();
         }
-        lstView->Columns->Items[charge_start_column+(++column_charge)]->Caption = "åˆè®¡";
+        lstView->Columns->Items[charge_start_column+(++column_charge)]->Caption = "ºÏ¼Æ";
         
         cbb1->ItemIndex = 1;
         cbb2->ItemIndex = 2;
@@ -144,7 +144,7 @@ CString TFinanceForm::getAllContainerNo(AnsiString c){
                 rt += str3;
 // rt += " | "; //0329
                 if (++i<num)
-                        rt += "\r\n " ; // excelé‡Œæ¢è¡Œæ˜¾ç¤ºï¼Œæœ€åä¸€ä¸ªä¸æ·»åŠ 
+                        rt += "\r\n " ; // excelÀï»»ĞĞÏÔÊ¾£¬×îºóÒ»¸ö²»Ìí¼Ó
         }
         return rt;
 }
@@ -245,7 +245,7 @@ while(!dm1->Query1->Eof)
 
                 TListItem *pItem = lstView->Items->Add();
 
-                bool isNormal = (dm1->Query1->FieldByName("goodsperf")->AsString == "æ­£å¸¸å•");
+                bool isNormal = (dm1->Query1->FieldByName("goodsperf")->AsString == "Õı³£µ¥");
 
                 //fixed part
                 pItem->Caption = column_no;
@@ -283,9 +283,9 @@ pItem->SubItems->Add("");
                         
                         float total = 0;
                         int row = pItem->Index;
-                        //åªå¯èƒ½æœ‰10ä¸ªè´¹ç”¨
+                        //Ö»¿ÉÄÜÓĞ10¸ö·ÑÓÃ
                         for (int i=0; i<10 && !dm1->Query2->Eof; ++i){
-                                int pos = charge_start_column + cbb1->Items->IndexOf(dm1->Query2->FieldByName("chname")->AsString.c_str()) -1; //å€Ÿcbb1ç”¨
+                                int pos = charge_start_column + cbb1->Items->IndexOf(dm1->Query2->FieldByName("chname")->AsString.c_str()) -1; //½ècbb1ÓÃ
                                 InsertCustFreeToListViewOri(row, pos, dm1->Query2->FieldByName("value")->AsString);
                                 total += dm1->Query2->FieldByName("value")->AsFloat;
                                 dm1->Query2->Next();
@@ -303,7 +303,7 @@ dm1->Query1->Next();
 
 }
 //---------------------------------------------------------------------------
-//tofixedï¼ï¼too bore
+//tofixed£¡£¡too bore
 bool TFinanceForm::IsDupFree()
 {
 
@@ -414,7 +414,7 @@ void TFinanceForm::InsertValue(TComboBox *cbb, TEdit *edt){
         if (cbb->ItemIndex == 0) {
                 return;
         } else if(edt->Text.IsEmpty()){
-                ShowMessage("è¯·å¡«å†™å¯¹åº”è´¹ç”¨");
+                ShowMessage("ÇëÌîĞ´¶ÔÓ¦·ÑÓÃ");
                 if(edt->CanFocus())
                 edt->SetFocus();
                 return;
@@ -455,7 +455,7 @@ return;
 }
 }
 */
-//ç©ºç™½çŠ¶æ€æ‰å¯ä»¥æ·»åŠ ï¼Œä¸€æ—¦æ·»åŠ è¿‡ï¼Œåªèƒ½ä¿®æ”¹
+//¿Õ°××´Ì¬²Å¿ÉÒÔÌí¼Ó£¬Ò»µ©Ìí¼Ó¹ı£¬Ö»ÄÜĞŞ¸Ä
 void __fastcall TFinanceForm::btnModClick(TObject *Sender)
 {
   m_enWorkState=EN_EDIT;
@@ -711,21 +711,21 @@ int TFinanceForm::ModCharge(){
         int rt = -1;
 
         if (lstView->Selected == NULL) {
-                ShowMessage("æœªé€‰ä¸­è®°å½•");
+                ShowMessage("Î´Ñ¡ÖĞ¼ÇÂ¼");
                 return rt;
         }
         char strMsg[256],strSQL[512];
-        sprintf(strMsg,"\n ç¡®å®šä¿å­˜ä¸Šè¿°è´¹ç”¨å—ï¼Ÿ \n",edtCid->Text.c_str());
-        if(Application->MessageBox(strMsg,"è­¦å‘Š",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+        sprintf(strMsg,"\n È·¶¨±£´æÉÏÊö·ÑÓÃÂğ£¿ \n",edtCid->Text.c_str());
+        if(Application->MessageBox(strMsg,"¾¯¸æ",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return rt;
 
         if (edtCid->Text.IsEmpty()){
-                ShowMessage("è¯·å…ˆå¡«å†™å·¥å•å·");
+                ShowMessage("ÇëÏÈÌîĞ´¹¤µ¥ºÅ");
                 return rt;
         }
         //valid check
         if (IsDupFree()) {
-                ShowMessage("æœ‰é‡å¤è´¹ç”¨é¡¹ç›®,è¯·æ£€æŸ¥è¾“å…¥");
+                ShowMessage("ÓĞÖØ¸´·ÑÓÃÏîÄ¿,Çë¼ì²éÊäÈë");
                 return rt;
         }
         //del all free
@@ -761,7 +761,7 @@ int TFinanceForm::ModCharge(){
 
         //add listview
         TListItem *pItem = lstView->Items->Add();
-        bool isNormal = (lbGoodsPerf->Caption == "æ­£å¸¸å•");
+        bool isNormal = (lbGoodsPerf->Caption == "Õı³£µ¥");
         // int nColPos = 0;
         pItem->Caption = 0; //mod after
         pItem->SubItems->Add(edtCid->Text);
@@ -861,12 +861,12 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
         sfile = SaveDialog1->FileName;
 // ShowMessage(sfile);
  }else{
-        ShowMessage("å¯¼å‡ºæœªå®Œæˆ");
+        ShowMessage("µ¼³öÎ´Íê³É");
         return;
  }
-         std::map<int, int> map_charge_exist; // å¦‚æ‰€æœ‰è¡Œéƒ½æ²¡æœ‰æŸä¸ªè´¹ç”¨ï¼Œåˆ™æ ‡è®°0ï¼›å¦åˆ™æ ‡è®°1ã€‚
+         std::map<int, int> map_charge_exist; // ÈçËùÓĞĞĞ¶¼Ã»ÓĞÄ³¸ö·ÑÓÃ£¬Ôò±ê¼Ç0£»·ñÔò±ê¼Ç1¡£
         map_charge_exist.clear();
-        //åˆå§‹åŒ–å…¨éƒ¨ä¸º0
+        //³õÊ¼»¯È«²¿Îª0
         for (int i=0; i<m_mChargeInfo.size(); ++i){
                 map_charge_exist.insert(std::make_pair(i, 0));
         }
@@ -874,11 +874,11 @@ void __fastcall TFinanceForm::Button2Click(TObject *Sender)
         //init listViewPure's column header names by listView's
         int pos_pure = 0;
         int pos_ori = 0;
-        lstViewPure->Columns->Items[0]->Caption = "åºå·";
-        for (pos_ori=0; pos_ori<charge_start_column-1-1; pos_ori++){//ï¼ï¼å¤‡æ³¨æ”¾æœ€å
+        lstViewPure->Columns->Items[0]->Caption = "ĞòºÅ";
+        for (pos_ori=0; pos_ori<charge_start_column-1-1; pos_ori++){//£¡£¡±¸×¢·Å×îºó
                 AnsiString column_title = lstView->Columns->Items[pos_ori+1+1]->Caption;
                 //cancel
-/* if (column_title=="ç»è¥å•ä½" || column_title=="æŠ¥å…³å•å·"){//ä¸åˆ°å‡ºï¼šç»è¥å•ä½ã€æŠ¥å…³å•å·
+/* if (column_title=="¾­Óªµ¥Î»" || column_title=="±¨¹Øµ¥ºÅ"){//²»µ½³ö£º¾­Óªµ¥Î»¡¢±¨¹Øµ¥ºÅ
 continue;
 }
 */
@@ -886,7 +886,7 @@ continue;
         }
         //~
 
-        //æ ‡è®°é‚£ä¸ªè´¹ç”¨éç©º
+        //±ê¼ÇÄÇ¸ö·ÑÓÃ·Ç¿Õ
         for (int row=0; row<lstView->Items->Count; ++row) {
                 for (int col=0; col<m_mChargeInfo.size(); ++col) {
                         int pos_real = charge_start_column + col;
@@ -896,15 +896,16 @@ continue;
                 }
         }
 
-        //æ„é€ éç©ºè´¹ç”¨åˆ—å - æ ¹æ®map_charge_existæ„é€ æƒ…å†µï¼ï¼
+        //¹¹Ôì·Ç¿Õ·ÑÓÃÁĞÃû - ¸ù¾İmap_charge_exist¹¹ÔìÇé¿ö£¡£¡
        for (int j=0; j<m_mChargeInfo.size(); ++j) {
                int pos_real = charge_start_column+j;
                 if (map_charge_exist[j] == 1){
                     lstViewPure->Columns->Items[1+pos_pure++]->Caption = lstView->Columns->Items[pos_real+1]->Caption;
                 }
        }
-        lstViewPure->Columns->Items[1+pos_pure++]->Caption = "åˆè®¡";
-        lstViewPure->Columns->Items[1+pos_pure++]->Caption = "å¤‡æ³¨";
+
+        lstViewPure->Columns->Items[1+pos_pure++]->Caption = "ºÏ¼Æ";
+        lstViewPure->Columns->Items[1+pos_pure++]->Caption = "±¸×¢";
 
         //copy data
         lstViewPure->Clear();
@@ -936,61 +937,59 @@ continue;
                         pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[pos_real]);
                         cnt++;
                  }
-                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column+j]); //mustï¼ ä¸æ˜¾ç¤º2ä¸ªcolumn
+                 pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[charge_start_column+j]); //must£¡ ²»ÏÔÊ¾2¸öcolumn
                  pItem->SubItems->Add(lstView->Items->Item[i]->SubItems->Strings[COL_BEIZHU]);
 
-                 //å¿…é¡»ï¼Œå¦åˆ™å¼‚å¸¸ï¼Œå¯¼è‡´åˆ°å¤„1æ¡è®°å½•å°±ä¸­æ–­
+                 //±ØĞë£¬·ñÔòÒì³££¬µ¼ÖÂµ½´¦1Ìõ¼ÇÂ¼¾ÍÖĞ¶Ï
                  for (int t=cnt; t<40; ++t)
                         pItem->SubItems->Add("");
         }
-
         //gen excel
         Variant vExcel,vWorkBook,vSheet,vRange,vBorders, vPicture;
         int iCols,iRows;
         iCols = iRows = 0;
         try{
 
-                vExcel = Variant::CreateObject("Excel.Application"); //æ‰“å¼€excel
-                vExcel.OlePropertyGet("Workbooks").OleFunction("Add", 1); // æ–°å¢å·¥ä½œåŒº
-                vSheet = vExcel.OlePropertyGet("ActiveWorkbook").OlePropertyGet("Sheets", 1);//æ“ä½œè¿™ä¸ªå·¥ä½œè¡¨
+                vExcel = Variant::CreateObject("Excel.Application"); //´ò¿ªexcel
+                vExcel.OlePropertyGet("Workbooks").OleFunction("Add", 1); // ĞÂÔö¹¤×÷Çø
+                vSheet = vExcel.OlePropertyGet("ActiveWorkbook").OlePropertyGet("Sheets", 1);//²Ù×÷Õâ¸ö¹¤×÷±í
                 vWorkBook = vExcel.OlePropertyGet("ActiveWorkbook");
 
                 vExcel.OlePropertySet("DisplayAlerts",false);
-                //å±æ€§è®¾ç½®
+                //ÊôĞÔÉèÖÃ
 // vExcel.OlePropertySet("Visible",true);
-                vSheet.OlePropertyGet("Rows",++iRows).OlePropertySet("RowHeight",72);//è®¾ç½®æŒ‡å®šè¡Œçš„é«˜åº¦ä¸º28
-                vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//è®¾ç½®æ‰€æœ‰å•å…ƒæ ¼çš„æ–‡æœ¬è‡ªåŠ¨æ¢è¡Œ
-                vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",15);//è®¾ç½®æ‰€æœ‰åˆ—çš„åˆ—å®½ä¸º28
+                vSheet.OlePropertyGet("Rows",++iRows).OlePropertySet("RowHeight",72);//ÉèÖÃÖ¸¶¨ĞĞµÄ¸ß¶ÈÎª28
+                vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//ÉèÖÃËùÓĞµ¥Ôª¸ñµÄÎÄ±¾×Ô¶¯»»ĞĞ
+                vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",15);//ÉèÖÃËùÓĞÁĞµÄÁĞ¿íÎª28
 
-
-                //æ·»åŠ è¡¨ä½“å›¾ç‰‡
+                //Ìí¼Ó±íÌåÍ¼Æ¬
                 AnsiString strPic = "d:\\p1.jpg";
                 vPicture = vSheet.OlePropertyGet( "Pictures").OleFunction( "Insert",strPic.c_str());
                 vPicture.OlePropertySet("Left", 50);
                 vPicture.OlePropertySet("Top", 10);
-
-                //åˆ—å
+                //ÁĞÃû
 // Insert2Excel(vSheet, ++iRows, );
                 ++iRows;
                 for (int i=0; i<lstViewPure->Columns->Count; ++i){
                 //lstViewPure->Columns->Items[i]->Caption
                         vSheet.OlePropertyGet("Cells",iRows,i+1).OlePropertySet("Value",lstViewPure->Columns->Items[i]->Caption.c_str());
                 }
-                //æ•°æ®
+                //Êı¾İ
             TListItem *pItem;
             for(int i=0;i<lstViewPure->Items->Count;i++)
             {
                 ++iRows;
                 iCols = 0;
      pItem=lstViewPure->Items->Item[i];
-                if (lbGoodsPerf->Caption != "æ­£å¸¸å•"){
+                if (lbGoodsPerf->Caption != "Õı³£µ¥"){
                         vSheet.OlePropertyGet("Cells",iRows,1).OlePropertySet("Value",pItem->Caption.c_str());
                         for (int i=1; i<lstViewPure->Columns->Count; ++i){
                                 vSheet.OlePropertyGet("Cells",iRows,i+1).OlePropertySet("Value",pItem->SubItems->Strings[i-1].c_str());
                         }
 }
            }
-                //åŠ æ¡†
+          
+                //¼Ó¿ò
 // AnsiString strRange = "A"+IntToStr(2)+":"+AnsiString(NumbertoString(lstViewPure->Columns->Count+1))+IntToStr(iRows);
                 AnsiString strRange = "A"+IntToStr(2)+":"+AnsiString(NumbertoString(1+pos_pure))+IntToStr(iRows);
                 vRange = vSheet.OlePropertyGet("Range",strRange.c_str());
@@ -1001,7 +1000,7 @@ continue;
                 vBorders.OlePropertySet("weight",xlThin);
                 vBorders.OlePropertySet("colorindex",xlAutomatic);
 
-                //è´¦å·ä¿¡æ¯
+                //ÕËºÅĞÅÏ¢
                 /////////////////////////////////////////////////////////////////////////////////////
                 ++iRows;
                 ++iRows;
@@ -1010,12 +1009,12 @@ continue;
                 vRange=vSheet.OlePropertyGet( "Range", strRange1.c_str());
                 vRange.OleProcedure("Select");
                 vRange.OleFunction( "Merge", true);
-                 vSheet.OlePropertyGet("Rows",iRows).OlePropertySet("RowHeight",72);//è®¾ç½®æŒ‡å®šè¡Œçš„é«˜åº¦ä¸º28
-/* AnsiString strAccount1 = "è´¦å·ï¼š4758 5020 1880 8049 23\r\n \*/
-                AnsiString strAccount1 = "è´¦å·ï¼š7068 5641 1524\r\n \
-å¼€æˆ·è¡Œï¼šä¸­å›½é“¶è¡Œå¹¿å·å¸‚èŒ¶çª–æ”¯è¡Œ\r\n \
-æˆ·åï¼šé‚±äºšæ‰\r\n \
-å¸æˆ·æ€§è´¨ï¼šæ´»æœŸä¸€æœ¬é€š";
+                 vSheet.OlePropertyGet("Rows",iRows).OlePropertySet("RowHeight",72);//ÉèÖÃÖ¸¶¨ĞĞµÄ¸ß¶ÈÎª28
+/* AnsiString strAccount1 = "ÕËºÅ£º4758 5020 1880 8049 23\r\n \*/
+                AnsiString strAccount1 = "ÕËºÅ£º7068 5641 1524\r\n \
+¿ª»§ĞĞ£ºÖĞ¹úÒøĞĞ¹ãÖİÊĞ²è½ÑÖ§ĞĞ\r\n \
+»§Ãû£ºÇñÑÇ²Å\r\n \
+ÕÊ»§ĞÔÖÊ£º»îÆÚÒ»±¾Í¨";
 
                 vSheet.OlePropertyGet("Cells",iRows,1).OlePropertySet("Value",strAccount1.c_str());
                 /////////////////////////////////////////////////////////////////////////////////////
@@ -1026,10 +1025,10 @@ continue;
                 vRange=vSheet.OlePropertyGet( "Range", strRange1.c_str());
                 vRange.OleProcedure("Select");
                 vRange.OleFunction( "Merge", true);
-                 vSheet.OlePropertyGet("Rows",iRows).OlePropertySet("RowHeight",72);//è®¾ç½®æŒ‡å®šè¡Œçš„é«˜åº¦ä¸º28
-                strAccount1 = "è´¦å·ï¼š6228 4800 8389 9556 910\r\n \
-å¼€æˆ·è¡Œï¼šå†œè¡Œç•ªç¦ºå¾·å®‰æ”¯è¡Œ\r\n \
-æˆ·åï¼šå±ˆè‰³ä»Ÿ";
+                 vSheet.OlePropertyGet("Rows",iRows).OlePropertySet("RowHeight",72);//ÉèÖÃÖ¸¶¨ĞĞµÄ¸ß¶ÈÎª28
+                strAccount1 = "ÕËºÅ£º6228 4800 8389 9556 910\r\n \
+¿ª»§ĞĞ£ºÅ©ĞĞ·¬Ø®µÂ°²Ö§ĞĞ\r\n \
+»§Ãû£ºÇüÑŞÇª";
                 vSheet.OlePropertyGet("Cells",iRows,1).OlePropertySet("Value",strAccount1.c_str());
                 
                 /////////////////////////////////////////////////////////////////////////////////////
@@ -1040,10 +1039,10 @@ continue;
                 vRange=vSheet.OlePropertyGet( "Range", strRange1.c_str());
                 vRange.OleProcedure("Select");
                 vRange.OleFunction( "Merge", true);
-                 vSheet.OlePropertyGet("Rows",iRows).OlePropertySet("RowHeight",72);//è®¾ç½®æŒ‡å®šè¡Œçš„é«˜åº¦ä¸º28
-                strAccount1 ="è´¦å·ï¼š3602 0242 0100 0738 803\r\n \
-å¼€æˆ·è¡Œï¼šå·¥è¡Œä¸‡ä¸°æ”¯è¡Œ \r\n \
-æˆ·åï¼šè’™èµ¤å‹‡";
+                 vSheet.OlePropertyGet("Rows",iRows).OlePropertySet("RowHeight",72);//ÉèÖÃÖ¸¶¨ĞĞµÄ¸ß¶ÈÎª28
+                strAccount1 ="ÕËºÅ£º3602 0242 0100 0738 803\r\n \
+¿ª»§ĞĞ£º¹¤ĞĞÍò·áÖ§ĞĞ \r\n \
+»§Ãû£ºÃÉ³àÓÂ";
                 vSheet.OlePropertyGet("Cells",iRows,1).OlePropertySet("Value",strAccount1.c_str());
                 /////////////////////////////////////////////////////////////////////////////////////
                 vSheet.OleProcedure("SaveAs", sfile.c_str());
@@ -1053,11 +1052,11 @@ continue;
                 vExcel.OleFunction("Quit");
                 vWorkBook = Unassigned;
                 vExcel = Unassigned;
-                ShowMessage("å¯¼å‡ºå®Œæ¯•");
+                ShowMessage("µ¼³öÍê±Ï");
 
 
         }catch(...){
-                ShowMessage("å¯¼å‡ºå¤±è´¥");
+                ShowMessage("µ¼³öÊ§°Ü");
         }
 
 }
@@ -1107,5 +1106,3 @@ void TFinanceForm::flushColumnNo(){
                 }
         }
 }
-
-

@@ -82,6 +82,7 @@ __published:	// IDE-managed Components
         void __fastcall btnOKClick(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
         void __fastcall c(TObject *Sender);
+//        void __fastcall FormCreate(TObject *Sender);
 //        void __fastcall Button2Click(TObject *Sender);
 private:	// User declarations
         CStringArray m_lstCharges;

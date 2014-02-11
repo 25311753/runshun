@@ -5,7 +5,7 @@ object dm1: Tdm1
   Height = 375
   Width = 544
   object db1: TDatabase
-    AliasName = 'runshun'
+    AliasName = 'gzrunshun'
     DatabaseName = 'runshun'
     LoginPrompt = False
     Params.Strings = (
