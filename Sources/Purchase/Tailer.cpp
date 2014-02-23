@@ -239,10 +239,11 @@ void __fastcall TTailerForm::btnQueryClick(TObject *Sender)
                 szSQL += " and client="; szSQL += Str2DBString(cbbQryClient->Text.c_str());
         }
         if (!edtQryLading->Text.IsEmpty())   {
-                szSQL += " and ladingid="; szSQL += Str2DBString(edtQryLading->Text.c_str());
+                szSQL += " and ladingid like '%"; szSQL += edtQryLading->Text.c_str();
+                szSQL += "%'";
         }
         if (!edtQryJZS->Text.IsEmpty()){
-                szSQL += " and containerinfo like'%"; szSQL += edtQryJZS->Text.c_str(); szSQL+="%'";
+                szSQL += " and containerinfo like '%"; szSQL += edtQryJZS->Text.c_str(); szSQL+="%'";
         }
         if (!edtQryTranCompany->Text.IsEmpty()){
                 szSQL += " and trancompany="; szSQL += Str2DBString(edtQryTranCompany->Text.c_str());
@@ -261,6 +262,7 @@ void __fastcall TTailerForm::btnQueryClick(TObject *Sender)
         }
 //        szSQL += " order by CONVERT(varchar(100), acceptdate, 23), endcustdate";   //accpetdate格式化yyyymmdd排序，以免endcustdate排序受干扰
         szSQL += " order by opdate";
+        
         TListItem *pItem;
         lstViewDown->Items->Clear();
 	RunSQL(dm1->Query1,szSQL,true);
@@ -990,10 +992,10 @@ bool TTailerForm::chk_charge_valid(){
                                 }
                         }
                         //empty check
-                        if (d->edtCharge->Text.IsEmpty() && d->edtCost->Text.IsEmpty()){
+                        if (d->edtCharge->Text.IsEmpty() || d->edtCost->Text.IsEmpty()){
                                 return false;
                         }
-                        if (!isMoney(d->edtCharge->Text, DECIMAL_PLACE_CHARGE) && !isMoney(d->edtCost->Text, DECIMAL_PLACE_COST) ){
+                        if (!isMoney(d->edtCharge->Text, DECIMAL_PLACE_CHARGE) || !isMoney(d->edtCost->Text, DECIMAL_PLACE_COST) ){
                                 return false;
                         }
 
@@ -1236,5 +1238,6 @@ void TTailerForm::getFirstContainerUnit(AnsiString c, int &_cnt, AnsiString &con
                 sealid = AnsiString(strSealId);
         }
 }
+
 
 
