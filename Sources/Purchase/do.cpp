@@ -265,7 +265,7 @@ Label44->Caption = "";
         edtBoatno->Text = "";
         edtBoatorder->Text = "";
         cbbTransport->Text = "";
-        edtOutport->Text = "南沙保税";
+        edtOutport->Text = "南沙新港";
         cbbTrade->Text = "";
         cbbZhengmian->Text = "";
         edtInnersupplyadd->Text = "广州其它";
@@ -1570,7 +1570,7 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
                 cbbZhengmian->ItemIndex=0;
 
         if(edtOutport->Text.IsEmpty())
-             edtOutport->Text = "南沙保税";
+             edtOutport->Text = "南沙新港";
         if(edtInnersupplyadd->Text.IsEmpty())
              edtInnersupplyadd->Text = "广州其它";
         if(edtInvoice->Text.IsEmpty())
@@ -3066,6 +3066,7 @@ void __fastcall TDoForm::rg_statusClick(TObject *Sender)
 */
 }
 //---------------------------------------------------------------------------
+
 
 
 
