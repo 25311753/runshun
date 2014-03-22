@@ -11,6 +11,7 @@
 #include "SmallTypeUnit.h"
 #include "MaterialNoUnit.h"
 #include "TConst.h"
+#include "TConst2.h"
 #include "operatorunit.h"
 #include "operpwdunit.h"
 #include "InputCorpUnit.h"
@@ -115,6 +116,7 @@ void TMainForm::ResetMenu(TMenuItem *pMenu)
 
 void __fastcall TMainForm::FormShow(TObject *Sender)
 {
+        Image1->Visible=isMasterSrv;
 	int i;
   for(i=0;i<MainMenu1->Items->Count;i++)
   {
@@ -493,4 +495,5 @@ void __fastcall TMainForm::IDM_YSKClick(TObject *Sender)
         Receivables(2);        
 }
 //---------------------------------------------------------------------------
+
 

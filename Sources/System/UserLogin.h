@@ -29,12 +29,16 @@ __published:	// IDE-managed Components
         TLabel *Label2;
         TBevel *Bevel2;
         TLabel *Label5;
+        TCheckBox *cb_bkdb;
    void __fastcall OKBtnClick(TObject *Sender);
    void __fastcall CancelBtnClick(TObject *Sender);
    void __fastcall Edit_PasswordKeyPress(TObject *Sender, char &Key);
    void __fastcall FormShow(TObject *Sender);
    void __fastcall Edit_CodeKeyPress(TObject *Sender, char &Key);
 	void __fastcall btnDBSetupClick(TObject *Sender);
+   void __fastcall connectMasterDB();
+   void __fastcall connectBackupDB();
+        void __fastcall cb_bkdbClick(TObject *Sender);
 private:	// User declarations
    int num;
 public:		// User declarations

@@ -114,6 +114,27 @@ void Tdm1::SetupDB()
 	}
 }
 
+void Tdm1::SetupBkDB(AnsiString alias_name, AnsiString db, AnsiString username, AnsiString password)
+{
+	if(!alias_name.IsEmpty() && !db.IsEmpty() && !username.IsEmpty() && !password.IsEmpty())
+	{
+		int i;
+                db1->Connected=false;
+                db1->AliasName = alias_name;
+                db1->DatabaseName= db;
+		for(i=0;i<db1->Params->Count;i++)
+  	        {
+                        if(strstr(db1->Params->Strings[i].c_str(),"USER NAME=")!=NULL)
+                                db1->Params->Strings[i]="USER NAME="+username;
+//    	                else if(strstr(db1->Params->Strings[i].c_str(),"ODBC DSN=")!=NULL)
+//				db1->Params->Strings[i]="ODBC DSN="+odbc_dsn;
+                        else if(strstr(db1->Params->Strings[i].c_str(),"PASSWORD=")!=NULL)
+				db1->Params->Strings[i]="PASSWORD="+password;
+                }
+                db1->Connected=true;
+	}
+}
+
 #include "BaseCode.h"
 
 void DropTmpPrnTable()

@@ -43,6 +43,7 @@ public:		// User declarations
 	bool OpenDatabase();
 	void CloseDatabase();
 	void SetupDB();
+        void SetupBkDB(AnsiString alias_name, AnsiString db, AnsiString username, AnsiString password);
   bool OpenDatabase(TDatabase *pDB);
   void CloseDatabase(TDatabase *pDB);
 

@@ -7124,5 +7124,13 @@ object UserLoginForm: TUserLoginForm
       Visible = False
       OnClick = btnDBSetupClick
     end
+    object cb_bkdb: TCheckBox
+      Left = 104
+      Top = 184
+      Width = 13
+      Height = 13
+      TabOrder = 5
+      OnClick = cb_bkdbClick
+    end
   end
 end

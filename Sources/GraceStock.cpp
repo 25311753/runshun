@@ -89,6 +89,7 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	operatorcode="root";
   operatorname="root";
   operator_class="1";
+
 #else
 		InitialODBC();
 

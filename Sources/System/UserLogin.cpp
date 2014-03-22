@@ -8,12 +8,24 @@
 #include "mainframe.h"
 #include "DBSetup.h"
 #include "TConst.h"
+#include "TConst2.h"
 #include <process.h>
 #include "TmpFormUnit.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TUserLoginForm *UserLoginForm;
+
+#define D_DB_ALIASNAME  "gzrunshun"
+#define D_DB_NAME "runshun"
+#define D_DB_USERNAME "runshunuser"
+#define D_DB_PASSWORD "runshunuser"
+
+#define D_DB_BK_ALIASNAME  "gzrunshunbk"
+#define D_DB_BK_NAME "runshun"
+#define D_DB_BK_USERNAME "runshunuser"
+#define D_DB_BK_PASSWORD "runshunuser"
+
 //---------------------------------------------------------------------------
 __fastcall TUserLoginForm::TUserLoginForm(TComponent* Owner)
    : TForm(Owner)
@@ -132,12 +144,26 @@ void __fastcall TUserLoginForm::Edit_PasswordKeyPress(TObject *Sender,
     }
 }
 //---------------------------------------------------------------------------
+void __fastcall TUserLoginForm::connectMasterDB(){
+        dm1->CloseDatabase();
+        dm1->SetupBkDB(D_DB_ALIASNAME, D_DB_NAME, D_DB_USERNAME, D_DB_PASSWORD);
+        dm1->OpenDatabase();
+        isMasterSrv = true;
 
+}
+void __fastcall TUserLoginForm::connectBackupDB(){
+        dm1->CloseDatabase();
+        dm1->SetupBkDB(D_DB_BK_ALIASNAME, D_DB_BK_NAME, D_DB_BK_USERNAME, D_DB_BK_PASSWORD);
+        dm1->OpenDatabase();
+        isMasterSrv = false;
+}
 void __fastcall TUserLoginForm::FormShow(TObject *Sender)
 {
     Edit_Code->SetFocus();
     Edit_Code->Clear();
     Edit_Password->Clear();
+    connectMasterDB();
+
 }
 //---------------------------------------------------------------------------
 
@@ -157,4 +183,15 @@ void __fastcall TUserLoginForm::btnDBSetupClick(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
+
+
+void __fastcall TUserLoginForm::cb_bkdbClick(TObject *Sender)
+{
+        if (cb_bkdb->Checked){
+                connectBackupDB();
+        }else{
+                connectMasterDB();
+        }
+}
+//---------------------------------------------------------------------------
 
