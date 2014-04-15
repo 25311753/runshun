@@ -116,7 +116,7 @@ void TMainForm::ResetMenu(TMenuItem *pMenu)
 
 void __fastcall TMainForm::FormShow(TObject *Sender)
 {
-        Image1->Visible=isMasterSrv;
+//        Image1->Visible=isMasterSrv==1;
 	int i;
   for(i=0;i<MainMenu1->Items->Count;i++)
   {

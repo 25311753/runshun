@@ -7130,6 +7130,7 @@ object UserLoginForm: TUserLoginForm
       Width = 13
       Height = 13
       TabOrder = 5
+      Visible = False
       OnClick = cb_bkdbClick
     end
   end

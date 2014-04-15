@@ -36,7 +36,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Left = 0
     Top = 0
     Width = 975
-    Height = 474
+    Height = 475
     Align = alClient
     AutoSize = True
     Center = True
@@ -10164,7 +10164,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 77
     Height = 25
     Caption = #26032'  '#22686
-    TabOrder = 1
+    TabOrder = 14
     OnClick = btnAddNewClick
   end
   object btnDelete: TButton
@@ -10173,7 +10173,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 77
     Height = 25
     Caption = #21024#38500
-    TabOrder = 2
+    TabOrder = 15
     OnClick = btnDeleteClick
   end
   object btnEdit: TButton
@@ -10182,7 +10182,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 77
     Height = 25
     Caption = #20462#25913
-    TabOrder = 3
+    TabOrder = 16
     OnClick = btnEditClick
   end
   object btnExit: TButton
@@ -10191,7 +10191,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 60
     Height = 25
     Caption = #36864#20986
-    TabOrder = 4
+    TabOrder = 17
     OnClick = btnExitClick
   end
   object btnRefresh: TButton
@@ -10200,7 +10200,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 77
     Height = 25
     Caption = #21047#26032
-    TabOrder = 5
+    TabOrder = 18
     OnClick = btnRefreshClick
   end
   object edtMCode: TEdit
@@ -10210,7 +10210,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
     MaxLength = 10
-    TabOrder = 6
+    TabOrder = 1
     Text = 'edtMCode'
   end
   object edtFU: TEdit
@@ -10219,7 +10219,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 121
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 9
+    TabOrder = 4
     Text = 'edtFU'
   end
   object edtMname: TEdit
@@ -10228,7 +10228,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 121
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 7
+    TabOrder = 2
     Text = 'edtMname'
   end
   object edtSU: TEdit
@@ -10237,7 +10237,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 121
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 10
+    TabOrder = 5
     Text = 'edtSU'
   end
   object edtSpec: TEdit
@@ -10246,7 +10246,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 121
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 8
+    TabOrder = 3
     Text = 'edtSpec'
   end
   object edtUnitPrice: TEdit
@@ -10255,7 +10255,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 121
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 11
+    TabOrder = 19
     Text = 'edtUnitPrice'
     Visible = False
   end
@@ -10285,7 +10285,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Height = 68
     BevelInner = bvLowered
     BevelOuter = bvLowered
-    TabOrder = 14
+    TabOrder = 20
     object Label9: TLabel
       Left = 133
       Top = 14
@@ -10343,7 +10343,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Style = csDropDownList
     ImeName = #35895#27468#25340#38899#36755#20837#27861' 2'
     ItemHeight = 13
-    TabOrder = 15
+    TabOrder = 7
     Items.Strings = (
       ''
       #20154#27665#24065
@@ -10357,7 +10357,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Style = csDropDownList
     ImeName = #35895#27468#25340#38899#36755#20837#27861' 2'
     ItemHeight = 13
-    TabOrder = 16
+    TabOrder = 9
     Items.Strings = (
       ''
       #20154#27665#24065
@@ -10369,7 +10369,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 85
     Height = 21
     ImeName = #35895#27468#25340#38899#36755#20837#27861' 2'
-    TabOrder = 17
+    TabOrder = 10
   end
   object edtUnitPrice1: TEdit
     Left = 233
@@ -10377,7 +10377,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 86
     Height = 21
     ImeName = #35895#27468#25340#38899#36755#20837#27861' 2'
-    TabOrder = 18
+    TabOrder = 8
   end
   object edtWeightPercent: TEdit
     Left = 480
@@ -10385,7 +10385,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 121
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 19
+    TabOrder = 6
   end
   object edtDebug: TEdit
     Left = 24
@@ -10393,7 +10393,7 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 121
     Height = 21
     ImeName = #35895#27468#25340#38899#36755#20837#27861' 2'
-    TabOrder = 20
+    TabOrder = 21
     Text = 'edtDebug'
     Visible = False
   end
@@ -10403,6 +10403,6 @@ object DicMerchandiseForm: TDicMerchandiseForm
     Width = 121
     Height = 21
     ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-    TabOrder = 21
+    TabOrder = 11
   end
 end

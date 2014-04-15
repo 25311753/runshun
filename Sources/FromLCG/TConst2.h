@@ -1,7 +1,8 @@
 #ifndef TConst2H
 #define TConst2H
 //---------------------------------------------------------------------------
-bool  isMasterSrv;
+bool  isMasterSrv = true;
+//#define isMasterSrv 1
 //---------------------------------------------------------------------------
 #endif
 
