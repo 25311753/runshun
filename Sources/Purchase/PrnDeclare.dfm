@@ -511,7 +511,7 @@ object PrnDeclareForm: TPrnDeclareForm
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = #21335#27801#20445#31246
+        Caption = #21335#27801#26032#28207
         Color = clWhite
         Transparent = False
         WordWrap = True
