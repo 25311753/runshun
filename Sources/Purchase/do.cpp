@@ -1165,10 +1165,17 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
                 pForm->qrlDeclareId->Caption = edtDeclareid->Text;
         }
 */        
-        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
+//        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
+//                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
+        pForm->qrlDeclareId->Caption = "";
+        TFont *theFont = new TFont();
+        //theFont->Color=clRed;
+        theFont->Name = "C39HrP72DmTt";
+        theFont->Size = 34;
+        pForm->qrlDeclareIdTiaoMa->Font = theFont;
+        pForm->qrlDeclareIdTiaoMa->Caption = (edtDeclareid->Text.Length() > 9)? \
                                         edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
 
-//       pForm->qrlDeclareId->Caption = edtDeclareid->Text;
 
 //       pForm->qrlCountHead->Caption = edtCount->Text;
 //       pForm->qrlMname->Caption = lstView->Items->Item[0]->SubItems->Strings[0];

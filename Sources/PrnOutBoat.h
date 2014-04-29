@@ -54,6 +54,7 @@ __published:	// IDE-managed Components
         TQRLabel *QRLabel3;
         TQRShape *QRShape1;
         TQRShape *QRShape2;
+        TQRLabel *qrlDeclareIdTiaoMa;
 private:	// User declarations
 public:		// User declarations
         __fastcall TPrnOutBoatForm(TComponent* Owner);

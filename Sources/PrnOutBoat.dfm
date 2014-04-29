@@ -1,9 +1,9 @@
 object PrnOutBoatForm: TPrnOutBoatForm
-  Left = 114
-  Top = 0
+  Left = 693
+  Top = 191
   Width = 944
   Height = 770
-  VertScrollBar.Position = 157
+  VertScrollBar.Position = 138
   Caption = #25171#21360#20986#33337#32440
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
   TextHeight = 13
   object PrnView: TQuickRep
     Left = 24
-    Top = -133
+    Top = -114
     Width = 794
     Height = 1123
     Frame.Color = clBlack
@@ -703,8 +703,8 @@ object PrnOutBoatForm: TPrnOutBoatForm
         FontSize = 12
       end
       object qrlDeclareId: TQRLabel
-        Left = 569
-        Top = 665
+        Left = 657
+        Top = 673
         Width = 85
         Height = 21
         Frame.Color = clBlack
@@ -714,8 +714,8 @@ object PrnOutBoatForm: TPrnOutBoatForm
         Frame.DrawRight = False
         Size.Values = (
           55.5625
-          1505.47916666667
-          1759.47916666667
+          1738.3125
+          1780.64583333333
           224.895833333333)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -724,7 +724,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
         Caption = 'qrlDeclareId'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clMenuText
         Font.Height = -16
         Font.Name = 'Arial'
         Font.Style = []
@@ -1046,6 +1046,31 @@ object PrnOutBoatForm: TPrnOutBoatForm
           21.1666666666667
           50.2708333333333)
         Shape = qrsRectangle
+      end
+      object qrlDeclareIdTiaoMa: TQRLabel
+        Left = 568
+        Top = 632
+        Width = 138
+        Height = 19
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          50.2708333333333
+          1502.83333333333
+          1672.16666666667
+          365.125)
+        Alignment = taLeftJustify
+        AlignToBand = False
+        AutoSize = True
+        AutoStretch = False
+        Caption = 'qrlDeclareIdTiaoMa'
+        Color = clWhite
+        Transparent = False
+        WordWrap = True
+        FontSize = 12
       end
     end
   end
