@@ -4,71 +4,70 @@
   <MACROS>
     <VERSION value="BCB.06.00"/>
     <PROJECT value="d:\workspace\bin\runshun\Exec\GraceStock.exe"/>
-    <OBJFILES value="d:\workspace\bin\runshun\TempOBJ\GraceStock.obj 
-      d:\workspace\bin\runshun\TempOBJ\DataModule.obj 
-      d:\workspace\bin\runshun\TempOBJ\UserLogin.obj 
-      d:\workspace\bin\runshun\TempOBJ\BaseCode.obj 
-      d:\workspace\bin\runshun\TempOBJ\BaseFormUnit.obj 
-      d:\workspace\bin\runshun\TempOBJ\DBSetup.obj 
-      d:\workspace\bin\runshun\TempOBJ\operpwdunit.obj 
-      d:\workspace\bin\runshun\TempOBJ\operatorunit.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnBaseData.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicDepart.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicStatus.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnFactory.obj 
-      d:\workspace\bin\runshun\TempOBJ\DepartCorp.obj 
-      d:\workspace\bin\runshun\TempOBJ\calsssetunit.obj 
-      d:\workspace\bin\runshun\TempOBJ\ClassRight.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicPayment.obj 
-      d:\workspace\bin\runshun\TempOBJ\ApPrintSetup.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicDelivery.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicInvoice.obj 
-      d:\workspace\bin\runshun\TempOBJ\ShowPrintSetup.obj 
-      d:\workspace\bin\runshun\TempOBJ\MainFrame.obj 
-      d:\workspace\bin\runshun\TempOBJ\ApFilePage.obj 
-      d:\workspace\bin\runshun\TempOBJ\TmpFormUnit.obj 
-      d:\workspace\bin\runshun\TempOBJ\Accept.obj 
-      d:\workspace\bin\runshun\TempOBJ\do.obj 
-      d:\workspace\bin\runshun\TempOBJ\ContainerInfo.obj 
-      d:\workspace\bin\runshun\TempOBJ\Goods.obj 
-      d:\workspace\bin\runshun\TempOBJ\Finance.obj 
-      d:\workspace\bin\runshun\TempOBJ\Calc.obj 
-      d:\workspace\bin\runshun\TempOBJ\Unit2.obj 
-      d:\workspace\bin\runshun\TempOBJ\Assignment.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnInvoice.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnPackingList.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnContact.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnDeclare.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnAuth.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicBoatNo.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicBoatOrder.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicPack.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicTransport.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicTrade.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicZhengMian.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicExcharge.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicBargain.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicStatus1.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicTargetCountry.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicCurrency.obj 
-      d:\workspace\bin\runshun\TempOBJ\CommUnit.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicMerchandise.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnOutBoat.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicClient.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicSA.obj 
-      d:\workspace\bin\runshun\TempOBJ\CostAccounting.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnDeclareSub.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnContactSub.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnWuMuZhi.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnYSQRS.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnSCCK.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnQYCNS.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicSH.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicOperUnit.obj 
-      d:\workspace\bin\runshun\TempOBJ\DicCharge.obj 
-      d:\workspace\bin\runshun\TempOBJ\Tailer.obj 
-      d:\workspace\bin\runshun\TempOBJ\Receivables.obj 
-      d:\workspace\bin\runshun\TempOBJ\PrnCYD.obj"/>
+    <OBJFILES value="..\..\..\bin\runshun\TempOBJ\GraceStock.obj 
+      ..\..\..\bin\runshun\TempOBJ\DataModule.obj 
+      ..\..\..\bin\runshun\TempOBJ\UserLogin.obj 
+      ..\..\..\bin\runshun\TempOBJ\BaseCode.obj 
+      ..\..\..\bin\runshun\TempOBJ\BaseFormUnit.obj 
+      ..\..\..\bin\runshun\TempOBJ\DBSetup.obj 
+      ..\..\..\bin\runshun\TempOBJ\operpwdunit.obj 
+      ..\..\..\bin\runshun\TempOBJ\operatorunit.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnBaseData.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicDepart.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicStatus.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnFactory.obj 
+      ..\..\..\bin\runshun\TempOBJ\DepartCorp.obj 
+      ..\..\..\bin\runshun\TempOBJ\calsssetunit.obj 
+      ..\..\..\bin\runshun\TempOBJ\ClassRight.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicPayment.obj 
+      ..\..\..\bin\runshun\TempOBJ\ApPrintSetup.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicDelivery.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicInvoice.obj 
+      ..\..\..\bin\runshun\TempOBJ\ShowPrintSetup.obj 
+      ..\..\..\bin\runshun\TempOBJ\MainFrame.obj 
+      ..\..\..\bin\runshun\TempOBJ\ApFilePage.obj 
+      ..\..\..\bin\runshun\TempOBJ\TmpFormUnit.obj 
+      ..\..\..\bin\runshun\TempOBJ\Accept.obj 
+      ..\..\..\bin\runshun\TempOBJ\do.obj ..\..\..\bin\runshun\TempOBJ\ContainerInfo.obj 
+      ..\..\..\bin\runshun\TempOBJ\Goods.obj 
+      ..\..\..\bin\runshun\TempOBJ\Finance.obj 
+      ..\..\..\bin\runshun\TempOBJ\Calc.obj 
+      ..\..\..\bin\runshun\TempOBJ\Unit2.obj 
+      ..\..\..\bin\runshun\TempOBJ\Assignment.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnInvoice.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnPackingList.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnContact.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnDeclare.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnAuth.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicBoatNo.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicBoatOrder.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicPack.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicTransport.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicTrade.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicZhengMian.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicExcharge.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicBargain.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicStatus1.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicTargetCountry.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicCurrency.obj 
+      ..\..\..\bin\runshun\TempOBJ\CommUnit.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicMerchandise.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnOutBoat.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicClient.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicSA.obj 
+      ..\..\..\bin\runshun\TempOBJ\CostAccounting.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnDeclareSub.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnContactSub.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnWuMuZhi.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnYSQRS.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnSCCK.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnQYCNS.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicSH.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicOperUnit.obj 
+      ..\..\..\bin\runshun\TempOBJ\DicCharge.obj 
+      ..\..\..\bin\runshun\TempOBJ\Tailer.obj 
+      ..\..\..\bin\runshun\TempOBJ\Receivables.obj 
+      ..\..\..\bin\runshun\TempOBJ\PrnCYD.obj"/>
     <RESFILES value="GraceStock.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -96,10 +95,12 @@
       Purchase\DicCharge.dfm Purchase\Tailer.dfm Purchase\Receivables.dfm 
       Purchase\PrnCYD.dfm"/>
     <LIBFILES value="BaseCode\GSLfcLib.lib"/>
-    <LIBRARIES value="bcbsmp.lib tee.lib teedb.lib adortl.lib bcb2kaxserver.lib vcldb.lib 
-      vclx.lib qrpt.lib bdertl.lib dbrtl.lib rtl.lib vcl.lib"/>
+    <LIBRARIES value="FS6.lib frx6.lib HsBarcode1DRun.lib bcbsmp.lib tee.lib teedb.lib 
+      adortl.lib bcb2kaxserver.lib vcldb.lib vclx.lib qrpt.lib bdertl.lib 
+      dbrtl.lib rtl.lib vcl.lib"/>
     <SPARELIBS value="vcl.lib rtl.lib dbrtl.lib bdertl.lib qrpt.lib vclx.lib vcldb.lib 
-      bcb2kaxserver.lib adortl.lib teedb.lib tee.lib bcbsmp.lib"/>
+      bcb2kaxserver.lib adortl.lib teedb.lib tee.lib bcbsmp.lib 
+      HsBarcode1DRun.lib frx6.lib FS6.lib"/>
     <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi vcldb.bpi vclx.bpi bdertl.bpi vcldbx.bpi 
       ibxpress.bpi qrpt.bpi visualclx.bpi visualdbclx.bpi inet.bpi inetdb.bpi 
       dsnap.bpi nmfast.bpi bcbie.bpi dbexpress.bpi indy.bpi bcb2kaxserver.bpi 
@@ -116,13 +117,15 @@
     <USERDEFINES value=""/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="GraceStock.cpp"/>
-    <INCLUDEPATH value="tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;&quot;E:\Program Files\Borland\CBuilder6\Bin&quot;;..\..;&quot;E:\Program Files\Borland\CBuilder6\Projects&quot;;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl"/>
-    <LIBPATH value="d:\workspace\bin\runshun\Exec;tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;&quot;E:\Program Files\Borland\CBuilder6\Bin&quot;;..\..;&quot;E:\Program Files\Borland\CBuilder6\Projects&quot;;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <INCLUDEPATH value="&quot;d:\Program Files\FastReports\FastReport 4\LibBCB6&quot;;&quot;d:\Program Files\Barcode1D\cbuilder_6&quot;;tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;&quot;E:\Program Files\Borland\CBuilder6\Bin&quot;;..\..;&quot;E:\Program Files\Borland\CBuilder6\Projects&quot;;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="&quot;d:\Program Files\FastReports\FastReport 4\LibBCB6&quot;;&quot;d:\Program Files\Barcode1D\cbuilder_6&quot;;d:\workspace\bin\runshun\Exec;tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;&quot;E:\Program Files\Borland\CBuilder6\Bin&quot;;..\..;&quot;E:\Program Files\Borland\CBuilder6\Projects&quot;;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib"/>
     <WARNINGS value="-w-par -w-8027 -w-8026 -w-aus"/>
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-ItmpForm -I&quot;D:\Program Files\Borland\CBuilder6\Projects&quot; 
+    <IDLCFLAGS value="-I&quot;d:\Program Files\FastReports\FastReport 4\LibBCB6&quot; 
+      -I&quot;d:\Program Files\Barcode1D\cbuilder_6&quot; -ItmpForm 
+      -I&quot;D:\Program Files\Borland\CBuilder6\Projects&quot; 
       -I&quot;E:\Program Files\Borland\CBuilder6\Bin&quot; -I..\.. 
       -I&quot;E:\Program Files\Borland\CBuilder6\Projects&quot; -IMaterCmp -ISumData 
       -Ie:\Borland\CBuilder6\Projects -IInforSearch -IDataRow -IPurchase 

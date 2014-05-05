@@ -13,6 +13,8 @@
 #include <Buttons.hpp>
 #include "trayicon.h"
 #include <Mask.hpp>
+#include "frxClass.hpp"
+#include "frxBarcode.hpp"
 
 #include <map>
 //---------------------------------------------------------------------------
@@ -187,6 +189,8 @@ __published:	// IDE-managed Components
         TPanel *Panel49;
         TEdit *edtTotalPrice;
         TRadioGroup *rg_status;
+        TfrxReport *frxReportOutBoat;
+        TfrxBarCodeObject *frxBarCodeObject1;
         void __fastcall btnInputGoodsClick(TObject *Sender);
         void __fastcall FormShow(TObject *Sender);
         void __fastcall edtCidKeyPress(TObject *Sender, char &Key);
@@ -302,7 +306,8 @@ public:		// User declarations
         AnsiString ranSH();
         bool chkGrossWeight(float gw, float newTotalPrice);//毛重超26000KG提示,总价超10w(缓存全单总价，如edt，先减单项总价，如add，直接xx)
         int status2index(AnsiString status);
-        AnsiString index2status(int index);        
+        AnsiString index2status(int index);
+        void setFastReportMemo(AnsiString memoName, AnsiString value);      
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TDoForm *DoForm;

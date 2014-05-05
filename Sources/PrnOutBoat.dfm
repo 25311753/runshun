@@ -1,9 +1,9 @@
 object PrnOutBoatForm: TPrnOutBoatForm
-  Left = 693
-  Top = 191
-  Width = 944
-  Height = 770
-  VertScrollBar.Position = 138
+  Left = -1288
+  Top = -232
+  Width = 1296
+  Height = 1040
+  VertScrollBar.Position = 145
   Caption = #25171#21360#20986#33337#32440
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
   TextHeight = 13
   object PrnView: TQuickRep
     Left = 24
-    Top = -114
+    Top = -121
     Width = 794
     Height = 1123
     Frame.Color = clBlack
@@ -1046,31 +1046,6 @@ object PrnOutBoatForm: TPrnOutBoatForm
           21.1666666666667
           50.2708333333333)
         Shape = qrsRectangle
-      end
-      object qrlDeclareIdTiaoMa: TQRLabel
-        Left = 568
-        Top = 632
-        Width = 138
-        Height = 19
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          50.2708333333333
-          1502.83333333333
-          1672.16666666667
-          365.125)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = 'qrlDeclareIdTiaoMa'
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 12
       end
     end
   end

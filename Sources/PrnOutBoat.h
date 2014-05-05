@@ -10,6 +10,10 @@
 #include <ExtCtrls.hpp>
 #include <QuickRpt.hpp>
 #include <QRCtrls.hpp>
+#include "pBarcode1D.hpp"
+#include "pCode93.hpp"
+#include "pCode93Ext.hpp"
+
 //---------------------------------------------------------------------------
 class TPrnOutBoatForm : public TForm
 {
@@ -54,7 +58,6 @@ __published:	// IDE-managed Components
         TQRLabel *QRLabel3;
         TQRShape *QRShape1;
         TQRShape *QRShape2;
-        TQRLabel *qrlDeclareIdTiaoMa;
 private:	// User declarations
 public:		// User declarations
         __fastcall TPrnOutBoatForm(TComponent* Owner);

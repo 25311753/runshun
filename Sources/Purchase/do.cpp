@@ -20,6 +20,8 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "trayicon"
+#pragma link "frxClass"
+#pragma link "frxBarcode"
 #pragma resource "*.dfm"
 TDoForm *DoForm;
 typedef struct
@@ -1131,7 +1133,11 @@ void TDoForm::genContainerInfo4PrnDeclare(AnsiString c){
                 m_strContainerHead += ")";
 }
 
-
+void TDoForm::setFastReportMemo(AnsiString memoName, AnsiString value){
+        TfrxMemoView *v;
+        v = (TfrxMemoView *)frxReportOutBoat->FindObject(memoName);    // 寻找目标对象
+        v->Text = value;
+}
 
 #include "PrnOutBoat.h"
 void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
@@ -1140,7 +1146,44 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
                 ShowMessage("请完善表体信息");
                 return ;
         }
+        setFastReportMemo("memoCid", edtCid->Text);
+        setFastReportMemo("memoSH", cbbSH->Text);
+        setFastReportMemo("memoLadingId", edtLoadingid->Text);
+        setFastReportMemo("memoOperunit", cbbOperunit->Text) ;
+        setFastReportMemo("memoOutPort", edtOutport->Text)  ;
+        setFastReportMemo("memoTargetCountry", cbbTargetCountry->Text)  ;
 
+        SplitSubContainer(AnsiString(m_strContainerInfo));
+        setFastReportMemo("memoSubContainerInfo1", AnsiString(m_strSubConNoSealId1))   ;
+        setFastReportMemo("memoSubContainerInfo2", AnsiString(m_strSubConNoSealId2))  ;
+        setFastReportMemo("memoSubContainerInfo3", AnsiString(m_strSubConNoSealId3))    ;
+        setFastReportMemo("memoSubContainerInfo4", AnsiString(m_strSubConNoSealId4))    ;
+        setFastReportMemo("memoSubContainerInfo5", AnsiString(m_strSubConNoSealId5))    ;
+        setFastReportMemo("memoSubContainerInfo6", AnsiString(m_strSubConNoSealId6))    ;
+        setFastReportMemo("memoSubContainerInfo7", AnsiString(m_strSubConNoSealId7))    ;
+        setFastReportMemo("memoSubContainerInfo8", AnsiString(m_strSubConNoSealId8))    ;
+        setFastReportMemo("memoSubContainerInfo9", AnsiString(m_strSubConNoSealId9))    ;
+        setFastReportMemo("memoSubContainerInfo10", AnsiString(m_strSubConNoSealId10))   ;
+
+        setFastReportMemo("memoShipAgent", AnsiString(m_strShipAgent))          ;
+        setFastReportMemo("memoTypeInfo1", AnsiString(m_strConTypeUp))          ;
+        setFastReportMemo("memoTypeInfo2", AnsiString(m_strConTypeDown))         ;
+        setFastReportMemo("memoEndCustDate", AnsiString(m_strEndCustDate))       ;
+        setFastReportMemo("memoNum20DaXie", AnsiString(m_strConNum20DaXie))      ;
+        setFastReportMemo("memoNum40DaXie", AnsiString(m_strConNum40DaXie))      ;
+
+       if (m_strConNum20DaXie.IsEmpty()){
+                setFastReportMemo("memoNum20DaXie", AnsiString(""))             ;
+       }
+       if (m_strConNum40DaXie.IsEmpty()){
+                setFastReportMemo("memoNum40DaXie", AnsiString(""))            ;
+       }
+        TfrxBarCodeView *v;
+        v = (TfrxBarCodeView *)frxReportOutBoat->FindObject("BarCode1");    // 寻找目标对象
+        v->Expression = edtDeclareid->Text;
+
+        frxReportOutBoat->ShowReport();
+/*
         TPrnOutBoatForm *pForm;
  	pForm=new TPrnOutBoatForm(this);
         assert(pForm!=NULL);
@@ -1159,23 +1202,10 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
         pForm->QRLabel5->Caption="";
 //       pForm->qrlTargetCountry->Caption = "";                        //del 20130608
        pForm->qrlTargetCountry->Caption = cbbTargetCountry->Text;     //del 0626 不显示,20130608 回显
-/*       if (edtDeclareid->Text.Length() > 9){//只显示最后9位
-                pForm->qrlDeclareId->Caption = edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9);
-        } else {
-                pForm->qrlDeclareId->Caption = edtDeclareid->Text;
-        }
-*/        
+
 //        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
 //                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
         pForm->qrlDeclareId->Caption = "";
-        TFont *theFont = new TFont();
-        //theFont->Color=clRed;
-        theFont->Name = "C39HrP72DmTt";
-        theFont->Size = 34;
-        pForm->qrlDeclareIdTiaoMa->Font = theFont;
-        pForm->qrlDeclareIdTiaoMa->Caption = (edtDeclareid->Text.Length() > 9)? \
-                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
-
 
 //       pForm->qrlCountHead->Caption = edtCount->Text;
 //       pForm->qrlMname->Caption = lstView->Items->Item[0]->SubItems->Strings[0];
@@ -1214,6 +1244,8 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
 
         pForm->PrnView->PreviewModal() ;
         delete pForm;
+*/
+
 }
 void TDoForm::SplitSubContainer(AnsiString c){
                 int nFixLen = 18; //缩小间距
