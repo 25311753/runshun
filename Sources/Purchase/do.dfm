@@ -1,6 +1,6 @@
 object DoForm: TDoForm
-  Left = 264
-  Top = 155
+  Left = 252
+  Top = 45
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #20570#21333
@@ -1925,7 +1925,7 @@ object DoForm: TDoForm
     PrintOptions.Printer = #39044#35774
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41764.889161794
-    ReportOptions.LastChange = 41764.9359683102
+    ReportOptions.LastChange = 41765.3293439699
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -1948,27 +1948,13 @@ object DoForm: TDoForm
       TopMargin = 10
       BottomMargin = 10
       Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-      object Memo1: TfrxMemoView
-        Left = 15.11812
-        Top = 11.33859
-        Width = 52.91342
-        Height = 18.89765
-        ShowHint = False
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -16
-        Font.Name = 'Arial'
-        Font.Style = []
-        Memo.UTF8 = (
-          #23480#12517#23839#37721'?')
-        ParentFont = False
-      end
       object memoCid: TfrxMemoView
         Left = 75.5906
         Top = 11.33859
         Width = 45.35436
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -1982,6 +1968,7 @@ object DoForm: TDoForm
         Width = 275.90569
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -1991,27 +1978,13 @@ object DoForm: TDoForm
           #37721#25120#12456#37719#26330#32133':'#39582#22446#31390#23057#65090#12302#37733#20171#27311#29840#1094#32333#37832#22800#27322#37711#57600#24451)
         ParentFont = False
       end
-      object Memo4: TfrxMemoView
-        Left = 423.30736
-        Top = 45.35436
-        Width = 275.90569
-        Height = 18.89765
-        ShowHint = False
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -16
-        Font.Name = 'Arial'
-        Font.Style = []
-        Memo.UTF8 = (
-          #37721#25120#12456#37719#26330#32133':'#39582#22446#31390#23090#29808#30541#26473#28056#22189#37721#65352#38180#37828#25780#28225#38340#24876#21461#37721'?')
-        ParentFont = False
-      end
       object memoLadingId: TfrxMemoView
         Left = 453.5436
         Top = 75.5906
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2025,6 +1998,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2052,6 +2026,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2065,6 +2040,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2092,6 +2068,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2105,6 +2082,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2118,6 +2096,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2131,6 +2110,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2144,6 +2124,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2157,6 +2138,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2170,6 +2152,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2183,6 +2166,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2196,6 +2180,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2209,6 +2194,7 @@ object DoForm: TDoForm
         Width = 22.67718
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -2224,6 +2210,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -2262,9 +2249,10 @@ object DoForm: TDoForm
       object Memo30: TfrxMemoView
         Left = 340.1577
         Top = 737.00835
-        Width = 94.48825
+        Width = 22.67718
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2277,9 +2265,10 @@ object DoForm: TDoForm
       object Memo31: TfrxMemoView
         Left = 340.1577
         Top = 767.24459
-        Width = 94.48825
+        Width = 22.67718
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2295,6 +2284,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2308,6 +2298,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2321,6 +2312,7 @@ object DoForm: TDoForm
         Width = 143.62214
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2334,6 +2326,7 @@ object DoForm: TDoForm
         Width = 94.48825
         Height = 18.89765
         ShowHint = False
+        AutoWidth = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -16
@@ -2357,6 +2350,38 @@ object DoForm: TDoForm
         Font.Height = -12
         Font.Name = 'Arial'
         Font.Style = []
+      end
+      object Memo1: TfrxMemoView
+        Left = 11.33859
+        Top = 11.33859
+        Width = 60.47248
+        Height = 18.89765
+        ShowHint = False
+        AutoWidth = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = []
+        Memo.UTF8 = (
+          #23480#12517#23839#37721'?')
+        ParentFont = False
+      end
+      object Memo2: TfrxMemoView
+        Left = 423.30736
+        Top = 41.57483
+        Width = 287.24428
+        Height = 26.45671
+        ShowHint = False
+        AutoWidth = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = []
+        Memo.UTF8 = (
+          #37721#25120#12456#37719#26330#32133':'#39582#22446#31390#23090#29808#30541#26473#28056#22189#37721#65352#38180#37828#25780#28225#38340#24876#21461#37721'?')
+        ParentFont = False
       end
     end
   end

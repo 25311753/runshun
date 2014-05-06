@@ -1146,6 +1146,13 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
                 ShowMessage("请完善表体信息");
                 return ;
         }
+        //fix area
+        setFastReportMemo("Memo1", AnsiString("工单号:"))  ;
+        setFastReportMemo("Memo2", AnsiString("发票单位:广州洹展进出口贸易有限公司"))  ;
+        setFastReportMemo("Memo30", AnsiString("贰"))  ;
+        setFastReportMemo("Memo31", AnsiString("肆"))  ;
+
+        //~
         setFastReportMemo("memoCid", edtCid->Text);
         setFastReportMemo("memoSH", cbbSH->Text);
         setFastReportMemo("memoLadingId", edtLoadingid->Text);
