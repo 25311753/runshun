@@ -95,12 +95,12 @@
       Purchase\DicCharge.dfm Purchase\Tailer.dfm Purchase\Receivables.dfm 
       Purchase\PrnCYD.dfm"/>
     <LIBFILES value="BaseCode\GSLfcLib.lib"/>
-    <LIBRARIES value="FS6.lib frx6.lib bcbsmp.lib tee.lib teedb.lib 
+    <LIBRARIES value="FS6.lib frx6.lib HsBarcode1DRun.lib bcbsmp.lib tee.lib teedb.lib 
       adortl.lib bcb2kaxserver.lib vcldb.lib vclx.lib qrpt.lib bdertl.lib 
       dbrtl.lib rtl.lib vcl.lib"/>
     <SPARELIBS value="vcl.lib rtl.lib dbrtl.lib bdertl.lib qrpt.lib vclx.lib vcldb.lib 
       bcb2kaxserver.lib adortl.lib teedb.lib tee.lib bcbsmp.lib 
-      frx6.lib FS6.lib"/>
+      HsBarcode1DRun.lib frx6.lib FS6.lib"/>
     <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi vcldb.bpi vclx.bpi bdertl.bpi vcldbx.bpi 
       ibxpress.bpi qrpt.bpi visualclx.bpi visualdbclx.bpi inet.bpi inetdb.bpi 
       dsnap.bpi nmfast.bpi bcbie.bpi dbexpress.bpi indy.bpi bcb2kaxserver.bpi 
@@ -247,7 +247,7 @@ Comments=
 [HistoryLists\hlIncludePath]
 Count=19
 Item0=d:\Program Files\FastReports\FastReport 4\LibBCB6;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;..\..;MaterCmp;SumData;InforSearch;DataRow;Purchase;BaseData;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl
-Item1=d:\Program Files\FastReports\FastReport 4\LibBCB6;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl
+Item1=d:\Program Files\FastReports\FastReport 4\LibBCB6;d:\Program Files\Barcode1D\cbuilder_6;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl
 Item2=tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl
 Item3=..\..\asi\Sources\Purchase;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl
 Item4=E:\work_space\bin_runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl
@@ -269,7 +269,7 @@ Item18=$(BCB)\include;$(BCB)\include\vcl
 [HistoryLists\hlLibraryPath]
 Count=21
 Item0=d:\Program Files\FastReports\FastReport 4\LibBCB6;d:\workspace\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;..\..;MaterCmp;SumData;InforSearch;DataRow;Purchase;BaseData;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
-Item1=d:\Program Files\FastReports\FastReport 4\LibBCB6;d:\workspace\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
+Item1=d:\Program Files\FastReports\FastReport 4\LibBCB6;d:\Program Files\Barcode1D\cbuilder_6;d:\workspace\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
 Item2=d:\workspace\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
 Item3=e:\work_space\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib
 Item4=..\..\asi\Sources\Purchase;E:\work_space\bin\runshun\Exec;tmpForm;D:\Program Files\Borland\CBuilder6\Projects;E:\Program Files\Borland\CBuilder6\Bin;..\..;E:\Program Files\Borland\CBuilder6\Projects;MaterCmp;SumData;e:\Borland\CBuilder6\Projects;InforSearch;DataRow;Purchase;BaseData;C:\Program Files\Borland\CBuilder6\Bin;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib

@@ -10,9 +10,9 @@
 #include <ExtCtrls.hpp>
 #include <QuickRpt.hpp>
 #include <QRCtrls.hpp>
-#include "pBarcode1D.hpp"
-#include "pCode93.hpp"
-#include "pCode93Ext.hpp"
+//#include "pBarcode1D.hpp"
+//#include "pCode93.hpp"
+//#include "pCode93Ext.hpp"
 
 //---------------------------------------------------------------------------
 class TPrnOutBoatForm : public TForm
