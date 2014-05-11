@@ -2201,7 +2201,7 @@ object DoForm: TDoForm
         Font.Name = 'Arial'
         Font.Style = []
         Memo.UTF8 = (
-          #28000'?')
+          '')
         ParentFont = False
       end
       object Memo27: TfrxMemoView
@@ -2259,7 +2259,7 @@ object DoForm: TDoForm
         Font.Name = 'Arial'
         Font.Style = []
         Memo.UTF8 = (
-          #29840'?')
+          '')
         ParentFont = False
       end
       object Memo31: TfrxMemoView
@@ -2275,7 +2275,7 @@ object DoForm: TDoForm
         Font.Name = 'Arial'
         Font.Style = []
         Memo.UTF8 = (
-          #38002'?')
+          '')
         ParentFont = False
       end
       object memoNum20DaXie: TfrxMemoView
@@ -2364,7 +2364,7 @@ object DoForm: TDoForm
         Font.Name = 'Arial'
         Font.Style = []
         Memo.UTF8 = (
-          #23480#12517#23839#37721'?')
+          '')
         ParentFont = False
       end
       object Memo2: TfrxMemoView
@@ -2380,7 +2380,7 @@ object DoForm: TDoForm
         Font.Name = 'Arial'
         Font.Style = []
         Memo.UTF8 = (
-          #37721#25120#12456#37719#26330#32133':'#39582#22446#31390#23090#29808#30541#26473#28056#22189#37721#65352#38180#37828#25780#28225#38340#24876#21461#37721'?')
+          '')
         ParentFont = False
       end
     end
