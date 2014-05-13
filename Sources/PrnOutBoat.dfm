@@ -2,7 +2,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
   Left = -1288
   Top = -232
   Width = 1296
-  Height = 1040
+  Height = 1036
   VertScrollBar.Position = 145
   Caption = #25171#21360#20986#33337#32440
   Color = clBtnFace
@@ -703,7 +703,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
         FontSize = 12
       end
       object qrlDeclareId: TQRLabel
-        Left = 657
+        Left = 593
         Top = 673
         Width = 85
         Height = 21
@@ -714,7 +714,7 @@ object PrnOutBoatForm: TPrnOutBoatForm
         Frame.DrawRight = False
         Size.Values = (
           55.5625
-          1738.3125
+          1568.97916666667
           1780.64583333333
           224.895833333333)
         Alignment = taLeftJustify

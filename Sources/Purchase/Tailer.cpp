@@ -1070,6 +1070,10 @@ void TTailerForm::_flushVarCharge(AnsiString name, AnsiString charge, AnsiString
         if (name == "" || charge == "" || cost == ""){
                 return;
         }
+//        ShowMessage(name);
+ //       ShowMessage(charge);
+   //     ShowMessage(cost);
+
         for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
                 CVarCharge *d = it->second;
                 if (d->cbbName->ItemIndex == 0){
@@ -1137,6 +1141,7 @@ void __fastcall TTailerForm::lstViewDownSelectItem(TObject *Sender,
 
         cbbGoodsPerf->ItemIndex=cbbGoodsPerf->Items->IndexOf(Item->SubItems->Strings[COL_GOODSPERF]);
         flushContainer(AnsiString(Item->SubItems->Strings[COL_CONTAINERINFO].c_str()));
+//        ShowMessage(Item->SubItems->Strings[COL_CHARGE_COST]);
         flushVarCharge(AnsiString(Item->SubItems->Strings[COL_CHARGE_COST].c_str()));
         m_selected_id = StrToInt(Item->SubItems->Strings[COL_ID].c_str());
   }

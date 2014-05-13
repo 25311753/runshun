@@ -2886,10 +2886,21 @@ void __fastcall TDoForm::btnCIQClick(TObject *Sender)
 	{
                 ++iRows;
                 iCols = 0;
+                AnsiString smname = dm1->Query1->FieldByName("mname")->AsString;
+                int pStar=smname.Pos(AnsiString("*"));
+                if (pStar!=0){
+                        smname=smname.SubString(pStar+1, smname.Length()-1);
+                }
+                int pPoint=smname.Pos(AnsiString("."));
+                if (pPoint!=0){
+                        smname=smname.SubString(0, smname.Length()-1);
+                }
+                
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value",dm1->Query1->FieldByName("mcode")->AsString.c_str());
-                vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value",dm1->Query1->FieldByName("mname")->AsString.c_str());
+                vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value",smname.c_str());
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","");
-                vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","原产地");
+//                vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","原产地");
+                vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","广东广州");
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","");
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","");
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value",dm1->Query1->FieldByName("pkname")->AsString.c_str());
