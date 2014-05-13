@@ -1146,6 +1146,73 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
                 ShowMessage("请完善表体信息");
                 return ;
         }
+        TPrnOutBoatForm *pForm;
+ 	pForm=new TPrnOutBoatForm(this);
+        assert(pForm!=NULL);
+
+       pForm->qrlCid->Caption = edtCid->Text;
+       pForm->qrlSH->Caption = cbbSH->Text;
+
+       pForm->qrlLadingId->Caption = edtLoadingid->Text;
+//       pForm->qrlOperUnit->Caption = edtOperunit->Text;
+       pForm->qrlOperUnit->Caption = cbbOperunit->Text;
+       pForm->qrlOutPort->Caption = edtOutport->Text;
+//       pForm->qrlBoatNo->Caption = edtBoatno->Text;
+//       pForm->qrlBoatOrder->Caption = edtBoatorder->Text;
+       pForm->qrlBoatNo->Caption = "";
+       pForm->qrlBoatOrder->Caption = "";
+        pForm->QRLabel5->Caption="";
+//       pForm->qrlTargetCountry->Caption = "";                        //del 20130608
+       pForm->qrlTargetCountry->Caption = cbbTargetCountry->Text;     //del 0626 不显示,20130608 回显
+
+        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
+                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
+//        pForm->qrlDeclareId->Caption = "";
+
+//       pForm->qrlCountHead->Caption = edtCount->Text;
+//       pForm->qrlMname->Caption = lstView->Items->Item[0]->SubItems->Strings[0];
+//       pForm->qrlTotalNetWeight->Caption = Label42->Caption;
+       pForm->qrlCountHead->Caption = "";
+       pForm->qrlMname->Caption = "";
+       pForm->qrlTotalNetWeight->Caption = "";      
+       pForm->QRLabel17->Caption = "";
+       pForm->QRLabel20->Caption = "";
+
+       SplitSubContainer(AnsiString(m_strContainerInfo));
+
+       pForm->qrlSubContainerInfo1->Caption = AnsiString(m_strSubConNoSealId1);
+       pForm->qrlSubContainerInfo2->Caption = AnsiString(m_strSubConNoSealId2);
+       pForm->qrlSubContainerInfo3->Caption = AnsiString(m_strSubConNoSealId3);
+       pForm->qrlSubContainerInfo4->Caption = AnsiString(m_strSubConNoSealId4);
+       pForm->qrlSubContainerInfo5->Caption = AnsiString(m_strSubConNoSealId5);
+       pForm->qrlSubContainerInfo6->Caption = AnsiString(m_strSubConNoSealId6);
+       pForm->qrlSubContainerInfo7->Caption = AnsiString(m_strSubConNoSealId7);
+       pForm->qrlSubContainerInfo8->Caption = AnsiString(m_strSubConNoSealId8);
+       pForm->qrlSubContainerInfo9->Caption = AnsiString(m_strSubConNoSealId9);
+       pForm->qrlSubContainerInfo10->Caption =AnsiString( m_strSubConNoSealId10);
+       pForm->qrlShipAgent->Caption = AnsiString(m_strShipAgent);
+
+       pForm->qrlTypeInfo1->Caption =AnsiString( m_strConTypeUp);
+       pForm->qrlTypeInfo2->Caption = AnsiString(m_strConTypeDown);
+       pForm->qrlEndCustDate->Caption = AnsiString(m_strEndCustDate);
+       pForm->qrlNum20DaXie->Caption = AnsiString(m_strConNum20DaXie);
+       pForm->qrlNum40DaXie->Caption = AnsiString(m_strConNum40DaXie);
+       if (m_strConNum20DaXie.IsEmpty()){
+                pForm->qrl20DaXie->Caption = "";
+       }
+       if (m_strConNum40DaXie.IsEmpty()){
+                pForm->qrl40DaXie->Caption = "";
+       }
+
+        pForm->PrnView->PreviewModal() ;
+        delete pForm;        
+/*
+        // fastreport version
+        if (lstView->Items->Count == 0) {
+                ShowMessage("请完善表体信息");
+                return ;
+        }
+
         //fix area
         setFastReportMemo("Memo1", AnsiString("工单号:"))  ;
         setFastReportMemo("Memo2", AnsiString("发票单位:广州洹展进出口贸易有限公司"))  ;
@@ -1190,7 +1257,13 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
         v->Expression = edtDeclareid->Text;
 
         frxReportOutBoat->ShowReport();
+*/
 /*
+//quickreport version (not support barcode)
+        if (lstView->Items->Count == 0) {
+                ShowMessage("请完善表体信息");
+                return ;
+        }
         TPrnOutBoatForm *pForm;
  	pForm=new TPrnOutBoatForm(this);
         assert(pForm!=NULL);
@@ -1210,9 +1283,9 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
 //       pForm->qrlTargetCountry->Caption = "";                        //del 20130608
        pForm->qrlTargetCountry->Caption = cbbTargetCountry->Text;     //del 0626 不显示,20130608 回显
 
-//        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
-//                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
-        pForm->qrlDeclareId->Caption = "";
+        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
+                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
+
 
 //       pForm->qrlCountHead->Caption = edtCount->Text;
 //       pForm->qrlMname->Caption = lstView->Items->Item[0]->SubItems->Strings[0];

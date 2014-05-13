@@ -7001,9 +7001,9 @@ object UserLoginForm: TUserLoginForm
     object Label1: TLabel
       Left = 3
       Top = 184
-      Width = 79
+      Width = 86
       Height = 16
-      Caption = 'version: 5.1.1'
+      Caption = 'version: 5.13.0'
       Color = clMaroon
       Font.Charset = GB2312_CHARSET
       Font.Color = clBtnHighlight
