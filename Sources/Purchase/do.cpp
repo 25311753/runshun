@@ -2851,7 +2851,8 @@ void __fastcall TDoForm::btnCIQClick(TObject *Sender)
                 {
                         int icol=1;
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","商品HS编码");
-                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","商品中英文名称");
+                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","商品中文名称");
+                        vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","商品英文名称");
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","生产厂家");
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","原产地");//没数据源，写死“广东广州”
                         vSheet.OlePropertyGet("Cells",iRows,icol++).OlePropertySet("Value","商品材质");
@@ -2898,6 +2899,7 @@ void __fastcall TDoForm::btnCIQClick(TObject *Sender)
                 
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value",dm1->Query1->FieldByName("mcode")->AsString.c_str());
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value",smname.c_str());
+                vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","");
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","");
 //                vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","原产地");
                 vSheet.OlePropertyGet("Cells",iRows,++iCols).OlePropertySet("Value","广东广州");
