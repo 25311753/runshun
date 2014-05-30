@@ -1,6 +1,6 @@
 object PrnOutBoatForm: TPrnOutBoatForm
-  Left = -1288
-  Top = -232
+  Left = 515
+  Top = 79
   Width = 1296
   Height = 1036
   VertScrollBar.Position = 145

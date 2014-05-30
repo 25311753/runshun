@@ -1,6 +1,6 @@
 object PrnDeclareForm: TPrnDeclareForm
-  Left = 0
-  Top = 0
+  Left = 343
+  Top = 97
   Width = 1280
   Height = 800
   VertScrollBar.Position = 14
@@ -569,78 +569,96 @@ object PrnDeclareForm: TPrnDeclareForm
       end
       object qrlBoatNo: TQRLabel
         Left = 401
-        Top = 165
-        Width = 58
-        Height = 17
+        Top = 162
+        Width = 48
+        Height = 15
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          44.9791666666667
+          39.6875
           1060.97916666667
-          436.5625
-          153.458333333333)
+          428.625
+          127)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
         Caption = 'qrlBoatNo'
         Color = clWhite
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
         Transparent = False
         WordWrap = True
-        FontSize = 10
+        FontSize = 8
       end
       object QRLabel3: TQRLabel
-        Left = 465
-        Top = 165
-        Width = 5
-        Height = 17
+        Left = 401
+        Top = 177
+        Width = 4
+        Height = 15
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          44.9791666666667
-          1230.3125
-          436.5625
-          13.2291666666667)
+          39.6875
+          1060.97916666667
+          468.3125
+          10.5833333333333)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
         Caption = '/'
         Color = clWhite
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
         Transparent = False
         WordWrap = True
-        FontSize = 10
+        FontSize = 8
       end
       object qrlBoatOrder: TQRLabel
-        Left = 473
-        Top = 165
-        Width = 74
-        Height = 17
+        Left = 408
+        Top = 177
+        Width = 63
+        Height = 15
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          44.9791666666667
-          1251.47916666667
-          436.5625
-          195.791666666667)
+          39.6875
+          1079.5
+          468.3125
+          166.6875)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
         Caption = 'qrlBoatOrder'
         Color = clWhite
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
         Transparent = False
         WordWrap = True
-        FontSize = 10
+        FontSize = 8
       end
       object qrlLadingId: TQRLabel
         Left = 593
