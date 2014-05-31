@@ -123,6 +123,8 @@ __published:	// IDE-managed Components
         TCheckBox *cbIsQryByDate;
         TMemo *memoLoadAddress;
         TMemo *memoLading;
+        TPanel *Panel22;
+        TDateTimePicker *dtpAcceptDate;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnClearQryCondClick(TObject *Sender);
         void __fastcall btnAddClick(TObject *Sender);
@@ -170,7 +172,9 @@ private:	// User declarations
         CVarCharge *m_v4;
         CVarCharge *m_v5;
 
+        std::map<AnsiString, int> m_mDicCharges;  //buf chargesname,chid
         std::map<int, CVarCharge*> m_mVarCharge;  //for CVarCharge
+        std::map<AnsiString, std::pair<double, double> > m_mMoneyChange;        //保存一条记录修改前后的费用变动
 public:		// User declarations
         __fastcall TTailerForm(TComponent* Owner);
 
@@ -193,7 +197,10 @@ public:		// User declarations
         void cb_change_cost(int pos);
         CString GetContainerInfo_local(TListView *lv);
         void getFirstContainerUnit(AnsiString c, int &_cnt, AnsiString &containerno, AnsiString &type, AnsiString &sealid);
-        bool chk_input_valid();                
+        bool chk_input_valid();
+        std::map<int, std::pair<double, double> > diff_money(std::map<AnsiString, std::pair<double, double> > before, std::map<AnsiString, std::pair<double, double> > after); //求变动费用值
+        std::map<AnsiString, std::pair<double, double> > get_money();
+        void matching(bool isDel=false); //执行费用对碰        
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TTailerForm *TailerForm;

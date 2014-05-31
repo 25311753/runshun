@@ -24,6 +24,7 @@ TTailerForm *TailerForm;
 
 enum E_TAILER_COL_NAME{
 	COL_OPDATE = 0,
+        COL_ACCEPTDATE,
         COL_CLIENT,
         COL_LADING,
         COL_CONTAINER_NO,
@@ -57,6 +58,8 @@ __fastcall TTailerForm::TTailerForm(TComponent* Owner)
 {
         m_enWorkState=EN_IDLE;
         m_selected_id = 0;
+        m_mDicCharges.clear();        
+        m_mMoneyChange.clear();
         m_mVarCharge.clear();
         int i=1;
         m_mVarCharge.insert(std::make_pair(i++, new CVarCharge(cbbVarChargeName1, edtCharge1, edtCost1)));
@@ -95,6 +98,7 @@ void TTailerForm::clean_input(){
         TDateTime tNow=TDateTime::CurrentDateTime();
         dtpOpDateYYYYMMDD->DateTime=tNow;
         dtpOpDateHHMM->Time = EncodeTime(17,00,00,0);
+        dtpAcceptDate->DateTime=tNow;        
 
         // var charge
         for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end(); it++){
@@ -139,6 +143,7 @@ void __fastcall TTailerForm::FormShow(TObject *Sender)
                 int chid = dm1->Query1->FieldByName("chid")->AsInteger;
                 AnsiString chname = dm1->Query1->FieldByName("chname")->AsString;
 
+                m_mDicCharges.insert(std::make_pair(chname, chid));
                 for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
                         CVarCharge *d = it->second;
                         d->cbbName->Items->Add(chname);
@@ -209,6 +214,7 @@ void TTailerForm::ResetCtrl(){
 void __fastcall TTailerForm::btnAddClick(TObject *Sender)
 {
         clean_input();
+        m_mMoneyChange.clear();
 	ResetCtrl();
         if(cbbClient->CanFocus())
                 cbbClient->SetFocus();
@@ -279,6 +285,7 @@ void __fastcall TTailerForm::btnQueryClick(TObject *Sender)
                 pItem=lstViewDown->Items->Add();
                 pItem->Caption= column_no;
                 pItem->SubItems->Add(dm1->Query1->FieldByName("opdate")->AsString);
+                pItem->SubItems->Add(dm1->Query1->FieldByName("acceptdate")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("client")->AsString);
                 pItem->SubItems->Add(dm1->Query1->FieldByName("ladingid")->AsString);
                 int cnt = 0;
@@ -323,6 +330,8 @@ void __fastcall TTailerForm::btnQueryClick(TObject *Sender)
 void __fastcall TTailerForm::btnModClick(TObject *Sender)
 {
         m_enWorkState=EN_EDIT;
+        m_mMoneyChange.clear();
+        m_mMoneyChange = get_money();
         ResetCtrl();        
 }
 //---------------------------------------------------------------------------
@@ -536,12 +545,13 @@ int TTailerForm::addData(TObject *Sender){
 
         //gen date        
         CString szSQL;
-        szSQL="insert into tailer(client, opdate, ladingid, loadaddress, loadlinkman, loadtel, \
+        szSQL="insert into tailer(client, opdate, acceptdate, ladingid, loadaddress, loadlinkman, loadtel, \
                                 containerinfo, fare, fareout, charge_cost, total_charge,\
                                 total_cost, trancompany, carno, driver, beizhu, goodsperf) \
                         values(";
         szSQL += Str2DBString(cbbClient->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
+        szSQL +=","; szSQL += Str2DBString(GetDate(dtpAcceptDate));
         szSQL +=","; szSQL += Str2DBString(memoLading->Text.IsEmpty()?"":memoLading->Text.c_str());
 
 /*        szSQL +=","; szSQL += Str2DBString(memoLoadAddress->Text.c_str());
@@ -598,6 +608,7 @@ int TTailerForm::addData(TObject *Sender){
         assert(pItem!=NULL);
         pItem->Caption=(column_no+1);
         pItem->SubItems->Add(AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM)));
+        pItem->SubItems->Add(AnsiString(GetDate(dtpAcceptDate)));
         pItem->SubItems->Add(cbbClient->Text);
         pItem->SubItems->Add(memoLading->Text);
 
@@ -637,6 +648,9 @@ int TTailerForm::addData(TObject *Sender){
 
         pItem->SubItems->Add(autokey);
         rt = 0;
+
+        matching();
+
         return rt;
 }
 CString TTailerForm::GetContainerInfo_local(TListView *lv){
@@ -682,6 +696,7 @@ void  TTailerForm::modData(TObject *Sender){
         szSQL="update tailer set ";     
         szSQL +="client="; szSQL += Str2DBString(cbbClient->Text.c_str());
         szSQL +=",opdate="; szSQL += Str2DBString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM));
+        szSQL +=",acceptdate="; szSQL += Str2DBString(GetDate(dtpAcceptDate));
         szSQL +=",ladingid="; szSQL += Str2DBString(memoLading->Text.c_str());
         szSQL +=",loadaddress="; szSQL += Str2DBString(memoLoadAddress->Text.c_str());
         szSQL +=",goodsperf="; szSQL += Str2DBString(cbbGoodsPerf->Text.c_str());
@@ -704,6 +719,8 @@ void  TTailerForm::modData(TObject *Sender){
                 ShowMessage("update fail!") ;
                 return;
         }
+        
+        matching();
 
         ShowMessage("修改成功");
 }
@@ -736,6 +753,7 @@ void  TTailerForm::refreshMod(){
 //        AnsiString(GetTimeBy2Dtp(dtpOpDateYYYYMMDD, dtpOpDateHHMM))
 //                pItem->Caption=dm1->Query1->FieldByName("cid")->AsString;
                 pItem->SubItems->Strings[COL_OPDATE] = dm1->Query1->FieldByName("opdate")->AsString;
+                pItem->SubItems->Strings[COL_ACCEPTDATE] = dm1->Query1->FieldByName("acceptdate")->AsString;
 	        pItem->SubItems->Strings[COL_CLIENT] = dm1->Query1->FieldByName("client")->AsString;         
 
 		pItem->SubItems->Strings[COL_LADING] = dm1->Query1->FieldByName("ladingid")->AsString;
@@ -1066,13 +1084,23 @@ void TTailerForm::flushContainer(AnsiString c){
         }
 
 }
+std::map<AnsiString, std::pair<double, double> > TTailerForm::get_money(){
+        std::map<AnsiString, std::pair<double, double> > rt;
+        rt.clear();
+
+        for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
+                CVarCharge *d = it->second;
+                if (d->cbbName->ItemIndex != 0){
+                        rt.insert(std::make_pair(d->cbbName->Text, std::make_pair(str2money(d->edtCharge->Text), str2money(d->edtCost->Text))));
+                }
+	}
+        return rt;
+}
+
 void TTailerForm::_flushVarCharge(AnsiString name, AnsiString charge, AnsiString cost){
         if (name == "" || charge == "" || cost == ""){
                 return;
         }
-//        ShowMessage(name);
- //       ShowMessage(charge);
-   //     ShowMessage(cost);
 
         for (std::map<int, CVarCharge*>::iterator it = m_mVarCharge.begin(); it != m_mVarCharge.end();  it++){
                 CVarCharge *d = it->second;
@@ -1085,12 +1113,13 @@ void TTailerForm::_flushVarCharge(AnsiString name, AnsiString charge, AnsiString
 	}
 
 }
+
 void TTailerForm::flushVarCharge(AnsiString c){
 		char cnt[10];memset(cnt,sizeof(cnt),0x00);
 		char body[2048];memset(body,sizeof(body),0x00);
 		sscanf(c.c_str(),"%[^|]|",cnt);
 		sscanf(c.c_str(),"%*[^|]|%[^@]",body);
-
+               
 		char strTmp1[2048];
 		memset(strTmp1,sizeof(strTmp1),0x00);
 		strcpy(strTmp1,body);
@@ -1113,6 +1142,11 @@ void TTailerForm::flushVarCharge(AnsiString c){
 //                        assert(pItem!=NULL);
                         _flushVarCharge(AnsiString(str3), AnsiString(str4), AnsiString(strCost));
 		}
+//debug
+/*
+
+*/
+//~                
 }
 void __fastcall TTailerForm::lstViewDownSelectItem(TObject *Sender,
       TListItem *Item, bool Selected)
@@ -1123,6 +1157,8 @@ void __fastcall TTailerForm::lstViewDownSelectItem(TObject *Sender,
         tDate=StrToDateTime(Item->SubItems->Strings[COL_OPDATE].c_str());
         dtpOpDateYYYYMMDD->DateTime=tDate;
         dtpOpDateHHMM->Time=tDate;
+        tDate=StrToDateTime(Item->SubItems->Strings[COL_ACCEPTDATE].c_str());
+        dtpAcceptDate->DateTime=tDate;
 
         cbbClient->Text = Item->SubItems->Strings[COL_CLIENT].c_str();
         memoLading->Text = Item->SubItems->Strings[COL_LADING].c_str();
@@ -1143,6 +1179,7 @@ void __fastcall TTailerForm::lstViewDownSelectItem(TObject *Sender,
         flushContainer(AnsiString(Item->SubItems->Strings[COL_CONTAINERINFO].c_str()));
 //        ShowMessage(Item->SubItems->Strings[COL_CHARGE_COST]);
         flushVarCharge(AnsiString(Item->SubItems->Strings[COL_CHARGE_COST].c_str()));
+//        debug_money_diff(); 
         m_selected_id = StrToInt(Item->SubItems->Strings[COL_ID].c_str());
   }
         ResetCtrl();
@@ -1157,11 +1194,15 @@ void __fastcall TTailerForm::btnDelClick(TObject *Sender)
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return;
 
+        m_mMoneyChange.clear();
+        m_mMoneyChange = get_money();
+
         CString szSQL;
         szSQL.Format("delete tailer where tid=%d", m_selected_id);
         if(!RunSQL(dm1->Query1,szSQL))
                 ShowMessage("delete fail!");
         //btnQueryClick(Sender);
+        matching(true);
         delLvItem(lstViewDown);
         m_selected_id = 0;
         ShowMessage("删除成功");
@@ -1245,4 +1286,103 @@ void TTailerForm::getFirstContainerUnit(AnsiString c, int &_cnt, AnsiString &con
 }
 
 
+std::map<int, std::pair<double, double> > TTailerForm::diff_money(std::map<AnsiString, std::pair<double, double> > before, std::map<AnsiString, std::pair<double, double> > after)
+{
+        std::map<AnsiString, std::pair<double, double> > rt_tmp = before;
+        //对齐，补全after没有的(删除掉的费用)
+        for (std::map<AnsiString, std::pair<double, double> >::iterator it = rt_tmp.begin(); it != rt_tmp.end();  it++){
+            std::map<AnsiString, std::pair<double, double> >::iterator fit = after.find(it->first);
+            if (fit == after.end()){
+                after.insert(std::make_pair(it->first, std::make_pair(0, 0)));
+            }
+        }
 
+        for (std::map<AnsiString, std::pair<double, double> >::iterator it = after.begin(); it != after.end();  it++){
+                rt_tmp[it->first].first = it->second.first - rt_tmp[it->first].first;
+                rt_tmp[it->first].second = it->second.second - rt_tmp[it->first].second;                
+/*            std::map<AnsiString, std::pair<double, double> >::iterator fit = rt_tmp.find(it->first);
+            if (fit != rt_tmp.end()){
+                fit->second.first = it->second.first - fit->second.first;
+                fit->second.second = it->second.second - fit->second.second;
+            }else{
+                //should not come here!
+                rt_tmp.insert(std::make_pair(it->first, std::make_pair(it->second.first, it->second.second)));
+            }
+*/
+        }
+
+        //transfer to <chid, <charges, cost> > format
+        std::map<int, std::pair<double, double> > rt;
+        rt.clear();
+        for (std::map<AnsiString, std::pair<double, double> >::iterator it = rt_tmp.begin(); it != rt_tmp.end();  it++){
+                rt.insert(std::make_pair(m_mDicCharges[it->first], it->second));
+        }
+        //debug
+/*        ShowMessage("diff");
+        for (std::map<int, std::pair<double, double> >::iterator it = rt.begin(); it != rt.end();  it++){
+                AnsiString str = AnsiString(it->first) + AnsiString(" ") + AnsiString(it->second.first) + AnsiString(" ") + AnsiString(it->second.second);
+                ShowMessage(str);
+        }
+*/
+        return rt;
+        //~
+
+
+
+}
+
+void TTailerForm::matching(bool isDel){
+        //get diff
+        std::map<AnsiString, std::pair<double, double> > after;
+        if (isDel){
+                after.clear();
+        }else{
+                after = get_money();
+        }
+        std::map<int, std::pair<double, double> > diff = diff_money(m_mMoneyChange, after);
+
+        //关联costoms:
+        //t.第一个柜 in c.柜
+        //c.接单日期 between t.接单日期-30 and t.接单日期（c.接单日期+30<t.接单日期）
+        //c.goodsperf!=买单
+
+        if (lstViewContainer->Items->Count==0 || cbbGoodsPerf->Text=="买单"){
+//                ShowMessage("不需要对碰");
+                return;
+        }
+        //1. find customs
+        AnsiString cid;
+        CString szSQL;
+	szSQL.Format("select cid from customs where goodsperf!='买单' \
+                        and acceptdate between DATEADD(MM, -1, '%s') and '%s' \
+                        and containerinfo like '%%%s%%'", \
+                        AnsiString(GetTimeEnd(dtpAcceptDate)), AnsiString(GetTimeEnd(dtpAcceptDate)), \
+                        lstViewContainer->Items->Item[0]->Caption.c_str());
+                        
+	RunSQL(dm1->Query1,szSQL,true);
+
+	if(!dm1->Query1->Eof)
+	{
+                cid = dm1->Query1->FieldByName("cid")->AsString;
+        }
+//        ShowMessage(cid);
+
+        //2. matching finance and costaccounting
+        for (std::map<int, std::pair<double, double> >::iterator it=diff.begin(); it!=diff.end(); ++it){
+                char strId[80];
+                sprintf(strId, "%s%02d",cid, it->first);
+
+                try
+	        {
+		        szSQL.Format("exec p_matching_money %s, %f, %f", Str2DBString(strId), it->second.first, it->second.second);
+		        RunSQL(dm1->Query1,szSQL);
+	        }
+	        catch(...)
+	        {
+		        ShowMessage(AnsiString("exec error:") + AnsiString(szSQL));
+		        return;
+	        }
+        }
+
+
+}

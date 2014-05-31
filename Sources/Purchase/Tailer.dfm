@@ -1,6 +1,6 @@
 object TailerForm: TTailerForm
-  Left = 0
-  Top = 30
+  Left = -1255
+  Top = -54
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = #25302#36710#31995#32479
@@ -486,7 +486,7 @@ object TailerForm: TTailerForm
         TabOrder = 8
       end
       object Panel2: TPanel
-        Left = 215
+        Left = 367
         Top = 3
         Width = 60
         Height = 21
@@ -747,9 +747,9 @@ object TailerForm: TTailerForm
           '45HQ')
       end
       object cbbClient: TComboBox
-        Left = 275
+        Left = 427
         Top = 3
-        Width = 152
+        Width = 132
         Height = 21
         AutoDropDown = True
         Color = clHighlightText
@@ -826,6 +826,38 @@ object TailerForm: TTailerForm
         Height = 85
         ScrollBars = ssVertical
         TabOrder = 36
+      end
+      object Panel22: TPanel
+        Left = 215
+        Top = 3
+        Width = 60
+        Height = 21
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
+        Caption = #25509#21333#26085#26399
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 37
+      end
+      object dtpAcceptDate: TDateTimePicker
+        Left = 275
+        Top = 3
+        Width = 83
+        Height = 21
+        CalAlignment = dtaLeft
+        Date = 40894.3686127199
+        Time = 40894.3686127199
+        DateFormat = dfShort
+        DateMode = dmComboBox
+        ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+        Kind = dtkDate
+        ParseInput = False
+        TabOrder = 38
       end
     end
   end
@@ -1141,6 +1173,10 @@ object TailerForm: TTailerForm
         Width = 75
       end
       item
+        Caption = #25509#21333#26085#26399
+        Width = 75
+      end
+      item
         Caption = #23458#25143
         Width = 60
       end
@@ -1224,7 +1260,7 @@ object TailerForm: TTailerForm
       end
       item
         Caption = 'id'
-        Width = 0
+        Width = 75
       end>
     FlatScrollBars = True
     GridLines = True

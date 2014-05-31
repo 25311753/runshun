@@ -62,4 +62,18 @@ double edt2money(TEdit *edt, int decimal_place=0){
         }
         return rt;
 }
+//°ÑAnsiString×ª³Émoney
+double str2money(AnsiString s, int decimal_place=0){
+        double rt = 0;
+        try{
+                if (s.IsEmpty()){
+                        return 0;
+                }
+                if (isMoney(s, decimal_place)){
+                        TryStrToFloat(s, rt);
+                }
+        }catch(...){
+        }
+        return rt;
+}
 #endif
