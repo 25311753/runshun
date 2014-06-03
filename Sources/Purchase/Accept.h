@@ -96,6 +96,8 @@ __published:	// IDE-managed Components
         TButton *btnClearQryCond;
         TButton *btnCopy;
         TButton *btnPaste;
+        TPanel *Panel25;
+        TEdit *edtBoatName;
         void __fastcall FormShow(TObject *Sender);
         void __fastcall btnInputContanerinfoClick(TObject *Sender);
         void __fastcall btnAddClick(TObject *Sender);

@@ -1753,7 +1753,7 @@ object DoForm: TDoForm
     OnClick = Button1Click
   end
   object btnWMZ: TButton
-    Left = 463
+    Left = 575
     Top = 659
     Width = 75
     Height = 25
@@ -1765,10 +1765,11 @@ object DoForm: TDoForm
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 20
+    Visible = False
     OnClick = btnWMZClick
   end
   object btnYSQRS: TButton
-    Left = 539
+    Left = 651
     Top = 659
     Width = 75
     Height = 25
@@ -1780,10 +1781,11 @@ object DoForm: TDoForm
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 21
+    Visible = False
     OnClick = btnYSQRSClick
   end
   object btnSCCK: TButton
-    Left = 614
+    Left = 726
     Top = 659
     Width = 126
     Height = 25
@@ -1795,13 +1797,14 @@ object DoForm: TDoForm
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 22
+    Visible = False
     OnClick = btnSCCKClick
   end
   object btnCIQ: TButton
-    Left = 855
+    Left = 451
     Top = 660
     Width = 75
-    Height = 25
+    Height = 24
     Caption = #23548#20986'CIQ'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -1813,7 +1816,7 @@ object DoForm: TDoForm
     OnClick = btnCIQClick
   end
   object btnQYCNS: TButton
-    Left = 740
+    Left = 852
     Top = 659
     Width = 75
     Height = 25
@@ -1825,6 +1828,7 @@ object DoForm: TDoForm
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 24
+    Visible = False
     OnClick = btnQYCNSClick
   end
   object Edit1: TEdit

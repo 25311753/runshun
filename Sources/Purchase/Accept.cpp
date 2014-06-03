@@ -96,6 +96,7 @@ void __fastcall TAcceptForm::FormShow(TObject *Sender)
         }
 */
         edtBoatOrder->Text = "";
+        edtBoatName->Text = "";
 /*
         cbbBoatorder->ItemIndex = -1;
         cbbBoatorder->Text = "";
@@ -219,6 +220,7 @@ void __fastcall TAcceptForm::btnAddClick(TObject *Sender)
         edtBoatNo->Text = "";
 //        cbbBoatorder->ItemIndex = -1;
         edtBoatOrder->Text = "";
+        edtBoatName->Text = "";
         cbbQryStatus->ItemIndex = 0;
         cbbStatus->ItemIndex = -1;
         cbbShipAgent->ItemIndex = 0;
@@ -238,7 +240,7 @@ int TAcceptForm::add(TObject *Sender)
 
         if(edtCid->Text.IsEmpty() || cbbClient->Text.IsEmpty() || edtLading->Text.IsEmpty() || edtBoatNo->Text.IsEmpty() || \
               edtBoatOrder->Text.IsEmpty() || /*edtCustfree->Text.IsEmpty() ||*/ cbbGoodsPerf->Text.IsEmpty() ||\
-              lstViewContainer->Items->Count == 0)
+              lstViewContainer->Items->Count == 0 || edtBoatName->Text.IsEmpty())
         {
                 ShowMessage("请检查你的输入信息");
                 return rt;
@@ -267,7 +269,7 @@ int TAcceptForm::add(TObject *Sender)
 
         CString szSQL;
         szSQL="insert into customs(cid,client,ladingid,containerinfo,sealid,bnname,boname,endcustdate,\
-                        custfree,cliworkid,beizhu,goodsperf,status,acceptdate,boatno,boatorder,acceptor,shipagent)\
+                        custfree,cliworkid,beizhu,goodsperf,status,acceptdate,boatno,boatorder,acceptor,shipagent,boatname)\
                         values(";
         szSQL += Str2DBString(edtCid->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(cbbClient->Text.c_str());
@@ -291,6 +293,7 @@ int TAcceptForm::add(TObject *Sender)
         szSQL +=","; szSQL += Str2DBString(edtBoatOrder->Text.c_str());
         szSQL +=","; szSQL += Str2DBString(g_theOperator.op_name);
         szSQL +=","; szSQL += Str2DBString(cbbShipAgent->Text.c_str());
+        szSQL +=","; szSQL += Str2DBString(edtBoatName->Text.c_str());        
         szSQL +=")";
 
 //        lbdebug->Caption = AnsiString(szSQL);
@@ -316,7 +319,7 @@ int TAcceptForm::add(TObject *Sender)
         pItem->SubItems->Add(IntToStr(cnt_con));
         pItem->SubItems->Add("");
         pItem->SubItems->Add(edtBoatNo->Text);
-        pItem->SubItems->Add(edtBoatOrder->Text);
+        pItem->SubItems->Add(edtBoatOrder->Text);        
         pItem->SubItems->Add(strDate0);
         pItem->SubItems->Add("已接单");
         pItem->SubItems->Add("");       //单证处理中时间在做单那里生成
@@ -324,9 +327,10 @@ int TAcceptForm::add(TObject *Sender)
         pItem->SubItems->Add(edtCustfree->Text);
         pItem->SubItems->Add("");
         pItem->SubItems->Add(g_theOperator.op_name);
-        pItem->SubItems->Add("");       //doer 
+        pItem->SubItems->Add("");       //doer
         pItem->SubItems->Add(edtBeiZhu->Text);
         pItem->SubItems->Add(cbbShipAgent->Text.c_str());
+        pItem->SubItems->Add(edtBoatName->Text.c_str());
         pItem->SubItems->Add(AnsiString(GetContainerInfo()));
         flushSum();
         rt = 0;
@@ -474,6 +478,7 @@ void __fastcall TAcceptForm::btnQueryClick(TObject *Sender)
 		pItem->SubItems->Add(dm1->Query1->FieldByName("doer")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("beizhu")->AsString);
 		pItem->SubItems->Add(dm1->Query1->FieldByName("shipagent")->AsString);
+		pItem->SubItems->Add(dm1->Query1->FieldByName("boatname")->AsString);
 
                 pItem->SubItems->Add(dm1->Query1->FieldByName("containerinfo")->AsString);
                 lstViewContainer->Items->Clear();
@@ -493,6 +498,7 @@ void __fastcall TAcceptForm::btnQueryClick(TObject *Sender)
         edtBoatNo->Text = "";
 //        cbbBoatorder->ItemIndex	= -1;
         edtBoatOrder->Text = "";
+        edtBoatName->Text = "";
         cbbStatus->ItemIndex		= -1;
         edtLading->Text 				= "";
         edtContainerInfo->Text 	= "";
@@ -607,7 +613,9 @@ void __fastcall TAcceptForm::lstViewDownSelectItem(TObject *Sender,
         edtSealId->Text = Item->SubItems->Strings[15].c_str();
         edtBeiZhu->Text=Item->SubItems->Strings[18].c_str();
         cbbShipAgent->ItemIndex=cbbShipAgent->Items->IndexOf(Item->SubItems->Strings[19]);
-        flushContainer(AnsiString(Item->SubItems->Strings[20].c_str()));
+        edtBoatName->Text = Item->SubItems->Strings[20].c_str();
+
+        flushContainer(AnsiString(Item->SubItems->Strings[21].c_str()));
         TDateTime tDate;
         tDate=StrToDateTime(Item->SubItems->Strings[10].c_str());
         dtpEndDateYYYYMMDD->DateTime=tDate;
@@ -688,6 +696,7 @@ szSQL +=",status="; szSQL += Str2DBString(cbbStatus->Text.c_str());
 //szSQL +=",acceptdate="; szSQL += Str2DBString(GetSysDate());
 //szSQL +=",acceptor="; szSQL += Str2DBString(g_theOperator.op_name);           //del 0511 取消每次修改更新接单人
 szSQL +=",shipagent="; szSQL += Str2DBString(cbbShipAgent->Text.c_str());
+szSQL +=",boatname="; szSQL += Str2DBString(edtBoatName->Text.c_str());
 
 szSQL += " where cid="; szSQL+=Str2DBString(edtCid->Text.c_str());
 
@@ -930,6 +939,7 @@ void TAcceptForm::ResetCtrl(){
     EnableEdit(edtBoatNo,false);
 //    EnableCombo(cbbBoatorder,false);
     EnableEdit(edtBoatOrder,false);
+    EnableEdit(edtBoatName,false);
     EnableEdit(edtCustfree,false);
     EnableCombo(cbbShipAgent,false);
     EnableEdit(edtCliWorkid,false);
@@ -985,6 +995,7 @@ void TAcceptForm::ResetCtrl(){
     EnableEdit(edtBoatNo,true);
 //    EnableCombo(cbbBoatorder,true);
     EnableEdit(edtBoatOrder,true);
+    EnableEdit(edtBoatName,true);    
     EnableEdit(edtCustfree,true);
     EnableCombo(cbbShipAgent,true);
     EnableEdit(edtCliWorkid,true);
@@ -1326,6 +1337,7 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
                 cbbCustomsCharge->Text = AnsiString(getCustomsCharge(cbbClient->Text.c_str()));
                 edtBoatNo->Text = dm1->Query1->FieldByName("boatno")->AsString;
                 edtBoatOrder->Text = dm1->Query1->FieldByName("boatorder")->AsString;
+                edtBoatName->Text = dm1->Query1->FieldByName("boatname")->AsString;
                 cbbStatus->ItemIndex=cbbStatus->Items->IndexOf(dm1->Query1->FieldByName("status")->AsString);
                 AnsiString status = dm1->Query1->FieldByName("status")->AsString;
                 edtLading->Text =  dm1->Query1->FieldByName("ladingid")->AsString.c_str();
@@ -1352,5 +1364,8 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
+
+
+
 
 
