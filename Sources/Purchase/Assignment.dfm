@@ -671,8 +671,8 @@ object AssignmentForm: TAssignmentForm
       Width = 83
       Height = 21
       CalAlignment = dtaLeft
-      Date = 40894.3857962963
-      Time = 40894.3857962963
+      Date = 41763.3857962963
+      Time = 41763.3857962963
       DateFormat = dfShort
       DateMode = dmComboBox
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -686,8 +686,8 @@ object AssignmentForm: TAssignmentForm
       Width = 83
       Height = 21
       CalAlignment = dtaLeft
-      Date = 40894.3921510648
-      Time = 40894.3921510648
+      Date = 41763.3921510648
+      Time = 41763.3921510648
       DateFormat = dfShort
       DateMode = dmComboBox
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
@@ -724,6 +724,7 @@ object AssignmentForm: TAssignmentForm
       Top = 45
       Width = 795
       Height = 244
+      Checkboxes = True
       Columns = <
         item
           Caption = 'N'
@@ -731,7 +732,7 @@ object AssignmentForm: TAssignmentForm
         end
         item
           Caption = #24037#21333#21495
-          Width = 70
+          Width = 75
         end
         item
           Caption = #36135#29289#24615#36136
@@ -780,7 +781,7 @@ object AssignmentForm: TAssignmentForm
       OnSelectItem = lstViewSelectItem
     end
     object btnQry: TButton
-      Left = 637
+      Left = 549
       Top = 24
       Width = 75
       Height = 21
@@ -789,7 +790,7 @@ object AssignmentForm: TAssignmentForm
       OnClick = btnQryClick
     end
     object btnFlowTable: TButton
-      Left = 712
+      Left = 624
       Top = 24
       Width = 85
       Height = 21
@@ -835,6 +836,15 @@ object AssignmentForm: TAssignmentForm
       TabOrder = 17
       Text = 'edtDebug'
       Visible = False
+    end
+    object Button1: TButton
+      Left = 709
+      Top = 24
+      Width = 80
+      Height = 21
+      Caption = #23548#20986#39044#37197#33329#21333
+      TabOrder = 18
+      OnClick = Button1Click
     end
   end
   object Panel45: TPanel

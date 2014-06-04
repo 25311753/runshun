@@ -80,6 +80,7 @@ __published:	// IDE-managed Components
         TListView *lstViewYBJ;
         TButton *btnYJY2DZCLZ;
         TButton *btnDZCLZ2YJY;
+        TButton *Button1;
         void __fastcall btnQueryClick(TObject *Sender);
         void __fastcall btnCheckClick(TObject *Sender);
         void __fastcall btnPassClick(TObject *Sender);
@@ -104,6 +105,7 @@ __published:	// IDE-managed Components
         void __fastcall btnDZCLZ2YJYClick(TObject *Sender);
         void __fastcall btnPass1Click(TObject *Sender);
         void __fastcall btnYFX2CYZClick(TObject *Sender);
+        void __fastcall Button1Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TAssignmentForm(TComponent* Owner);

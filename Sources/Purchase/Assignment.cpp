@@ -3,6 +3,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include <FileCtrl.hpp>
 #include "Assignment.h"
 #include "DataModule.h"
 #include "BaseCode.h"
@@ -470,6 +471,7 @@ void __fastcall TAssignmentForm::FormShow(TObject *Sender)
                 cbbShipAgent->Items->Add(dm1->Query1->FieldByName("saname")->AsString);
 		dm1->Query1->Next();
         }
+
         
 }
 //---------------------------------------------------------------------------
@@ -766,9 +768,11 @@ void __fastcall TAssignmentForm::btnFlowTableClick(TObject *Sender)
         try{
                 vExcel = Variant::CreateObject("Excel.Application");      //打开excel
                 vExcel.OlePropertyGet("Workbooks").OleFunction("Add", 1); // 新增工作区
+                vWorkBook = vExcel.OlePropertyGet("ActiveWorkbook");
                 vSheet = vExcel.OlePropertyGet("ActiveWorkbook").OlePropertyGet("Sheets", 1);//操作这个工作表
                 //公共属性设置
                 vExcel.OlePropertySet("Visible",true);
+                vExcel.OlePropertySet("DisplayAlerts",false);
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Columns").OlePropertyGet("Item",1).OlePropertySet("ColumnWidth",5);//设置个别列宽
@@ -895,8 +899,10 @@ edtDebug->Text = AnsiString(szSQL_M);
                         OleHelper ole_helper(vSheet, "A", start_row, "N", iRows-1);
                         ole_helper.set_alignment(3).write_box();
                 }
+
         } catch(...){
         }
+
 }
 //---------------------------------------------------------------------------
 
@@ -953,6 +959,176 @@ void __fastcall TAssignmentForm::btnYFX2CYZClick(TObject *Sender)
 {
         AnsiString newStatus = "预报检";
         ChangeStatusSelected(&lstViewCYZ, &lstViewYBJ, newStatus);
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
+{
+        //create dir
+        AnsiString dirPath = "d:\\润顺_预配舱单\\" + AnsiString(GetSysTime2());
+        if (!ForceDirectories(dirPath))
+        {
+                ShowMessage(AnsiString("创建导出目录失败"));
+                return;
+        }
+        Variant vExcel,vWorkBook,vSheet,vRange,vBorders, vPicture;
+        int iCols,iRows;
+        iCols = iRows = 0;
+        try{
+                vExcel = Variant::CreateObject("Excel.Application");      //打开excel
+                vExcel.OlePropertyGet("Workbooks").OleFunction("Add", 1); // 新增工作区
+                vWorkBook = vExcel.OlePropertyGet("ActiveWorkbook");
+                vSheet = vExcel.OlePropertyGet("ActiveWorkbook").OlePropertyGet("Sheets", 1);//操作这个工作表
+                //公共属性设置
+//                vExcel.OlePropertySet("Visible",true);
+                vExcel.OlePropertySet("DisplayAlerts",false);
+                vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
+                vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
+                vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+
+                OleHelper ole_helper_raw(vSheet);
+                ++iRows;
+                //set style
+                {
+                        OleHelper ole_helper(vSheet, "A", iRows, "X", iRows);
+                        ole_helper.write_box().set_font_type("楷体_GB2312").set_font_style("加粗").set_alignment(3);
+                }
+                int tmp_column=1;
+                ole_helper_raw.write(AnsiString("提单号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("发货人"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("发货人地址及联系人"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("收货人"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("收货人地址及联系人"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("货名"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("件数"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("包装"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("毛重"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("货物海关状态"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("柜号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("尺寸"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("箱型"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("空重"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("封条"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("装货码头"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("卸货港"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("目的港"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("船名"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("航次"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("营运人"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("报关公司"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("通知方"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("通知方地址及联系人"), iRows, tmp_column++);
+
+                ++iRows;
+                int start_row = iRows;
+                int pos=0;
+
+                //qry result according row'checkbox
+                TListItem *pItem;
+                for(int i=0;i<lstView->Items->Count;i++)
+                {
+                        pItem=lstView->Items->Item[i];
+                        if (pItem->Checked && pItem->SubItems->Strings[7] == "俊励"){
+                                AnsiString cid = pItem->SubItems->Strings[0];
+                                CString szSQL;
+                                szSQL.Format("select ladingid, operunit,mname,tbl_sum.sum_casescnt,tbl_sum.sum_grossweight,\
+                                containerinfo,sealid,boatname,boatorder \
+                                from customs, customs_detail, merchandise, \
+                                (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
+                                where cid = '%s' \
+                                and cdid like '%s01' \
+                                and cmid=mid",
+                                cid.c_str(), cid.c_str(), cid.c_str()
+                                );
+//                                ShowMessage(AnsiString(szSQL));
+//                                edtDebug->Text = AnsiString(szSQL);
+
+                                RunSQL(dm1->Query1,szSQL,true);
+/*                                if (dm1->Query1->Eof){
+                                        ShowMessage("记录不存在");
+                                        return;
+                                }
+*/
+                                if (!dm1->Query1->Eof){
+                                        tmp_column=1;
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("ladingid")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("operunit")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString("TO ORDER"), iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("operunit")->AsString, iRows, tmp_column++);    
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("mname")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("sum_casescnt")->AsFloat, iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString("件"), iRows, tmp_column++);             
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("sum_grossweight")->AsFloat, iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString("1"), iRows, tmp_column++);
+
+                                        AnsiString c = dm1->Query1->FieldByName("containerinfo")->AsString;
+                                        char cnt[10]; memset(cnt,sizeof(cnt),0x00);
+                                        char body[2048]; memset(body,sizeof(body),0x00);
+                                        sscanf(c.c_str(),"%[^|]|",cnt);
+                                        sscanf(c.c_str(),"%*[^|]|%[^@]",body);
+
+                                        char strTmp1[2048];
+                                        memset(strTmp1,sizeof(strTmp1),0x00);
+                                        strcpy(strTmp1,body);
+                                        int num = StrToInt(cnt);
+                                        CString rt_c = "";
+                                        CString rt_ctype = "";
+
+                                        for (int i =0; i<num && i<1; ++i){
+                                                char str1[100],str2[100],str3[100], strTmp[2048];
+                                                memset(str1,sizeof(str1),0x00);
+                                                memset(str2,sizeof(str2),0x00);
+                                                memset(str3,sizeof(str3),0x00);
+                                                memset(strTmp,sizeof(strTmp),0x00);
+                                                strcpy(strTmp,strTmp1);
+                                                sscanf(strTmp,"%[^#]#",str1);
+                                                sscanf(str1,"%s %s ",str2,str3);
+                                                rt_c = str2;
+                                                rt_ctype = str3;
+                                        }
+
+                                        ole_helper_raw.write(AnsiString(rt_c), iRows, tmp_column++);
+                                        ole_helper_raw.write(rt_ctype=="S"?AnsiString("20"):AnsiString(40), iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString("F"), iRows, tmp_column++);
+
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("sealid")->AsString, iRows, tmp_column++);
+
+
+                                        ole_helper_raw.write(AnsiString("NSA"), iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
+
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("boatname")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("boatorder")->AsString, iRows, tmp_column++);  
+                                        ole_helper_raw.write(AnsiString("DCCMA"), iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString("DCGZYS"), iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString("THE SAME AS CONSIGNEE"), iRows, tmp_column++);
+                                        ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
+                                        iRows++;
+                                }
+                        }
+                }
+
+                //write box
+                {
+                        OleHelper ole_helper(vSheet, "A", start_row, "X", iRows-1);
+                        ole_helper.set_alignment(3).write_box();
+                }
+                //save file
+                AnsiString sfile = dirPath+"\\俊励(润顺).xlsx";
+                vSheet.OleProcedure("SaveAs", sfile.c_str());
+                vWorkBook.OleProcedure("Close");
+                vExcel.OleFunction("Quit");
+                vWorkBook = Unassigned;
+                vExcel = Unassigned;
+                ShowMessage("导出完毕");
+        } catch(...){
+                ShowMessage("导出失败");
+        }
+
 }
 //---------------------------------------------------------------------------
 
