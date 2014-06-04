@@ -1,6 +1,6 @@
 object AcceptForm: TAcceptForm
-  Left = 0
-  Top = 33
+  Left = 486
+  Top = 130
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25509#21333
@@ -483,7 +483,7 @@ object AcceptForm: TAcceptForm
     object cbbShipAgent: TComboBox
       Left = 273
       Top = 64
-      Width = 115
+      Width = 114
       Height = 21
       Style = csDropDownList
       Enabled = False
@@ -540,6 +540,31 @@ object AcceptForm: TAcceptForm
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       ItemHeight = 13
       TabOrder = 36
+    end
+    object Panel25: TPanel
+      Left = 387
+      Top = 64
+      Width = 60
+      Height = 21
+      BevelInner = bvLowered
+      BevelOuter = bvLowered
+      Caption = #33337#21517
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentColor = True
+      ParentFont = False
+      TabOrder = 37
+    end
+    object edtBoatName: TEdit
+      Left = 447
+      Top = 64
+      Width = 121
+      Height = 21
+      ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+      TabOrder = 38
     end
   end
   object btnAdd: TButton
@@ -1030,6 +1055,9 @@ object AcceptForm: TAcceptForm
       end
       item
         Caption = #33337#20195
+      end
+      item
+        Caption = #33337#21517
       end
       item
       end>
