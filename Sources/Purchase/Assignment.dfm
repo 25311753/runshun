@@ -783,16 +783,16 @@ object AssignmentForm: TAssignmentForm
     object btnQry: TButton
       Left = 549
       Top = 24
-      Width = 75
+      Width = 69
       Height = 21
       Caption = #26597#35810
       TabOrder = 13
       OnClick = btnQryClick
     end
     object btnFlowTable: TButton
-      Left = 624
+      Left = 619
       Top = 24
-      Width = 85
+      Width = 81
       Height = 21
       Caption = #29983#25104#27969#31243#34920
       TabOrder = 14
@@ -838,9 +838,9 @@ object AssignmentForm: TAssignmentForm
       Visible = False
     end
     object Button1: TButton
-      Left = 709
+      Left = 701
       Top = 24
-      Width = 80
+      Width = 96
       Height = 21
       Caption = #23548#20986#39044#37197#33329#21333
       TabOrder = 18
