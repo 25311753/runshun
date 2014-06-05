@@ -1,6 +1,6 @@
 object AssignmentForm: TAssignmentForm
-  Left = -1245
-  Top = -119
+  Left = 0
+  Top = 0
   Width = 1092
   Height = 781
   BorderIcons = [biSystemMenu, biMinimize]
