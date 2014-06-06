@@ -1,8 +1,8 @@
 object AssignmentForm: TAssignmentForm
-  Left = 0
-  Top = 0
+  Left = 621
+  Top = 209
   Width = 1092
-  Height = 781
+  Height = 770
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = #21333#35777#36319#36394
   Color = clBtnFace

@@ -262,7 +262,7 @@ public:
         explicit OleHelper(Variant &vSheet, AnsiString begin_column_type="", int begin_column_num=1, AnsiString end_column_type="", int end_column_num=1);
         ~OleHelper(){}
         //merge cells --//merge begin_column_type:begin_column_num - end_column_type:end_column_num to a cell
-        OleHelper &merge();
+        OleHelper &merge(bool culumn=true);
         //设置指定行的高度
         OleHelper &set_row_height(int height, int row=0);
         //设置第row行第column列单元格的字体格式        
@@ -288,9 +288,9 @@ OleHelper::OleHelper(Variant &vSheet, AnsiString begin_column_type, int begin_co
         AnsiString strRange = begin_column_type + AnsiString(begin_column_num)+":" + end_column_type + AnsiString(end_column_num);
         m_vRange = m_vSheet.OlePropertyGet("Range", strRange.c_str());
 }
-OleHelper &OleHelper::merge(){
+OleHelper &OleHelper::merge(bool column){
         m_vRange.OleProcedure("Select");
-        m_vRange.OleFunction( "Merge", true);
+        m_vRange.OleFunction( "Merge", column);   //true:row-merge false:column-merge
         return *this;
 }
 OleHelper &OleHelper::set_row_height(int height, int row){

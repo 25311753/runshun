@@ -238,9 +238,9 @@ int TAcceptForm::add(TObject *Sender)
 {
         int rt = -1;
 
-        if(edtCid->Text.IsEmpty() || cbbClient->Text.IsEmpty() || edtLading->Text.IsEmpty() || edtBoatNo->Text.IsEmpty() || \
-              edtBoatOrder->Text.IsEmpty() || /*edtCustfree->Text.IsEmpty() ||*/ cbbGoodsPerf->Text.IsEmpty() ||\
-              lstViewContainer->Items->Count == 0 || edtBoatName->Text.IsEmpty())
+        if(edtCid->Text.IsEmpty() || cbbClient->Text.IsEmpty() || edtLading->Text.IsEmpty() || \
+                /*edtBoatNo->Text.IsEmpty() || edtBoatOrder->Text.IsEmpty() || edtBoatName->Text.IsEmpty() || */ cbbGoodsPerf->Text.IsEmpty() ||\
+              lstViewContainer->Items->Count == 0)
         {
                 ShowMessage("请检查你的输入信息");
                 return rt;
