@@ -115,6 +115,7 @@ public:		// User declarations
         void ChangeStatusSelectedPass(TListView **pOldLstView, TListView **pNewLstView, AnsiString newStatus);
        void flushContainer(AnsiString c);
        void getFirstContainerAndType(AnsiString cinfos, CString& rt_c, CString& rt_ctype);
+       AnsiString mnameFilter(AnsiString mname);
 //        std::map<CString, std::pair<CString, CString> > genContainerInfoDetail(AnsiString c);       
 };
 //---------------------------------------------------------------------------

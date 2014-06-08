@@ -989,6 +989,21 @@ void TAssignmentForm::getFirstContainerAndType(AnsiString cinfos, CString& rt_c,
         return ;
 }
 
+AnsiString TAssignmentForm::mnameFilter(AnsiString mname)
+{
+        AnsiString rt_mname = "";
+                int pStar=mname.Pos(AnsiString("*"));
+                if (pStar!=0){
+                        rt_mname=mname.SubString(pStar+1, mname.Length()-1);
+                }
+                int pPoint=rt_mname.Pos(AnsiString("."));
+                if (pPoint!=0){
+                        rt_mname=rt_mname.SubString(0, rt_mname.Length()-1);
+                }
+
+        return rt_mname;
+}
+
 void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
 {
         //create dir
@@ -1083,7 +1098,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                 szSQL.Format("select shanghao,ladingid, operunit,mname,tbl_sum.sum_casescnt,tbl_sum.sum_grossweight,\
                                 containerinfo,sealid,boatname,boatorder \
                                 from customs,\
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid) as tbl_merchandise, \
+                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
                                 (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
                                 where cid = '%s'",
                                 cid.c_str(), cid.c_str(), cid.c_str());
@@ -1098,17 +1113,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                         ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString("TO ORDER"), iRows, tmp_column++);
                                         ole_helper_raw.write(dm1->Query1->FieldByName("shanghao")->AsString, iRows, tmp_column++);
-//                                        ole_helper_raw.write(dm1->Query1->FieldByName("mname")->AsString, iRows, tmp_column++);
-                AnsiString smname = dm1->Query1->FieldByName("mname")->AsString;
-                int pStar=smname.Pos(AnsiString("*"));
-                if (pStar!=0){
-                        smname=smname.SubString(pStar+1, smname.Length()-1);
-                }
-                int pPoint=smname.Pos(AnsiString("."));
-                if (pPoint!=0){
-                        smname=smname.SubString(0, smname.Length()-1);
-                }
-    
+                                        AnsiString smname = mnameFilter(dm1->Query1->FieldByName("mname")->AsString);
                                         ole_helper_raw.write(smname.c_str(), iRows, tmp_column++);
                                         ole_helper_raw.write(dm1->Query1->FieldByName("sum_casescnt")->AsFloat, iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString("件"), iRows, tmp_column++);             
@@ -1248,7 +1253,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                 szSQL.Format("select mname,declareid,shanghao,ladingid, containerinfo,sealid,\
                                 tbl_sum.sum_casescnt,tbl_sum.sum_grossweight,boatno,boatorder \
                                 from customs, \
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid) as tbl_merchandise, \
+                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
                                 (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
                                 where cid = '%s'",
                                 cid.c_str(), cid.c_str(), cid.c_str()
@@ -1294,10 +1299,11 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                         declareid_last9 =  declareid_last9.Length() > 9 ?\
                                                                 declareid_last9.SubString(declareid_last9.Length()-9+1, 9):declareid_last9;
 
-                                        ole_helper_raw.write(dm1->Query1->FieldByName("mname")->AsString+\
+
+                                        AnsiString smname = mnameFilter(dm1->Query1->FieldByName("mname")->AsString);
+                                        ole_helper_raw.write(smname+\
                                         AnsiString("/")+\
-                                        dm1->Query1->FieldByName("declareid")->AsString, iRows, tmp_column++);
-//                                        declareid_last9, iRows, tmp_column++);
+                                        declareid_last9, iRows, tmp_column++);
                                         ole_helper_raw.write(dm1->Query1->FieldByName("shanghao")->AsString, iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);           
                                         ole_helper_raw.write(dm1->Query1->FieldByName("sum_casescnt")->AsString, iRows, tmp_column++);
@@ -1393,7 +1399,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                 CString szSQL;
                                 szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,mname,operunit,shanghao,sum_casescnt,sum_grossweight \
                                 from customs, \
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid) as tbl_merchandise, \
+                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
                                 (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
                                 where cid = '%s'",
                                 cid.c_str(), cid.c_str(), cid.c_str()
@@ -1428,7 +1434,8 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
 
                                         ole_helper_raw.write(AnsiString("CNNSA"), iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
-                                        ole_helper_raw.write(dm1->Query1->FieldByName("mname")->AsString, iRows, tmp_column++);
+
+                                        ole_helper_raw.write(mnameFilter(dm1->Query1->FieldByName("mname")->AsString), iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString("本地出口"), iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString("N/M"), iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString("CSC"), iRows, tmp_column++);
@@ -1525,7 +1532,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                 CString szSQL;
                                 szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,mname,operunit,sum_casescnt,sum_grossweight \
                                 from customs, \
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid) as tbl_merchandise, \
+                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
                                 (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
                                 where cid = '%s'",
                                 cid.c_str(), cid.c_str(), cid.c_str()
@@ -1543,7 +1550,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                         ole_helper_raw.write(dm1->Query1->FieldByName("ladingid")->AsString, iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString("N/M"), iRows, tmp_column++);
                                         ole_helper_raw.write(dm1->Query1->FieldByName("operunit")->AsString, iRows, tmp_column++);
-                                        ole_helper_raw.write(dm1->Query1->FieldByName("mname")->AsString, iRows, tmp_column++);  
+                                        ole_helper_raw.write(mnameFilter(dm1->Query1->FieldByName("mname")->AsString), iRows, tmp_column++);  
                                         ole_helper_raw.write(AnsiString("南沙新港"), iRows, tmp_column++);   
                                         ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
@@ -1652,7 +1659,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                 CString szSQL;
                                 szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,shanghao,mname,operunit,sum_casescnt,sum_grossweight \
                                 from customs, \
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid) as tbl_merchandise, \
+                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
                                 (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
                                 where cid = '%s'",
                                 cid.c_str(), cid.c_str(), cid.c_str()
@@ -1669,7 +1676,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                         ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);                                
                                         ole_helper_raw.write(dm1->Query1->FieldByName("shanghao")->AsString, iRows, tmp_column++);  
                                         ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);
-                                        ole_helper_raw.write(dm1->Query1->FieldByName("mname")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(mnameFilter(dm1->Query1->FieldByName("mname")->AsString), iRows, tmp_column++);
                                         ole_helper_raw.write(dm1->Query1->FieldByName("sum_casescnt")->AsString, iRows, tmp_column++); 
                                         ole_helper_raw.write(AnsiString("件"), iRows, tmp_column++);                         
                                         ole_helper_raw.write(dm1->Query1->FieldByName("sum_grossweight")->AsString, iRows, tmp_column++);   
@@ -1741,7 +1748,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                         OleHelper ole_helper(vSheet, "B", iRows, "L", iRows);
                         ole_helper.merge().set_font_type("楷体_GB2312").write(s);
                 }
-                                
+
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
                 int tmp_column=1;
@@ -1826,7 +1833,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                 CString szSQL;
                                 szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,shanghao,mname,operunit,sum_casescnt,sum_grossweight \
                                 from customs,\
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid) as tbl_merchandise, \
+                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
                                 (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
                                 where cid = '%s'",
                                 cid.c_str(), cid.c_str(), cid.c_str()
@@ -1857,7 +1864,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                         }
 
                                         ole_helper_raw.write(dm1->Query1->FieldByName("sum_grossweight")->AsString, iRows, tmp_column++);
-                                        ole_helper_raw.write(dm1->Query1->FieldByName("mname")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(mnameFilter(dm1->Query1->FieldByName("mname")->AsString), iRows, tmp_column++);
                                         ole_helper_raw.write(dm1->Query1->FieldByName("sum_casescnt")->AsString, iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString("件"), iRows, tmp_column++);
                                         ole_helper_raw.write(AnsiString("*"), iRows, tmp_column++);
@@ -1869,7 +1876,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                         }
                 }
 
-                ole_helper_raw.write(AnsiString("合计:"), iRows, 2);                
+                ole_helper_raw.write(AnsiString("合计:"), iRows, 2);
                 {
                         OleHelper ole_helper(vSheet, "C", iRows, "D", iRows);
                         CString s;
@@ -1901,3 +1908,11 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+
+select boatname,boatorder,ladingid,containerinfo,sealid,shanghao,operunit,tbl_sum.sum_casescnt,tbl_sum.sum_grossweight,
+(select top 1 isnull(mname,'') as mname from customs_detail, merchandise where cdid like '2014051015__' and cmid=mid order by cdid) as mname
+from customs,
+(select '2014051015' as cid, isnull(sum(casescnt),0) as sum_casescnt, isnull(sum(grossweight),0) as sum_grossweight from customs_detail where cdid like '2014051015__') as tbl_sum
+where customs.cid = '2014051015'
+and customs.cid=tbl_sum.cid
