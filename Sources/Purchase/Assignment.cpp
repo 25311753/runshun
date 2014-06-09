@@ -991,7 +991,7 @@ void TAssignmentForm::getFirstContainerAndType(AnsiString cinfos, CString& rt_c,
 
 AnsiString TAssignmentForm::mnameFilter(AnsiString mname)
 {
-        AnsiString rt_mname = "";
+        AnsiString rt_mname = mname;
                 int pStar=mname.Pos(AnsiString("*"));
                 if (pStar!=0){
                         rt_mname=mname.SubString(pStar+1, mname.Length()-1);

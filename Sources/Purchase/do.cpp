@@ -2098,7 +2098,7 @@ void TDoForm::Row2Editor()
         edtSecondmeasunit->Text =Item->SubItems->Strings[7];
         edtGrossWeight1->Text =Item->SubItems->Strings[3];
         edtCount1->Text =Item->SubItems->Strings[4];
-        
+
         edtNetWeight1->Text =Item->SubItems->Strings[2];//20121117 一定要在count1后加载，否则会导致被count1.change逻辑覆盖
         edtCasecnt->Text = Item->SubItems->Strings[5];
         edtCount2nd->Text = Item->SubItems->Strings[13];
@@ -2108,7 +2108,21 @@ void TDoForm::Row2Editor()
         //强制修改总价（目前总价是按数量单价自动跳出，查询情况下，应该以customs_detail.totalprice为准，修改添加时才以计算为准）
         //！！！！！！！
         edtTotalPrice->Text = Item->SubItems->Strings[10];
+//        m_fTotalPrice=m_fTotalPrice-StrToFloat(edtTotalPrice->Text.c_str());  //先减总价
+        //先刷新下sumtotalprice -- 最终需要整合一下
+        m_fTotalPrice = 0;
+        TListItem *pItem;
+        double totalSum=0;
+        int i=0;
+        for(i=0;i<lstView->Items->Count;i++)
+        {
+                pItem=lstView->Items->Item[i];
+                totalSum+=StrToFloat(pItem->SubItems->Strings[10]);
+        }
+        FormatFloat("0.00", totalSum);
+        m_fTotalPrice = totalSum;
         m_fTotalPrice=m_fTotalPrice-StrToFloat(edtTotalPrice->Text.c_str());  //先减总价
+        //~
         rg_status->ItemIndex = status2index(AnsiString(m_strStatus));
         
 }
@@ -2209,6 +2223,8 @@ void __fastcall TDoForm::btnCancleDetailClick(TObject *Sender)
   m_enWorkStateDetail=EN_IDLE_D;
   ResetCtrlDetail();
   Row2Editor();
+  //rollback
+//  m_fTotalPrice=m_fTotalPrice-StrToFloat(edtTotalPrice->Text.c_str());  //先减总价,否则下次修改价钱不对
   edtNo->Text = "";
 }
 //---------------------------------------------------------------------------
@@ -3219,6 +3235,7 @@ void __fastcall TDoForm::rg_statusClick(TObject *Sender)
 */
 }
 //---------------------------------------------------------------------------
+
 
 
 
