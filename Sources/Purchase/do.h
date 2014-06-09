@@ -47,7 +47,7 @@ struct stSH{
         }
 };
 typedef std::map<int, stSH> SH_t;
-
+typedef  enum EN_GROSSWEIGHT_TOTALPRICE { EN_PASS, EN_FAIL, EN_DIY } EN_GROSSWEIGHT_TOTALPRICE; //不通过，直接失败，人工判断
 class TDoForm : public TForm
 {
 __published:	// IDE-managed Components
@@ -269,6 +269,7 @@ private:	// User declarations
 
        enum { EN_IDLE,/*EN_ADDNEW,*/EN_EDIT } m_enWorkState; //状态
          enum { EN_IDLE_D,EN_ADDNEW_D,EN_EDIT_D } m_enWorkStateDetail;
+
        bool isHasResult;
        CString m_strStatus;
        CString m_strContainerInfo;
@@ -304,10 +305,10 @@ public:		// User declarations
         void prnDeclare(AnsiString begin_cid, AnsiString end_cid, AnsiString split_detail, int page_ord, bool isTail=false);
 //        void prnDeclareSub(AnsiString cdid);
         AnsiString ranSH();
-        bool chkGrossWeight(float gw, float newTotalPrice);//毛重超26000KG提示,总价超10w(缓存全单总价，如edt，先减单项总价，如add，直接xx)
+        EN_GROSSWEIGHT_TOTALPRICE chkGrossWeight(float gw, float newTotalPrice);//毛重超26000KG提示,总价超10w(缓存全单总价，如edt，先减单项总价，如add，直接xx)
         int status2index(AnsiString status);
         AnsiString index2status(int index);
-        void setFastReportMemo(AnsiString memoName, AnsiString value);      
+        void setFastReportMemo(AnsiString memoName, AnsiString value);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TDoForm *DoForm;

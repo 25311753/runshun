@@ -2262,7 +2262,12 @@ int TDoForm::addDetail()
      }
 
   }
-  if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text), StrToFloat(edtTotalPrice->Text))){
+  EN_GROSSWEIGHT_TOTALPRICE c = chkGrossWeight(StrToFloat(edtGrossWeight1->Text), StrToFloat(edtTotalPrice->Text));
+  if (c == EN_FAIL){
+        ShowMessage("总价超15w,不能保存");
+        return -1;
+  }
+  else if (c == EN_DIY){
 //        ShowMessage("毛重超26000KG");
 //        return -1;
         char strMsg[256],strSQL[512];
@@ -2296,10 +2301,12 @@ int TDoForm::addDetail()
         ShowMessage("毛重必须大于净重");
         return -1;
   }
-
+/*
+  //上面已经有检查
   if (!chk_total_price(StrToFloat(edtTotalPrice->Text.c_str()))){
         return -1;
   }
+*/
         char strDate0[80];
 //   	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(),lstView->Items->Count+1);
    	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(), new_cdid);
@@ -2399,16 +2406,24 @@ int TDoForm::modDetail(){
      }
 
   }
-  if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text), StrToFloat(edtTotalPrice->Text))){
+  EN_GROSSWEIGHT_TOTALPRICE c = chkGrossWeight(StrToFloat(edtGrossWeight1->Text), StrToFloat(edtTotalPrice->Text));
+  if (c == EN_FAIL){
+        ShowMessage("总价超15w,不能保存");
+        return -1;
+  }
+  else if (c == EN_DIY){
+//  if (chkGrossWeight(StrToFloat(edtGrossWeight1->Text), StrToFloat(edtTotalPrice->Text))){
         char strMsg[256],strSQL[512];
         sprintf(strMsg,"\n  毛重超26500KG 或 总价超10w 是否继续?\n");
 //        sprintf(strMsg,"\n  总价超10w 是否继续?\n");
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return -1;
   }
+/*  
   if (!chk_total_price(StrToFloat(edtTotalPrice->Text.c_str()))){
         return -1;
-  }  
+  }
+*/
         char strDate0[80];
 //   	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(),lstView->Items->Count+1);
    	sprintf(strDate0,"%s", lstView->Selected->SubItems->Strings[15]);
@@ -3127,10 +3142,16 @@ AnsiString TDoForm::ranSH()
         return it->second.name;
 }
 
-bool TDoForm::chkGrossWeight(float gw, float newTotalPrice){
-//        return gw>26000 || totalPrice>100000;
-        return gw>26500 || (m_fTotalPrice+newTotalPrice)>100000;
-//        return (m_fTotalPrice+newTotalPrice)>100000;
+EN_GROSSWEIGHT_TOTALPRICE TDoForm::chkGrossWeight(float gw, float newTotalPrice){
+        if ((m_fTotalPrice+newTotalPrice) > 150000){
+                return EN_FAIL;
+        }
+        else if (gw>26500 || (m_fTotalPrice+newTotalPrice)>100000){
+                return EN_DIY;
+        }else {
+                return EN_PASS;
+        }
+        return EN_FAIL;
 }
 
 
@@ -3198,6 +3219,7 @@ void __fastcall TDoForm::rg_statusClick(TObject *Sender)
 */
 }
 //---------------------------------------------------------------------------
+
 
 
 

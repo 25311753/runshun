@@ -1095,15 +1095,13 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                         if (pItem->Checked && pItem->SubItems->Strings[7] == "俊励"){
                                 AnsiString cid = pItem->SubItems->Strings[0];
                                 CString szSQL;
-                                szSQL.Format("select shanghao,ladingid, operunit,mname,tbl_sum.sum_casescnt,tbl_sum.sum_grossweight,\
+                                szSQL.Format("select shanghao,ladingid, operunit,tbl_sum.sum_casescnt,tbl_sum.sum_grossweight,\
+                                (select top 1 isnull(mname,'') as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as mname, \
                                 containerinfo,sealid,boatname,boatorder \
                                 from customs,\
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
-                                (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
-                                where cid = '%s'",
-                                cid.c_str(), cid.c_str(), cid.c_str());
-//                                ShowMessage(AnsiString(szSQL));
-//                                edtDebug->Text = AnsiString(szSQL);
+                                (select '%s' as cid, isnull(sum(casescnt),0) as sum_casescnt, isnull(sum(grossweight),0) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
+                                where customs.cid = '%s' and customs.cid=tbl_sum.cid",
+                                cid.c_str(), cid.c_str(), cid.c_str(), cid.c_str());
 
                                 RunSQL(dm1->Query1,szSQL,true);
                                 if (!dm1->Query1->Eof){
@@ -1250,13 +1248,13 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                         if (pItem->Checked && pItem->SubItems->Strings[7] == "外代"){
                                 AnsiString cid = pItem->SubItems->Strings[0];
                                 CString szSQL;
-                                szSQL.Format("select mname,declareid,shanghao,ladingid, containerinfo,sealid,\
+                                szSQL.Format("select declareid,shanghao,ladingid, containerinfo,sealid,\
+                                (select top 1 isnull(mname,'') as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as mname, \
                                 tbl_sum.sum_casescnt,tbl_sum.sum_grossweight,boatno,boatorder \
                                 from customs, \
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
-                                (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
-                                where cid = '%s'",
-                                cid.c_str(), cid.c_str(), cid.c_str()
+                                (select '%s' as cid, isnull(sum(casescnt),0) as sum_casescnt, isnull(sum(grossweight),0) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
+                                where customs.cid = '%s' and customs.cid=tbl_sum.cid",
+                                cid.c_str(), cid.c_str(), cid.c_str(), cid.c_str()
                                 );
 //                                ShowMessage(AnsiString(szSQL));
 //                                edtDebug->Text = AnsiString(szSQL);
@@ -1397,12 +1395,12 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                         if (pItem->Checked && pItem->SubItems->Strings[7] == "中海"){
                                 AnsiString cid = pItem->SubItems->Strings[0];
                                 CString szSQL;
-                                szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,mname,operunit,shanghao,sum_casescnt,sum_grossweight \
+                                szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,operunit,shanghao,sum_casescnt,sum_grossweight, \
+                                (select top 1 isnull(mname,'') as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as mname \
                                 from customs, \
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
-                                (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
-                                where cid = '%s'",
-                                cid.c_str(), cid.c_str(), cid.c_str()
+                                (select '%s' as cid, isnull(sum(casescnt),0) as sum_casescnt, isnull(sum(grossweight),0) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
+                                where customs.cid = '%s' and customs.cid=tbl_sum.cid",
+                                cid.c_str(), cid.c_str(), cid.c_str(), cid.c_str()
                                 );
 //                                ShowMessage(AnsiString(szSQL));
 //                                edtDebug->Text = AnsiString(szSQL);
@@ -1530,12 +1528,12 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                         if (pItem->Checked && pItem->SubItems->Strings[7] == "航商"){
                                 AnsiString cid = pItem->SubItems->Strings[0];
                                 CString szSQL;
-                                szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,mname,operunit,sum_casescnt,sum_grossweight \
+                                szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,operunit,sum_casescnt,sum_grossweight, \
+                                (select top 1 isnull(mname,'') as mname from customs_detail, merchandise where cdid like '2014051015__' and cmid=mid order by cdid) as mname \
                                 from customs, \
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
-                                (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
-                                where cid = '%s'",
-                                cid.c_str(), cid.c_str(), cid.c_str()
+                                (select '%s' as cid, isnull(sum(casescnt),0) as sum_casescnt, isnull(sum(grossweight),0) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum   \
+                                where customs.cid = '%s' and customs.cid=tbl_sum.cid",
+                                cid.c_str(), cid.c_str(), cid.c_str(), cid.c_str()
                                 );
 //                                ShowMessage(AnsiString(szSQL));
 //                                edtDebug->Text = AnsiString(szSQL);
@@ -1657,12 +1655,12 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                         if (pItem->Checked && pItem->SubItems->Strings[7] == "联合"){
                                 AnsiString cid = pItem->SubItems->Strings[0];
                                 CString szSQL;
-                                szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,shanghao,mname,operunit,sum_casescnt,sum_grossweight \
+                                szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,shanghao,operunit,sum_casescnt,sum_grossweight, \
+                                (select top 1 isnull(mname,'') as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as mname \
                                 from customs, \
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
-                                (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
-                                where cid = '%s'",
-                                cid.c_str(), cid.c_str(), cid.c_str()
+                                (select '%s' as cid, isnull(sum(casescnt),0) as sum_casescnt, isnull(sum(grossweight),0) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
+                                where customs.cid = '%s' and customs.cid=tbl_sum.cid",
+                                cid.c_str(), cid.c_str(), cid.c_str(), cid.c_str()
                                 );
 //                                ShowMessage(AnsiString(szSQL));
 //                                edtDebug->Text = AnsiString(szSQL);
@@ -1831,12 +1829,12 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                         if (pItem->Checked && pItem->SubItems->Strings[7] == "创富"){
                                 AnsiString cid = pItem->SubItems->Strings[0];
                                 CString szSQL;
-                                szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,shanghao,mname,operunit,sum_casescnt,sum_grossweight \
+                                szSQL.Format("select boatname,boatorder,ladingid,containerinfo,sealid,shanghao, operunit,sum_casescnt,sum_grossweight, \
+                                (select top 1 isnull(mname,'') as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as mname \
                                 from customs,\
-                                (select top 1 mname as mname from customs_detail, merchandise where cdid like '%s__' and cmid=mid order by cdid) as tbl_merchandise, \
-                                (select sum(casescnt) as sum_casescnt, sum(grossweight) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
-                                where cid = '%s'",
-                                cid.c_str(), cid.c_str(), cid.c_str()
+                                (select '%s' as cid, isnull(sum(casescnt),0) as sum_casescnt, isnull(sum(grossweight),0) as sum_grossweight from customs_detail where cdid like '%s__') as tbl_sum \
+                                where customs.cid = '%s' and customs.cid=tbl_sum.cid",
+                                cid.c_str(), cid.c_str(), cid.c_str(), cid.c_str()
                                 );
 //                                ShowMessage(AnsiString(szSQL));
 //                                edtDebug->Text = AnsiString(szSQL);
@@ -1910,9 +1908,4 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
 
 
 
-select boatname,boatorder,ladingid,containerinfo,sealid,shanghao,operunit,tbl_sum.sum_casescnt,tbl_sum.sum_grossweight,
-(select top 1 isnull(mname,'') as mname from customs_detail, merchandise where cdid like '2014051015__' and cmid=mid order by cdid) as mname
-from customs,
-(select '2014051015' as cid, isnull(sum(casescnt),0) as sum_casescnt, isnull(sum(grossweight),0) as sum_grossweight from customs_detail where cdid like '2014051015__') as tbl_sum
-where customs.cid = '2014051015'
-and customs.cid=tbl_sum.cid
+
