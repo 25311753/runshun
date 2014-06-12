@@ -2331,7 +2331,255 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 ShowMessage("导出 民生 失败");
         }
     }
+        /////////////////////// 海和 ///////////////////////////////////////////
+    if(map_target.find("海和") != map_target.end())
+    {
+        Variant vExcel,vWorkBook,vSheet,vRange,vBorders, vPicture;
+        int iCols,iRows;
+        iCols = iRows = 0;
+        try{
+                vExcel = Variant::CreateObject("Excel.Application");      //打开excel
+                vExcel.OlePropertyGet("Workbooks").OleFunction("Add", 1); // 新增工作区
+                vWorkBook = vExcel.OlePropertyGet("ActiveWorkbook");
+                vSheet = vExcel.OlePropertyGet("ActiveWorkbook").OlePropertyGet("Sheets", 1);//操作这个工作表
+                //公共属性设置
+//                vExcel.OlePropertySet("Visible",true);
+                vExcel.OlePropertySet("DisplayAlerts",false);
+                vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
+                vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
+                vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
 
+                OleHelper ole_helper_raw(vSheet);
+                ++iRows;
+                //set style
+                {
+                        OleHelper ole_helper(vSheet, "A", iRows, "M", iRows+1);
+                        ole_helper.write_box().set_font_type("楷体_GB2312").set_font_style("加粗").set_alignment(3);
+                }
+
+                ole_helper_raw.write(AnsiString("预配头程日期："), iRows, 1);
+                ++iRows;
+                int tmp_column=1;
+                ole_helper_raw.write(AnsiString("报关行"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("提单号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString(" 发货人"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("货物名称"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("报关单号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("件数"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("毛重"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("集装箱号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("柜型"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("封条号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("箱标识（重/吉/拼）"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("船名"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("航次"), iRows, tmp_column++);
+
+                ++iRows;
+                int start_row = iRows;
+                int pos=0;
+
+                //qry result according row'checkbox
+                TListItem *pItem;
+                for(int i=0;i<lstView->Items->Count;i++)
+                {
+                        pItem=lstView->Items->Item[i];
+                        if (pItem->Checked && pItem->SubItems->Strings[7] == "海和"){
+                                AnsiString cid = pItem->SubItems->Strings[0];
+                                CString szSQL;
+                                szSQL.Format(common_sql.c_str(),
+                                cid.c_str(), cid.c_str(), cid.c_str(), cid.c_str()
+                                );
+//                                ShowMessage(AnsiString(szSQL));
+//                                edtDebug->Text = AnsiString(szSQL);
+
+                                RunSQL(dm1->Query1,szSQL,true);
+                                if (!dm1->Query1->Eof){
+                                        tmp_column=1;         
+                                        ole_helper_raw.write(AnsiString("广州润顺国际货运代理有限公司"), iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("ladingid")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("operunit")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(mnameFilter(dm1->Query1->FieldByName("mname")->AsString), iRows, tmp_column++);  
+                                        AnsiString declareid_last9 = dm1->Query1->FieldByName("declareid")->AsString;
+                                        declareid_last9 =  declareid_last9.Length() > 9 ?\
+                                                                declareid_last9.SubString(declareid_last9.Length()-9+1, 9):declareid_last9;
+                                        ole_helper_raw.write(declareid_last9, iRows, tmp_column++);
+                                        AnsiString smname = mnameFilter(dm1->Query1->FieldByName("mname")->AsString);                 
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("sum_casescnt")->AsString, iRows, tmp_column++);   
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("sum_grossweight")->AsString, iRows, tmp_column++);
+
+                                        AnsiString cinfos = dm1->Query1->FieldByName("containerinfo")->AsString;
+                                        CString rt_c = "";
+                                        CString rt_ctype = "";
+                                        getFirstContainerAndType(cinfos, rt_c, rt_ctype);
+
+                                        ole_helper_raw.write(AnsiString(rt_c), iRows, tmp_column++);
+                                        ole_helper_raw.write(rt_ctype=="S"?AnsiString("20"):AnsiString(40), iRows, tmp_column++);   
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("sealid")->AsString, iRows, tmp_column++);
+
+                                        ole_helper_raw.write(AnsiString("重"), iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("boatname")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("boatorder")->AsString, iRows, tmp_column++);
+                                        iRows++;
+                                }
+                        }
+                }
+
+                //write box
+                {
+                        OleHelper ole_helper(vSheet, "A", start_row, "M", iRows-1);
+                        ole_helper.set_alignment(3).write_box();
+                }
+                //save file
+                AnsiString sfile = dirPath+ AnsiString("\海和(润顺)_")+ suffix+".xls";
+                vSheet.OleProcedure("SaveAs", sfile.c_str());
+                vWorkBook.OleProcedure("Close");
+                vExcel.OleFunction("Quit");
+                vWorkBook = Unassigned;
+                vExcel = Unassigned;
+        } catch(...){
+                ShowMessage("导出 海和 失败");
+        }
+    }
+        /////////////////////// 德和 ///////////////////////////////////////////
+    if(map_target.find("德和") != map_target.end())
+    {
+        Variant vExcel,vWorkBook,vSheet,vRange,vBorders, vPicture;
+        int iCols,iRows;
+        iCols = iRows = 0;
+        try{
+                vExcel = Variant::CreateObject("Excel.Application");      //打开excel
+                vExcel.OlePropertyGet("Workbooks").OleFunction("Add", 1); // 新增工作区
+                vWorkBook = vExcel.OlePropertyGet("ActiveWorkbook");
+                vSheet = vExcel.OlePropertyGet("ActiveWorkbook").OlePropertyGet("Sheets", 1);//操作这个工作表
+                //公共属性设置
+//                vExcel.OlePropertySet("Visible",true);
+                vExcel.OlePropertySet("DisplayAlerts",false);
+                vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
+                vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
+                vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+
+                OleHelper ole_helper_raw(vSheet);
+                ++iRows;
+                //set style
+                {
+                        OleHelper ole_helper(vSheet, "A", iRows, "P", iRows+1+1);
+                        ole_helper.write_box().set_font_type("楷体_GB2312").set_font_style("加粗").set_alignment(3);
+
+                        AnsiString srange = "A1:A1";
+                        Variant m_vRange =  vSheet.OlePropertyGet("Range", srange.c_str());
+                        m_vRange.OlePropertyGet("Interior").OlePropertySet("ColorIndex",6);
+
+                        srange = "D1:D1";
+                        m_vRange =  vSheet.OlePropertyGet("Range", srange.c_str());
+                        m_vRange.OlePropertyGet("Interior").OlePropertySet("ColorIndex",6);
+
+                        srange = "F1:F1";
+                        m_vRange =  vSheet.OlePropertyGet("Range", srange.c_str());
+                        m_vRange.OlePropertyGet("Interior").OlePropertySet("ColorIndex",6);
+
+                        srange = "A3:C3";
+                        m_vRange =  vSheet.OlePropertyGet("Range", srange.c_str());
+                        m_vRange.OlePropertyGet("Interior").OlePropertySet("ColorIndex",6);
+
+                        srange = "G3:N3";
+                        m_vRange =  vSheet.OlePropertyGet("Range", srange.c_str());
+                        m_vRange.OlePropertyGet("Interior").OlePropertySet("ColorIndex",6);
+                }
+
+                ole_helper_raw.write(AnsiString("预配头程日期："), iRows, 1);
+                ole_helper_raw.write(AnsiString("联系人："), iRows, 4);
+                ole_helper_raw.write(AnsiString("陈生"), iRows, 5);
+                ole_helper_raw.write(AnsiString("联系电话："), iRows, 6);
+                ole_helper_raw.write(AnsiString("34661769"), iRows, 7);
+
+                ++iRows;
+                ++iRows;
+                int tmp_column=1;
+                ole_helper_raw.write(AnsiString("报关行"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("提单号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString(" 发货人"), iRows, tmp_column++);  
+                ole_helper_raw.write(AnsiString("发货人地址"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("收货人(可不填）"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("收货人地址"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("货物名称"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("报关单号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("件数"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("毛重"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("集装箱号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("柜型"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("封条号"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("箱标识（重/吉/拼）"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("船名"), iRows, tmp_column++);
+                ole_helper_raw.write(AnsiString("航次"), iRows, tmp_column++);
+
+                ++iRows;
+                int start_row = iRows;
+                int pos=0;
+
+                //qry result according row'checkbox
+                TListItem *pItem;
+                for(int i=0;i<lstView->Items->Count;i++)
+                {
+                        pItem=lstView->Items->Item[i];
+                        if (pItem->Checked && pItem->SubItems->Strings[7] == "德和"){
+                                AnsiString cid = pItem->SubItems->Strings[0];
+                                CString szSQL;
+                                szSQL.Format(common_sql.c_str(),
+                                cid.c_str(), cid.c_str(), cid.c_str(), cid.c_str()
+                                );
+//                                ShowMessage(AnsiString(szSQL));
+//                                edtDebug->Text = AnsiString(szSQL);
+
+                                RunSQL(dm1->Query1,szSQL,true);
+                                if (!dm1->Query1->Eof){
+                                        tmp_column=1;         
+                                        ole_helper_raw.write(AnsiString("广州润顺国际货运代理有限公司"), iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("ladingid")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("operunit")->AsString, iRows, tmp_column++); 
+                                        ole_helper_raw.write(AnsiString("广州"), iRows, tmp_column++);                    
+                                        ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);      
+                                        ole_helper_raw.write(AnsiString("香港"), iRows, tmp_column++);
+                                        ole_helper_raw.write(mnameFilter(dm1->Query1->FieldByName("mname")->AsString), iRows, tmp_column++);  
+                                        AnsiString declareid_last9 = dm1->Query1->FieldByName("declareid")->AsString;
+                                        declareid_last9 =  declareid_last9.Length() > 9 ?\
+                                                                declareid_last9.SubString(declareid_last9.Length()-9+1, 9):declareid_last9;
+                                        ole_helper_raw.write(declareid_last9, iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("sum_casescnt")->AsString, iRows, tmp_column++);   
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("sum_grossweight")->AsString, iRows, tmp_column++);
+
+                                        AnsiString cinfos = dm1->Query1->FieldByName("containerinfo")->AsString;
+                                        CString rt_c = "";
+                                        CString rt_ctype = "";
+                                        getFirstContainerAndType(cinfos, rt_c, rt_ctype);
+
+                                        ole_helper_raw.write(AnsiString(rt_c), iRows, tmp_column++);
+                                        ole_helper_raw.write(rt_ctype=="S"?AnsiString("20"):AnsiString(40), iRows, tmp_column++);   
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("sealid")->AsString, iRows, tmp_column++);
+
+                                        ole_helper_raw.write(AnsiString("重"), iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("boatname")->AsString, iRows, tmp_column++);
+                                        ole_helper_raw.write(dm1->Query1->FieldByName("boatorder")->AsString, iRows, tmp_column++);
+                                        iRows++;
+                                }
+                        }
+                }
+
+                //write box
+                {
+                        OleHelper ole_helper(vSheet, "A", start_row, "P", iRows-1);
+                        ole_helper.set_alignment(3).write_box();
+                }
+                //save file
+                AnsiString sfile = dirPath+ AnsiString("\德和(润顺)_")+ suffix+".xls";
+                vSheet.OleProcedure("SaveAs", sfile.c_str());
+                vWorkBook.OleProcedure("Close");
+                vExcel.OleFunction("Quit");
+                vWorkBook = Unassigned;
+                vExcel = Unassigned;
+        } catch(...){
+                ShowMessage("导出 德和 失败");
+        }
+    }
     ShowMessage("导出完毕");    
 }
 //---------------------------------------------------------------------------
