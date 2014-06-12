@@ -7003,7 +7003,7 @@ object UserLoginForm: TUserLoginForm
       Top = 184
       Width = 97
       Height = 16
-      Caption = 'version: 6.10.0.0'
+      Caption = 'version: 6.12.2.0'
       Color = clMaroon
       Font.Charset = GB2312_CHARSET
       Font.Color = clBtnHighlight

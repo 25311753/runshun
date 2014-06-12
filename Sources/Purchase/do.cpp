@@ -17,6 +17,7 @@
 #include "OleExcelCom.h"
 #include "Excel_2K_SRVR2.h"
 #include <OleServer.hpp>
+#include <vcl/Clipbrd.hpp>
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "trayicon"
@@ -3245,5 +3246,48 @@ void __fastcall TDoForm::rg_statusClick(TObject *Sender)
 
 
 
+
+
+
+
+void __fastcall TDoForm::lstViewContainerMouseDown(TObject *Sender,
+      TMouseButton Button, TShiftState Shift, int X, int Y)
+{
+     if(Button == mbRight)
+     {
+        TListItem *Item;
+        Item=lstViewContainer->Selected;
+        if(Item==NULL){
+                return;
+        }
+         TListItem *li = lstViewContainer->GetItemAt(X, Y);
+         if(li)
+             PopupMenu1->Popup(Mouse->CursorPos.x, Mouse->CursorPos.y);
+     }        
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TDoForm::N1Click(TObject *Sender)
+{
+        TListItem *Item;
+        Item=lstViewContainer->Selected;
+        if(Item==NULL){
+                return;
+        }
+        Clipboard()->AsText = Item->Caption;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TDoForm::N2Click(TObject *Sender)
+{
+        TListItem *Item;
+        Item=lstViewContainer->Selected;
+        if(Item==NULL){
+                return;
+        }
+        Clipboard()->AsText = Item->SubItems->Strings[1];
+}
+//---------------------------------------------------------------------------
 
 

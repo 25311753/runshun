@@ -863,12 +863,12 @@ object DoForm: TDoForm
           Caption = #23553#26465#21495
           Width = 73
         end>
-      Enabled = False
       GridLines = True
       ReadOnly = True
       RowSelect = True
       TabOrder = 58
       ViewStyle = vsReport
+      OnMouseDown = lstViewContainerMouseDown
     end
     object cbbOperunit: TComboBox
       Left = 425
@@ -2391,5 +2391,16 @@ object DoForm: TDoForm
   end
   object frxBarCodeObject1: TfrxBarCodeObject
     Left = 568
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 640
+    object N1: TMenuItem
+      Caption = #22797#21046' '#31665#21495
+      OnClick = N1Click
+    end
+    object N2: TMenuItem
+      Caption = #22797#21046' '#23553#26465#21495
+      OnClick = N2Click
+    end
   end
 end

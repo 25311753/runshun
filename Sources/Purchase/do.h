@@ -15,6 +15,7 @@
 #include <Mask.hpp>
 #include "frxClass.hpp"
 #include "frxBarcode.hpp"
+#include <Menus.hpp>
 
 #include <map>
 //---------------------------------------------------------------------------
@@ -191,6 +192,9 @@ __published:	// IDE-managed Components
         TRadioGroup *rg_status;
         TfrxReport *frxReportOutBoat;
         TfrxBarCodeObject *frxBarCodeObject1;
+        TPopupMenu *PopupMenu1;
+        TMenuItem *N1;
+        TMenuItem *N2;
         void __fastcall btnInputGoodsClick(TObject *Sender);
         void __fastcall FormShow(TObject *Sender);
         void __fastcall edtCidKeyPress(TObject *Sender, char &Key);
@@ -233,6 +237,10 @@ __published:	// IDE-managed Components
         void __fastcall edtUnitpriceChange(TObject *Sender);
         void __fastcall edtTotalPriceChange(TObject *Sender);
         void __fastcall rg_statusClick(TObject *Sender);
+        void __fastcall lstViewContainerMouseDown(TObject *Sender,
+          TMouseButton Button, TShiftState Shift, int X, int Y);
+        void __fastcall N1Click(TObject *Sender);
+        void __fastcall N2Click(TObject *Sender);
 private:	// User declarations
         CStringArray m_lstPack;
         CStringArray m_lstTrade;
