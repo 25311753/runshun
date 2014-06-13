@@ -286,6 +286,7 @@ private:	// User declarations
        CStringArray m_sa_sh;    //商号仓库，按单号末位取，保证不同
        SH_t m_SH;
        double m_fTotalPrice;    //缓存总价
+        
 
 public:		// User declarations
         __fastcall TDoForm(TComponent* Owner);

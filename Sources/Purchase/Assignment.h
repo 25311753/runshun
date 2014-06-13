@@ -106,7 +106,12 @@ __published:	// IDE-managed Components
         void __fastcall btnPass1Click(TObject *Sender);
         void __fastcall btnYFX2CYZClick(TObject *Sender);
         void __fastcall Button1Click(TObject *Sender);
+        void __fastcall lstViewColumnClick(TObject *Sender,
+          TListColumn *Column);
+        void __fastcall lstViewCompare(TObject *Sender, TListItem *Item1,
+          TListItem *Item2, int Data, int &Compare);
 private:	// User declarations
+        int m_nColumnToSort;
 public:		// User declarations
         __fastcall TAssignmentForm(TComponent* Owner);
         void Load2ListView(TListView **pLstView, LPCSTR cid);

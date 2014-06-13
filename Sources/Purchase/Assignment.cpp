@@ -2587,3 +2587,42 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
 
 
 
+
+void __fastcall TAssignmentForm::lstViewColumnClick(TObject *Sender,
+      TListColumn *Column)
+{
+    if(m_nColumnToSort==Column->Index)  
+    {
+      //若两次点击同一列则改变升序排还是降序排的Tag标志
+      Column->Tag = 1-Column->Tag;
+    }
+
+    m_nColumnToSort = Column->Index;//保存当前点击的列号
+    //排序 lvInvoice为界面的TListView控件指针
+    lstView->AlphaSort();        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAssignmentForm::lstViewCompare(TObject *Sender,
+      TListItem *Item1, TListItem *Item2, int Data, int &Compare)
+{
+    if (m_nColumnToSort == 0)
+    {
+      //如果列号为0则按列表项Caption属性进行比较
+      Compare = CompareText(Item1->Caption,Item2->Caption);
+    }
+    else 
+    {
+      //如果列号不为0则计算子列的序号并按子列项进行比较
+      int ix = m_nColumnToSort-1;
+      Compare = CompareText(Item1->SubItems->Strings[ix], Item2->SubItems->Strings[ix]);
+    }
+		
+    //Tag为1时升序排列，为0时降序排列
+    if(lstView->Columns->Items[m_nColumnToSort]->Tag)
+    {
+      Compare = -Compare;
+    }
+}
+//---------------------------------------------------------------------------
+

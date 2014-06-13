@@ -778,6 +778,8 @@ object AssignmentForm: TAssignmentForm
       RowSelect = True
       TabOrder = 12
       ViewStyle = vsReport
+      OnColumnClick = lstViewColumnClick
+      OnCompare = lstViewCompare
       OnSelectItem = lstViewSelectItem
     end
     object btnQry: TButton
