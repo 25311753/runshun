@@ -2591,6 +2591,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
 void __fastcall TAssignmentForm::lstViewColumnClick(TObject *Sender,
       TListColumn *Column)
 {
+        return;
     if(m_nColumnToSort==Column->Index)  
     {
       //若两次点击同一列则改变升序排还是降序排的Tag标志
