@@ -669,7 +669,6 @@ void __fastcall TAssignmentForm::btnQryClick(TObject *Sender)
 void __fastcall TAssignmentForm::lstViewSelectItem(TObject *Sender,
       TListItem *Item, bool Selected)
 {
-
         flushContainer(AnsiString(Item->SubItems->Strings[8+1+1].c_str()));//0620 add shipagent
 }
 //---------------------------------------------------------------------------
@@ -2591,7 +2590,6 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
 void __fastcall TAssignmentForm::lstViewColumnClick(TObject *Sender,
       TListColumn *Column)
 {
-        return;
     if(m_nColumnToSort==Column->Index)  
     {
       //若两次点击同一列则改变升序排还是降序排的Tag标志
