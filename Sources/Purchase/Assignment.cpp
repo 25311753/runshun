@@ -1054,6 +1054,10 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
 
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
+
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
                 //set style
@@ -1176,6 +1180,10 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
 
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
+
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
                 //set style
@@ -1276,6 +1284,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -1440,6 +1451,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -1576,6 +1590,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -1696,6 +1713,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -1704,7 +1724,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                         OleHelper ole_helper(vSheet, "A", iRows, "X", iRows);
                         ole_helper.write_box().set_font_type("楷体_GB2312").set_font_style("加粗").set_alignment(3);
                 }
-                int tmp_column=1;        
+                int tmp_column=1;
                 ole_helper_raw.write(AnsiString("提单号"), iRows, tmp_column++);
                 ole_helper_raw.write(AnsiString("发货人"), iRows, tmp_column++);
                 ole_helper_raw.write(AnsiString("发货人地址及联系人"), iRows, tmp_column++);
@@ -1821,6 +1841,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
 //                OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -1998,6 +2021,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -2098,6 +2124,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -2208,6 +2237,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -2225,9 +2257,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 ole_helper_raw.write(AnsiString("FDEST"), iRows, tmp_column++);
                 ole_helper_raw.write(AnsiString("CNTR_NO(集装箱号)"), iRows, tmp_column++);
                 ole_helper_raw.write(AnsiString("SEAL_NO(封号)"), iRows, tmp_column++);
-                ole_helper_raw.write(AnsiString("SZTP(箱型尺寸)"), iRows, tmp_column++);     
+                ole_helper_raw.write(AnsiString("SZTP(箱型尺寸)"), iRows, tmp_column++);
                 ole_helper_raw.write(AnsiString("F/E/P"), iRows, tmp_column++);
-                ole_helper_raw.write(AnsiString("OPR（箱属）"), iRows, tmp_column++);        
+                ole_helper_raw.write(AnsiString("OPR（箱属）"), iRows, tmp_column++);
                 ole_helper_raw.write(AnsiString("WEIGHT（重量）"), iRows, tmp_column++);   
                 ole_helper_raw.write(AnsiString("TEMP（冷柜温度）"), iRows, tmp_column++);  
                 ole_helper_raw.write(AnsiString("IMDG（危品类别）"), iRows, tmp_column++);   
@@ -2347,6 +2379,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -2456,6 +2491,9 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                 vSheet.OlePropertyGet("Cells").OlePropertySet("WrapText", true);//设置所有单元格的文本自动换行
                 vSheet.OlePropertyGet("Columns").OlePropertySet("ColumnWidth",20);//设置所有列的列宽为28
                 vSheet.OlePropertyGet("Rows").OlePropertySet("RowHeight",14);//设置所有列的列宽为28
+                //设置所有文本格式
+                vExcel.OlePropertyGet("Cells").OleProcedure("Select");
+                vExcel.OlePropertyGet("Selection").OlePropertySet("NumberFormatLocal", "@");
 
                 OleHelper ole_helper_raw(vSheet);
                 ++iRows;
@@ -2538,7 +2576,7 @@ void __fastcall TAssignmentForm::Button1Click(TObject *Sender)
                                         ole_helper_raw.write(AnsiString("广州"), iRows, tmp_column++);                    
                                         ole_helper_raw.write(AnsiString(""), iRows, tmp_column++);      
                                         ole_helper_raw.write(AnsiString("香港"), iRows, tmp_column++);
-                                        ole_helper_raw.write(mnameFilter(dm1->Query1->FieldByName("mname")->AsString), iRows, tmp_column++);  
+                                        ole_helper_raw.write(mnameFilter(dm1->Query1->FieldByName("mname")->AsString), iRows, tmp_column++);
                                         AnsiString declareid_last9 = dm1->Query1->FieldByName("declareid")->AsString;
                                         declareid_last9 =  declareid_last9.Length() > 9 ?\
                                                                 declareid_last9.SubString(declareid_last9.Length()-9+1, 9):declareid_last9;
