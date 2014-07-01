@@ -88,8 +88,8 @@ object DoForm: TDoForm
       Width = 121
       Height = 21
       Color = clScrollBar
-      Enabled = False
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+      ReadOnly = True
       TabOrder = 3
       Text = 'edtLoadingid'
     end
