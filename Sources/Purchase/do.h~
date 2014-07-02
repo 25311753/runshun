@@ -13,11 +13,11 @@
 #include <Buttons.hpp>
 #include "trayicon.h"
 #include <Mask.hpp>
-//#include "frxClass.hpp"
-//#include "frxBarcode.hpp"
+#include "frxClass.hpp"
+#include "frxBarcode.hpp"
 #include <Menus.hpp>
-//#include "frxExportPDF.hpp"
-//#include "frxRich.hpp"
+#include "frxExportPDF.hpp"
+#include "frxRich.hpp"
 
 #include <map>
 //---------------------------------------------------------------------------

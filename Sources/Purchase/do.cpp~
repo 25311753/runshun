@@ -21,10 +21,10 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "trayicon"
-//#pragma link "frxClass"
-//#pragma link "frxBarcode"
-//#pragma link "frxExportPDF"
-//#pragma link "frxRich"
+#pragma link "frxClass"
+#pragma link "frxBarcode"
+#pragma link "frxExportPDF"
+#pragma link "frxRich"
 #pragma resource "*.dfm"
 TDoForm *DoForm;
 typedef struct
