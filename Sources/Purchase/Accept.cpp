@@ -1285,15 +1285,16 @@ void __fastcall TAcceptForm::dtpEndDateYYYYMMDDEnter(TObject *Sender)
 
 void __fastcall TAcceptForm::btnCopyClick(TObject *Sender)
 {
-        if (edtCid->Text.IsEmpty() || lstViewContainer->Items->Count()==0){
+        if (edtCid->Text.IsEmpty() || lstViewContainer->Items->Count==0){
                 ShowMessage("无可复制内容");
                 return;
         }
 
-        lstViewContainer->Items->Item[0]->SubItems->Strings[1].c_str()
+        //20140701 一份单按柜号分多份单做，设定只能复制头三份单
         CString szSQL;
-        szSQL.Format("select top 3 cid from customs where containerinfo like '%s__", \
+        szSQL.Format("select top 3 cid from customs where containerinfo like '%%%s%%' order by cid", \
         lstViewContainer->Items->Item[0]->SubItems->Strings[1].c_str());
+        ShowMessage(AnsiString(szSQL));
         RunSQL(dm1->Query1,szSQL,true);
         bool isHit = false;
 	while(!dm1->Query1->Eof)
@@ -1302,7 +1303,6 @@ void __fastcall TAcceptForm::btnCopyClick(TObject *Sender)
                         isHit = true;
                         break;
                 }
-                m_lstBoatno.Add(dm1->Query1->FieldByName("bname")->AsString.c_str());
                 dm1->Query1->Next();
         }
         if (!isHit){
