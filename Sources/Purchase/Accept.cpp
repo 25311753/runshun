@@ -1290,24 +1290,34 @@ void __fastcall TAcceptForm::btnCopyClick(TObject *Sender)
                 return;
         }
 
-        //20140701 一份单按柜号分多份单做，设定只能复制头三份单
         CString szSQL;
-        szSQL.Format("select top 3 cid from customs where containerinfo like '%%%s%%' order by cid", \
-        lstViewContainer->Items->Item[0]->SubItems->Strings[1].c_str());
-        ShowMessage(AnsiString(szSQL));
+        szSQL="select cid from customs where 1=1 ";
+        szSQL +=" and cid="; szSQL += Str2DBString(edtCid->Text.c_str());
+	RunSQL(dm1->Query1,szSQL,true);
+
+        if (dm1->Query1->Eof){
+                ShowMessage("待复制的记录不存在,请输入完整单信息并保存再复制，或者先查询，再复制！");
+                return;
+        }
+        //20140701 是按箱号计，一箱号超四份，复制到三份就提示
+        szSQL.Format("select cid from customs where containerinfo like '%%%s%%' order by cid", \
+                lstViewContainer->Items->Item[0]->Caption.c_str());
+//        ShowMessage(AnsiString(szSQL));
         RunSQL(dm1->Query1,szSQL,true);
-        bool isHit = false;
+        int pos = 1;
 	while(!dm1->Query1->Eof)
 	{
                 if (edtCid->Text == dm1->Query1->FieldByName("cid")->AsString){
-                        isHit = true;
                         break;
                 }
                 dm1->Query1->Next();
+                pos++;
         }
-        if (!isHit){
-                ShowMessage("同柜号超3份单后不允许复制，或者待复制的记录不存在,请输入完整单信息并保存再复制，或者先查询，再复制！");
-                return;
+        if (pos>=3){
+                char strMsg[256],strSQL[512];
+                sprintf(strMsg,"\n  已存在同柜号3份单, 确认复制？  \n");
+                if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                        return;
         }
         m_sCidCopy = edtCid->Text.c_str();
         ShowMessage("复制成功，单号:"+m_sCidCopy);
