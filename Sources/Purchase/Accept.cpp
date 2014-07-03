@@ -1285,11 +1285,33 @@ void __fastcall TAcceptForm::dtpEndDateYYYYMMDDEnter(TObject *Sender)
 
 void __fastcall TAcceptForm::btnCopyClick(TObject *Sender)
 {
-        if (edtCid->Text.IsEmpty()){
+        if (edtCid->Text.IsEmpty() || lstViewContainer->Items->Count()==0){
                 ShowMessage("无可复制内容");
                 return;
         }
 
+        lstViewContainer->Items->Item[0]->SubItems->Strings[1].c_str()
+        CString szSQL;
+        szSQL.Format("select top 3 cid from customs where containerinfo like '%s__", \
+        lstViewContainer->Items->Item[0]->SubItems->Strings[1].c_str());
+        RunSQL(dm1->Query1,szSQL,true);
+        bool isHit = false;
+	while(!dm1->Query1->Eof)
+	{
+                if (edtCid->Text == dm1->Query1->FieldByName("cid")->AsString){
+                        isHit = true;
+                        break;
+                }
+                m_lstBoatno.Add(dm1->Query1->FieldByName("bname")->AsString.c_str());
+                dm1->Query1->Next();
+        }
+        if (!isHit){
+                ShowMessage("同柜号超3份单后不允许复制，或者待复制的记录不存在,请输入完整单信息并保存再复制，或者先查询，再复制！");
+                return;
+        }
+        m_sCidCopy = edtCid->Text.c_str();
+        ShowMessage("复制成功，单号:"+m_sCidCopy);
+ /*
         CString szSQL;
         szSQL="select cid from customs where 1=1 ";
         szSQL +=" and cid="; szSQL += Str2DBString(edtCid->Text.c_str());
@@ -1302,6 +1324,7 @@ void __fastcall TAcceptForm::btnCopyClick(TObject *Sender)
 
         m_sCidCopy = edtCid->Text.c_str();
         ShowMessage("复制成功，单号:"+m_sCidCopy);
+*/
 }
 //---------------------------------------------------------------------------
 
@@ -1364,6 +1387,7 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
+
 
 
 

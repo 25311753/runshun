@@ -1137,9 +1137,11 @@ void TDoForm::genContainerInfo4PrnDeclare(AnsiString c){
 }
 
 void TDoForm::setFastReportMemo(AnsiString memoName, AnsiString value){
+/*
         TfrxMemoView *v;
         v = (TfrxMemoView *)frxReportOutBoat->FindObject(memoName);    // 寻找目标对象
         v->Text = value;
+*/        
 }
 
 #include "PrnOutBoat.h"
