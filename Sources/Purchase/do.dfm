@@ -1647,8 +1647,8 @@ object DoForm: TDoForm
       OnClick = btnOkDetailClick
     end
     object btnCancleDetail: TButton
-      Left = 1141
-      Top = 1
+      Left = 913
+      Top = 24
       Width = 56
       Height = 23
       Caption = #25918#24323
@@ -1915,7 +1915,7 @@ object DoForm: TDoForm
     OnChange = edtTotalPriceChange
   end
   object Button2: TButton
-    Left = 688
+    Left = 888
     Top = 0
     Width = 75
     Height = 25
@@ -1923,6 +1923,25 @@ object DoForm: TDoForm
     TabOrder = 31
     Visible = False
     OnClick = Button2Click
+  end
+  object MaskEdit1: TMaskEdit
+    Left = 480
+    Top = 0
+    Width = 141
+    Height = 21
+    EditMask = '!000;0;_'
+    MaxLength = 3
+    TabOrder = 32
+    OnExit = MaskEdit1Exit
+  end
+  object Button3: TButton
+    Left = 712
+    Top = 0
+    Width = 75
+    Height = 25
+    Caption = 'Button3'
+    TabOrder = 33
+    OnClick = Button3Click
   end
   object TrayIcon1: TTrayIcon
     Hide = True

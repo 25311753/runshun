@@ -589,12 +589,12 @@ int TDoForm::ModHead(){
                 cbbSH->Text = ranSH();
         }
 */
-        if (edtDeclareid->Text.IsEmpty() || edtDeclareid->Text.IsEmpty() || cbbOperunit->Text.IsEmpty() \
+        if (edtDeclareid->Text.IsEmpty() || cbbOperunit->Text.IsEmpty() \
                  || cbbPack->Text.IsEmpty() || edtLoadingid->Text.IsEmpty() || cbbTransport->Text.IsEmpty()\
                   || edtOutport->Text.IsEmpty() || cbbBargain->Text.IsEmpty() || cbbZhengmian->Text.IsEmpty() || edtInnersupplyadd->Text.IsEmpty() \
                    || cbbExcharge->Text.IsEmpty() || cbbTrade->Text.IsEmpty() || cbbTargetCountry->Text.IsEmpty()     \
                     || edtMarks->Text.IsEmpty() \
-                     || edtInvoice->Text.IsEmpty() || edtDeclareid->Text.IsEmpty() || edtDeclareid->Text.IsEmpty()) {
+                     || edtInvoice->Text.IsEmpty()) {
                 ShowMessage("请检查输入项");
 
                 return rt;
@@ -3360,6 +3360,30 @@ void __fastcall TDoForm::Button2Click(TObject *Sender)
         frxPDFExport1->FileName = "d:\\test_fastreport_pdf.pdf";
         frxReportOutBoat->Export(frxPDFExport1);
  */
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TDoForm::Button3Click(TObject *Sender)
+{
+        try{
+                ShowMessage(MaskEdit1->Text);
+        }
+        catch(...){
+                ShowMessage("非法输入");
+        }
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TDoForm::MaskEdit1Exit(TObject *Sender)
+{
+        try{
+                MaskEdit1->ValidateEdit();
+        }catch(...){
+                ShowMessage("输入非法111111");
+        }
 }
 //---------------------------------------------------------------------------
 
