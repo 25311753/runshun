@@ -19,8 +19,8 @@
 TAcceptForm *AcceptForm;
 int ColumnToSort;
 
-bool desc;
-
+//g_theOperator.op_class
+bool is_op_class_yupei;
 //---------------------------------------------------------------------------
 void Accept(int nAuth)
 {
@@ -32,6 +32,8 @@ __fastcall TAcceptForm::TAcceptForm(TComponent* Owner)
 {
         m_enWorkState=EN_IDLE;
         m_sCidCopy = "";
+
+        is_op_class_yupei = g_theOperator.op_class == 6;
 }
 //---------------------------------------------------------------------------
 static bool chkFormatContainerNo(AnsiString ss){
@@ -909,35 +911,26 @@ void __fastcall TAcceptForm::btnOKClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 void TAcceptForm::ResetCtrl(){
-
-  //bool bAuth = m_nAuthor>=AUTH_FULL;
-  bool bAuth = true;
   if(m_enWorkState==EN_IDLE)
   {
-    //lstview
-//    lstViewDown->Enabled=true;
-
     bool isSelected = (lstViewDown->Selected!=NULL);
 
-            lstViewDown->Enabled = true;
-//        lstViewDown->RowSelect=true;
-//                    lstViewDown->Selected=NULL;
+    lstViewDown->Enabled = true;
 
     //btn
-    btnAdd->Enabled=true;
-    btnMod->Enabled=isSelected;
-    btnDel->Enabled=isSelected;
-    btnOK->Enabled =false;
-    btnCancel->Enabled=false;
-    btnPaste->Enabled=false;
+    //预配人员只有修改权限
+    btnAdd->Enabled     =!is_op_class_yupei && true;
+    btnMod->Enabled     =isSelected;
+    btnDel->Enabled     =!is_op_class_yupei && isSelected;
+    btnOK->Enabled      =false;
+    btnCancel->Enabled  =false;
+    btnPaste->Enabled   =!is_op_class_yupei && false;
 
     //edt all disable
     EnableEdit(edtCid,false);
     EnableCombo(cbbClient,false);
     EnableEdit(edtLading,false);
-//    EnableCombo(cbbBoatno,false);
     EnableEdit(edtBoatNo,false);
-//    EnableCombo(cbbBoatorder,false);
     EnableEdit(edtBoatOrder,false);
     EnableEdit(edtBoatName,false);
     EnableEdit(edtCustfree,false);
@@ -972,28 +965,23 @@ void TAcceptForm::ResetCtrl(){
   else
   {
     //btn
-    btnAdd->Enabled=false;
-    btnMod->Enabled=false;
-    btnDel->Enabled=false;
-    btnOK->Enabled =true;
-    btnCancel->Enabled=true;
+    btnAdd->Enabled     =!is_op_class_yupei && false;
+    btnMod->Enabled     =false;
+    btnDel->Enabled     =!is_op_class_yupei && false;
+    btnOK->Enabled      =true;
+    btnCancel->Enabled  =true;
     if (m_enWorkState==EN_ADDNEW){
-            btnPaste->Enabled=true;
+            btnPaste->Enabled=!is_op_class_yupei && true;
     }
 
     //lstview
-//    lstViewDown->Enabled=false;
-//        lstViewDown->Selected=NULL;
         lstViewDown->Enabled=false;
-//        lstViewDown->RowSelect=false;
 
     //edt all enable
     EnableEdit(edtCid,m_enWorkState==EN_ADDNEW);
     EnableCombo(cbbClient,true);
     EnableEdit(edtLading,true);
-//    EnableCombo(cbbBoatno,true);
     EnableEdit(edtBoatNo,true);
-//    EnableCombo(cbbBoatorder,true);
     EnableEdit(edtBoatOrder,true);
     EnableEdit(edtBoatName,true);    
     EnableEdit(edtCustfree,true);
@@ -1397,9 +1385,6 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
+void TAcceptForm::disable_yupei（）{
 
-
-
-
-
-
+}

@@ -159,7 +159,7 @@ public:		// User declarations
 
         void  flushSum();
         bool isDupContainer(AnsiString c, AnsiString &dupCid);      //跨单重复柜号检查
-
+        void disable_yupei();   //再原接单权限基础上屏蔽组件权限（按钮权限由ResetCtrl控制）
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TAcceptForm *AcceptForm;
