@@ -1385,6 +1385,6 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
-void TAcceptForm::disable_yupei£¨£©{
+void TAcceptForm::disable_yupei(){
 
 }

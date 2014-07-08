@@ -35,13 +35,14 @@ object DoForm: TDoForm
       OnKeyPress = edtCidKeyPress
     end
     object edtDeclareid: TEdit
-      Left = 243
-      Top = 1
-      Width = 121
+      Left = 819
+      Top = 113
+      Width = 70
       Height = 21
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 1
       Text = 'edtDeclareid'
+      Visible = False
     end
     object edtForwardingunit: TEdit
       Left = 607
@@ -904,6 +905,15 @@ object DoForm: TDoForm
         #39044#25253#26816)
       TabOrder = 63
       OnClick = rg_statusClick
+    end
+    object maskEdtDeclareid: TMaskEdit
+      Left = 243
+      Top = 1
+      Width = 118
+      Height = 21
+      EditMask = '!999999999999999999;0;_'
+      MaxLength = 18
+      TabOrder = 64
     end
   end
   object btnPrnInvoice: TButton
@@ -1923,25 +1933,6 @@ object DoForm: TDoForm
     TabOrder = 31
     Visible = False
     OnClick = Button2Click
-  end
-  object MaskEdit1: TMaskEdit
-    Left = 480
-    Top = 0
-    Width = 141
-    Height = 21
-    EditMask = '!000;0;_'
-    MaxLength = 3
-    TabOrder = 32
-    OnExit = MaskEdit1Exit
-  end
-  object Button3: TButton
-    Left = 712
-    Top = 0
-    Width = 75
-    Height = 25
-    Caption = 'Button3'
-    TabOrder = 33
-    OnClick = Button3Click
   end
   object TrayIcon1: TTrayIcon
     Hide = True

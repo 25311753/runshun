@@ -258,6 +258,7 @@ Label44->Caption = "";
         //clear edtxx
         edtCid->Text = "";
         edtDeclareid->Text = "";
+        maskEdtDeclareid->Text = "";
 //return;
 //        lbClient->Caption = "";
 //        edtOperunit->Text = "";
@@ -589,7 +590,7 @@ int TDoForm::ModHead(){
                 cbbSH->Text = ranSH();
         }
 */
-        if (edtDeclareid->Text.IsEmpty() || cbbOperunit->Text.IsEmpty() \
+        if (cbbOperunit->Text.IsEmpty() \
                  || cbbPack->Text.IsEmpty() || edtLoadingid->Text.IsEmpty() || cbbTransport->Text.IsEmpty()\
                   || edtOutport->Text.IsEmpty() || cbbBargain->Text.IsEmpty() || cbbZhengmian->Text.IsEmpty() || edtInnersupplyadd->Text.IsEmpty() \
                    || cbbExcharge->Text.IsEmpty() || cbbTrade->Text.IsEmpty() || cbbTargetCountry->Text.IsEmpty()     \
@@ -616,8 +617,12 @@ int TDoForm::ModHead(){
         CString szSQL;
         szSQL;
         szSQL="update customs set /*status='已接单',*/";
+        AnsiString _declare_id = maskEdtDeclareid->Text;
 
-szSQL +="declareid="; szSQL += Str2DBString(edtDeclareid->Text.c_str());
+        if (!chkDeclareId(_declare_id)){
+                return rt;
+        }
+szSQL +="declareid="; szSQL += Str2DBString(_declare_id.Length() == 0?"":_declare_id.c_str());
 //发货单位默认同经营单位，但可修改
 //edtForwardingunit->Text = ( edtForwardingunit->Text.IsEmpty()? edtOperunit->Text.c_str():edtForwardingunit->Text.c_str() );
 edtForwardingunit->Text = ( edtForwardingunit->Text.IsEmpty()? cbbOperunit->Text.c_str():edtForwardingunit->Text.c_str() );
@@ -1070,8 +1075,8 @@ void __fastcall TDoForm::btnPrnAuthClick(TObject *Sender)
         pForm->qrlTrade->Caption = cbbTrade->Text;
         pForm->qrlInnersupplyadd->Caption = edtInnersupplyadd->Text;
 //        pForm->qrlDeclareId->Caption = edtDeclareid->Text;
-        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
-                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
+        pForm->qrlDeclareId->Caption = (maskEdtDeclareid->Text.Length() > 9)? \
+                                        maskEdtDeclareid->Text.SubString(maskEdtDeclareid->Text.Length()-9+1,9):maskEdtDeclareid->Text;
 
 //        pForm->qrlOperUnit->Caption = edtOperunit->Text;
         pForm->qrlOperUnit->Caption = cbbOperunit->Text;
@@ -1170,8 +1175,8 @@ void __fastcall TDoForm::btnPrnOutBoatClick(TObject *Sender)
 //       pForm->qrlTargetCountry->Caption = "";                        //del 20130608
        pForm->qrlTargetCountry->Caption = cbbTargetCountry->Text;     //del 0626 不显示,20130608 回显
 
-        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
-                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
+        pForm->qrlDeclareId->Caption = (maskEdtDeclareid->Text.Length() > 9)? \
+                                        maskEdtDeclareid->Text.SubString(maskEdtDeclareid->Text.Length()-9+1,9):maskEdtDeclareid->Text;
 //        pForm->qrlDeclareId->Caption = "";
 
 //       pForm->qrlCountHead->Caption = edtCount->Text;
@@ -1572,7 +1577,7 @@ void __fastcall TDoForm::btnQueryUpClick(TObject *Sender)
                 edtBoatno->Text = dm1->Query1->FieldByName("boatno")->AsString;
                 edtBoatorder->Text = dm1->Query1->FieldByName("boatorder")->AsString;
 
-                edtDeclareid->Text = dm1->Query1->FieldByName("declareid")->AsString;
+                maskEdtDeclareid->Text = dm1->Query1->FieldByName("declareid")->AsString;
 //                lbClient->Caption = dm1->Query1->FieldByName("client")->AsString;
 //               edtOperunit->Text = dm1->Query1->FieldByName("operunit")->AsString;
                cbbOperunit->Text = dm1->Query1->FieldByName("operunit")->AsString;
@@ -1744,7 +1749,7 @@ void TDoForm::ResetCtrl()
       }
     //edt all disable
     EnableEdit(edtCid,true);
-    EnableEdit(edtDeclareid,false);
+    maskEdtDeclareid->Enabled = false;
 //    EnableEdit(edtShipAgent,false);
 //    EnableEdit(edtOperunit,false);
     EnableCombo(cbbOperunit,false);
@@ -1802,7 +1807,7 @@ void TDoForm::ResetCtrl()
 //    lstView->Enabled = true;
     //edt all disable
     EnableEdit(edtCid,false);
-    EnableEdit(edtDeclareid,true);
+    maskEdtDeclareid->Enabled = true;
 //    EnableEdit(edtShipAgent,true);
 //    EnableEdit(edtOperunit,true);
     EnableCombo(cbbOperunit,true);
@@ -2297,6 +2302,13 @@ int TDoForm::addDetail()
         if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
                 return -1;
   }
+        //0退税
+        if (isLingTuiShui(edtMCode->Text)){
+                char strMsg[256],strSQL[512];
+                sprintf(strMsg,"\n 0退税商品，是否继续？\n");
+                if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                        return -1;
+        }
       CString szSQL;
       szSQL.Format("select * from customs_detail  where cdid like '%s__' and cmid='%s'", edtCid->Text.c_str(), edtMid1->Text.c_str());
       RunSQL(szSQL,true);
@@ -2445,6 +2457,13 @@ int TDoForm::modDetail(){
         return -1;
   }
 */
+        //0退税
+        if (isLingTuiShui(edtMCode->Text)){
+                char strMsg[256],strSQL[512];
+                sprintf(strMsg,"\n 0退税商品，是否继续？\n");
+                if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                        return -1;
+        }
         char strDate0[80];
 //   	sprintf(strDate0,"%s%02d",edtCid->Text.c_str(),lstView->Items->Count+1);
    	sprintf(strDate0,"%s", lstView->Selected->SubItems->Strings[15]);
@@ -2573,10 +2592,10 @@ void TDoForm::prnDeclare(AnsiString begin_cid, AnsiString end_cid, AnsiString sp
         pForm->qrlCid->Caption = edtCid->Text;
         pForm->qrlSubFlag->Caption = split_detail;//isHasSub?"有附页":"";
 //        pForm->qrlSubFlag2->Caption = pForm->qrlSubFlag->Caption;
-        pForm->qrlDeclareId->Caption = edtDeclareid->Text;
+        pForm->qrlDeclareId->Caption = maskEdtDeclareid->Text;
         //只显示最后9位
-        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
-                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
+        pForm->qrlDeclareId->Caption = (maskEdtDeclareid->Text.Length() > 9)? \
+                                        maskEdtDeclareid->Text.SubString(maskEdtDeclareid->Text.Length()-9+1,9):maskEdtDeclareid->Text;
 
 
 //        pForm->qrlOperUnit->Caption = edtOperunit->Text;
@@ -2654,10 +2673,10 @@ void TDoForm::prnDeclareMain(CString last_cdid, bool isHasSub){
 
        pForm->qrlCid->Caption = edtCid->Text;
         pForm->qrlSubFlag->Caption = isHasSub?"有附页":"";
-        pForm->qrlDeclareId->Caption = edtDeclareid->Text;
+        pForm->qrlDeclareId->Caption = maskEdtDeclareid->Text;
         //只显示最后9位
-        pForm->qrlDeclareId->Caption = (edtDeclareid->Text.Length() > 9)? \
-                                        edtDeclareid->Text.SubString(edtDeclareid->Text.Length()-9+1,9):edtDeclareid->Text;
+        pForm->qrlDeclareId->Caption = (maskEdtDeclareid->Text.Length() > 9)? \
+                                        maskEdtDeclareid->Text.SubString(maskEdtDeclareid->Text.Length()-9+1,9):maskEdtDeclareid->Text;
 
 
 //        pForm->qrlOperUnit->Caption = edtOperunit->Text;
@@ -3365,25 +3384,33 @@ void __fastcall TDoForm::Button2Click(TObject *Sender)
 
 
 
-void __fastcall TDoForm::Button3Click(TObject *Sender)
-{
-        try{
-                ShowMessage(MaskEdit1->Text);
-        }
-        catch(...){
-                ShowMessage("非法输入");
-        }
 
-}
-//---------------------------------------------------------------------------
 
-void __fastcall TDoForm::MaskEdit1Exit(TObject *Sender)
-{
-        try{
-                MaskEdit1->ValidateEdit();
-        }catch(...){
-                ShowMessage("输入非法111111");
-        }
+bool TDoForm::isLingTuiShui(AnsiString mcode){
+        CString szSQL;
+	szSQL.Format("select * from haiguan_merchandise where mcode='%s'", mcode.c_str());
+	RunSQL(dm1->Query1,szSQL,true);
+	return dm1->Query1->Eof?false:true;
 }
-//---------------------------------------------------------------------------
+
+
+bool TDoForm::chkDeclareId(AnsiString declare_id){
+        declare_id = StringReplace(declare_id, " ", "", TReplaceFlags());
+
+        //可空，非空时需要18位
+        int len = declare_id.Length();
+        if (len>0 && len!=18){      //可空
+                ShowMessage("报关单号不足18位");
+                return false;
+        }
+        //需要全局唯一
+        CString szSQL;
+	szSQL.Format("select cid from customs where declareid='%s'", declare_id.c_str());
+	RunSQL(dm1->Query1,szSQL,true);
+        if (!dm1->Query1->Eof){
+                ShowMessage("报关单号已被其他单使用, 单号为: "+dm1->Query1->FieldByName("cid")->AsString);
+                return false;
+        }
+        return true;
+}
 

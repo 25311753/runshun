@@ -196,8 +196,7 @@ __published:	// IDE-managed Components
         TMenuItem *N1;
         TMenuItem *N2;
         TButton *Button2;
-        TMaskEdit *MaskEdit1;
-        TButton *Button3;
+        TMaskEdit *maskEdtDeclareid;
         void __fastcall btnInputGoodsClick(TObject *Sender);
         void __fastcall FormShow(TObject *Sender);
         void __fastcall edtCidKeyPress(TObject *Sender, char &Key);
@@ -245,8 +244,6 @@ __published:	// IDE-managed Components
         void __fastcall N1Click(TObject *Sender);
         void __fastcall N2Click(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
-        void __fastcall Button3Click(TObject *Sender);
-        void __fastcall MaskEdit1Exit(TObject *Sender);
 private:	// User declarations
         CStringArray m_lstPack;
         CStringArray m_lstTrade;
@@ -324,6 +321,8 @@ public:		// User declarations
         int status2index(AnsiString status);
         AnsiString index2status(int index);
         void setFastReportMemo(AnsiString memoName, AnsiString value);
+        bool isLingTuiShui(AnsiString mcode);
+        bool chkDeclareId(AnsiString declare_id);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TDoForm *DoForm;
