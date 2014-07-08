@@ -143,6 +143,7 @@ private:	// User declarations
         enum { EN_IDLE,EN_ADDNEW,EN_EDIT } m_enWorkState; //接单上区状态
         int m_nColumnToSort;
         AnsiString m_sCidCopy;  //复制单内容需求（只复制单号，paste时查数据库填充）
+        AnsiString m_sContainerCopy; //缓存复制柜号
 
 public:		// User declarations
         __fastcall TAcceptForm(TComponent* Owner);

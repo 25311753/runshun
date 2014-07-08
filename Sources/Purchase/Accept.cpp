@@ -32,6 +32,7 @@ __fastcall TAcceptForm::TAcceptForm(TComponent* Owner)
 {
         m_enWorkState=EN_IDLE;
         m_sCidCopy = "";
+        m_sContainerCopy = "";
 
         is_op_class_yupei = g_theOperator.op_class == 6;
 }
@@ -1308,6 +1309,7 @@ void __fastcall TAcceptForm::btnCopyClick(TObject *Sender)
                         return;
         }
         m_sCidCopy = edtCid->Text.c_str();
+        m_sContainerCopy = lstViewContainer->Items->Item[0]->Caption.c_str();
         ShowMessage("复制成功，单号:"+m_sCidCopy);
  /*
         CString szSQL;
@@ -1329,6 +1331,22 @@ void __fastcall TAcceptForm::btnCopyClick(TObject *Sender)
 void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
 {
         CString szSQL;
+        //TODO 重复逻辑
+        //20140701 是按箱号计，一箱号超四份，复制到三份就提示
+        szSQL.Format("select count(*) as cnt from customs where containerinfo like '%%%s%%' ", \
+                m_sContainerCopy.c_str());
+        RunSQL(dm1->Query1,szSQL,true);
+        int pos = 1;
+	if(!dm1->Query1->Eof)
+	{
+                if (dm1->Query1->FieldByName("cnt")->AsInteger >=3){
+                        char strMsg[256],strSQL[512];
+                        sprintf(strMsg,"\n  已存在同柜号3份单, 确认复制？  \n");
+                        if(Application->MessageBox(strMsg,"警告",MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2)!=IDYES)
+                                return;
+                }
+        }
+
         szSQL="select *,CONVERT(varchar(10), acceptdate, 23) as ad, substring(containerinfo,0,charindex('|',containerinfo)) as cnt_con \
                 from customs where 1=1 ";
         if (!m_sCidCopy.IsEmpty()){
