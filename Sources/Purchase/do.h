@@ -244,6 +244,7 @@ __published:	// IDE-managed Components
         void __fastcall N1Click(TObject *Sender);
         void __fastcall N2Click(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
+        void __fastcall maskEdtDeclareidClick(TObject *Sender);
 private:	// User declarations
         CStringArray m_lstPack;
         CStringArray m_lstTrade;

@@ -3414,3 +3414,17 @@ bool TDoForm::chkDeclareId(AnsiString declare_id){
         return true;
 }
 
+
+
+
+
+void __fastcall TDoForm::maskEdtDeclareidClick(TObject *Sender)
+{
+        //针对扫码的修改，光标自动最前
+        if (maskEdtDeclareid->Text.Length() == 0){
+                maskEdtDeclareid->SelStart = 0;
+                maskEdtDeclareid->SelLength = 0;
+        }
+}
+//---------------------------------------------------------------------------
+

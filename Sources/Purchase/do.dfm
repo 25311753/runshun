@@ -914,6 +914,7 @@ object DoForm: TDoForm
       EditMask = '!999999999999999999;0;_'
       MaxLength = 18
       TabOrder = 64
+      OnClick = maskEdtDeclareidClick
     end
   end
   object btnPrnInvoice: TButton
