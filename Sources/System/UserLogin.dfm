@@ -3,8 +3,8 @@ object UserLoginForm: TUserLoginForm
   Top = 195
   BorderStyle = bsNone
   Caption = 'ERP Login'
-  ClientHeight = 202
-  ClientWidth = 340
+  ClientHeight = 213
+  ClientWidth = 337
   Color = clBtnFace
   Font.Charset = GB2312_CHARSET
   Font.Color = clWindowText
@@ -19,16 +19,16 @@ object UserLoginForm: TUserLoginForm
   object Bevel2: TBevel
     Left = 0
     Top = 0
-    Width = 340
-    Height = 202
+    Width = 337
+    Height = 213
     Align = alClient
     Shape = bsFrame
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 340
-    Height = 202
+    Width = 337
+    Height = 213
     Align = alClient
     BevelInner = bvRaised
     BorderWidth = 1
@@ -36,8 +36,8 @@ object UserLoginForm: TUserLoginForm
     object Image1: TImage
       Left = 3
       Top = 3
-      Width = 334
-      Height = 196
+      Width = 331
+      Height = 194
       Align = alClient
       AutoSize = True
       Center = True
@@ -6962,9 +6962,9 @@ object UserLoginForm: TUserLoginForm
       Stretch = True
     end
     object Bevel1: TBevel
-      Left = 175
+      Left = 177
       Top = 93
-      Width = 157
+      Width = 155
       Height = 76
       Shape = bsFrame
     end
@@ -6998,22 +6998,6 @@ object UserLoginForm: TUserLoginForm
       ParentFont = False
       Transparent = True
     end
-    object Label1: TLabel
-      Left = 3
-      Top = 184
-      Width = 97
-      Height = 16
-      Caption = 'version: 14.7.8.0'
-      Color = clMaroon
-      Font.Charset = GB2312_CHARSET
-      Font.Color = clBtnHighlight
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentColor = False
-      ParentFont = False
-      Transparent = True
-    end
     object Label2: TLabel
       Left = 6
       Top = 4
@@ -7042,9 +7026,24 @@ object UserLoginForm: TUserLoginForm
       ParentFont = False
       Transparent = True
     end
+    object lb_versions: TLabel
+      Left = 4
+      Top = 183
+      Width = 4
+      Height = 16
+      Color = clMaroon
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clBtnHighlight
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentColor = False
+      ParentFont = False
+      Transparent = True
+    end
     object OKBtn: TBitBtn
-      Left = 175
-      Top = 173
+      Left = 178
+      Top = 171
       Width = 77
       Height = 26
       Caption = 'Login'
@@ -7076,8 +7075,8 @@ object UserLoginForm: TUserLoginForm
       NumGlyphs = 2
     end
     object CancelBtn: TBitBtn
-      Left = 253
-      Top = 173
+      Left = 256
+      Top = 171
       Width = 77
       Height = 26
       Caption = 'Cancel'
@@ -7125,7 +7124,7 @@ object UserLoginForm: TUserLoginForm
       OnClick = btnDBSetupClick
     end
     object cb_bkdb: TCheckBox
-      Left = 104
+      Left = 144
       Top = 184
       Width = 13
       Height = 13
@@ -7133,5 +7132,32 @@ object UserLoginForm: TUserLoginForm
       Visible = False
       OnClick = cb_bkdbClick
     end
+    object ProgressBar1: TProgressBar
+      Left = 3
+      Top = 197
+      Width = 331
+      Height = 13
+      Align = alBottom
+      Min = 0
+      Max = 100
+      TabOrder = 6
+      Visible = False
+    end
+  end
+  object auAutoUpgrader1: TauAutoUpgrader
+    InfoFile.Files.Strings = (
+      'http://112.124.103.88/runshun_auto_upgrade/GraceStock.exe')
+    InfoFileURL = 'http://112.124.103.88/runshun_auto_upgrade/versions.inf'
+    VersionControl = byNumber
+    VersionDate = '07/10/2014'
+    VersionDateAutoSet = True
+    VersionNumber = '14.7.10.0'
+    ShowMessages = []
+    Wizard.Enabled = False
+    OnBeginUpgrade = auAutoUpgrader1BeginUpgrade
+    OnProgress = auAutoUpgrader1Progress
+    OnAborted = auAutoUpgrader1Aborted
+    Left = 32
+    Top = 56
   end
 end

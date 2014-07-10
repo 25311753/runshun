@@ -96,12 +96,12 @@
       Purchase\DicCharge.dfm Purchase\Tailer.dfm Purchase\Receivables.dfm 
       Purchase\PrnCYD.dfm"/>
     <LIBFILES value="BaseCode\GSLfcLib.lib"/>
-    <LIBRARIES value="frxe6.lib FS6.lib frx6.lib bcbsmp.lib tee.lib teedb.lib adortl.lib 
-      bcb2kaxserver.lib vcldb.lib vclx.lib qrpt.lib bdertl.lib dbrtl.lib rtl.lib 
-      vcl.lib"/>
+    <LIBRARIES value="AutoUpgraderProCB6.lib frxe6.lib FS6.lib frx6.lib bcbsmp.lib tee.lib 
+      teedb.lib adortl.lib bcb2kaxserver.lib vcldb.lib vclx.lib qrpt.lib 
+      bdertl.lib dbrtl.lib rtl.lib vcl.lib"/>
     <SPARELIBS value="vcl.lib rtl.lib dbrtl.lib bdertl.lib qrpt.lib vclx.lib vcldb.lib 
       bcb2kaxserver.lib adortl.lib teedb.lib tee.lib bcbsmp.lib frx6.lib FS6.lib 
-      frxe6.lib"/>
+      frxe6.lib AutoUpgraderProCB6.lib"/>
     <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi vcldb.bpi vclx.bpi bdertl.bpi vcldbx.bpi 
       ibxpress.bpi qrpt.bpi visualclx.bpi visualdbclx.bpi inet.bpi inetdb.bpi 
       dsnap.bpi nmfast.bpi bcbie.bpi dbexpress.bpi indy.bpi bcb2kaxserver.bpi 
@@ -118,16 +118,17 @@
     <USERDEFINES value=""/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="GraceStock.cpp"/>
-    <INCLUDEPATH value="&quot;d:\Program Files\FastReports\FastReport 4\LibBCB6&quot;;tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;..\..;MaterCmp;SumData;InforSearch;DataRow;Purchase;BaseData;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl"/>
-    <LIBPATH value="&quot;d:\Program Files\FastReports\FastReport 4\LibBCB6&quot;;d:\workspace\bin\runshun\Exec;tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;..\..;MaterCmp;SumData;InforSearch;DataRow;Purchase;BaseData;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <INCLUDEPATH value="$(BCB)\Lib;&quot;d:\Program Files\FastReports\FastReport 4\LibBCB6&quot;;tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;..\..;MaterCmp;SumData;InforSearch;DataRow;Purchase;BaseData;BaseCode;System;FromLCG;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="$(BCB)\Projects\Lib;&quot;d:\Program Files\FastReports\FastReport 4\LibBCB6&quot;;d:\workspace\bin\runshun\Exec;tmpForm;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;..\..;MaterCmp;SumData;InforSearch;DataRow;Purchase;BaseData;BaseCode;System;FromLCG;$(BCB)\lib\obj;$(BCB)\lib"/>
     <WARNINGS value="-w-par -w-8027 -w-8026 -w-aus"/>
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-I&quot;d:\Program Files\FastReports\FastReport 4\LibBCB6&quot; -ItmpForm 
-      -I&quot;D:\Program Files\Borland\CBuilder6\Projects&quot; -I..\.. -IMaterCmp 
-      -ISumData -IInforSearch -IDataRow -IPurchase -IBaseData -IBaseCode 
-      -ISystem -IFromLCG -I$(BCB)\include -I$(BCB)\include\vcl -src_suffix cpp -boa"/>
+    <IDLCFLAGS value="-I$(BCB)\Lib -I&quot;d:\Program Files\FastReports\FastReport 4\LibBCB6&quot; 
+      -ItmpForm -I&quot;D:\Program Files\Borland\CBuilder6\Projects&quot; -I..\.. 
+      -IMaterCmp -ISumData -IInforSearch -IDataRow -IPurchase -IBaseData 
+      -IBaseCode -ISystem -IFromLCG -I$(BCB)\include -I$(BCB)\include\vcl 
+      -src_suffix cpp -boa"/>
     <CFLAG1 value="-O2 -H=$(BCB)\lib\vcl50.csm -Hc -Vx -Ve -X- -a8 -5 -b- -k- -vi -c -tW -tWM"/>
     <PFLAGS value="-N2d:\workspace\bin\runshun\TempOBJ -N0d:\workspace\bin\runshun\TempOBJ 
       -$Y- -$L- -$D- -$A8 -v -JPHNE -M"/>

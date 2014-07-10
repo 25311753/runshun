@@ -13,6 +13,9 @@
 #include "TmpFormUnit.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "auAutoUpgrader"
+#pragma link "auHTTP"
+#pragma link "wininet.lib"
 #pragma resource "*.dfm"
 TUserLoginForm *UserLoginForm;
 
@@ -157,6 +160,7 @@ void __fastcall TUserLoginForm::connectBackupDB(){
         dm1->OpenDatabase();
         isMasterSrv = false;
 }
+
 void __fastcall TUserLoginForm::FormShow(TObject *Sender)
 {
     Edit_Code->SetFocus();
@@ -164,6 +168,8 @@ void __fastcall TUserLoginForm::FormShow(TObject *Sender)
     Edit_Password->Clear();
     connectMasterDB();
 
+    auAutoUpgrader1->CheckUpdate();
+    lb_versions->Caption = "version:" + auAutoUpgrader1->VersionNumber;
 }
 //---------------------------------------------------------------------------
 
@@ -194,4 +200,34 @@ void __fastcall TUserLoginForm::cb_bkdbClick(TObject *Sender)
         }
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TUserLoginForm::auAutoUpgrader1Aborted(TObject *Sender)
+{
+  ProgressBar1->Position = 0;        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TUserLoginForm::auAutoUpgrader1Progress(TObject *Sender,
+      const AnsiString FileURL, int FileSize, int BytesRead,
+      int ElapsedTime, int EstimatedTimeLeft, BYTE PercentsDone,
+      BYTE TotalPercentsDone, float TransferRate)
+{
+  ProgressBar1->Position = PercentsDone;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TUserLoginForm::auAutoUpgrader1BeginUpgrade(
+      TObject *Sender, const AnsiString UpgradeMsg,
+      TacUpgradeMethod UpgradeMethod, TStringList *Files, bool &CanUpgrade)
+{
+lb_versions->Caption = "Auto Upgrading...";
+ProgressBar1->Visible = true;
+OKBtn->Enabled = false;
+Edit_Code->Enabled = false;
+Edit_Password->Enabled = false;
+CancelBtn->Enabled = false;
+
+}
+//---------------------------------------------------------------------------
+
 
