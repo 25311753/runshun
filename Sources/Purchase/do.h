@@ -323,7 +323,7 @@ public:		// User declarations
         AnsiString index2status(int index);
         void setFastReportMemo(AnsiString memoName, AnsiString value);
         bool isLingTuiShui(AnsiString mcode);
-        bool chkDeclareId(AnsiString declare_id);
+        bool chkDeclareId(AnsiString declare_id, AnsiString cid);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TDoForm *DoForm;

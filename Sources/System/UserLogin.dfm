@@ -7027,10 +7027,11 @@ object UserLoginForm: TUserLoginForm
       Transparent = True
     end
     object lb_versions: TLabel
-      Left = 4
+      Left = 6
       Top = 183
-      Width = 4
+      Width = 136
       Height = 16
+      Caption = '                                  '
       Color = clMaroon
       Font.Charset = GB2312_CHARSET
       Font.Color = clBtnHighlight
@@ -7151,7 +7152,7 @@ object UserLoginForm: TUserLoginForm
     VersionControl = byNumber
     VersionDate = '07/10/2014'
     VersionDateAutoSet = True
-    VersionNumber = '14.7.10.0'
+    VersionNumber = '14.7.10.4'
     ShowMessages = []
     Wizard.Enabled = False
     OnBeginUpgrade = auAutoUpgrader1BeginUpgrade

@@ -619,7 +619,7 @@ int TDoForm::ModHead(){
         szSQL="update customs set /*status='已接单',*/";
         AnsiString _declare_id = maskEdtDeclareid->Text;
 
-        if (!chkDeclareId(_declare_id)){
+        if (!chkDeclareId(_declare_id, edtCid->Text)){
                 return rt;
         }
 szSQL +="declareid="; szSQL += Str2DBString(_declare_id.Length() == 0?"":_declare_id.c_str());
@@ -3394,7 +3394,7 @@ bool TDoForm::isLingTuiShui(AnsiString mcode){
 }
 
 
-bool TDoForm::chkDeclareId(AnsiString declare_id){
+bool TDoForm::chkDeclareId(AnsiString declare_id, AnsiString cid){
         declare_id = StringReplace(declare_id, " ", "", TReplaceFlags());
 
         //可空，非空时需要18位
@@ -3405,7 +3405,7 @@ bool TDoForm::chkDeclareId(AnsiString declare_id){
         }
         //需要全局唯一
         CString szSQL;
-	szSQL.Format("select cid from customs where declareid='%s'", declare_id.c_str());
+	szSQL.Format("select cid from customs where declareid='%s' and cid !='%s'", declare_id.c_str(), cid.c_str());
 	RunSQL(dm1->Query1,szSQL,true);
         if (!dm1->Query1->Eof){
                 ShowMessage("报关单号已被其他单使用, 单号为: "+dm1->Query1->FieldByName("cid")->AsString);

@@ -39,6 +39,7 @@ __fastcall TUserLoginForm::TUserLoginForm(TComponent* Owner)
 static int nTryTimes = 0;
 void __fastcall TUserLoginForm::OKBtnClick(TObject *Sender)
 {
+
 	AnsiString password;
 	register i;
 	char strPwd[80],strSQL[1024],szSQLV[1024];
