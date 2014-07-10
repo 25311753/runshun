@@ -3,8 +3,8 @@ object UserLoginForm: TUserLoginForm
   Top = 195
   BorderStyle = bsNone
   Caption = 'ERP Login'
-  ClientHeight = 213
-  ClientWidth = 337
+  ClientHeight = 200
+  ClientWidth = 336
   Color = clBtnFace
   Font.Charset = GB2312_CHARSET
   Font.Color = clWindowText
@@ -19,16 +19,16 @@ object UserLoginForm: TUserLoginForm
   object Bevel2: TBevel
     Left = 0
     Top = 0
-    Width = 337
-    Height = 213
+    Width = 336
+    Height = 200
     Align = alClient
     Shape = bsFrame
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 337
-    Height = 213
+    Width = 336
+    Height = 200
     Align = alClient
     BevelInner = bvRaised
     BorderWidth = 1
@@ -36,7 +36,7 @@ object UserLoginForm: TUserLoginForm
     object Image1: TImage
       Left = 3
       Top = 3
-      Width = 331
+      Width = 330
       Height = 194
       Align = alClient
       AutoSize = True
@@ -6964,7 +6964,7 @@ object UserLoginForm: TUserLoginForm
     object Bevel1: TBevel
       Left = 177
       Top = 93
-      Width = 155
+      Width = 156
       Height = 76
       Shape = bsFrame
     end
@@ -7134,11 +7134,11 @@ object UserLoginForm: TUserLoginForm
       OnClick = cb_bkdbClick
     end
     object ProgressBar1: TProgressBar
-      Left = 3
-      Top = 197
-      Width = 331
-      Height = 13
-      Align = alBottom
+      Left = 5
+      Top = 168
+      Width = 171
+      Height = 11
+      Align = alCustom
       Min = 0
       Max = 100
       TabOrder = 6
@@ -7152,7 +7152,7 @@ object UserLoginForm: TUserLoginForm
     VersionControl = byNumber
     VersionDate = '07/10/2014'
     VersionDateAutoSet = True
-    VersionNumber = '14.7.10.4'
+    VersionNumber = '14.7.10.6'
     ShowMessages = []
     Wizard.Enabled = False
     OnBeginUpgrade = auAutoUpgrader1BeginUpgrade
