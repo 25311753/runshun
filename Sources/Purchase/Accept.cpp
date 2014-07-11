@@ -21,6 +21,7 @@ int ColumnToSort;
 
 //g_theOperator.op_class
 bool is_op_class_yupei;
+#define D_OPCLASS_YUPEI 6
 //---------------------------------------------------------------------------
 void Accept(int nAuth)
 {
@@ -34,7 +35,7 @@ __fastcall TAcceptForm::TAcceptForm(TComponent* Owner)
         m_sCidCopy = "";
         m_sContainerCopy = "";
 
-        is_op_class_yupei = g_theOperator.op_class == 6;
+        is_op_class_yupei = g_theOperator.op_class == D_OPCLASS_YUPEI;
 }
 //---------------------------------------------------------------------------
 static bool chkFormatContainerNo(AnsiString ss){
@@ -911,7 +912,43 @@ void __fastcall TAcceptForm::btnOKClick(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
+void TAcceptForm::AuthFilter(int op_class, int work_state){
+        switch (op_class){
+                case D_OPCLASS_YUPEI:
+                        btnCopy->Enabled    = !is_op_class_yupei;
+                        //always not visiable
+                        cbbClient->Visible = !is_op_class_yupei;
+                        edtCustfree->Visible = !is_op_class_yupei;
+                        cbbCustomsCharge->Visible = !is_op_class_yupei;
+                        if (work_state != EN_IDLE){
+                                    EnableCombo(cbbClient,false);
+                                    EnableEdit(edtLading,false);
+                                    EnableEdit(edtBoatNo,true);
+                                    EnableEdit(edtBoatOrder,true);
+                                    EnableEdit(edtBoatName,true);
+                                    EnableEdit(edtCustfree,false);
+                                    EnableCombo(cbbShipAgent,false);
+                                    EnableEdit(edtCliWorkid,false);
+                                    EnableCombo(cbbGoodsPerf,false);
+                                    dtpEndDateYYYYMMDD->Enabled = false;
+                                    dtpEndDateHHMM->Enabled = false;
+                                    EnableEdit(edtBeiZhu,false);
+                                    //container all disable
+                                    EnableEdit(edtContainerNo,false);
+                                    EnableCombo(cbbContainerType,false);
+                                    EnableEdit(edtSealId,false);
+                                    btnAddContainer->Enabled=false;
+                                    btnModContainer->Enabled=false;
+                                    btnDelContainer->Enabled=false;
+                        }
+                        break;
+                default:
+                        break;
+        }
+}
 void TAcceptForm::ResetCtrl(){
+
+  
   if(m_enWorkState==EN_IDLE)
   {
     bool isSelected = (lstViewDown->Selected!=NULL);
@@ -1004,12 +1041,15 @@ void TAcceptForm::ResetCtrl(){
     EnableEdit(edtQryCid,false);
     EnableCombo(cbbQryClient,false);
     EnableEdit(edtQryLading,false);
-    EnableCombo(cbbQryStatus,false);
+    EnableCombo(cbbQryStatus,false);   
+    EnableEdit(edtQryJZS,false);
+    EnableEdit(edtQryLicenseNo,false);
     cbIsQryByDate->Enabled = false;
     dtpQryAcceptDate->Enabled = false;
     dtpQryAcceptDateEnd->Enabled = false;
     EnableCombo(cbbGoodsPerfQry,false);
   }
+  AuthFilter(g_theOperator.op_class,m_enWorkState);
 }
 
 void __fastcall TAcceptForm::cbbQryClientChange(TObject *Sender)
@@ -1402,7 +1442,4 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
 //		dm1->Query1->Next();
 	}
 }
-//---------------------------------------------------------------------------
-void TAcceptForm::disable_yupei(){
 
-}

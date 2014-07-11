@@ -1,6 +1,6 @@
 object AcceptForm: TAcceptForm
-  Left = 370
-  Top = 258
+  Left = -1257
+  Top = -138
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25509#21333
@@ -486,7 +486,6 @@ object AcceptForm: TAcceptForm
       Width = 114
       Height = 21
       Style = csDropDownList
-      Enabled = False
       ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       ItemHeight = 13
       ItemIndex = 0
