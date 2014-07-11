@@ -7148,12 +7148,12 @@ object UserLoginForm: TUserLoginForm
   object auAutoUpgrader1: TauAutoUpgrader
     InfoFile.Files.Strings = (
       'http://112.124.103.88/runshun_auto_upgrade/GraceStock.exe')
-    InfoFile.UpgradeMsg = #28155#21152#39044#37197#20154#21592#32452#30340#26435#38480#36923#36753
+    InfoFile.UpgradeMsg = #20462#22797#39044#37197#38382#39064
     InfoFileURL = 'http://112.124.103.88/runshun_auto_upgrade/versions.inf'
     VersionControl = byNumber
     VersionDate = '07/11/2014'
     VersionDateAutoSet = True
-    VersionNumber = '14.7.11.1'
+    VersionNumber = '14.7.11.3'
     ShowMessages = []
     Wizard.Enabled = False
     OnBeginUpgrade = auAutoUpgrader1BeginUpgrade

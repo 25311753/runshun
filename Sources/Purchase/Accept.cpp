@@ -163,6 +163,7 @@ void __fastcall TAcceptForm::FormShow(TObject *Sender)
 
         m_enWorkState=EN_IDLE;
         ResetCtrl();
+        AuthFilter(g_theOperator.op_class,m_enWorkState);
 }
 //---------------------------------------------------------------------------
 #include "ContainerInfo.h"
@@ -915,17 +916,26 @@ void __fastcall TAcceptForm::btnOKClick(TObject *Sender)
 void TAcceptForm::AuthFilter(int op_class, int work_state){
         switch (op_class){
                 case D_OPCLASS_YUPEI:
+                        //skip client custfree
+                        lstViewDown->Columns->Items[4]->MaxWidth=1;
+                        lstViewDown->Columns->Items[4]->Width=0;
+
+                        lstViewDown->Columns->Items[15]->MaxWidth=1;
+                        lstViewDown->Columns->Items[15]->Width=0;
+
                         btnCopy->Enabled    = !is_op_class_yupei;
                         //always not visiable
                         cbbClient->Visible = !is_op_class_yupei;
                         edtCustfree->Visible = !is_op_class_yupei;
                         cbbCustomsCharge->Visible = !is_op_class_yupei;
                         if (work_state != EN_IDLE){
-                                    EnableCombo(cbbClient,false);
-                                    EnableEdit(edtLading,false);
+                                        //TRUE
                                     EnableEdit(edtBoatNo,true);
                                     EnableEdit(edtBoatOrder,true);
                                     EnableEdit(edtBoatName,true);
+                                        //FASLSE
+                                    EnableCombo(cbbClient,false);
+                                    EnableEdit(edtLading,false);
                                     EnableEdit(edtCustfree,false);
                                     EnableCombo(cbbShipAgent,false);
                                     EnableEdit(edtCliWorkid,false);
@@ -991,6 +1001,9 @@ void TAcceptForm::ResetCtrl(){
     EnableCombo(cbbQryClient,true);
     EnableEdit(edtQryLading,true);
     EnableCombo(cbbQryStatus,true);
+
+    EnableEdit(edtQryJZS,true);
+    EnableEdit(edtQryLicenseNo,true);
     cbIsQryByDate->Enabled = true;
     dtpQryAcceptDate->Enabled = true;
     dtpQryAcceptDateEnd->Enabled = true;
@@ -1041,7 +1054,7 @@ void TAcceptForm::ResetCtrl(){
     EnableEdit(edtQryCid,false);
     EnableCombo(cbbQryClient,false);
     EnableEdit(edtQryLading,false);
-    EnableCombo(cbbQryStatus,false);   
+    EnableCombo(cbbQryStatus,false);
     EnableEdit(edtQryJZS,false);
     EnableEdit(edtQryLicenseNo,false);
     cbIsQryByDate->Enabled = false;
@@ -1442,4 +1455,10 @@ void __fastcall TAcceptForm::btnPasteClick(TObject *Sender)
 //		dm1->Query1->Next();
 	}
 }
+
+
+
+
+
+
 
