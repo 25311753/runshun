@@ -259,7 +259,7 @@ private:	// User declarations
        CStringArray m_lstFirstmeasunit;
        CStringArray m_lstSecondmeasunit;
        CStringArray m_lstUnitprice;
-       CStringArray m_lstWeightPercent;
+       CStringArray m_lstWeightPercent;        //保存每次模糊查询商品的对应重量比 ！修改商品时不用以这个为准
 
        CString m_strContainerHead; //"第一个箱号 总柜数(总子柜数)" -- 总子柜数 = n(S)+2*n(L)
        CString m_strContainerTail;//"其他箱号 其他箱号 ..."
@@ -323,7 +323,8 @@ public:		// User declarations
         AnsiString index2status(int index);
         void setFastReportMemo(AnsiString memoName, AnsiString value);
         bool isLingTuiShui(AnsiString mcode);
-        bool chkDeclareId(AnsiString declare_id, AnsiString cid);
+        bool chkDeclareId(AnsiString declare_id, AnsiString cid); 
+        AnsiString getWeightPercent(AnsiString mname);     //临时解决修改明细时重量比仍然使用cbbmname。change的list的问题，todo
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TDoForm *DoForm;

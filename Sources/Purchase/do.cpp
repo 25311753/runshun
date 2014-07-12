@@ -2787,7 +2787,16 @@ void __fastcall TDoForm::edtCount1Change(TObject *Sender)
 //        int cnt1 = StrToInt(edtCount1->Text.c_str());
         //20121128 输入小数弹窗口问题
         double cnt1 = StrToFloat(edtCount1->Text.c_str());
-        edtCount2nd->Text = FloatToStr( cnt1*StrToFloat(strWeightPercent.c_str()) );
+        //TODO 需要优化：
+        //添加状态时用cbbMname。change的list，修改时单独查询重量比，需要统一：关键如何缓存这些信息
+        AnsiString weight_percent = "1";
+        if (m_enWorkStateDetail == EN_ADDNEW_D){
+                weight_percent = strWeightPercent;
+        }else if (m_enWorkStateDetail == EN_EDIT_D) {
+                weight_percent = getWeightPercent(cbbMname->Text);
+        }
+//        edtCount2nd->Text = FloatToStr( cnt1*StrToFloat(strWeightPercent.c_str()) );
+        edtCount2nd->Text = FloatToStr( cnt1*StrToFloat(weight_percent.c_str()) );
 
         //净重=单位为KG的数量
         AnsiString strNetWeight=  "0";
@@ -3428,3 +3437,19 @@ void __fastcall TDoForm::maskEdtDeclareidClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+AnsiString TDoForm::getWeightPercent(AnsiString mname)
+{
+        AnsiString rt_weight_percent = "1";
+        if (mname.IsEmpty()) {
+                return rt_weight_percent;
+        }
+        CString szSQL;
+	szSQL.Format("select weight_percent from merchandise where mname = '%s'", mname.c_str());
+	RunSQL(dm1->Query1,szSQL,true);
+
+	if(!dm1->Query1->Eof)
+	{
+                rt_weight_percent = dm1->Query1->FieldByName("weight_percent")->AsString;
+        }
+        return rt_weight_percent;
+}
