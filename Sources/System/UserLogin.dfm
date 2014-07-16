@@ -7151,9 +7151,9 @@ object UserLoginForm: TUserLoginForm
     InfoFile.UpgradeMsg = #20462#22797#37325#37327#27604#38382#39064
     InfoFileURL = 'http://112.124.103.88/runshun_auto_upgrade/versions.inf'
     VersionControl = byNumber
-    VersionDate = '07/12/2014'
+    VersionDate = '07/16/2014'
     VersionDateAutoSet = True
-    VersionNumber = '14.7.12.0'
+    VersionNumber = '14.7.16.0'
     ShowMessages = []
     Wizard.Enabled = False
     OnBeginUpgrade = auAutoUpgrader1BeginUpgrade
